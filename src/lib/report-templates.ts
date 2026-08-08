@@ -235,7 +235,7 @@ export function generateBBCode(template: ReportTemplate, values: ReportValues) {
     out.push(`[hr][/hr]`);
     out.push(`[b][size=115]${section.title.toUpperCase()}[/size][/b]`);
     for (const field of filled) {
-      const value = values[field.id].trim();
+      const value = (values[field.id] ?? "").trim();
       if (field.type === "list") {
         out.push(`[b]${field.label}:[/b]`);
         out.push(`[list]${lines(value).map((l) => `\n[*]${l}`).join("")}\n[/list]`);
@@ -276,7 +276,7 @@ export function generateHtml(template: ReportTemplate, values: ReportValues) {
       `  <h2 style="font-size:14px;letter-spacing:1px;text-transform:uppercase;border-bottom:2px solid #3b6fa0;padding-bottom:6px;margin:22px 0 12px">${escapeHtml(section.title)}</h2>`,
     );
     for (const field of filled) {
-      const value = values[field.id].trim();
+      const value = (values[field.id] ?? "").trim();
       if (field.type === "list") {
         out.push(
           `    <p style="margin:8px 0 4px"><strong>${escapeHtml(field.label)}:</strong></p>`,
