@@ -104,7 +104,7 @@ function PenalCodePage() {
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
 
     return penalCodeEntries.filter((entry) => {
-      const matchesType = activeFilter === "all" || entry.type === activeFilter;
+      const matchesType = entry.type === activeFilter;
       const searchableText = [
         entry.number,
         entry.title,
