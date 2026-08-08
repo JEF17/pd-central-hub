@@ -1,26 +1,237 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Search } from "lucide-react";
+import { useMemo, useState } from "react";
 
 import { AppShell } from "@/components/AppShell";
-import { PagePlaceholder } from "@/components/PagePlaceholder";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+
+type CrimeType = "F" | "M" | "I";
+type FilterType = CrimeType | "all";
+
+type PenalCodeEntry = {
+  number: string;
+  title: string;
+  type: CrimeType;
+  paragraphs: string[];
+  classification: string;
+};
+
+const penalCodeEntries: PenalCodeEntry[] = [
+  {
+    number: "001",
+    title: "İhanet",
+    type: "F",
+    paragraphs: [
+      "Amerika Birleşik Devletleri'ne ve/veya ona bağlı olanlara karşı savaş açan ve düşmanlarının yanında bulunan kişi veya kuruluşlarla iş birliği içinde olan ve/veya Amerika Birleşik Devletleri içinde veya başka bir yerde onlara yardım ve yataklık sağlayan herhangi bir kişi.",
+    ],
+    classification:
+      "A, B veya C Sınıfı felony kapsamında sorumlu tutulacaktır ve cezası mahkemenin takdirine göre belirlenecektir.",
+  },
+  {
+    number: "002",
+    title: "Casusluk",
+    type: "F",
+    paragraphs: [
+      "Amerika Birleşik Devletleri'nin savunma bilgileri, sağlık tesisleri ve/veya iletişim istihbaratlarıyla ilgili herhangi bir gizli bilgiyi, Amerika Birleşik Devletleri'nin güvenliğine, çıkarlarına veya yabancı bir ülkeye zarar verecek şekilde başka bir kişiye bilerek ileten, iletmeye teşebbüs eden veya yetkisiz bir kişinin kullanımına sunan herhangi bir kişi.",
+    ],
+    classification:
+      "A, B veya C Sınıfı felony kapsamında sorumlu tutulacaktır ve cezası mahkemenin takdirine göre belirlenecektir.",
+  },
+  {
+    number: "003",
+    title: "İç Terörizm",
+    type: "F",
+    paragraphs: [
+      "a) Sivil nüfusu, hükümeti ve/veya hükümetin politika ve davranışını etkilemek ve zorlamak amacıyla büyük çaplı bedensel yaralanmalara veya ölümlere sebep verecek suç işleyen ve/veya teşebbüs eden herhangi bir kişi.",
+      "b) Sivil nüfusu korkutmak veya zorlamak amacıyla herhangi bir kasıt olsun veya olmasın, büyük çaplı bedensel yaralanmalara ve/veya ölümlere yol açacak bir suç işlemekle yazılı veya sözlü tehdit eden herhangi bir kişi.",
+    ],
+    classification:
+      "A, B veya C Sınıfı felony kapsamında sorumlu tutulacaktır ve cezası mahkemenin takdirine göre belirlenecektir.",
+  },
+];
+
+const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
+  { value: "F", label: "Felony", description: "Ağır suçlar" },
+  { value: "M", label: "Misdemeanor", description: "Kabahatler" },
+  { value: "I", label: "Infraction", description: "İhlaller" },
+];
+
+const typeStyles: Record<CrimeType, { badge: string; label: string; accent: string }> = {
+  F: {
+    badge: "border-destructive/30 bg-destructive/10 text-destructive",
+    label: "Felony",
+    accent: "border-l-destructive",
+  },
+  M: {
+    badge: "border-warning/30 bg-warning/10 text-warning",
+    label: "Misdemeanor",
+    accent: "border-l-warning",
+  },
+  I: {
+    badge: "border-success/30 bg-success/10 text-success",
+    label: "Infraction",
+    accent: "border-l-success",
+  },
+};
 
 export const Route = createFileRoute("/penal-code")({
   head: () => ({
     meta: [
-      { title: "Penal Code — LS Panel" },
-      { name: "description", content: "Penal Code tools for GTA:W TR Roleplay police work." },
-      { property: "og:title", content: "Penal Code — LS Panel" },
-      { property: "og:description", content: "Penal Code tools for GTA:W TR Roleplay police work." },
+      { title: "Ceza Kanunları — LSPD Portal" },
+      {
+        name: "description",
+        content: "GTA:W TR Roleplay için San Andreas ceza kanunlarını arayın ve filtreleyin.",
+      },
+      { property: "og:title", content: "Ceza Kanunları — LSPD Portal" },
+      {
+        property: "og:description",
+        content: "San Andreas ceza kanunlarını suç türüne göre arayın ve filtreleyin.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  component: Page,
+  component: PenalCodePage,
 });
 
-function Page() {
+function PenalCodePage() {
+  const [query, setQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState<FilterType>("F");
+
+  const filteredEntries = useMemo(() => {
+    const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
+
+    return penalCodeEntries.filter((entry) => {
+      const matchesType = activeFilter === "all" || entry.type === activeFilter;
+      const searchableText = [
+        entry.number,
+        entry.title,
+        entry.type,
+        typeStyles[entry.type].label,
+        ...entry.paragraphs,
+        entry.classification,
+      ]
+        .join(" ")
+        .toLocaleLowerCase("tr-TR");
+
+      return matchesType && (!normalizedQuery || searchableText.includes(normalizedQuery));
+    });
+  }, [activeFilter, query]);
+
   return (
     <AppShell>
-      <PagePlaceholder title="Penal Code" />
+      <div className="mx-auto max-w-5xl px-6 py-8 sm:py-10">
+        <header>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+            LSPD Hukuk Birimi
+          </p>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground">Ceza Kanunları</h1>
+          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
+            Suç ve kanun maddelerini arayın, suç türüne göre listeyi daraltın.
+          </p>
+        </header>
+
+        <section className="mt-8 space-y-4" aria-label="Ceza kanunları arama ve filtreleme">
+          <div className="relative">
+            <Search
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+            />
+            <Input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Kanun maddelerinde ara..."
+              aria-label="Kanun maddelerinde ara"
+              className="h-11 border-border bg-card pl-10"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {filterOptions.map((option) => {
+              const active = activeFilter === option.value;
+              const style = typeStyles[option.value];
+
+              return (
+                <Button
+                  key={option.value}
+                  type="button"
+                  variant="outline"
+                  onClick={() => setActiveFilter(option.value)}
+                  aria-pressed={active}
+                  className={cn(
+                    "h-auto justify-start border-border bg-card px-4 py-3 text-left hover:bg-accent",
+                    active && "border-primary bg-primary/10 text-foreground ring-1 ring-primary/30",
+                  )}
+                >
+                  <span className={cn("flex size-8 shrink-0 items-center justify-center rounded-md border text-sm font-bold", style.badge)}>
+                    ({option.value})
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold">{option.label}</span>
+                    <span className="block text-xs font-normal text-muted-foreground">{option.description}</span>
+                  </span>
+                </Button>
+              );
+            })}
+          </div>
+        </section>
+
+        <div className="mt-8 flex items-center justify-between gap-4 border-b border-border pb-3">
+          <p className="text-sm text-muted-foreground">
+            {query ? `“${query}” için sonuçlar` : `${typeStyles[activeFilter].label} maddeleri`}
+          </p>
+          <span className="text-xs font-medium text-muted-foreground">
+            {filteredEntries.length} madde
+          </span>
+        </div>
+
+        <section className="mt-4 space-y-3" aria-live="polite" aria-label="Ceza kanunu sonuçları">
+          {filteredEntries.map((entry) => {
+            const style = typeStyles[entry.type];
+
+            return (
+              <article
+                key={entry.number}
+                className={cn(
+                  "border border-border border-l-4 bg-card px-5 py-5 shadow-sm transition-colors hover:bg-accent/30 sm:px-6",
+                  style.accent,
+                )}
+              >
+                <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
+                  <span className="font-mono text-sm font-semibold text-muted-foreground">
+                    {entry.number}.
+                  </span>
+                  <h2 className="text-base font-semibold text-foreground">{entry.title}</h2>
+                  <span className={cn("rounded border px-2 py-0.5 text-xs font-bold", style.badge)}>
+                    ({entry.type}) {style.label}
+                  </span>
+                </div>
+
+                <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
+                  {entry.paragraphs.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+
+                <p className="mt-4 border-t border-border pt-3 text-sm font-medium leading-6 text-foreground/80">
+                  {entry.classification}
+                </p>
+              </article>
+            );
+          })}
+
+          {filteredEntries.length === 0 && (
+            <div className="border border-dashed border-border bg-card/40 px-6 py-12 text-center">
+              <p className="text-sm font-medium text-foreground">Sonuç bulunamadı</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Arama metnini veya suç türü filtresini değiştirerek tekrar deneyin.
+              </p>
+            </div>
+          )}
+        </section>
+      </div>
     </AppShell>
   );
 }
