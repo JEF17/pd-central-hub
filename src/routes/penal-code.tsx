@@ -195,12 +195,12 @@ function PenalCodePage() {
               <article
                 key={entry.number}
                 className={cn(
-                  "border border-border border-l-4 bg-card px-5 py-5 shadow-sm transition-colors hover:bg-accent/30 sm:px-6",
+                  "border border-border border-l-4 bg-card px-5 py-5 shadow-sm transition-colors hover:bg-card sm:px-6",
                   style.accent,
                 )}
               >
                 <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
-                  <span className="font-mono text-sm font-semibold text-muted-foreground">
+                  <span className="font-mono text-base font-semibold text-foreground">
                     {entry.number}.
                   </span>
                   <h2 className="text-base font-semibold text-foreground">{entry.title}</h2>
