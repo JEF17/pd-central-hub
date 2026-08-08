@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
           {!collapsed && (
             <span className="truncate text-lg font-bold tracking-tight">
-              LS Panel <span className="text-primary">+</span>
+              LSPD Web Portalı
             </span>
           )}
           <button
