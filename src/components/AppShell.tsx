@@ -36,7 +36,12 @@ export function AppShell({ children }: { children: ReactNode }) {
           collapsed ? "w-[68px]" : "w-64",
         )}
       >
-        <div className="flex h-16 items-center gap-3 px-4">
+        <div
+          className={cn(
+            "flex items-center gap-3 px-3",
+            collapsed ? "h-auto flex-col py-3" : "h-16",
+          )}
+        >
           <img
             src={lspdLogo.url}
             alt="LSPD badge"
@@ -48,13 +53,20 @@ export function AppShell({ children }: { children: ReactNode }) {
             </span>
           )}
           <button
+            type="button"
             onClick={() => setCollapsed((c) => !c)}
-            aria-label="Toggle sidebar"
-            className="ml-auto rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-expanded={!collapsed}
+            title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            className={cn(
+              "flex items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground",
+              collapsed ? "h-9 w-full" : "ml-auto size-9 shrink-0",
+            )}
           >
             <PanelLeft className="size-4" />
           </button>
         </div>
+
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
           {navItems.map((item) => {
