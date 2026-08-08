@@ -11,13 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
-import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as CaselawRouteImport } from './routes/caselaw'
-import { Route as LegalSearchRouteImport } from './routes/legal-search'
-import { Route as MapRouteImport } from './routes/map'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
-import { Route as SettingsRouteImport } from './routes/settings'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,24 +25,9 @@ const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
   path: '/arrest-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArrestReportRoute = ArrestReportRouteImport.update({
-  id: '/arrest-report',
-  path: '/arrest-report',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CaselawRoute = CaselawRouteImport.update({
   id: '/caselaw',
   path: '/caselaw',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LegalSearchRoute = LegalSearchRouteImport.update({
-  id: '/legal-search',
-  path: '/legal-search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MapRoute = MapRouteImport.update({
-  id: '/map',
-  path: '/map',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaperworkGeneratorsRoute = PaperworkGeneratorsRouteImport.update({
@@ -59,92 +40,59 @@ const PenalCodeRoute = PenalCodeRouteImport.update({
   path: '/penal-code',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
-  '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
-  '/legal-search': typeof LegalSearchRoute
-  '/map': typeof MapRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
-  '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
-  '/legal-search': typeof LegalSearchRoute
-  '/map': typeof MapRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
-  '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
-  '/legal-search': typeof LegalSearchRoute
-  '/map': typeof MapRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/arrest-calculator'
-    | '/arrest-report'
     | '/caselaw'
-    | '/legal-search'
-    | '/map'
     | '/paperwork-generators'
     | '/penal-code'
-    | '/settings'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/arrest-calculator'
-    | '/arrest-report'
     | '/caselaw'
-    | '/legal-search'
-    | '/map'
     | '/paperwork-generators'
     | '/penal-code'
-    | '/settings'
   id:
     | '__root__'
     | '/'
     | '/arrest-calculator'
-    | '/arrest-report'
     | '/caselaw'
-    | '/legal-search'
-    | '/map'
     | '/paperwork-generators'
     | '/penal-code'
-    | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
-  ArrestReportRoute: typeof ArrestReportRoute
   CaselawRoute: typeof CaselawRoute
-  LegalSearchRoute: typeof LegalSearchRoute
-  MapRoute: typeof MapRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
-  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -163,32 +111,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ArrestCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/arrest-report': {
-      id: '/arrest-report'
-      path: '/arrest-report'
-      fullPath: '/arrest-report'
-      preLoaderRoute: typeof ArrestReportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/caselaw': {
       id: '/caselaw'
       path: '/caselaw'
       fullPath: '/caselaw'
       preLoaderRoute: typeof CaselawRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/legal-search': {
-      id: '/legal-search'
-      path: '/legal-search'
-      fullPath: '/legal-search'
-      preLoaderRoute: typeof LegalSearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/map': {
-      id: '/map'
-      path: '/map'
-      fullPath: '/map'
-      preLoaderRoute: typeof MapRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/paperwork-generators': {
@@ -205,26 +132,15 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PenalCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
-  ArrestReportRoute: ArrestReportRoute,
   CaselawRoute: CaselawRoute,
-  LegalSearchRoute: LegalSearchRoute,
-  MapRoute: MapRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
-  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
