@@ -116,7 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
         <header className="flex h-16 items-center gap-3 border-b border-border px-6 md:hidden">
           <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain" />
-          <span className="font-bold">LS Panel +</span>
+          <span className="font-bold">LSPD Web Portalı</span>
           <button
             onClick={() => setNewsOpen(true)}
             aria-label="Announcements"
