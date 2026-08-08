@@ -16,33 +16,33 @@ export type NavItem = {
 
 export const navItems: NavItem[] = [
   {
-    label: "Dashboard",
+    label: "LSPD Veritabanı",
     to: "/",
     icon: LayoutGrid,
     description: "Overview of all available tools.",
   },
   {
-    label: "Arrest Calculator",
+    label: "Süre Hesapla",
     to: "/arrest-calculator",
     icon: Calculator,
-    description: "Calculate arrest sentences based on charges.",
+    description: "Suçlamalar ile alakalı süre ve puan hesaplamalarını yapabilirsiniz.",
   },
   {
-    label: "Paperwork Generators",
+    label: "Rapor Oluştur",
     to: "/paperwork-generators",
     icon: Files,
-    description: "Generate different types of paperwork.",
+    description: "Gerekli tüm raporlara buradan ulaşabilir ve kolayca oluşturabilirsiniz.",
   },
   {
-    label: "Penal Code",
+    label: "Ceza Kanunları",
     to: "/penal-code",
     icon: BookOpen,
-    description: "Browse a simplified version of the penal code.",
+    description: "San Andreas Ceza Kanunu'na kolayca erişebilirsiniz.",
   },
   {
-    label: "Caselaw & Resources",
+    label: "Emsal Kararlar & Kaynaklar",
     to: "/caselaw",
     icon: Gavel,
-    description: "Access caselaw and other legal resources.",
+    description: "Alınmış emsal kararları ve daha fazlasına ulaşabilirsiniz.",
   },
 ];
