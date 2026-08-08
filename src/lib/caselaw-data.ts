@@ -28,11 +28,6 @@ export const legalResources = [
     description: "Resmî kefalet ve teminat cetvelini görüntüleyin.",
     href: "https://docs.google.com/spreadsheets/d/1qm04NZm-HEy-vdW2liNWcdok7eXFGty_rO-dA1H_k0g/",
   },
-  {
-    title: "STREETS Act 2024",
-    description: "Resmî 2024 trafik düzenlemeleri yasasına erişin.",
-    href: "https://forum.gta.world/en/topic/122551-strengthen-traffic-regulations-to-ensure-every-travelers-safety-act-2024-streets-act/",
-  },
 ];
 
 export const caseEntries: CaseEntry[] = [

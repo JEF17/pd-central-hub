@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Copy, ExternalLink, Gavel, Scale, Search, ShieldAlert } from "lucide-react";
+import { Copy, ExternalLink, Scale, Search, ShieldAlert } from "lucide-react";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 
@@ -45,8 +45,10 @@ function CaselawPage() {
   const filtered = useMemo(() => {
     const q = query.trim().toLocaleLowerCase("tr-TR");
 
+    if (filter === "SA") return [];
+
     return caseEntries.filter((entry) => {
-      const matchesFilter = filter === "ALL" || entry.jurisdiction === filter;
+      const matchesFilter = entry.jurisdiction === "US";
       if (!matchesFilter) return false;
       if (!q) return true;
 
@@ -96,37 +98,13 @@ function CaselawPage() {
           ))}
         </section>
 
-        <section className="grid gap-3 lg:grid-cols-2">
-          <div className="rounded-lg border border-border bg-card p-5">
-            <div className="flex items-center gap-2">
-              <Gavel className="size-4 text-primary" />
-              <h2 className="font-semibold">Trafik Cezaları</h2>
+        <section>
+          <div className="flex min-h-14 items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3">
+            <div className="flex min-w-0 items-center gap-2">
+              <ShieldAlert className="size-4 shrink-0 text-primary" />
+              <h2 className="truncate font-semibold">Miranda Hakları</h2>
             </div>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Trafik cezası keserken; durdurma için makul şüphenin bulunması, işlemin makul süreyi
-              aşmaması ve aracın aranması için ayrı bir hukuki gerekçenin gerekliliği esastır.
-              (Whren, Rodriguez, Foster v. Murray)
-            </p>
-          </div>
-
-          <div className="rounded-lg border border-border bg-card p-5">
-            <div className="flex items-center gap-2">
-              <ShieldAlert className="size-4 text-primary" />
-              <h2 className="font-semibold">Miranda Hakları</h2>
-            </div>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Şüpheliyi sorgulamadan önce hakları okunmalıdır; aksi hâlde beyanları mahkemede
-              kullanılamaz.
-            </p>
-            <ul className="mt-3 space-y-1.5 text-sm">
-              {mirandaRights.map((line) => (
-                <li key={line} className="flex gap-2">
-                  <span className="text-primary">•</span>
-                  <span>{line}</span>
-                </li>
-              ))}
-            </ul>
-            <Button variant="outline" size="sm" className="mt-4" onClick={copyMiranda}>
+            <Button variant="outline" size="sm" className="shrink-0" onClick={copyMiranda}>
               <Copy className="size-4" />
               Hakları Kopyala
             </Button>
