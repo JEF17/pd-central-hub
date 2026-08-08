@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Bell, CircleHelp, Github, PanelLeft, Shield } from "lucide-react";
+import { Bell, CircleHelp, Github, PanelLeft, Settings as SettingsIcon, Shield } from "lucide-react";
 
 import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
@@ -63,14 +63,60 @@ export function AppShell({ children }: { children: ReactNode }) {
         <div className="space-y-1 border-t border-border px-3 py-3">
           <Link
             to="/settings"
+            title="Settings"
+            className={cn(
+              "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+              pathname === "/settings"
+                ? "bg-accent text-accent-foreground"
+                : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
+              collapsed && "justify-center px-0",
+            )}
+          >
+            <SettingsIcon className="size-4 shrink-0" />
+            {!collapsed && <span>Settings</span>}
+          </Link>
+          <button
+            title="Help & Feedback"
+            className={cn(
+              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-panel-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground",
+              collapsed && "justify-center px-0",
+            )}
+          >
+            <CircleHelp className="size-4 shrink-0" />
+            {!collapsed && <span>Help &amp; Feedback</span>}
+          </button>
+          <button
+            title="Announcements"
+            className={cn(
+              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-panel-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground",
+              collapsed && "justify-center px-0",
+            )}
+          >
+            <Bell className="size-4 shrink-0" />
+            {!collapsed && (
+              <>
+                <span>Announcements</span>
+                <span className="ml-auto rounded-full bg-destructive px-1.5 py-0.5 text-[10px] font-semibold text-destructive-foreground">
+                  3
+                </span>
+              </>
+            )}
+          </button>
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noreferrer"
+            title="GitHub"
             className={cn(
               "flex items-center gap-3 rounded-md px-3 py-2 text-sm text-panel-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground",
               collapsed && "justify-center px-0",
             )}
           >
-            <navItems[8].icon className="size-4 shrink-0" />
-          </Link>
+            <Github className="size-4 shrink-0" />
+            {!collapsed && <span>GitHub</span>}
+          </a>
         </div>
+
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
