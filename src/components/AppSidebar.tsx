@@ -33,7 +33,9 @@ const menuItems: MenuItem[] = [
   { title: "Dispatch", url: "/dispatch", icon: Radio },
   { title: "Personnel", url: "/personnel", icon: Users },
   { title: "Records", url: "/records", icon: FolderArchive },
+  { title: "Reports", url: "/reports", icon: BarChart3 },
   { title: "Settings", url: "/settings", icon: Settings },
+
 ];
 
 export function AppSidebar() {
