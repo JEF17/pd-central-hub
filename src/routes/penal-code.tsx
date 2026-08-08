@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 type CrimeType = "F" | "M" | "I";
-type FilterType = CrimeType | "all";
+type FilterType = CrimeType;
 
 type PenalCodeEntry = {
   number: string;
