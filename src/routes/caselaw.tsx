@@ -97,10 +97,10 @@ function CaselawPage() {
             </a>
           ))}
 
-          <div className="flex min-h-full items-center justify-between gap-3 rounded-lg border border-border bg-card p-4">
+          <div className="flex min-h-full flex-col items-start justify-between gap-3 rounded-lg border border-border bg-card p-4">
             <div className="flex min-w-0 items-center gap-2">
               <ShieldAlert className="size-4 shrink-0 text-primary" />
-              <h2 className="truncate font-semibold">Miranda Hakları</h2>
+              <h2 className="font-semibold">Miranda Hakları</h2>
             </div>
             <Button variant="outline" size="sm" className="shrink-0" onClick={copyMiranda}>
               <Copy className="size-4" />
