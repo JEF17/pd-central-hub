@@ -127,7 +127,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
         <main className="flex-1">{children}</main>
         <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground">
-          <p>© 2026 LS Panel. GTA:W TR Roleplay community tool. Version 1.0.0</p>
+          <p>© 2026 LSPD Web Portalı. GTA:W TR Roleplay community tool. Version 1.0.0</p>
         </footer>
       </div>
 
