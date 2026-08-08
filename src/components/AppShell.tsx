@@ -49,7 +49,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           />
           {!collapsed && (
             <span className="truncate text-lg font-bold tracking-tight">
-              LSPD Web Portalı
+              LSPD Portal
             </span>
           )}
           <button
@@ -116,7 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
         <header className="flex h-16 items-center gap-3 border-b border-border px-6 md:hidden">
           <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain" />
-          <span className="font-bold">LSPD Web Portalı</span>
+          <span className="font-bold">LSPD Portal</span>
           <button
             onClick={() => setNewsOpen(true)}
             aria-label="Announcements"
@@ -127,7 +127,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
         <main className="flex-1">{children}</main>
         <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground">
-          <p>© 2026 LSPD Web Portalı. GTA:W TR Roleplay community tool. Version 1.0.0</p>
+          <p>© 2026 LSPD Portal. GTA:W TR Roleplay community tool. Version 1.0.0</p>
         </footer>
       </div>
 

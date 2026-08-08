@@ -31,9 +31,9 @@ function Dashboard() {
   return (
     <AppShell>
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight">LSPD Portal</h1>
         <p className="mt-2 text-muted-foreground">
-          Welcome to LS Panel. Here are your available tools.
+          {"\n"}
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
