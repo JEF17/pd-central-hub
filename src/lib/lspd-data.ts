@@ -148,3 +148,32 @@ export const stats = [
   { label: "Avg. Response", value: "4.2 min", note: "-0.5 vs. yesterday" },
   { label: "Open Warrants", value: "28", note: "3 issued today", warn: true },
 ];
+
+export const callsByDay: { day: string; calls: number }[] = [
+  { day: "Mon", calls: 42 },
+  { day: "Tue", calls: 38 },
+  { day: "Wed", calls: 51 },
+  { day: "Thu", calls: 47 },
+  { day: "Fri", calls: 66 },
+  { day: "Sat", calls: 78 },
+  { day: "Sun", calls: 59 },
+];
+
+export const responseTrend: { day: string; minutes: number }[] = [
+  { day: "Mon", minutes: 5.1 },
+  { day: "Tue", minutes: 4.8 },
+  { day: "Wed", minutes: 5.4 },
+  { day: "Thu", minutes: 4.6 },
+  { day: "Fri", minutes: 4.9 },
+  { day: "Sat", minutes: 5.8 },
+  { day: "Sun", minutes: 4.2 },
+];
+
+export const callTypeBreakdown: { type: string; value: number }[] = [
+  { type: "Traffic", value: 34 },
+  { type: "Property crime", value: 24 },
+  { type: "Violent crime", value: 16 },
+  { type: "Public order", value: 15 },
+  { type: "Other", value: 11 },
+];
+

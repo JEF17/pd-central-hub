@@ -3,8 +3,10 @@ import {
   Radio,
   Users,
   FolderArchive,
+  BarChart3,
   Settings,
   LogOut,
+
 } from "lucide-react";
 import { useRouterState } from "@tanstack/react-router";
 import { NavLink } from "@/components/NavLink";
