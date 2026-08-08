@@ -96,10 +96,8 @@ function CaselawPage() {
               <p className="mt-1 text-sm text-muted-foreground">{resource.description}</p>
             </a>
           ))}
-        </section>
 
-        <section>
-          <div className="flex min-h-14 items-center justify-between gap-3 rounded-lg border border-border bg-card px-4 py-3">
+          <div className="flex min-h-full items-center justify-between gap-3 rounded-lg border border-border bg-card p-4">
             <div className="flex min-w-0 items-center gap-2">
               <ShieldAlert className="size-4 shrink-0 text-primary" />
               <h2 className="truncate font-semibold">Miranda Hakları</h2>
