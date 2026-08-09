@@ -49,6 +49,10 @@ export interface CalculatedCharge {
   minMinutes: number;
   maxMinutes: number;
   points: number;
+  /** Şartlı tahliye ihlali uygulanmadan önceki değerler */
+  baseMinMinutes: number;
+  baseMaxMinutes: number;
+  basePoints: number;
   fine: number;
   bailAmount: number;
   bailAuto: boolean;
@@ -60,6 +64,9 @@ export interface CalculationResult {
   minMinutes: number;
   maxMinutes: number;
   points: number;
+  baseMinMinutes: number;
+  baseMaxMinutes: number;
+  basePoints: number;
   fine: number;
   /** En yüksek kefalet tutarı (toplanmaz — kefalet cetveli yönergesi) */
   highestBail: number;
@@ -91,6 +98,10 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
     const baseMax = category ? category.maxMinutes : variant.maxMinutes;
     const baseMin = category ? Math.min(variant.minMinutes, baseMax) : variant.minMinutes;
 
+    const baseMinMinutes = roundMinutes(baseMin * add.timeFactor);
+    const baseMaxMinutes = roundMinutes(baseMax * add.timeFactor);
+    const basePoints = Math.round(variant.points * add.pointFactor * 10) / 10;
+
     const minMinutes = roundMinutes(baseMin * add.timeFactor * paroleFactor);
     const maxMinutes = roundMinutes(baseMax * add.timeFactor * paroleFactor);
     const points = Math.round(variant.points * add.pointFactor * paroleFactor * 10) / 10;
@@ -111,6 +122,9 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
       minMinutes,
       maxMinutes,
       points,
+      baseMinMinutes,
+      baseMaxMinutes,
+      basePoints,
       fine,
       bailAmount: definition.bail.amount,
       bailAuto: definition.bail.auto,
@@ -122,12 +136,27 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
   const maxMinutes = charges.reduce((sum, c) => sum + c.maxMinutes, 0);
   const points = Math.round(charges.reduce((sum, c) => sum + c.points, 0) * 10) / 10;
   const fine = charges.reduce((sum, c) => sum + c.fine, 0);
+  const baseMinMinutes = charges.reduce((sum, c) => sum + c.baseMinMinutes, 0);
+  const baseMaxMinutes = charges.reduce((sum, c) => sum + c.baseMaxMinutes, 0);
+  const basePoints = Math.round(charges.reduce((sum, c) => sum + c.basePoints, 0) * 10) / 10;
 
   // Kefalet cetveli: birden fazla suçta tutarlar toplanmaz, en yüksek tutar esas alınır.
   const bailEligible = charges.length > 0 && charges.every((c) => c.bailAuto) && !paroleViolator;
   const highestBail = bailEligible ? Math.max(0, ...charges.map((c) => c.bailAmount)) : 0;
 
-  return { charges, minMinutes, maxMinutes, points, fine, highestBail, bailEligible, paroleViolator };
+  return {
+    charges,
+    minMinutes,
+    maxMinutes,
+    points,
+    baseMinMinutes,
+    baseMaxMinutes,
+    basePoints,
+    fine,
+    highestBail,
+    bailEligible,
+    paroleViolator,
+  };
 }
 
 export function formatDuration(minutes: number) {

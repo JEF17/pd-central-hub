@@ -144,9 +144,27 @@ function Page() {
                         <td className={cn("py-4 pr-4 font-semibold", typeClasses[charge.variant.type])}>
                           {typeLabels[charge.variant.type]}
                         </td>
-                        <td className="py-4 pr-4">{formatDuration(charge.minMinutes)}</td>
-                        <td className="py-4 pr-4">{formatDuration(charge.maxMinutes)}</td>
-                        <td className="py-4 pr-4">{charge.points}</td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={formatDuration(charge.baseMinMinutes)}
+                            final={formatDuration(charge.minMinutes)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={formatDuration(charge.baseMaxMinutes)}
+                            final={formatDuration(charge.maxMinutes)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={String(charge.basePoints)}
+                            final={String(charge.points)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
                         <td className="py-4 pr-4">{formatMoney(charge.fine)}</td>
                         <td className="py-4 pr-4">
                           {charge.bailAuto ? (
@@ -186,9 +204,27 @@ function Page() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="py-4 pr-4">{formatDuration(result.minMinutes)}</td>
-                      <td className="py-4 pr-4">{formatDuration(result.maxMinutes)}</td>
-                      <td className="py-4 pr-4">{result.points}</td>
+                      <td className="py-4 pr-4">
+                        <ParoleValue
+                          base={formatDuration(result.baseMinMinutes)}
+                          final={formatDuration(result.minMinutes)}
+                          active={result.paroleViolator}
+                        />
+                      </td>
+                      <td className="py-4 pr-4">
+                        <ParoleValue
+                          base={formatDuration(result.baseMaxMinutes)}
+                          final={formatDuration(result.maxMinutes)}
+                          active={result.paroleViolator}
+                        />
+                      </td>
+                      <td className="py-4 pr-4">
+                        <ParoleValue
+                          base={String(result.basePoints)}
+                          final={String(result.points)}
+                          active={result.paroleViolator}
+                        />
+                      </td>
                       <td className="py-4 pr-4">{formatMoney(result.fine)}</td>
                       <td className="py-4 pr-4">{result.paroleViolator ? "Evet" : "Hayır"}</td>
                       <td className="py-4 pr-4">
@@ -265,5 +301,18 @@ function CopyField({
         </Button>
       </div>
     </div>
+  );
+}
+
+function ParoleValue({ base, final, active }: { base: string; final: string; active: boolean }) {
+  if (!active || base === final) return <span>{final}</span>;
+  return (
+    <span
+      className="inline-flex flex-col leading-tight"
+      title={`Normal: ${base} · Şartlı tahliye ihlali (x2): ${final}`}
+    >
+      <span className="font-semibold">{final}</span>
+      <span className="text-xs text-muted-foreground line-through">{base}</span>
+    </span>
   );
 }
