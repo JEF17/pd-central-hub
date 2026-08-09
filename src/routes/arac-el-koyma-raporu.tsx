@@ -140,12 +140,7 @@ function Page() {
                       >
                         <Icon className={cn("size-5", style.tone)} />
                       </span>
-                      <span className="min-w-0">
-                        <span className={cn("block text-sm font-semibold", selected && style.tone)}>{type}</span>
-                        <span className="mt-1 block text-xs leading-4 text-muted-foreground">
-                          {style.description}
-                        </span>
-                      </span>
+                      <span className={cn("text-sm font-semibold", selected && style.tone)}>{type}</span>
                     </Button>
                   );
                 })}
