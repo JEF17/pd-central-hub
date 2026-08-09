@@ -371,3 +371,33 @@ function CheckItem({
     </label>
   );
 }
+
+function SelectField({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { label: string; value: string }[];
+}) {
+  return (
+    <div>
+      <Label className="text-xs">{label}</Label>
+      <Select value={value || undefined} onValueChange={onChange}>
+        <SelectTrigger className="mt-2">
+          <SelectValue placeholder="Seçiniz" />
+        </SelectTrigger>
+        <SelectContent className="max-h-72">
+          {options.map((o) => (
+            <SelectItem key={o.value} value={o.value}>
+              {o.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
