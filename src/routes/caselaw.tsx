@@ -115,7 +115,13 @@ function CaselawPage() {
             </div>
             <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
               {cctvStandards.map((standard) => (
-                <Button key={standard.label} asChild variant="outline" size="sm" className="justify-between">
+                <Button
+                  key={standard.label}
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="h-7 justify-between px-2 text-[11px] [&_svg]:size-3"
+                >
                   <a href={standard.href} target="_blank" rel="noreferrer">
                     {standard.label}
                     <ExternalLink className="size-3.5" />
