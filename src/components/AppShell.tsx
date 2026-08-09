@@ -91,68 +91,17 @@ export function AppShell({ children }: { children: ReactNode }) {
           })}
         </nav>
 
-        <div className="space-y-1 border-t border-border px-3 py-3">
-          <button
-            title="Announcements"
-            onClick={() => setNewsOpen(true)}
-            className={cn(
-              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm text-panel-foreground/70 transition-colors hover:bg-accent/60 hover:text-foreground",
-              collapsed && "justify-center px-0",
-            )}
-          >
-            <Bell className="size-4 shrink-0" />
-            {!collapsed && (
-              <>
-                <span>Announcements</span>
-                <span className="ml-auto rounded-full bg-destructive px-1.5 py-0.5 text-[10px] font-semibold text-destructive-foreground">
-                  {announcements.length}
-                </span>
-              </>
-            )}
-          </button>
-        </div>
       </aside>
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
         <header className="flex h-16 items-center gap-3 border-b border-border px-6 md:hidden">
           <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain" />
           <span className="font-bold">LSPD Portal</span>
-          <button
-            onClick={() => setNewsOpen(true)}
-            aria-label="Announcements"
-            className="ml-auto rounded-md p-1.5 text-muted-foreground hover:bg-accent hover:text-foreground"
-          >
-            <Bell className="size-4" />
-          </button>
         </header>
         <main className="flex-1">{children}</main>
-        <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground">
-          <p>© 2026 LSPD Portal. GTA:W TR Roleplay community tool. Version 1.0.0</p>
-        </footer>
+        <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground" />
       </div>
-
-      <Dialog open={newsOpen} onOpenChange={setNewsOpen}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle>Announcements</DialogTitle>
-            <DialogDescription>Panel güncellemeleri ve duyurular.</DialogDescription>
-          </DialogHeader>
-          <div className="max-h-[60vh] space-y-3 overflow-y-auto pr-1">
-            {announcements.map((a) => (
-              <article key={a.id} className="rounded-lg border border-border bg-card p-4">
-                <div className="flex items-center gap-2">
-                  <span className="rounded-full bg-primary/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
-                    {a.tag}
-                  </span>
-                  <span className="text-xs text-muted-foreground">{a.date}</span>
-                </div>
-                <h3 className="mt-2 text-sm font-semibold">{a.title}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{a.body}</p>
-              </article>
-            ))}
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
+
