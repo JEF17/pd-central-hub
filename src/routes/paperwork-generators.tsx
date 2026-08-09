@@ -99,7 +99,13 @@ function Page() {
                 </Link>
               );
             }
-
+            if (t.slug === "e-posta") {
+              return (
+                <Link key={t.slug} to="/e-posta" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
 
             return (
               <button key={t.slug} type="button" className={cls}>
