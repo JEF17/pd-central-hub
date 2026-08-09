@@ -462,8 +462,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "C",
         "type": "M",
         "points": 0,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 2880,
+        "maxMinutes": 5760,
         "fine": 0,
         "offenseFines": []
       }
@@ -898,7 +898,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "type": "F",
         "points": 5,
         "minMinutes": 0,
-        "maxMinutes": 0,
+        "maxMinutes": 10080,
         "fine": 45000,
         "offenseFines": []
       }
@@ -1044,8 +1044,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "C",
         "type": "M",
         "points": 0,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 50,
+        "maxMinutes": 360,
         "fine": 2500,
         "offenseFines": []
       }
@@ -1167,8 +1167,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "A",
         "type": "F",
         "points": 18,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 28800,
+        "maxMinutes": 28800,
         "fine": 0,
         "offenseFines": []
       }
@@ -1188,8 +1188,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "A",
         "type": "F",
         "points": 15,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 25920,
+        "maxMinutes": 25920,
         "fine": 0,
         "offenseFines": []
       }
@@ -1209,8 +1209,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "A",
         "type": "F",
         "points": 10,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 21600,
+        "maxMinutes": 21600,
         "fine": 0,
         "offenseFines": []
       }
@@ -1356,8 +1356,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "B",
         "type": "F",
         "points": 7,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 7200,
+        "maxMinutes": 7200,
         "fine": 0,
         "offenseFines": []
       }
@@ -1377,8 +1377,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "A",
         "type": "F",
         "points": 9,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 8640,
+        "maxMinutes": 8640,
         "fine": 0,
         "offenseFines": []
       }
@@ -1419,8 +1419,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "A",
         "type": "F",
         "points": 10,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 8640,
+        "maxMinutes": 8640,
         "fine": 0,
         "offenseFines": []
       }
@@ -1524,8 +1524,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "A",
         "type": "F",
         "points": 5,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 5760,
+        "maxMinutes": 5760,
         "fine": 0,
         "offenseFines": []
       }
@@ -1629,8 +1629,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "A",
         "type": "F",
         "points": 5,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 10080,
+        "maxMinutes": 10080,
         "fine": 0,
         "offenseFines": []
       }
@@ -2623,8 +2623,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "C",
         "type": "M",
         "points": 0,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 180,
+        "maxMinutes": 1440,
         "fine": 5000,
         "offenseFines": []
       }
@@ -2644,8 +2644,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "C",
         "type": "M",
         "points": 0,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 180,
+        "maxMinutes": 360,
         "fine": 5000,
         "offenseFines": []
       }
@@ -3224,7 +3224,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "type": "F",
         "points": 7,
         "minMinutes": 0,
-        "maxMinutes": 0,
+        "maxMinutes": 20160,
         "fine": 50000,
         "offenseFines": []
       }
@@ -3245,7 +3245,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "type": "M",
         "points": 0,
         "minMinutes": 0,
-        "maxMinutes": 0,
+        "maxMinutes": 1200,
         "fine": 4500,
         "offenseFines": []
       }
@@ -3266,7 +3266,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "type": "M",
         "points": 0,
         "minMinutes": 0,
-        "maxMinutes": 0,
+        "maxMinutes": 2880,
         "fine": 15000,
         "offenseFines": []
       }
@@ -3287,7 +3287,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "type": "F",
         "points": 4,
         "minMinutes": 0,
-        "maxMinutes": 0,
+        "maxMinutes": 2880,
         "fine": 15000,
         "offenseFines": []
       }
@@ -3308,7 +3308,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "type": "F",
         "points": 3,
         "minMinutes": 0,
-        "maxMinutes": 0,
+        "maxMinutes": 5760,
         "fine": 22500,
         "offenseFines": []
       }
@@ -3329,7 +3329,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "type": "F",
         "points": 5,
         "minMinutes": 0,
-        "maxMinutes": 0,
+        "maxMinutes": 10080,
         "fine": 45000,
         "offenseFines": []
       }
@@ -3349,8 +3349,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "C",
         "type": "M",
         "points": 0,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 1440,
+        "maxMinutes": 4320,
         "fine": 4500,
         "offenseFines": []
       }
@@ -3454,8 +3454,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "C",
         "type": "M",
         "points": 0,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 600,
+        "maxMinutes": 600,
         "fine": 50000,
         "offenseFines": []
       }
@@ -3475,8 +3475,8 @@ export const chargeCatalog: ChargeDefinition[] = [
         "cls": "C",
         "type": "M",
         "points": 0,
-        "minMinutes": 0,
-        "maxMinutes": 0,
+        "minMinutes": 180,
+        "maxMinutes": 240,
         "fine": 0,
         "offenseFines": []
       }
