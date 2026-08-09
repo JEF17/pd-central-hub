@@ -247,37 +247,66 @@ function Page() {
           </Section>
 
           <Section title="Kanıtlar" wide>
-            <div className="sm:col-span-2 space-y-2">
+            <div className="sm:col-span-2 space-y-3">
               {data.evidence.map((e, i) => (
-                <div key={i} className="flex gap-2">
-                  <Input
-                    value={e}
-                    placeholder={`Kanıt ${i + 1}`}
-                    onChange={(ev) =>
-                      setData((d) => ({
-                        ...d,
-                        evidence: d.evidence.map((x, xi) => (xi === i ? ev.target.value : x)),
-                      }))
-                    }
-                  />
+                <div key={e.id} className="grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+                  <div>
+                    <Label className="text-xs">Kanıt {i + 1}</Label>
+                    <Input
+                      className="mt-2"
+                      value={e.label}
+                      placeholder="Kanıt açıklaması"
+                      onChange={(ev) =>
+                        setData((d) => ({
+                          ...d,
+                          evidence: d.evidence.map((x) =>
+                            x.id === e.id ? { ...x, label: ev.target.value } : x,
+                          ),
+                        }))
+                      }
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Bağlantı (link)</Label>
+                    <Input
+                      className="mt-2"
+                      value={e.url}
+                      placeholder="https://..."
+                      onChange={(ev) =>
+                        setData((d) => ({
+                          ...d,
+                          evidence: d.evidence.map((x) =>
+                            x.id === e.id ? { ...x, url: ev.target.value } : x,
+                          ),
+                        }))
+                      }
+                    />
+                  </div>
                   {data.evidence.length > 1 ? (
                     <Button
                       variant="ghost"
                       size="icon"
                       aria-label="Kanıtı sil"
                       onClick={() =>
-                        setData((d) => ({ ...d, evidence: d.evidence.filter((_, xi) => xi !== i) }))
+                        setData((d) => ({ ...d, evidence: d.evidence.filter((x) => x.id !== e.id) }))
                       }
                     >
                       <Trash2 className="size-4" />
                     </Button>
-                  ) : null}
+                  ) : (
+                    <div />
+                  )}
                 </div>
               ))}
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setData((d) => ({ ...d, evidence: [...d.evidence, ""] }))}
+                onClick={() =>
+                  setData((d) => ({
+                    ...d,
+                    evidence: [...d.evidence, { id: `e${Date.now()}`, label: "", url: "" }],
+                  }))
+                }
               >
                 <Plus className="size-4" />
                 Kanıt ekle
