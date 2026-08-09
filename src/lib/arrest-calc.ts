@@ -64,6 +64,9 @@ export interface CalculationResult {
   minMinutes: number;
   maxMinutes: number;
   points: number;
+  baseMinMinutes: number;
+  baseMaxMinutes: number;
+  basePoints: number;
   fine: number;
   /** En yüksek kefalet tutarı (toplanmaz — kefalet cetveli yönergesi) */
   highestBail: number;
