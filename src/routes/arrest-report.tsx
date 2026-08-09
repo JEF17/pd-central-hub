@@ -115,7 +115,13 @@ function Page() {
                         <td className="py-4 pr-4 font-semibold">
                           {charge.variant.cls}
                           {charge.variant.type} {charge.definition.number}. {charge.definition.title}
+                          {charge.category ? (
+                            <span className="ml-2 rounded bg-muted px-1.5 py-0.5 text-xs font-bold text-muted-foreground">
+                              Kategori {charge.category.key}
+                            </span>
+                          ) : null}
                         </td>
+
                         <td className="py-4 pr-4 text-muted-foreground">
                           {additionMap[charge.row.addition]?.label}
                         </td>
