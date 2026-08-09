@@ -144,6 +144,32 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 4 saatten az 4 günden fazla olmayacaktır.",
   },
+  {
+    number: "109",
+    title: "Tanık veya Mağdura Tehdit ",
+    type: "F",
+    paragraphs: [
+      "Bir tanığı veya mağduru herhangi bir hukuki sürece veya soruşturmaya katılmasını, ifade vermesini veya cezai işlem yapılmasına yol açabilecek bir rapor hazırlamasını engellemek amacıyla onu caydıran, kötü niyetle engelleyen veya engellemeye ve caydırmaya teşebbüs eden herhangi bir kişi.",
+    ],
+    classification:
+      "B Sınıfı (5) veya C Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 7 günden fazla olmayacaktır.",
+  },
+  {
+    number: "110",
+    title: "Mahkemeye Saygısızlık",
+    type: "M",
+    paragraphs: [
+      "a) Bir mahkemenin oturumu sırasında göz önünde ve yargıcın huzurunda işlenen, doğrudan yargılama sürecini kesintiye uğratmaya veya yargıya bağlı olan saygıyı zedeleme eğiliminde işlenen düzensiz, aşağılayıcı ve küstah davranışları gerçekleştiren herhangi bir kişi.",
+      "b) Mahkemenin işlemlerini kesintiye uğratma amacıyla huzuru bozan, gürültü çıkaran veya huzuru bozma amacıyla diğer eylemleri gerçekleştiren herhangi bir kişi.",
+      "c) Mahkemenin yasal sürecine veya diğer yetkilerine kasten itaatsizlik eden veya direnen herhangi bir kişi. Bu aynı zamanda mahkeme celbine itaatsizlik, şartlı tahliye ihlalleri ve mahkeme kararlarının ihlallerini de kapsamaktadır.",
+      "d) Mahkemenin işlemleri hakkında bilerek yanlış veya büyük ölçüde yanlış bir rapor yayınlayan herhangi bir kişi.",
+      "e) Adli para cezalarını ödemeyi reddeden veya söz konusu adli para cezaları için bir ödeme planı sağlandıktan sonra 7 gün içinde ödemeyen kişi.",
+      "f) Trafik radar cezalarını ödemeyi reddeden veya söz konusu trafik radar cezaları için bir ödeme planı sağlandıktan sonra 14 gün içinde ödemeyen herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden fazla olmayacaktır ve/ya da para cezası  $20.000'dan fazla olmayacaktır. Duruma göre sadece hapis ya da para cezası veya her ikisi de ilgili kişiye karşı uygulanabilir.",
+      "(( Bu suç sadece kefalet ihlallerinin olması durumunda zorunlu olarak mahkemeye gidecektir. )) ",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
