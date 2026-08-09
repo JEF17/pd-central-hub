@@ -50,14 +50,7 @@ export const processOptions = [
   "Sonuçlandı",
 ];
 
-export const followUpOptions = [
-  "DB",
-  "Traffic Division",
-  "Area GIT",
-  "Area Detective Division",
-  "Area Vice",
-  "Diğer",
-];
+export const followUpOptions = ["DB", "Traffic Division", "Area GIT", "Area Detective Division", "Area Vice", "Diğer"];
 
 export const emptyIncidentReport = (): IncidentReportData => ({
   reportNo: "",
@@ -71,9 +64,7 @@ export const emptyIncidentReport = (): IncidentReportData => ({
   area: "",
   incidentTypes: [],
   otherType: "",
-  people: [
-    { id: "p1", name: "", contact: "", address: "", status: "" },
-  ],
+  people: [{ id: "p1", name: "", contact: "", address: "", status: "" }],
   description: "",
   evidence: ["", "", "", "", ""],
   process: [],
@@ -120,12 +111,13 @@ ${cb(p.status === "victim")} MAĞDUR${SEP}${cb(p.status === "witness")} TANIK[/i
     .join("\n\n");
 
   const evidenceItems = data.evidence.filter((e) => e.trim()).length
-    ? data.evidence.filter((e) => e.trim()).map((e) => `[*] ${e.trim()}`).join("\n")
+    ? data.evidence
+        .filter((e) => e.trim())
+        .map((e) => `[*] ${e.trim()}`)
+        .join("\n")
     : "[*]\n[*]\n[*]";
 
-  const processList = processOptions
-    .map((p) => `[*] ${cb(data.process.includes(p))} ${p}`)
-    .join("\n");
+  const processList = processOptions.map((p) => `[*] ${cb(data.process.includes(p))} ${p}`).join("\n");
 
   const followUpLine = followUpOptions
     .map((f) => {
@@ -142,7 +134,7 @@ ${cb(p.status === "victim")} MAĞDUR${SEP}${cb(p.status === "witness")} TANIK[/i
 [center][size=125]LOS SANTOS POLICE DEPARTMENT
 [b]OLAY RAPORU[/b][/size][/center][/tdwidth]
 [tdwidth=#ffffff,#ffffff,top,left,2,1][size=85][indent=2][b]RAPOR NO.[/b]
-OR 26-${val(reportNumber(data.reportNo), "0000")}[/indent][/size][/tdwidth]
+26-${val(reportNumber(data.reportNo), "0000")}[/indent][/size][/tdwidth]
 [/table]
 
 
