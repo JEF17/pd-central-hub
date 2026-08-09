@@ -71,6 +71,14 @@ function Page() {
                 </Link>
               );
             }
+            if (t.slug === "apb-sablonu") {
+              return (
+                <Link key={t.slug} to="/apb-sablonu" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
+
 
 
             return (
