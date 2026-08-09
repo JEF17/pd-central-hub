@@ -85,8 +85,13 @@ function Page() {
                 </Link>
               );
             }
-
-
+            if (t.slug === "arac-el-koyma-raporu") {
+              return (
+                <Link key={t.slug} to="/arac-el-koyma-raporu" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
 
 
             return (
