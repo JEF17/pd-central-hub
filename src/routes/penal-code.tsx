@@ -226,7 +226,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     ],
     classification:
       "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 5 günden fazla olmayacaktır. Ayrıca sürücü lisansına 7 günlüğüne el koyulacaktır. Aracın çekilmesine ve para cezasına ilişkin cezalar ise aşağıdaki gibidir:\n7 günlüğüne araca el koyulacaktır ve $5.000 para cezası\n2. 14 günlüğüne araca el koyulacaktır ve $10.000 para cezası\n3.14 günlüğüne araca el koyulacaktır ve $20.000 para cezası\n Suçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
-    "Not:Not: Bu suç kişiye karşıdır ve araca karşı değildir. Bu nedenle kovalama farklı bir araçta başladıysa ve kaçan kişi farklı bir araca geçerse son kullandığı araç çekilebilir. Eğer araç başka birisine aitse ve çalındığını kanıtlayabilirse aracı teslim alabilir. Eğer aracın plaka kaydı yoksa araç parçalatılacaktır.",
+    "Not: Bu suç kişiye karşıdır ve araca karşı değildir. Bu nedenle kovalama farklı bir araçta başladıysa ve kaçan kişi farklı bir araca geçerse son kullandığı araç çekilebilir. Eğer araç başka birisine aitse ve çalındığını kanıtlayabilirse aracı teslim alabilir. Eğer aracın plaka kaydı yoksa araç parçalatılacaktır.",
   },
 ];
 
