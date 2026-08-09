@@ -294,9 +294,17 @@ function Page() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+  wide,
+}: {
+  title: string;
+  children: React.ReactNode;
+  wide?: boolean;
+}) {
   return (
-    <section className="rounded-xl border border-border bg-card p-6">
+    <section className={cn("rounded-xl border border-border bg-card p-6", wide && "lg:col-span-2")}>
       <h2 className="text-lg font-semibold">{title}</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">{children}</div>
     </section>
