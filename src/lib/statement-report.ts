@@ -75,9 +75,9 @@ const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
 const val = (v: string, fallback = "—") => (v.trim() ? v.trim() : fallback);
 const reportNumber = (value: string) => value.trim().replace(/^26-/, "");
 
-/** Konu başlığı: "İR — 00/00/0000 - 00000" */
+/** Konu başlığı: "IR — 00/00/0000 - 00000" */
 export function buildStatementTitle(data: StatementReportData) {
-  return `İR — ${val(data.date, "GG/AA/YYYY")} - ${val(reportNumber(data.reportNo), "00000")}`;
+  return `IR — ${val(data.date, "GG/AA/YYYY")} - ${val(reportNumber(data.reportNo), "00000")}`;
 }
 
 export function buildStatementBBCode(data: StatementReportData) {
