@@ -81,7 +81,7 @@ function Page() {
                 <div>
                   <p className="font-semibold">Suç puanı 30 veya üzeri.</p>
                   <p className="mt-1 text-sm text-warning/80">
-                    Toplam suç puanı 30'u geçtiği için ilgili prosedürleri kontrol edin.
+                    Toplam suç puanı 30 veya üzerine çıktığı için ilgili prosedürleri kontrol edin.
                   </p>
                 </div>
               </div>
