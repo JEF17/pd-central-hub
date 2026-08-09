@@ -92,6 +92,13 @@ function Page() {
                 </Link>
               );
             }
+            if (t.slug === "ihlal-raporu") {
+              return (
+                <Link key={t.slug} to="/ihlal-raporu" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
 
 
             return (
