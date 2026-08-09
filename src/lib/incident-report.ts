@@ -124,7 +124,11 @@ export const emptyIncidentReport = (): IncidentReportData => ({
   otherType: "",
   people: [{ id: "p1", name: "", contact: "", address: "", status: "" }],
   description: "",
-  evidence: ["", "", "", "", ""],
+  evidence: [
+    { id: "e1", label: "", url: "" },
+    { id: "e2", label: "", url: "" },
+    { id: "e3", label: "", url: "" },
+  ],
   process: [],
   followUps: [],
   followUpDb: "",
@@ -168,10 +172,16 @@ ${cb(p.status === "victim")} MAĞDUR${SEP}${cb(p.status === "witness")} TANIK[/i
     )
     .join("\n\n");
 
-  const evidenceItems = data.evidence.filter((e) => e.trim()).length
-    ? data.evidence
-        .filter((e) => e.trim())
-        .map((e) => `[*] ${e.trim()}`)
+  const filledEvidence = data.evidence.filter((e) => e.label.trim() || e.url.trim());
+  const evidenceItems = filledEvidence.length
+    ? filledEvidence
+        .map((e) => {
+          const label = e.label.trim();
+          const url = e.url.trim();
+          if (url && label) return `[*] [url=${url}]${label}[/url]`;
+          if (url) return `[*] [url]${url}[/url]`;
+          return `[*] ${label}`;
+        })
         .join("\n")
     : "[*]\n[*]\n[*]";
 
