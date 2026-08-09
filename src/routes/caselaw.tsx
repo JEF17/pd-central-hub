@@ -93,7 +93,7 @@ function CaselawPage() {
               href={resource.href}
               target="_blank"
               rel="noreferrer"
-              className="group rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/60"
+              className="group min-h-32 rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/60 lg:h-32"
             >
               <div className="flex items-start justify-between gap-2">
                 <h2 className="font-semibold">{resource.title}</h2>
@@ -103,7 +103,7 @@ function CaselawPage() {
             </a>
           ))}
 
-          <div className="flex min-h-full flex-col gap-4 rounded-lg border border-border bg-card p-4">
+          <div className="flex min-h-32 flex-col gap-2 rounded-lg border border-border bg-card p-4 lg:h-32">
             <div className="flex min-w-0 items-start gap-2">
               <ExternalLink className="mt-0.5 size-4 shrink-0 text-primary" />
               <div>
@@ -113,7 +113,7 @@ function CaselawPage() {
                 </p>
               </div>
             </div>
-            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="mt-auto grid gap-2 sm:grid-cols-2">
               {cctvStandards.map((standard) => (
                 <Button
                   key={standard.label}
@@ -131,7 +131,7 @@ function CaselawPage() {
             </div>
           </div>
 
-          <div className="flex min-h-full flex-col items-start justify-between gap-3 rounded-lg border border-border bg-card p-4">
+          <div className="flex min-h-32 flex-col items-start justify-between gap-3 rounded-lg border border-border bg-card p-4 lg:h-32">
             <div className="flex min-w-0 items-center gap-2">
               <ShieldAlert className="size-4 shrink-0 text-primary" />
               <h2 className="font-semibold">Miranda Hakları</h2>
