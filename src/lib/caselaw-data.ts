@@ -21,12 +21,12 @@ export const legalResources = [
   {
     title: "San Andreas Ceza Kanunu",
     description: "Resmî San Andreas ceza kanununa erişin.",
-    href: "https://forum.gta.world/en/topic/78852-san-andreas-penal-code/",
+    href: "https://forum-tr.gta.world/index.php?/topic/77-san-andreas-ceza-kanunu/",
   },
   {
     title: "Kefalet Cetveli",
     description: "Resmî kefalet ve teminat cetvelini görüntüleyin.",
-    href: "https://docs.google.com/spreadsheets/d/1qm04NZm-HEy-vdW2liNWcdok7eXFGty_rO-dA1H_k0g/",
+    href: "https://docs.google.com/spreadsheets/d/1Gx7QAujLMvwc7TvFjovNdZ5UwUmhu7TXuJS40ZqKafw/edit?usp=sharing",
   },
 ];
 
@@ -127,8 +127,7 @@ export const caseEntries: CaseEntry[] = [
     jurisdiction: "US",
     summary:
       "Altıncı Ek Madde'deki avukat hakkının, On Dördüncü Ek Madde yoluyla eyalet mahkemelerindeki sanıklar için de geçerli olduğuna oybirliğiyle hükmedilmiştir. Devlet, ağır suçlarda yoksul sanıklara avukat sağlamalıdır.",
-    implication:
-      "Ciddi bir suçla itham edilen herkesin, ödeme gücünden bağımsız olarak avukat hakkı vardır.",
+    implication: "Ciddi bir suçla itham edilen herkesin, ödeme gücünden bağımsız olarak avukat hakkı vardır.",
     source: "https://www.oyez.org/cases/1962/155",
   },
   {
@@ -195,8 +194,7 @@ export const caseEntries: CaseEntry[] = [
     title: "Heien v. North Carolina (2014)",
     court: "Federal",
     jurisdiction: "US",
-    summary:
-      "Bir memurun hukuka ilişkin makul hatası, trafik durdurması için gereken makul şüpheyi sağlayabilir.",
+    summary: "Bir memurun hukuka ilişkin makul hatası, trafik durdurması için gereken makul şüpheyi sağlayabilir.",
     implication:
       "Memurun yasayı yorumlaması objektif olarak makul olduğu sürece, yorum sonradan yanlış çıksa bile durdurma geçerlidir.",
     source: "https://www.oyez.org/cases/2014/13-604",
@@ -247,8 +245,7 @@ export const caseEntries: CaseEntry[] = [
     jurisdiction: "US",
     summary:
       "Polis, kişinin suç faaliyetine karıştığına dair somut ve açıklanabilir bir şüphe olmaksızın kişiyi durdurup kimlik talep edemez.",
-    implication:
-      "Yalnızca kimlik sormak amacıyla kimse durdurulamaz; önce suça ilişkin makul şüphe bulunmalıdır.",
+    implication: "Yalnızca kimlik sormak amacıyla kimse durdurulamaz; önce suça ilişkin makul şüphe bulunmalıdır.",
     source: "https://www.oyez.org/cases/1978/77-6673",
   },
   {
@@ -457,8 +454,7 @@ export const caseEntries: CaseEntry[] = [
     jurisdiction: "US",
     summary:
       "İşten çıkarılma tehdidi altında zorla alınan memur beyanlarının, o memur aleyhine ceza yargılamasında kullanılamayacağına hükmetmiştir.",
-    implication:
-      "İdari soruşturmada zorunlu olarak verilen ifadeler ceza davasında delil olarak kullanılamaz.",
+    implication: "İdari soruşturmada zorunlu olarak verilen ifadeler ceza davasında delil olarak kullanılamaz.",
     source: "https://www.oyez.org/cases/1966/13",
   },
   {
@@ -499,7 +495,8 @@ export const caseEntries: CaseEntry[] = [
       "Gizli muhbirin kimliğinin mahkemede korunmasına ilişkin usulleri belirler; karartma ve kapalı inceleme gibi tedbirleri zorunlu kılar ve sanığın kimliğin savunma için gerekliliğini önce göstermesini arar.",
     implication:
       "Muhbir kimliği, sanık zorunluluğu ikna edici şekilde ortaya koymadıkça açıklanmaz; mahkeme bu bilgiyi aktif olarak korur.",
-    source: "https://forum.gta.world/en/topic/107638-interlocutory-criminal-appeal-23scwc00005-people-of-the-state-of-san-andreas-v-ruben-pliego/",
+    source:
+      "https://forum.gta.world/en/topic/107638-interlocutory-criminal-appeal-23scwc00005-people-of-the-state-of-san-andreas-v-ruben-pliego/",
   },
   {
     title: "People v. Lira (2023)",
@@ -579,7 +576,8 @@ export const caseEntries: CaseEntry[] = [
       "Ceza Kanunu § 1107 kapsamında 48 saatlik soruşturma amaçlı tutma için kolluğun en azından makul şüphe eşiğini karşılaması gerektiğini belirlemiştir.",
     implication:
       "Sebep olmadan soruşturma amaçlı tutma yapılamaz; 48 saatlik tutmayı haklı kılan açıklanabilir olgular bulunmalıdır.",
-    source: "https://forum.gta.world/en/topic/90690-interlocutory-criminal-appeal-the-district-attorneys-office-of-los-santos-county-v-los-santos-county-superior-court/",
+    source:
+      "https://forum.gta.world/en/topic/90690-interlocutory-criminal-appeal-the-district-attorneys-office-of-los-santos-county-v-los-santos-county-superior-court/",
   },
   {
     title: "People v. Voss (2023)",
