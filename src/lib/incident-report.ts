@@ -142,7 +142,7 @@ ${cb(p.status === "victim")} MAĞDUR${SEP}${cb(p.status === "witness")} TANIK[/i
 [center][size=125]LOS SANTOS POLICE DEPARTMENT
 [b]OLAY RAPORU[/b][/size][/center][/tdwidth]
 [tdwidth=#ffffff,#ffffff,top,left,2,1][size=85][indent=2][b]RAPOR NO.[/b]
-OR ${val(data.reportNo, "26-0000")}[/indent][/size][/tdwidth]
+OR 26-${val(reportNumber(data.reportNo), "0000")}[/indent][/size][/tdwidth]
 [/table]
 
 
