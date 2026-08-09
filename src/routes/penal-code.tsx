@@ -1164,6 +1164,591 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
   },
+  {
+    number: "427",
+    title: "Taşıt Gürültüsü",
+    types: ["I"],
+    paragraphs: [
+      "(a) Gereksiz yere klakson kullanmak,",
+      "(b) Gürültü kirliliğini dikkate almadan ya da kamu huzurunu bozacak düzeyde yüksek sesli müzik açmak veya ses yayını yapmak,",
+      "(c) Motoru yüksek devirde çalıştırmak,",
+      "(d) Yüksek düzeyde ses çıkartan arızalı veya modifiye edilmiş egzoz sistemiyle taşıt kullanmak.",
+      "Belirtilen alt maddeler de dahil olmak üzere yüksek düzeyde gürültü yayacak şekilde motorlu taşıt kullanan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
+  },
+  {
+    number: "428",
+    title: "Hidroliklerin Yasa Dışı Kullanımı",
+    types: ["I"],
+    paragraphs: [
+      "Zorunlu ekipman ihtiyacı veya amacı (forklift gibi) olmaksızın aracın şasisine veya diğer bileşenlerine takılmış hidrolik ekipmana sahip bir aracı kullanan herhangi kişi, bu özelliği eyalet, bölge ve şehir merkezi sınırları içerisindeki yollar üzerinde kullanamaz.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
+  },
+  {
+    number: "429",
+    title: "Cam Filmleri",
+    types: ["I"],
+    paragraphs: [
+      "Yürürlükte bulunan yasalardan muaf tutulmadığı sürece, aracın camlarında izinsiz olarak normalden daha koyu renk tonları veya gizleyici gölgelikler kullanan herhangi bir kişi.",
+      "(( Muafiyet yasaları değişmedikçe Level 1 ve 2 cam filmleri yasa dışı olarak kabul edilir. ))",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $1.000 para cezası\n2. $2.500 para cezası\n3. $5.000 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
+  },
+  {
+    number: "430",
+    title: "Etki Altında Sürüş [DUI]",
+    types: ["M"],
+    paragraphs: [
+      "(a) Uyuşturucu bir maddenin etkisi altındayken,",
+      "(b) Herhangi bir zamanda alkol tüketip, taşıt kullandıktan sonra 0.08 veya daha yüksek alkol oranı tespit edildiğinde,",
+      "(c) 2023 Uyuşturucuyla Mücadele ve Önleme Yasası (DEPA) altında tanımlanan ve Çizelge I altında kategorize edilen uyuşturucu maddelerden herhangi birinin metabolitlerinin kanda veya idrarda bulunduğunda.",
+      "Belirtilen alt maddeler de dahil olmak üzere, State of San Andreas sınırları içindeki herhangi bir otoyol, yol veya kamuya açık alanda araç kullanan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Aşağıdaki suç sayısı kriterlerine göre cezalandırılacaktır:\n1. 3 saat hapis cezası, 3 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $5.000 para cezası\n2. 6 saat hapis cezası, 7 günlüğüne taşıta el koyulacaktır, 7 günlüğüne lisans askıya alınacaktır ve $8.000 para cezası\n3. 1 gün hapis cezası (C Sınıfı [2] felony kapsamında sorumlu tutulur), 10 günlüğüne taşıta el koyulacaktır, 10 günlüğüne lisans askıya alınacaktır ve $12.000 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür. Bu suç için ceza artırımlarına izin verilmektedir.",
+  },
+  {
+    number: "431",
+    title: "Test Yapılmasını Reddetme",
+    types: ["M"],
+    paragraphs: [
+      "Bir kolluk kuvvetleri personeli tarafından San Andreas Ceza Kanunu § 430 uyarınca tutuklanmış bir şüpheliden nefes örneği vermesini talep eden, bir arama emri ya da acil durumlar kapsamında kan veya diğer vücut sıvısı örneği vermesini talep eden kolluk kuvveti personelinin talebini reddeden veya yerine getirmeyen herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Aşağıdaki suç sayısı kriterlerine göre cezalandırılacaktır:\n1. 3 saat hapis cezası, 3 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $5.000 para cezası\n2. 6 saat hapis cezası, 7 günlüğüne taşıta el koyulacaktır, 7 günlüğüne lisans askıya alınacaktır ve $8.000 para cezası",
+  },
+  {
+    number: "432",
+    title: "Motorlu Taşıt Yarışı",
+    types: ["F", "M"],
+    paragraphs: [
+      "(a) City, County veya State sorumluluğundaki asfalt yollarda veya parkurlarda geçerli bir yarışçı lisansı olmadan ya da yetkisiz olarak bir motorlu taşıt yarışı düzenleyen, başka ihlallere yol açma potansiyeli olan veya tehlike teşkil eden herhangi bir kişi.",
+      "(b) Bu suçun (a) alt maddesinin ihlali sonrasında kasten kolluk kuvvetlerinden bir taşıtla kaçan veya kaçmaya teşebbüs eden herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 1 günden fazla olmayacaktır. Para cezası ise $5.500 olacak, taşıt 7 gün bağlanacak ve lisans 7 gün askıya alınacaktır.\nMadde (b) ihlalinde C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 3 günden fazla olmayacaktır. Para cezası ise $15.000 olacak, taşıt 10 gün bağlanacak ve lisans 7 gün askıya alınacaktır. 115. Kolluk Kuvvetlerinden Kaçmak maddesinin ihlalinde ilgili madde suçlamalara eklenecektir.",
+  },
+  {
+    number: "433",
+    title: "Yaya Geçidi İhlali",
+    types: ["I"],
+    paragraphs: [
+      "Yayaların belirtilen durumlarda kasıtlı veya dikkatsizce bir yolu geçmesi:",
+      "a) Trafik akışını engelleyebilecek öngörülebilir bir risk oluşturması durumu; veya",
+      "b) Sürücülere veya diğer yayalara tehlike riski oluşturması.",
+      "Eğer mevcutsa yayalar kendileri için belirlenmiş yaya geçitlerini kullanmak zorundadır. Dört yollarda veya diğer kavşaklarda yaya geçidi sınırlarının dışında karşıya geçmek yaya geçidi ihlali sayılır.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.500 para cezası ile cezalandırılacaktır.",
+  },
+  {
+    number: "434",
+    title: "Açık Materyal Bulundurma",
+    types: ["I"],
+    paragraphs: [
+      "Motorlu taşıt kullanırken kapağı veya ağzı açık bir şekilde alkollü içecek veya performans değiştirici maddeler bulunduran herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+  },
+  {
+    number: "435",
+    title: "Emniyet Kemeri — Emniyet Ekipmanı Kullanmama",
+    types: ["I"],
+    paragraphs: [
+      "Araç kullanırken veya seyir halindeyken bireyin, kendisini minimum güvenlik standartlarında güvene almaması, emniyet kemeri veya emniyet ekipmanları kullanmaması ve seyir halinde trafik güvenliği standartlarını karşılamayan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+  },
+  {
+    number: "436",
+    title: "Emniyetsiz Taşıtı Kullanma",
+    types: ["I"],
+    paragraphs: [
+      "Herhangi bir kişiyi veya mülkü tehlikeye atacak şekilde farları, frenleri ya da direksiyonu bulunmayan; fiziksel olarak hasarlı olan ya da genel sürüş standartlarını karşılamayan bir motorlu taşıtın veya bisikletin mevcut durumunu göz ardı ederek kullanan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $2.000 para cezası ile cezalandırılacak ve taşıt 2 gün bağlanacaktır.",
+  },
+  {
+    number: "437",
+    title: "Geçerli Bir Lisans Olmadan Hava Aracı Kullanma",
+    types: ["M"],
+    paragraphs: [
+      "PPL lisansına sahip olmadan bir hava aracını kullanan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.",
+  },
+  {
+    number: "438",
+    title: "Hava Aracının Dikkatsiz Kullanımı",
+    types: ["F"],
+    paragraphs: [
+      "Şehir ve kırsal yerleşim bölgelerinde düşük irtifada uçmak gibi eylemlerle hayatı tehlikeye atan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 6 günden fazla olmayacaktır. Para cezası ise $50.000 olacak, PPL askıya alınacak ve taşıta 3 gün el koyulacaktır.",
+  },
+  {
+    number: "439",
+    title: "ATC Talimatlarına Uymamak",
+    types: ["F"],
+    paragraphs: [
+      "Bir hava aracı kullanırken ATC talimatlarına veya protokollerine uymayan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 1 günden fazla olmayacaktır. Para cezası ise $50.000 olacaktır.",
+  },
+  {
+    number: "440",
+    title: "Hava Aracıyla Kaçma",
+    types: ["F"],
+    paragraphs: [
+      "Bir hava aracıyla pilot veya yolcu olarak kolluk kuvvetlerinden kaçan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 4 günden fazla olmayacaktır. Para cezası ise $100.000 olacak ve taşıta 7 gün el koyulacaktır.",
+  },
+  {
+    number: "441",
+    title: "Bisikletin Dikkatsiz Kullanımı",
+    types: ["I"],
+    paragraphs: [
+      "Bir mala veya diğer sürücülere ya da yayalara karşı tehlike oluşturabilecek şekilde bisiklet süren herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $2.500 para cezası ile cezalandırılacaktır.",
+  },
+  {
+    number: "442",
+    title: "Vespucci Beach'te İzinsiz Taşıt Kullanımı",
+    types: ["I"],
+    paragraphs: [
+      "2023 Vespucci Beach Motorlu Araç Düzenlemeleri Kanunu'nu doğrudan ihlal edecek şekilde motorlu bir taşıt kullanan veya çalıştıran herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 3 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası",
+  },
+  {
+    number: "443",
+    title: "Sokağı İşgal Etme",
+    types: ["F"],
+    paragraphs: [
+      "Yarışmak, drag yarışı yapmak, lastik yakmak, daire çizmek, yanlamak, tek teker kaldırarak bisiklet veya motor sürmek, diğer akrobasi sürüşlerini sergilemek, bir motorlu taşıtı veya motosikleti başka bir biçimde pervasızca kullanmak için trafiğin düzenli akışını engelleyerek veya bloke ederek kamuya açık bir otoyolun, yolun veya park yerinin bir kısmını ya da tamamını mülk sahibinin açık izni olmaksızın işgal eden, işgal edilmesine yardımcı olan veya işgale aktif olarak katılan herhangi bir kişi.",
+      "(( Bu yasa her ihlali kapsamaz. Devamlı sürdürülmeyen, anlık yapılan akrobasi ve ön kaldırma hareketleri için uygulanmaz. ))",
+    ],
+    classification:
+      "C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 3 günden fazla olmayacaktır. Para cezası ise $20.000 olacaktır, araç 7 günlüğüne bağlanacak ve sürücü lisansına 7 günlüğüne el koyulacaktır.\nSuçlu kasıtlı olarak motorlu bir taşıt veya bisiklet ile kaçtığı veya kaçmaya teşebbüs ettiği takdirde 115. Kolluk Kuvvetlerinden Kaçmak maddesi ek suçlama olarak eklenir, araca 14 gün süreyle el koyulur.\nSuçlu kasıtlı olarak yaya bir şekilde kaçtığı veya kaçmaya teşebbüs ettiği takdirde 116. Tutuklamaya Direnmek maddesi ek suçlama olarak eklenir.",
+  },
+  {
+    number: "444",
+    title: "Araçlarda Işık Kontrolü",
+    types: ["I"],
+    paragraphs: [
+      "a) Araçlarda bulunan, özellikle off-road ya da SUV tipinde ekstra aydınlatma panelleriyle ana yollar, cadde ve sokaklarda açılması yasaklanmıştır. Bunların kullanımları daha karanlık ortamlar için ya da off-road arazilerde gerçekleştirilmelidir.",
+      "b) Araçların çevresinde ekstra ışıklandırmalar (Neon) kullanımı kısıtlanmıştır. Bunlar ana yollar, cadde ve sokaklarda kullanılamaz. Aracın altında ya da çevresinde gösteriş modifikasyonu olarak nitelendirilen ve göz alıcı renkleri bulunduran özel ışıklandırmaların trafik esnasında kullanımı yasaklanmıştır.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $500 para cezası\n2. $2.500 para cezası\n3. 2 günlüğüne taşıta, 2 günlüğüne lisansa el koyulacaktır ve $7.500 para cezası yanında araçtan ilgili ekipmanların sökümü iadesiz olarak sağlanacaktır.\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
+  },
+  {
+    number: "501",
+    title: "Teşhircilik",
+    types: ["M"],
+    paragraphs: [
+      "Kamuya açık olan veya başka kişilerin bulunduğu herhangi bir yerde kendi şahsını veya mahrem bölgelerini kasten ve ahlaksızca teşhir eden herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 6 saatten az 1 günden fazla olmayacaktır.",
+  },
+  {
+    number: "502",
+    title: "Kamu İçinde Uygunsuz veya Ahlaksız Davranış",
+    types: ["M"],
+    paragraphs: [
+      "Kamuya açık veya kamunun görüşüne açık olan herhangi bir yerde, herhangi birini uygunsuz veya ahlaksız davranışlarda bulunmaya teşvik eden veya bu davranışlarda bulunmaya zorlayan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 6 saatten az 1 günden fazla olmayacaktır.",
+  },
+  {
+    number: "503",
+    title: "Fuhuş",
+    types: ["M"],
+    paragraphs: [
+      "Fahişe veya müşteri olması fark etmeksizin, bir kişiyi maddi kazanç için cinsel faaliyette bulunmaya teşvik eden veya ikna eden herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 6 saatten az 1 günden fazla olmayacaktır.",
+  },
+  {
+    number: "504",
+    title: "Fuhuşa Teşvik",
+    types: ["F"],
+    paragraphs: [
+      "Fuhuş yapan kişileri teşvik eden, aracılık eden, yönlendiren ve fuhuş suçunun işlenmesi sırasında kazanılan parayı alıkoyan herhangi bir kişi veya vaatte bulunma, tehdit etme, şiddet uygulama gibi yollarla başka bir kişinin fahişe olmasına neden olan, teşvik eden veya zorlayan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 4 günden fazla olmayacaktır.",
+  },
+  {
+    number: "505",
+    title: "Tacizci Takip",
+    types: ["M"],
+    paragraphs: [
+      "Başka bir kişiyi kasten, kötü niyetle ve sürekli bir şekilde takip eden veya kasten ve kötü niyetle taciz eden ve bu kişiyi kendisinin veya ailesinin güvenliği için makul düzeyde korkutma amacıyla inandırıcı bir tehditte bulunan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 3 günden fazla olmayacaktır.",
+  },
+  {
+    number: "506",
+    title: "Kumar Dolandırıcılığı",
+    types: ["M", "F"],
+    paragraphs: [
+      "Herhangi bir cihaz, el çabukluğu, hile, aldatma veya başka bir yöntemle, kartlar veya çeşitli araçlar kullanarak herhangi bir oyun veya oyun sırasında bahis oynarken, başka bir kişiden hileli bir şekilde para veya mal elde eden herhangi bir kişi.",
+    ],
+    classification:
+      "Toplam değer $10.000'ı aşmıyorsa C Sınıfı misdemeanor. Hapis cezası 12 saatten az 1 günden fazla olmayacaktır.\nToplam değer $10.000'ı aşıyorsa C Sınıfı (2) felony. Hapis cezası 2 günden az 4 günden fazla olmayacaktır.\nNot: \"Hileli bir şekilde elde etmek\", bahis veya bahis miktarını değiştirmeyi, oyun kuralları tarafından onaylanmayan bir teknik veya cihaz aracılığıyla haksız avantaj elde etmeyi de içerir.",
+  },
+  {
+    number: "507",
+    title: "Çocuk İstismarı",
+    types: ["F"],
+    paragraphs: [
+      "18 yaşından küçük bir çocuğa kasıtlı olarak zalimce veya insanlık dışı bedensel eylemlerde bulunan veya travmatik bir durumla sonuçlanabilecek şekilde yaralanmasına neden olan veya çocuğun büyük bedensel zararlar görmesine sebebiyet veren herhangi bir kişi.",
+    ],
+    classification:
+      "A Sınıfı (7) veya B Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden az 8 günden fazla olmayacaktır.",
+  },
+  {
+    number: "508",
+    title: "Çocuk İhmali",
+    types: ["F"],
+    paragraphs: [
+      "Yasal bir mazereti olmadan reşit olmayan çocuğunun giyecek, yiyecek, barınma, tıbbi veya diğer iyileştirici bakım gibi fiziksel ihtiyaçlarını karşılamayan herhangi bir kişi.",
+    ],
+    classification:
+      "A Sınıfı (4) veya B Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 6 günden fazla olmayacaktır.",
+  },
+  {
+    number: "509",
+    title: "Reşit Olmayan Bireye Alkol veya Tütün Satışı",
+    types: ["M"],
+    paragraphs: [
+      "21 yaşından küçük bir kişiye alkollü içecek veya tütün satan, veren, servis eden veya servis edilmesine izin veren veya 21 yaşından küçük bir kişinin lisanslı tesislerde bu tür içecekleri veya tütünü tüketmesine izin veren kişi(ler).",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 2 saatten az 2 günden fazla olmayacaktır.",
+  },
+  {
+    number: "510",
+    title: "Reşit Olmadan Alkol veya Tütün Kullanımı",
+    types: ["M"],
+    paragraphs: [
+      "Alkol, alkol bazlı ürünler bulunduran veya alkol ya da tütün bazlı ürünlerin etkisi altında olduğu izlenimi veren 21 yaşının altındaki herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 2 günden fazla olmayacaktır.",
+  },
+  {
+    number: "511",
+    title: "Hayvan İstismarı",
+    types: ["F"],
+    paragraphs: [
+      "Canlı bir hayvanı kötü niyetle ve kasıtlı olarak yaralayan, sakatlayan, işkence eden, saldırıda bulunan, öldüren veya evcilleştirilmemiş ve hayvan ya da sahibi için güvenli olduğu kabul edilmeyen bir hayvanı sahiplenen herhangi bir kişi.",
+    ],
+    classification:
+      "A Sınıfı (5) veya B Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.",
+  },
+  {
+    number: "512",
+    title: "Mahkumla Cinsel İlişkiye Girme",
+    types: ["F"],
+    paragraphs: [
+      "(a) Herhangi bir ceza infaz kurumunun yeminli veya sivil bir personeli, Department of Health and Human Services'e ait bir tesisin veya bir kamu suçundan suçlu bulunan mahkumları bulunduran herhangi bir sağlık tesisinin içinde hapsedilen veya gözetim altında tutulan rıza sahibi bir yetişkinle cinsel ilişkiye girerse bir felony işlemiş olur.",
+      "(b) Bu madde, 2025 tarihli Department of Corrections and Rehabilitations Yasasında tanımlanan herhangi bir ceza infaz kurumu tanımını takip eder.",
+    ],
+    classification:
+      "C Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.",
+  },
+  {
+    number: "601",
+    title: "Kontrollü Madde Üretimi",
+    types: ["F"],
+    paragraphs: [
+      "Doğrudan veya dolaylı olarak yasadışı ve reçetesiz kimyasal veya doğal olan kontrollü maddeyi, uygun izin olmaksızın bileştiren, dönüştüren, üreten, türeten, işleyen veya hazırlayan herhangi bir kişi. Taşınan maddeler içinde en yüksek cezası olan kategori genel cezayı belirler.",
+    ],
+    classification:
+      "C Sınıfı (7) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $50.000'a kadar para cezası ve 14 günden fazla olmamak üzere hapis cezası\nB — $45.000'a kadar para cezası ve 12 günden fazla olmamak üzere hapis cezası\nC — $40.000'a kadar para cezası ve 10 günden fazla olmamak üzere hapis cezası\nD — $20.000'a kadar para cezası ve 8 günden fazla olmamak üzere hapis cezası\nT — $15.000'a kadar para cezası ve 3 günden fazla olmamak üzere hapis cezası",
+  },
+  {
+    number: "602",
+    title: "Kontrollü Madde Bulundurmak",
+    types: ["M"],
+    paragraphs: [
+      "Devlet tarafından reçete verme veya kontrollü maddeleri yönetme ve dağıtma yetkisi olan bir kişi tarafından reçete edilmedikçe, herhangi bir kontrollü madde veya birden fazla kontrollü madde sahibi olan herhangi bir kişi. Bu, 15 gramın altındaki her miktar için geçerlidir. Taşınan maddeler içinde en yüksek cezası olan kategori genel cezayı belirler.",
+      "Önemli: D kategorisi için 2024 San Andreas Yasal Kenevir Yasası (CANA) kapsamında 5 gram ve altı yasal geçer; gizli tutulmalı ve kamuya açık alanlarda sergilenmemelidir. Kamu personeli satın alım reçetesini sorgulayabilir; kişi bunu üzerinde bulundurmalıdır.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $4.500'a kadar para cezası ve 20 saatten fazla olmamak üzere hapis cezası\nB — $3.750'a kadar para cezası ve 15 saatten fazla olmamak üzere hapis cezası\nC — $3.000'a kadar para cezası ve 10 saatten fazla olmamak üzere hapis cezası\nD — $2.250'a kadar para cezası ve yazılı veya sözlü uyarı\nT — $500'a kadar para cezası ve yazılı veya sözlü uyarı",
+  },
+  {
+    number: "603",
+    title: "Kontrollü Maddeyi Dağıtım Amacıyla Bulundurmak",
+    types: ["M"],
+    paragraphs: [
+      "Herhangi bir kontrollü madde veya birden fazla kontrollü maddeyi dağıtmak, teslim etmek veya satmak amacıyla bulunduran herhangi bir kişi. Ayrıca, amaç ne olursa olsun, 15 gram ve üzeri miktarlarda bu madde otomatik olarak uygulanır. Taşınan maddeler içinde en yüksek cezası olan kategori genel cezayı belirler.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $15.000'a kadar para cezası ve 2 günden fazla olmamak üzere hapis cezası\nB — $10.500'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nC — $7.000'a kadar para cezası ve 14 saatten fazla olmamak üzere hapis cezası\nD — $5.250'a kadar para cezası ve 12 saatten fazla olmamak üzere hapis cezası\nT — $1.000'a kadar para cezası ve 6 saatten fazla olmamak üzere hapis cezası",
+  },
+  {
+    number: "604",
+    title: "Kontrollü Madde Satmak",
+    types: ["F"],
+    paragraphs: [
+      "Bilinçli ve yasadışı şekilde kontrollü maddeleri içeren bir veya daha fazla bileşiği veya karışımı satan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $15.000'a kadar para cezası ve 2 günden fazla olmamak üzere hapis cezası\nB — $10.500'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nC — $7.000'a kadar para cezası ve 14 saatten fazla olmamak üzere hapis cezası\nD — $5.250'a kadar para cezası ve 12 saatten fazla olmamak üzere hapis cezası\nT — $1.000'a kadar para cezası ve 6 saatten fazla olmamak üzere hapis cezası",
+  },
+  {
+    number: "605",
+    title: "Uyuşturucu Kaçakçılığı",
+    types: ["F"],
+    paragraphs: [
+      "Herhangi bir kişinin, kontrollü maddeyi veya birden çok kontrollü maddeyi nakliye etmesi, ihracatı, depolanması ve üzerinde veya mülkünde 35 gram ve üstü miktarda gizleme girişiminde bulunması veya bu girişimi başarması, bireysel amacına bakılmaksızın yasaktır. Taşınan maddeler içinde en yüksek cezası olan kategori genel cezayı belirler.",
+    ],
+    classification:
+      "C Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $22.500'a kadar para cezası ve 4 günden fazla olmamak üzere hapis cezası\nB — $18.750'a kadar para cezası ve 3 günden fazla olmamak üzere hapis cezası\nC — $15.000'a kadar para cezası ve 2 günden fazla olmamak üzere hapis cezası\nD — $11.500'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nT — $4.000'a kadar para cezası ve 10 saatten fazla olmamak üzere hapis cezası",
+  },
+  {
+    number: "606",
+    title: "Uyuşturucu Ticareti",
+    types: ["F"],
+    paragraphs: [
+      "Herhangi bir kişinin, üzerinde veya mülkünde 75 gram ve üstü miktarda birden çok kontrollü maddeyi nakliye etmesi, ithalatını ve ihracatını yapması, depolama girişiminde bulunması veya bu girişimi başarması, bireysel amacına bakılmaksızın yasaktır. Taşınan maddeler içinde en yüksek cezası olan kategori genel cezayı belirler.",
+    ],
+    classification:
+      "C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $45.000'a kadar para cezası ve 7 günden fazla olmamak üzere hapis cezası\nB — $37.500'a kadar para cezası ve 6 günden fazla olmamak üzere hapis cezası\nC — $30.000'a kadar para cezası ve 5 günden fazla olmamak üzere hapis cezası\nD — $22.500'a kadar para cezası ve 4 günden fazla olmamak üzere hapis cezası\nT — $8.000'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nNot: Gözaltına alındığında veya tutuklandığında bulunan her 75 gram için cezasına ek 12 saat eklenecektir.",
+  },
+  {
+    number: "607",
+    title: "Uyuşturucu Aletlerini Bulundurma",
+    types: ["M"],
+    paragraphs: [
+      "Kontrollü bir maddeyi yasa dışı olarak enjekte etmek veya içmek için kullanılan herhangi bir aleti, aracı veya malzemeyi bulunduran veya kontrollü maddeyi ambalajlamak, ölçmek veya tartmak amacıyla tasarlanmış cihazlara, jelatin kapsüllere, şişelere, teraziye veya cam şişelere sahip olan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Para cezası $4.500 olacaktır.\nEğer cihazlar veya aletler, C.K. 605 Uyuşturucu Kaçakçılığı ve C.K. 606 Uyuşturucu Ticareti suçunun işlenmesi sırasında kullanıldıysa C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 3 günden fazla olmayacaktır.",
+  },
+  {
+    number: "609",
+    title: "Yasa Dışı Dinleme",
+    types: ["F"],
+    paragraphs: [
+      "Telefon hatlarını izinsiz olarak dinlemek, mekanik bir konuşmayı dinlemek, elektronik iletişimi engellemek veya erişmek suretiyle yasa dışı olarak dinleyen herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 4 günden fazla olmayacaktır.",
+  },
+  {
+    number: "610",
+    title: "Yüzün Gizlenmesi",
+    types: ["M"],
+    paragraphs: [
+      "Suç işlerken yüzünü gizleyen veya maskeleyen herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 2 günden fazla olmayacaktır.",
+  },
+  {
+    number: "611",
+    title: "Yangın Yönetmeliği İhlali",
+    types: ["I"],
+    paragraphs: [
+      "State Fire Marshal tarafından uygulanması zorunlu tutulan yangın yönetmeliğindeki herhangi bir ihlali işleyen herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $3.000 para cezası ile cezalandırılacaktır.",
+  },
+  {
+    number: "612",
+    title: "Çevrenin Kirletilmesi",
+    types: ["I"],
+    paragraphs: [
+      "Kendi mülkü dışında herhangi bir kamu veya özel mülkte, uygun atık imha yeri dışına çöp atan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+  },
+  {
+    number: "613",
+    title: "SRCB İhlali",
+    types: ["M"],
+    paragraphs: [
+      "Hayırseverlik Yasası'nın hükümlerine uymayan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 10 saat ve para cezası $50.000 olacaktır.",
+  },
+  {
+    number: "701",
+    title: "İzinsiz Ateşli Silah Bulundurma",
+    types: ["M"],
+    paragraphs: [
+      "Gerekli ilgili izinlere sahip olmadan veya bir kişinin aracında, iş yerinde veya diğer özel tesislerinde bilgisi ve rızası olmadan silah taşıyan (açık veya gizli) herhangi bir kişi. Bu, geçerli bir seri numarası olmayan silahlara da uygulanır.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 3 saatten az 4 saatten fazla olmayacaktır.",
+  },
+  {
+    number: "702",
+    title: "Yasaklı Ateşli Silah Bulundurma",
+    types: ["F"],
+    paragraphs: [
+      "Uygun izin olmadan eyalet veya federal yasalar tarafından yasaklanmış bir silahı veya yasa dışı modifikasyonlar içeren silahı veya State of San Andreas içerisinde satışı, taşınması veya girişi yasaklanmış silah bulunduran herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 6 günden fazla olmayacaktır.",
+  },
+  {
+    number: "703",
+    title: "Ağırlaştırılmış Silah Bulundurma",
+    types: ["F"],
+    paragraphs: [
+      "Herhangi bir kişinin aracında, iş yerinde veya diğer özel tesislerde C.K. 701 ve C.K. 702'de belirtilen 5 ve daha fazla izinsiz ateşli silah bulundurması ve taşıması veya 3 ve daha fazla yasaklı ateşli silah bulundurması ve taşıması kanuna aykırıdır.",
+    ],
+    classification:
+      "C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden az 10 günden fazla olmayacaktır.",
+  },
+  {
+    number: "704",
+    title: "Patlayıcı veya Yanıcı Cihazların Bulundurulması",
+    types: ["F"],
+    paragraphs: [
+      "Uygun izin olmadan, eyalet veya federal yasalar tarafından yasaklanmış bir patlayıcı veya yanıcı cihazı bulunduran veya State of San Andreas içerisinde yasaklanmış bir patlayıcı veya yanıcı cihazı satan, taşıyan veya bulunduran herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden az 8 günden fazla olmayacaktır.",
+  },
+  {
+    number: "705",
+    title: "Yasal Olmayan Ateşli Silah ve Patlayıcı Maddelerin Satışı",
+    types: ["F"],
+    paragraphs: [
+      "Uygun ruhsatlar veya izinler olmadan silah, patlayıcı, yanıcı veya benzeri imal edilmiş cihazları satan, veren veya satın alan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.",
+  },
+  {
+    number: "706",
+    title: "Ölümcül Silahın Sergilenmesi",
+    types: ["F"],
+    paragraphs: [
+      "Kendini savunma dışında başka bir kişinin yanında ölümcül bir silahı veya aleti, dolu veya boş olsa da kaba, öfkeli veya tehditkâr bir şekilde çıkaran, tutan, gösteren veya doğrultan ve başka bir kişinin aklında korku uyandıracak şekilde hareket eden herhangi bir kişi.",
+    ],
+    classification:
+      "B Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 5 günden fazla olmayacaktır.",
+  },
+  {
+    number: "707",
+    title: "Ateşli Silahların Kamu Alanında Ateşlenmesi",
+    types: ["F"],
+    paragraphs: [
+      "Kasıtlı olarak bina, araç veya kamu veya diğer kalabalık alanlarda ateşli silahı doğrultarak, bir başka kişinin ciddi tehlikeye maruz kalmasına, gerçek fiziksel zarar görmesine veya fiziksel zarar riski oluşturmasına neden olan bir eylemde bulunan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 8 günden fazla olmayacaktır.",
+  },
+  {
+    number: "708",
+    title: "Silahla Motorlu Taşıttan Ateş Etmek",
+    types: ["F"],
+    paragraphs: [
+      "a) Herhangi bir motorlu taşıt sürücüsü veya sahibinin, bir başka kişiye motorlu taşıtından ateşli silahla ateş etmesine izin vermesi.",
+      "b) İçinde bulunduğu motorlu taşıttan başka bir kişiye veya başka bir araç içindeki kişiye kötü niyetle ve kasıtlı olarak silahla ateş eden herhangi bir kişi.",
+    ],
+    classification:
+      "A Sınıfı (7) veya B Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.",
+  },
+  {
+    number: "709",
+    title: "Ateşli Silahların Dikkatsiz Kullanımı",
+    types: ["M"],
+    paragraphs: [
+      "a) Ciddi bir ihmalkarlıkla başka bir kişinin hayatını, uzvunu veya malını tehlikeye atacak şekilde ateşli silah kullanan herhangi bir kişi.",
+      "b) Marihuana, narkotik ilaç, zihinsel fonksiyonları değiştiren ilaç, başka bir kontrollü madde veya %0,08 BAC'den fazla alkollüyken ateşli silah taşıyan veya taşırken kullanan herhangi bir kişi.",
+      "c) Avcılık lisansı veya ateşli silah taşıyarak avlanma hakkı elinden alınmış herhangi bir kişinin, ateşli silah kullanarak avlanması veya tuzak kurması.",
+    ],
+    classification:
+      "B Sınıfı veya C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 6 saatten az 4 günden fazla olmayacaktır.",
+  },
+  {
+    number: "710",
+    title: "SHAFT İhlali",
+    types: ["M"],
+    paragraphs: [
+      "Yerel kamu kurumları yetkililerince verilen Ateşli Silahların İdaresi ve Eğitimi Kanunu'nda belirtilen silah yönetmeliğine uymayan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 3 saatten az 2 günden fazla olmayacaktır.",
+  },
+  {
+    number: "711",
+    title: "Felony Hükümlüsünün Silah Bulundurması",
+    types: ["F"],
+    paragraphs: [
+      "ABD veya San Andreas yasaları uyarınca daha önce felony kapsamına giren bir suçtan mahkum olmuş kişinin; üzerinde, kendisine ait araçta, iş yerinde veya başka bir mülkte silah taşıması veya bulundurması suçtur.",
+    ],
+    classification:
+      "C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 4 günden fazla olmayacaktır.",
+  },
+  {
+    number: "712",
+    title: "Felony Hükümlüsünün Mühimmat Bulundurması",
+    types: ["F"],
+    paragraphs: [
+      "ABD veya San Andreas yasaları uyarınca daha önce suçtan mahkum olmuş bir kişi, kendisine ait araç, iş yeri veya başka bir mülkte silah mermisi depolar veya bulundurursa suçlu kabul edilir.",
+    ],
+    classification:
+      "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 4 günden fazla olmayacaktır.",
+  },
+  {
+    number: "713",
+    title: "Hapishanede Ölümcül Silah Bulundurmak",
+    types: ["F"],
+    paragraphs: [
+      "(a) Herhangi bir eyalet hapishanesine, Department of Corrections and Rehabilitation'a ait bir tesise, bir ilçe veya şehir hapishanesine ya da mahkumların gözetim altında tutulduğu başka bir tesise kasten ve bilerek ateşli silah, delici veya kesici alet, ölümcül silah, patlayıcı, göz yaşartıcı gaz veya ağır yaralanmaya ya da ölüme yol açacak herhangi bir tehlikeli alet getiren, gönderen veya buna yardımcı olan herhangi bir kişi bir felony işlemiş sayılır.",
+      "(b) Alt madde (a), bir yasa tarafından ya da ilgili tesiste yetkilendirilmiş bir personel tarafından izin verildiğinde uygulanmayacaktır.",
+      "(( Bu suç zorunlu olarak mahkemeye gidecektir. ))",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 7 günden az 9 günden fazla olmayacaktır.",
+  },
+  {
+    number: "714",
+    title: "Okul Sınırları İçerisinde Silah Bulundurmak",
+    types: ["F", "M"],
+    paragraphs: [
+      "(a) Herhangi bir kamu veya özel ilkokul, ortaokul, lise veya lise sonrası eğitim veren okulun sınırları içerisinde; herhangi bir üniversite, kolej ya da fakültenin yerleşke sınırları içerisinde ateşli silah bulunduran veya getiren herhangi bir kişi.",
+      "(b) Aynı sınırlar içerisinde kama, hançer, buz kıracağı, muşta, bıçak veya herhangi bir delici/kesici alet olarak silah yerine geçen çakı; taser veya çeşitli şoklayıcı ya da bayıltıcı tabancalar getiren herhangi bir kişi.",
+      "(c) Madde (b)'de belirtilen silahları herhangi bir bireye karşı doğrultan veya bu silahlarla bir bireyi tehdit eden herhangi bir kişi.",
+      "(d) Bu madde, eğitim kurumlarının kurulları veya yönetimi tarafından yazılı izin alarak madde (b)'deki silahları getiren bireylere uygulanamaz.",
+      "(e) Bu madde, ateşli silah taşımaya yasal olarak yetkili bir görevlinin silahını kilitli bir kutuda veya bagajda tutması kaydıyla uygulanmaz.",
+    ],
+    classification:
+      "Madde (a) ihlalinde C Sınıfı (4) felony. Hapis cezası 2 günden az 6 günden fazla olmayacaktır.\nMadde (c) ihlalinde C Sınıfı (3) felony. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.\nDiğer maddelerin ihlalinde C Sınıfı misdemeanor. Hapis cezası 1 günden az 3 günden fazla olmayacaktır.",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
