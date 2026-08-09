@@ -134,6 +134,16 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 3 saatten az 1 günden fazla olmayacaktır.",
   },
+  {
+    number: "108",
+    title: "Delillerle Oynama",
+    type: "F",
+    paragraphs: [
+      "Hukuki süreci engellemek, yanıltmak veya başka bir şekilde aldatıcı bir etki yaratmak amacıyla delil olarak kullanılan herhangi bir şeyi bilerek değiştiren, üreten, yerleştiren, yok eden, zarar veren, gizleyen veya hareket ettiren herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 4 saatten az 4 günden fazla olmayacaktır.",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
