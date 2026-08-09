@@ -38,14 +38,14 @@ export interface ChargeRow {
   offense: number;
   addition: AdditionKey;
   /** Uyuşturucu suçlarında (C.K. 601-606) kontrollü madde kategorisi */
-  category?: string;
+  category?: string | undefined;
 }
 
 export interface CalculatedCharge {
   row: ChargeRow;
   definition: ChargeDefinition;
   variant: ChargeVariant;
-  category?: ChargeCategory;
+  category?: ChargeCategory | undefined;
   minMinutes: number;
   maxMinutes: number;
   points: number;

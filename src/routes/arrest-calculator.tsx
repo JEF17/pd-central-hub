@@ -226,7 +226,7 @@ function ChargeRowCard({
           <div className="space-y-2">
             <Label>Kategori</Label>
             <Select
-              value={row.category ?? definition.categories[0]?.key}
+              value={row.category ?? definition.categories[0]?.key ?? ""}
               onValueChange={(value) => onChange({ category: value })}
             >
               <SelectTrigger>
