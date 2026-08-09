@@ -1815,6 +1815,842 @@ const penalCodeEntries: PenalCodeEntry[] = [
     ],
     classification: "Ceza hiçbir durumda birden (1) daha düşük olamaz.",
   },
+  {
+    number: "901",
+    title: "Suçlamaların Birleştirilmesi",
+    types: [],
+    paragraphs: [
+      "Her olayda farklı zamanlarda veya farklı insanlar üzerinden gerçekleşen ayırt edici suçlar olduğu sürece, suçlamalar ve cezalar birbirine eklenebilir.",
+    ],
+    classification: "BAŞLIK IX - Ceza Arttırımları",
+  },
+  {
+    number: "902",
+    title: "Bağımsız Suç Unsuru",
+    types: [],
+    paragraphs: [
+      "Her suç, birbirinden bağımsız bir özelliğe sahip olmalıdır. Eğer bir suç tamamen diğeri tarafından kapsanıyorsa, iki suç aynı olarak kabul edilir ve sadece biri için ceza verilir.",
+    ],
+    classification: "BAŞLIK IX - Ceza Arttırımları",
+  },
+  {
+    number: "903",
+    title: "Çete Suç Arttırımları",
+    types: [],
+    paragraphs: [
+      "Suçu çete yararına, çetenin talimatıyla veya çete üyelerine herhangi bir suç faaliyetini teşvik etme, ilerletme ve yardım etme niyetiyle işleyen herhangi bir kişi, aşağıdaki şekillerde cezalandırılabilir:",
+      "1. Eğer suç STEP KANUNUNDA tanımlanan bir felony ise, sanık suçun koşullarına bağlı olarak ek 1 ila 3 ay hapis cezasıyla cezalandırılabilir.",
+      "2. Eğer suç STEP KANUNUNDA tanımlanan şiddet içeren bir felony ise, sanık suçun koşullarına bağlı olarak ek 3 ila 5 ay hapis cezasıyla cezalandırılabilir.",
+    ],
+    classification: "BAŞLIK IX - Ceza Arttırımları",
+  },
+  {
+    number: "904",
+    title: "Şartlı Tahliye & Denetimli Serbestlik İhlali",
+    types: [],
+    paragraphs: [
+      "Kamu suçundan hüküm giymiş ve şartlı tahliye edilmiş bir kişinin şartlı tahliye koşullarını ihlal etmesi durumunda ya da herhangi bir kişinin denetimli serbestlik koşullarını ihlal etmesi durumunda suçlu bulunduğu yasaların ceza puanları iki katına çıkarılacaktır.",
+      "(1) Bu tanıma uyan bir kişinin cezası, asıl mahkumiyet süresinin ya da suçlu bulunduğu maddenin ceza süresinin iki katına kadar artırılabilir.",
+      "(( Bu suç zorunlu olarak mahkemeye gidecektir. ))",
+    ],
+    classification: "BAŞLIK IX - Ceza Arttırımları",
+  },
+  {
+    number: "910",
+    title: "Yabancı Uyruklu Kişilerin Tutuklanması",
+    types: [],
+    paragraphs: [
+      "Yabancı Uyruklu Kişilerin Tutuklanması maddesi, belgelerinin eksikliği ve/veya işbirliği eksikliği nedeniyle tutuklanan ve kimliği belirlenemeyen herhangi bir kişi için kullanılacaktır. Bu madde, kimliği belirlenmiş ancak isim vermeyi veya kolluk kuvvetleriyle işbirliği yapmayı reddeden bir kişi için kullanılamaz, bu durumda C.K. 116 Tutuklamaya Direnmek kapsamına girer. Herhangi bir kişi, bu madde altında tutuklanmadan önce kişinin kimliğini belirlemek için her türlü mümkün olan yöntem denenmelidir.",
+    ],
+    classification: "BAŞLIK IX - Yabancı Uyruklu Kişilerin Tutuklanması",
+  },
+  {
+    number: "911",
+    title: "Kimliği Belirlenemeyen Kişinin Tutulması",
+    types: [],
+    paragraphs: [
+      "Kimliği belirlenemeyen kişi, Yabancı Uyruklu Kişilerin Tutuklanması maddesi devreye girdikten sonra yetkili kolluk kuvveti personeli tarafından kimliği belirlenene kadar yetkili bir hapishanede belirsiz bir süreliğine tutulacaktır. Tüm uygun raporlar ve tutuklama \"John Doe\" ismi altında tamamlanmalı ve dosyalanmalıdır.",
+    ],
+    classification: "BAŞLIK IX - Yabancı Uyruklu Kişilerin Tutuklanması",
+  },
+  {
+    number: "1001",
+    title: "Yasal Tutuklama & Hapis",
+    types: [],
+    paragraphs: [
+      "Kanunun aksi belirtilmediği sürece, bir kişi, bir kolluk kuvveti memuru tarafından geçerli herhangi bir suçtan yasal olarak tutuklanıp hapis cezasıyla cezalandırılabilir.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1002",
+    title: "Ömür Boyu Hapis Şartı",
+    types: [],
+    paragraphs: [
+      "Mahkeme kararı olmadan hiçbir birey ömür boyu hapis cezasıyla cezalandırılamaz.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1003",
+    title: "Ceza Puanı Sınırı",
+    types: [],
+    paragraphs: [
+      "Herhangi bir kişi, hüküm giydiği suçlardan otuz (30) ceza puanını aşmadıkça ömür boyu hapis cezası verilemez. Ömür boyu hapis cezası kararı mahkeme tarafından verildiyse bu durum geçersizdir.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1004",
+    title: "Çifte Yargılama Yasağı",
+    types: [],
+    paragraphs: [
+      "Bir kişi, bir suçtan bir kere suçlanıp mahkum edildiyse ve beraat ettiyse, aynı suç için ikinci kez yargılanamaz.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1005",
+    title: "Felony Davalarının Başlaması",
+    types: [],
+    paragraphs: [
+      "Felony suç için dava, suçun keşfinden kısa süre sonra başlamalıdır. Bu, halihazırda devam eden bir soruşturma ile ilgiliyse, dava en geç soruşturmanın sona ermesinden üç gün sonra başlamalıdır.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1006",
+    title: "Davaların Süresi",
+    types: [],
+    paragraphs: [
+      "Felony, misdemeanor veya infraction suçlar için dava, suçun keşfinden kısa süre sonra başlamalıdır ve üç günü aşmamalıdır.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1007",
+    title: "Temyiz Süresi",
+    types: [],
+    paragraphs: [
+      "Felony bir suç için yapılan temyiz başvuruları, hüküm verilme tarihinden itibaren yirmi sekiz (28) gün içinde yapılmalıdır. Bu süreden sonra yapılan temyiz başvuruları reddedilecektir. Mahkemeye makul nedenler sunulması durumunda süre uzatımı yapılabilir.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1008",
+    title: "Para Cezasının Ödenmesi",
+    types: [],
+    paragraphs: [
+      "Herhangi bir para cezasının ödenmesi, sanığın başlangıçta verdiği savunma ne olursa olsun, suçun kabulü anlamına gelir.",
+    ],
+    classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
+  },
+  {
+    number: "1009",
+    title: "Kolluk Kuvveti Personeli Tanımı",
+    types: [],
+    paragraphs: [
+      "Eyalet, ilçe veya şehirde polis departmanını sürdürmek ve yürütmek için yasal yetkiye sahip olan herhangi bir memur, deputy, trooper veya District Attorney's Office tarafından istihdam edilen bir investigator veya inspector kolluk kuvveti personelidir. Bu sadece State of San Andreas içerisindeki kamu kuruluşları için geçerlidir. Bu kolluk kuvveti personellerinin yetkisi, kamu suçu işlenen veya işlendiğine dair makul şüphe bulunan eyalet içerisindeki herhangi bir yerde geçerlidir.",
+    ],
+    classification: "BAŞLIK X - Kolluk Kuvvetleri Yetki Otoritesi",
+  },
+  {
+    number: "1010",
+    title: "State Fire Marshal Yetkisi",
+    types: [],
+    paragraphs: [
+      "State Fire Marshal ve State Fire Marshal tarafından yetkilendirilmiş memurlar, kolluk kuvveti memuru olarak sınıflandırılacaktır. Bu yetki, yangın yönetmeliği ihlalleriyle ilgili soruşturmaları yürütmede State Fire Marshal ile eşdeğer ilave yetkilere sahip olunması amacıyla itfaiye departmanlarına verilebilir.",
+    ],
+    classification: "BAŞLIK X - Kolluk Kuvvetleri Yetki Otoritesi",
+  },
+  {
+    number: "1011",
+    title: "San Andreas National Guard",
+    types: [],
+    paragraphs: [
+      "San Andreas National Guard, acil durumlarda vali tarafından göreve çağrıldığında, bir acil durumla ilgili olarak kolluk kuvveti memuru olarak hareket etme yetkisine sahip olacaktır. Bu yetki, acil durumun süresi boyunca vali emriyle geri alınıncaya kadar geçerlidir.",
+    ],
+    classification: "BAŞLIK X - Kolluk Kuvvetleri Yetki Otoritesi",
+  },
+  {
+    number: "1012",
+    title: "Park Rangers & Fish & Wildlife",
+    types: [],
+    paragraphs: [
+      "San Andreas Park Rangers ile Department of Fish & Wildlife personelleri, kolluk kuvveti memuru olarak sınıflandırılacaktır. Bu kolluk kuvveti personellerinin yetkisi, kamu suçu işlenen veya işlendiğine dair makul şüphe bulunan eyalet içerisindeki herhangi bir yerde geçerlidir.",
+    ],
+    classification: "BAŞLIK X - Kolluk Kuvvetleri Yetki Otoritesi",
+  },
+  {
+    number: "1013",
+    title: "Department of Corrections Yetkisi",
+    types: [],
+    paragraphs: [
+      "San Andreas Department of Corrections and Rehabilitation yetkili personelleri, kolluk kuvveti memuru olarak sınıflandırılacaktır. Bu kolluk kuvveti personellerinin yetkisi, kamu suçu işlenen veya işlendiğine dair makul şüphe bulunan eyalet içerisindeki herhangi bir yerde geçerlidir.",
+    ],
+    classification: "BAŞLIK X - Kolluk Kuvvetleri Yetki Otoritesi",
+  },
+  {
+    number: "1014",
+    title: "Kimlik Gösterme Zorunluluğu",
+    types: [],
+    paragraphs: [
+      "Herhangi bir üniformalı kolluk kuvveti personeli, kendisinin kimlik numarasını veya adını açıkça taşıyan bir rozet, isim plakası veya kimliğini gösteren başka bir şey giymelidir.",
+    ],
+    classification: "BAŞLIK X - Kolluk Kuvvetleri Yetki Otoritesi",
+  },
+  {
+    number: "1015",
+    title: "Şikayet Prosedürü",
+    types: [],
+    paragraphs: [
+      "Bu eyalette kolluk kuvveti personeli istihdam eden herhangi bir departman veya kamu kurumu, bu departmanların veya kamu kurumlarının personeli hakkında halktan gelen şikayetleri araştırmak için bir prosedür belirlemeli ve prosedürün yazılı açıklamasını halka sunulabilir hale getirmelidir.",
+    ],
+    classification: "BAŞLIK X - Kolluk Kuvvetleri Yetki Otoritesi",
+  },
+  {
+    number: "1101",
+    title: "Tutuklamanın Tanımı",
+    types: [],
+    paragraphs: [
+      "Tutuklama, yasalarla belirlenmiş bir durumda ve şekilde, bir kişinin gözaltına alınmasıdır. Tutuklama, kolluk kuvveti personeli veya bir vatandaş tarafından yapılabilir. Bir kişi, kolluk kuvveti personelinin gözetimine teslim olarak veya kısıtlanarak tutuklanabilir. Tutuklanan kişi, tutuklanması ve gözaltına alınması için uygun olan kısıtlamalara tabi tutulabilir.",
+    ],
+    classification: "BAŞLIK XI - Vatandaş Tutuklaması & Gözaltı (Tutuklamalar)",
+  },
+  {
+    number: "1102",
+    title: "Makul Güç Kullanımı",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personeli, tutuklanacak kişinin suç işlediğine dair makul nedeni olduğunda, kaçmayı önlemek veya direnişi kırmak için makul güç kullanabilir. Kolluk kuvveti personeli, tutuklama yapmak veya yapmaya çalışmak için kişinin direnişi veya tehditkar direnişi nedeniyle çekilmek veya durmak zorunda değildir. Ayrıca bu, kolluk kuvveti personeline tutuklama yapmak veya kaçışı önlemek veya direnişi kırmak için makul güç kullanarak savunma hakkı verir ve kanunlar karşısında saldırgan olarak görülmez.",
+    ],
+    classification: "BAŞLIK XI - Vatandaş Tutuklaması & Gözaltı (Tutuklamalar)",
+  },
+  {
+    number: "1103",
+    title: "Emirle veya Makul Nedenle Tutuklama",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personeli, bir emri yerine getirmek için bir kişiyi tutuklayabilir. Personel, tutuklanacak kişinin suç işlediğine dair makul nedeni olduğunda, suçun personelin gözetimi altında işlendiği zaman veya bir suç işlendiğine dair makul nedeni olduğunda bir kişiyi tutuklayabilir.",
+    ],
+    classification: "BAŞLIK XI - Vatandaş Tutuklaması & Gözaltı (Tutuklamalar)",
+  },
+  {
+    number: "1104",
+    title: "Vatandaş Tutuklaması",
+    types: [],
+    paragraphs: [
+      "Bir vatandaş bulunduğu yerde işlenen veya işlenmeye teşebbüs edilen bir suçtan dolayı başka bir kişiyi tutuklayabilir. Vatandaş bir suç için bir başkasını tutukladığında, tutuklamanın hemen ardından bir kolluk kuvveti personelini bilgilendirmelidir.",
+    ],
+    classification: "BAŞLIK XI - Vatandaş Tutuklaması & Gözaltı (Tutuklamalar)",
+  },
+  {
+    number: "1105",
+    title: "Vatandaş Tutuklaması Bildirimi",
+    types: [],
+    paragraphs: [
+      "Bir vatandaş tarafından tutuklama yapıldığına ilişkin bildirim alındığında, kolluk kuvveti personeli, bu kişinin talebi üzerine ve suçun işlendiğine dair kanıt sunulduğunda tutuklama yapabilir. Tutuklama ile ilgili tüm kayıtlarda, kişinin tutuklanmasını emreden vatandaşın adı belirtilmelidir.",
+    ],
+    classification: "BAŞLIK XI - Vatandaş Tutuklaması & Gözaltı (Tutuklamalar)",
+  },
+  {
+    number: "1106",
+    title: "Emrin İbrazı",
+    types: [],
+    paragraphs: [
+      "Tutuklama emriyle hareket eden bir kolluk kuvveti personeli, tutuklama anında emri yanında bulundurmasa bile tutuklama yasaldır. Ancak tutuklanan kişi talep ederse, emir mümkün olan en kısa sürede kendisine gösterilmelidir.",
+    ],
+    classification: "BAŞLIK XI - Vatandaş Tutuklaması & Gözaltı (Tutuklamalar)",
+  },
+  {
+    number: "1107",
+    title: "48 Saatlik Gözaltı",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personeli, aktif bir soruşturma ile ilgili olarak birini 48 saate kadar tutuklayabilir. Bu süre boyunca kişi, polis gözetiminde tutulacak ve avukatıyla iletişim kurabilecektir.",
+    ],
+    classification: "BAŞLIK XI - Vatandaş Tutuklaması & Gözaltı (Tutuklamalar)",
+  },
+  {
+    number: "1108",
+    title: "Tüccar Ayrıcalığı",
+    types: [],
+    paragraphs: [
+      "Tüccar, çalışanı veya temsilcisi, mağazasından malzeme hırsızlığı yapmaya çalıştığına veya yapmış olduğuna dair makul şüphesi olan bir kişiyi, C.K. 305 Küçük Çaplı Hırsızlık veya C.K. 304 Büyük Çaplı Hırsızlık soruşturması yapmak için makul bir süre boyunca tutabilir.",
+    ],
+    classification: "BAŞLIK XI - Tüccar Ayrıcalığı",
+  },
+  {
+    number: "1109",
+    title: "Tüccarın Güç Kullanımı",
+    types: [],
+    paragraphs: [
+      "Tüccar ayrıcalığı uyarınca yapılan tutuklamada, bir tüccar veya çalışanı veya temsilcisi, tutuklanacak kişinin kaçmasını veya maddi veya maddi olmayan mal veya ürün kaybını önlemek için veya kendilerini korumak için gerekli olan makul miktarda ölümcül olmayan güç kullanabilir.",
+    ],
+    classification: "BAŞLIK XI - Tüccar Ayrıcalığı",
+  },
+  {
+    number: "1110",
+    title: "Kütüphane Personelinin Yetkisi",
+    types: [],
+    paragraphs: [
+      "Kütüphane tesisinde çalışan bir kişi, kütüphane tesisinin içerisinden kitap veya kütüphane malzemesi hırsızlığı yapmaya çalıştığına veya yapmış olduğuna dair makul şüphesi olan bir kişiyi makul bir süre boyunca tutabilir.",
+    ],
+    classification: "BAŞLIK XI - Tüccar Ayrıcalığı",
+  },
+  {
+    number: "1111",
+    title: "Sinema Sahibinin Yetkisi",
+    types: [],
+    paragraphs: [
+      "Sinema sahibi veya çalışanı veya temsilcisi, sinema sahibinin izni olmadan sinema içerisinde bir video kayıt cihazı çalıştırmaya çalıştığına dair makul şüphesi olan bir kişiyi makul bir süre boyunca tutabilir.",
+    ],
+    classification: "BAŞLIK XI - Tüccar Ayrıcalığı",
+  },
+  {
+    number: "1112",
+    title: "Hukuki Sorumluluk Muafiyeti",
+    types: [],
+    paragraphs: [
+      "Madde 1108'den 1111'e kadar yapılan tutuklamalarda mahkeme, tutuklamanın başladığı anda makul şüphe bulunmadığını veya makul olmayan miktarda kuvvet kullanıldığını veya tutuklamanın makul bir süreyi aştığını tespit etmediği sürece tüccar, kütüphane çalışanı, sinema sahibi ve bunların temsilcileri ve işletme aleyhine herhangi bir sivil mahkeme açılmayacaktır.",
+    ],
+    classification: "BAŞLIK XI - Tüccar Ayrıcalığı",
+  },
+  {
+    number: "1113",
+    title: "Cezai Sorumluluk Muafiyeti",
+    types: [],
+    paragraphs: [
+      "Herhangi bir yasa mahkemesi, tutuklamanın başladığı anda makul şüphe bulunmadığını veya makul olmayan miktarda kuvvet kullanıldığını veya tutuklamanın makul bir süreyi aştığını bulmadığı sürece tüccar, kütüphane çalışanı, sinema sahibi ve bunların temsilcilerini C.K. 211 Yasa Dışı Hapis veya diğer herhangi bir yasa dışı hapis cezası suçlamasıyla suçlu bulmayacaktır.",
+    ],
+    classification: "BAŞLIK XI - Tüccar Ayrıcalığı",
+  },
+  {
+    number: "1114",
+    title: "Tanımlar",
+    types: [],
+    paragraphs: [
+      "Bu bölüm kapsamında 1108'den 1113'e kadar olan maddeler içerisindeki tanımlamalar aşağıdaki gibidir:",
+      "Tüccar Ayrıcalığı, bu bölüm altında yer alan 1108'den 1113'e kadar olan maddelerin hükümlerini ifade eder.",
+      "Tüccar, elle taşınabilen herhangi bir kişisel malın perakende alım veya satımı için kullanılan herhangi bir mekânın sahibi veya işletmecisi veya kiracısını ifade eder.",
+      "Mal, tüccar tarafından perakende satışa sunulan, sergilenen veya tutulan, elle taşınabilen herhangi bir kişisel malı ifade eder.",
+      "Temsilci, tüccar tarafından mekânın ve/veya malın korunması için işe alınan ve Tüccar Ayrıcalığı hükümlerini uygulama yetkisine sahip olan herhangi bir güvenlik şirketi veya ajansı ifade eder.",
+      "Çalışan, tüccar veya tüccarın yetkili kişi/kuruluşu tarafından özellikle ücret veya maaş karşılığında bir hizmet sunmak üzere işe alınan veya sözleşmeli olarak çalışan herhangi bir kişiyi ifade eder.",
+      "Tiyatro Sahibi, halka açık olarak hareketli resimlerin sergilenmesi veya performansı için kullanılan herhangi bir mekânın sahibi, işletmecisi veya kiracısını ifade eder.",
+      "Kitaplar veya diğer kütüphane malzemeleri, bir kütüphane tesisinde bulunan, ödünç verilen veya başka şekilde saklanan her türlü yazılı, basılı, görsel veya işitsel dokümantasyonu ifade eder.",
+      "Kütüphane tesisi, herhangi bir halk kütüphanesi; eğitim, tarihi veya yardım kuruluşu, örgüt veya topluluğun kütüphanesi; herhangi bir müze; herhangi bir kamusal kaynak deposunu ifade eder.",
+    ],
+    classification: "BAŞLIK XI - Tüccar Ayrıcalığı",
+  },
+  {
+    number: "1115",
+    title: "Memur İnisiyatifi",
+    types: [],
+    paragraphs: [
+      "Bir tutuklama ile ilgili olarak, felony olarak kabul edilmeyen tüm suçlamalarda Memur İnisiyatifi uygulanabilir. Memur, kendi takdirine bağlı olarak bir suçluyu, misdemeanor veya infraction nedeniyle tutuklamama seçeneğine sahiptir. Memurlar, bireysel bir kişinin korunmasında uygun inisiyatifi kullanmazlarsa, oluşan sivil zararlardan sorumlu tutulabilir.",
+    ],
+    classification: "BAŞLIK XI - Memur İnisiyatifi",
+  },
+  {
+    number: "1116",
+    title: "Suçlamaların Yükseltilmesi",
+    types: [],
+    paragraphs: [
+      "Ceza Kanununda yer alan tüm suçlamalar, işlenen suç sayısına göre birden fazla kez yazılabilir. Bunun yanı sıra suçlamalar, memurun inisiyatifine göre yükseltilebilir. Yükseltmeler aşağıdaki gibidir:",
+      "Tek bir olayda yargıya taşınan üç tane Sınıf (C) Misdemeanor suçlaması, Sınıf (B) Misdemeanor suçlamasına yükseltilebilir. Tek bir olayda yargıya taşınan üç tane Sınıf (B) Misdemeanor suçlaması, Sınıf (A) Misdemeanor suçlamasına yükseltilebilir. Tek bir olayda yargıya taşınan iki tane Sınıf (A) Misdemeanor suçlaması, Sınıf (B) Felony suçlamasına yükseltilebilir.",
+      "Tek bir olayda yargıya taşınan üç tane Sınıf (C) Felony suçlaması, Sınıf (B) Felony suçlamasına yükseltilebilir. Tek bir olayda yargıya taşınan üç tane Sınıf (B) Felony suçlaması, Sınıf (A) Felony suçlamasına yükseltilebilir.",
+      "Bu yükseltmeler, sahadaki memurun inisiyatifine bağlıdır ve gerçekleştirilen suçlamaların yükseltmelerine ilişkin uygun belgeler sunulmalıdır.",
+    ],
+    classification: "BAŞLIK XI - Memur İnisiyatifi",
+  },
+  {
+    number: "1117",
+    title: "Kaçan Mahkumlara Karşı Ölümcül Güç",
+    types: [],
+    paragraphs: [
+      "San Andreas Department of Corrections and Rehabilitation gözetiminde bulunan bir mahkumun kaçmasını önlemek için aşağıdaki durumlarda ölümcül güç kullanılabilir:",
+      "a. Mahkum 1118'de tanımlandığı gibi kaçmayı başaramadıysa; ancak,",
+      "b. Mahkum güvenlikli bir ceza infaz tesisinden kaçıyorsa veya güvenlikli bir ceza infaz tesisine transfer edilirken kaçıyorsa,",
+      "c. Mahkumun kaçış yöntemi diğer mahkumlara, personele veya kamuya karşı mevcut bir tehdit oluşturuyorsa.",
+    ],
+    classification: "BAŞLIK XI - Kaçan Mahkumlar",
+  },
+  {
+    number: "1118",
+    title: "Firarın Tanımı",
+    types: [],
+    paragraphs: [
+      "Bir mahkum hapsedilmekten veya alıkoyulmaktan başarıyla kurtulursa ve belirlenen gözetim alanını, tesisini ya da nakil aracını terk etmeyi başarırsa bir firar gerçekleştiği kabul edilir.",
+    ],
+    classification: "BAŞLIK XI - Kaçan Mahkumlar",
+  },
+  {
+    number: "1119",
+    title: "Sözlü Uyarı Zorunluluğu",
+    types: [],
+    paragraphs: [
+      "Memurlar ölümcül güç kullanmadan önce sadece mümkün olduğunda ve tehlike büyümemişken sözlü uyarıda bulunmalıdır.",
+    ],
+    classification: "BAŞLIK XI - Kaçan Mahkumlar",
+  },
+  {
+    number: "1120",
+    title: "Uyarı Atışları",
+    types: [],
+    paragraphs: [
+      "Uyarı atışlarına yalnızca hapishane bağlamında, örneğin güvenlikli bir tesisin içinde veya yakınında ve bu uyarı atışlarının güvenlikli bir kurumdan kaçışı caydırmak veya ölümcül ya da ağır zarar verici güç kullanımını caydırmak için gerekli olması halinde izin verilir.",
+    ],
+    classification: "BAŞLIK XI - Kaçan Mahkumlar",
+  },
+  {
+    number: "1201",
+    title: "Yargıç Yetkisi",
+    types: [],
+    paragraphs: [
+      "Bir yargıç, suçlaması yapılmış bir kişinin tutuklanması için bir tutuklama emri çıkarabilecek yetkiye sahip olan bir memurdur. Yüksek Mahkeme Yargıçları ve İdari Mahkeme Yargıçları, yargıç olarak tanımlanırlar.",
+    ],
+    classification: "BAŞLIK XII - Tutuklama Emirleri",
+  },
+  {
+    number: "1202",
+    title: "Tutuklama Emrinin Çıkarılması",
+    types: [],
+    paragraphs: [
+      "Bu eyaletin bir kolluk kuvveti personeli tarafından muhtemel sebep bildirimi yapıldığında yargıç, yalnızca muhtemel sebep bildirimi ile ilgili olarak belirtilen suçun işlendiği ve belirtilen sanığın bu suçu işlediği muhtemel sebebinin var olduğuna ikna olduğunda, sanığın tutuklanması için bir tutuklama emri çıkaracaktır.",
+    ],
+    classification: "BAŞLIK XII - Tutuklama Emirleri",
+  },
+  {
+    number: "1203",
+    title: "Yeminli İfade Şartı",
+    types: [],
+    paragraphs: [
+      "Tutuklama emrinin muhtemel sebep bildirimi ile desteklenen kısmı, yazılı olarak yapılan yeminli bir ifade olacaktır.",
+    ],
+    classification: "BAŞLIK XII - Tutuklama Emirleri",
+  },
+  {
+    number: "1204",
+    title: "Yargıcın Sorgulama Yetkisi",
+    types: [],
+    paragraphs: [
+      "Yargıç bir tutuklama emri çıkarmadan önce, tutuklama emri isteyen kişiyi ve herhangi bir şahidi yeminli olarak sorgulayabilir, kişinin veya şahidin yazılı ifadesini alabilir ve kişinin veya şahidin ifadeye imza atmasını sağlayabilir.",
+    ],
+    classification: "BAŞLIK XII - Tutuklama Emirleri",
+  },
+  {
+    number: "1205",
+    title: "Arama Emrinin Tanımı",
+    types: [],
+    paragraphs: [
+      "Arama emri, bir yargıç tarafından imzalanmış, bireylerin adına düzenlenmiş, bir kolluk kuvveti personeline yönlendirilmiş, kişi veya kişileri, bir şey veya şeyleri veya kişisel mülkiyeti aramak için emirde belirtilenleri arama emridir.",
+    ],
+    classification: "BAŞLIK XII - Arama Emirleri",
+  },
+  {
+    number: "1206",
+    title: "Arama Emrinin Şartları",
+    types: [],
+    paragraphs: [
+      "Arama emri, aranacak kişiyi veya kişileri adlandıran veya tanımlayan, aranacak mülkü, şeyi veya şeyleri ve aranacak yerleri açıkça belirleyen, yazılı yeminli bir beyana ve muhtemel sebebe dayanarak çıkarılabilir.",
+    ],
+    classification: "BAŞLIK XII - Arama Emirleri",
+  },
+  {
+    number: "1207",
+    title: "Sorgulama & Yazılı Beyan",
+    types: [],
+    paragraphs: [
+      "Yargıç emri vermeden önce, arama emrini isteyen kişiyi ve herhangi bir tanık varsa yeminli olarak sorgulayabilir ve kişinin veya tanıkların yazılı beyanlarını almalı ve beyanları yapan taraf veya taraflar tarafından imzalanmasını sağlamalıdır.",
+    ],
+    classification: "BAŞLIK XII - Arama Emirleri",
+  },
+  {
+    number: "1208",
+    title: "Zorla Giriş",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personeli, yetkisi ve amacı konusunda uyarı yaptıktan sonra giriş izni reddedildiğinde, mülkün veya evin herhangi bir bölümünün veya içindeki herhangi bir şeyin dış veya iç kapısını veya penceresini kırarak arama emrini yerine getirebilir.",
+    ],
+    classification: "BAŞLIK XII - Arama Emirleri",
+  },
+  {
+    number: "1209",
+    title: "Arama Emrinin Süresi",
+    types: [],
+    paragraphs: [
+      "Arama emri, çıkarılma tarihinden itibaren 10 gün içinde icra edilerek geri verilmelidir. 10 günlük süre içinde icra edilen bir arama emri, zamanında icra edilmiş olarak kabul edilir. 10 günün sona ermesinden sonra, emir icra edilmediyse geçersiz hale gelir. İcra edildikten sonra, arama emrinin yazılı bir kopyası ve destekleyici beyan(lar), arama yapılan kişiler tarafından istendiği takdirde sunulmalıdır.",
+    ],
+    classification: "BAŞLIK XII - Arama Emirleri",
+  },
+  {
+    number: "1210",
+    title: "Elektronik Takip Emri",
+    types: [],
+    paragraphs: [
+      "Her türlü elektronik gözetleme ve izleme faaliyetlerine yönelik elektronik takip emri kararlarının süresi, mahkeme tarafından onaylandığı tarih ve saat itibariyle 15 günü geçmeyecektir. Faaliyetlerin emrin geçerlilik süresinden sonra da sürdürülmesi gerektiği durumlarda, elde edilen yeni bulgu ve delillerle desteklenen bir uzatma talebiyle yeniden elektronik takip emri talebi mahkemeye gönderilmelidir. Hukuki gerekçeler mevcut olduğu sürece uzatma sayısında bir limit bulunmayacaktır.",
+    ],
+    classification: "BAŞLIK XII - Arama Emirleri",
+  },
+  {
+    number: "1211",
+    title: "Para Cezasının Ödenmemesi",
+    types: [],
+    paragraphs: [
+      "Bir yargıç veya court commissioner $20.000'ı aşan ceza mahkemesi (trafik ve radar cezaları da buna dahildir) ve hukuk mahkemesi para cezalarını ödemeyi kasıtlı olarak reddeden ya da herhangi bir para cezasını 7 gün içinde ödemeyen veya radar cezasını 14 gün içinde ödemeyen bir kişi hakkında mahkemeye saygısızlıkla ilgili olarak tutuklama emri çıkartabilir.",
+    ],
+    classification: "BAŞLIK XII - Para Cezasının Ödenmemesi",
+  },
+  {
+    number: "1212",
+    title: "Mal Varlığına El Koyma",
+    types: [],
+    paragraphs: [
+      "Bir yargıç $20.000'ı aşan para cezasını ödemeyi reddeden bir borçlu hakkında mahkemeye saygısızlıkla ilgili olarak tutuklama emri çıkartabilir ve borçlunun ceza borçlarını karşılayabilmesi için gereken mal varlıklarının geçici veya sürekli olarak el konulmasını emrederek işbirliği sağlamaya zorlayabilir.",
+    ],
+    classification: "BAŞLIK XII - Para Cezasının Ödenmemesi",
+  },
+  {
+    number: "1301",
+    title: "Kendini Koruma & Başkalarını Koruma",
+    types: [],
+    paragraphs: [
+      "Bir kişi, yaklaşan bir zarar veya ölüm tehdidi altında olduğunda kendisini veya başkalarını savunmak için, yalnızca olayların durumuna uygun olarak gerekli olan seviyede güç kullanarak tehdit etme veya kullanma hakkına sahiptir.",
+    ],
+    classification: "BAŞLIK XIII - Kendini Koruma & Başkalarını Koruma",
+  },
+  {
+    number: "1302",
+    title: "Anlık Tehlike Şartı",
+    types: [],
+    paragraphs: [
+      "Yaklaşan tehlike korkusu anlık ve mevcut olmalıdır. Kişi, duruma uygun olan seviyede güç kullanma hakkına sahiptir.",
+    ],
+    classification: "BAŞLIK XIII - Kendini Koruma & Başkalarını Koruma",
+  },
+  {
+    number: "1303",
+    title: "Zorunluluk Hali",
+    types: [],
+    paragraphs: [
+      "Kendisini veya bir başkasını önemli ölçüde ciddi bir zarardan korumak için suç işleyen herhangi bir kişi, yeterli gerçekçi bir yasal alternatifi olmadan hareket ettiği ve eylemleriyle daha büyük bir tehlike yaratmadığı takdirde suçlanamayacaktır.",
+    ],
+    classification: "BAŞLIK XIII - Zorunluluk & Tehdit Altında Kalma",
+  },
+  {
+    number: "1304",
+    title: "Tehdit Altında Kalma",
+    types: [],
+    paragraphs: [
+      "Ölüm veya ciddi zarar tehdidi altında, başka bir kişinin eylemleri ve sözleri yüzünden, makul bir kaçış fırsatı olmadan, baskı altında suç işleyen herhangi bir kişi, tehdidi sonlandırmak veya kaçmak için işlediği suç nedeniyle suçlanamayacaktır.",
+    ],
+    classification: "BAŞLIK XIII - Zorunluluk & Tehdit Altında Kalma",
+  },
+  {
+    number: "1305",
+    title: "Uygulanamayacak Durumlar",
+    types: [],
+    paragraphs: [
+      "Zorunluluk & Tehdit Altında Kalma maddesi, çeteler arası şiddet içeren durumlarda ve kendi eylemleri yüzünden tehlikeye atılan kişilerde geçerli değildir.",
+    ],
+    classification: "BAŞLIK XIII - Zorunluluk & Tehdit Altında Kalma",
+  },
+  {
+    number: "1306",
+    title: "Tuzaklamanın Tanımı",
+    types: [],
+    paragraphs: [
+      "Normalde yasalara uyan bir kişinin, kolluk kuvveti personelinin aşırı rahatsızlık verici, dolandırıcı, övgü, istek, zorlama veya tehditleri nedeniyle işlemeyeceği bir suçu işlemesine neden olan durumlarda işlenen bir suç, tuzaklama olarak kabul edilir.",
+    ],
+    classification: "BAŞLIK XIII - Tuzaklama",
+  },
+  {
+    number: "1307",
+    title: "Tuzaklama Savunması",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personelinin rahatsızlık verici, dolandırıcı, övgü, istek, zorlama veya tehditleri nedeniyle bir suç işlemesi sağlanan kişi, işlemiş olduğu suçtan suçlu bulunamaz.",
+    ],
+    classification: "BAŞLIK XIII - Tuzaklama",
+  },
+  {
+    number: "1401",
+    title: "Şüpheli Gözaltısı",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personeli, bir kişinin bir suç işleyebileceğini veya suç ortaklığı yapabileceğinden şüpheleniyorsa, bu şüphe yeterli olup söz konusu kişinin sorgulanması için gözaltına alabilir.",
+    ],
+    classification: "BAŞLIK XIV - Kolluk Kuvveti Personeli Güvenliği",
+  },
+  {
+    number: "1402",
+    title: "Terry Frisk",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personeli, bir kişinin silahlı olabileceği şüphesi altındaysa, Terry Frisk işlemine başlayarak kişinin dış giysilerinin dış kısmında silah arayabilir.",
+    ],
+    classification: "BAŞLIK XIV - Kolluk Kuvveti Personeli Güvenliği",
+  },
+  {
+    number: "1403",
+    title: "Acil Durum Tanımı",
+    types: [],
+    paragraphs: [
+      "Acil durumlar, \"bir vatandaşın, polis veya diğer kişilerin fiziksel zarar görmesini, ilgili kanıtların yok edilmesini, şüphelinin kaçmasını veya meşru kanuni uygulamaları haksız şekilde engelleyen başka sonuçların önlenmesi gerektiğine inanmasına neden olacak koşullar\" olarak tanımlanır. Acil durum tanımına uyan herhangi bir durumda, kolluk kuvveti personeli durumu bu şekilde tanımlayabilir.",
+    ],
+    classification: "BAŞLIK XIV - Kolluk Kuvveti Personeli Güvenliği",
+  },
+  {
+    number: "1404",
+    title: "Açık & Görülebilir Alan Doktrini",
+    types: [],
+    paragraphs: [
+      "Kolluk kuvveti personeli, doğrudan görebileceği herhangi bir olayda kanıt toplama ve kaydetme yetkisine sahiptir.",
+    ],
+    classification: "BAŞLIK XIV - Açık & Görülebilir Alan Doktrini",
+  },
+  {
+    number: "1405",
+    title: "Arama İzni & Feragat",
+    types: [],
+    paragraphs: [
+      "Bir kişi, kolluk kuvveti personeline, mülke, ekipmanlara veya alana girme ve inceleme izni verirse, arama karşıtı olan anayasanın dördüncü değişikliğinden feragat etmiş olacaktır. Bir kişi, söz konusu izni istediği herhangi bir zamanda geri çekebilir. O zamana kadar bulunan tüm deliller mahkemede kabul edilecektir.",
+    ],
+    classification: "BAŞLIK XIV - Açık & Görülebilir Alan Doktrini",
+  },
+  {
+    number: "1406",
+    title: "İyilikseven Kimse",
+    types: [],
+    paragraphs: [
+      "Herhangi bir vatandaş, yardıma veya bakıma ihtiyacı olan birini gözlemlediğinde, ihmalkar davranmadığı sürece, yardım sağlayabilir ve bundan sorumlu tutulamaz.",
+    ],
+    classification: "BAŞLIK XIV - İyilikseven Kimse & Seyirci Olmak",
+  },
+  {
+    number: "1407",
+    title: "Seyirci Olmak",
+    types: [],
+    paragraphs: [
+      "Herhangi bir vatandaş, yardıma veya bakıma ihtiyacı olan birini gözlemlediğinde, yardım etmeyi reddedebilir ve durumu görmezden gelebilir. Bu durumda duruma karşı hareketsiz kalmaktan ve eyleme geçmemekten sorumlu tutulamaz.",
+    ],
+    classification: "BAŞLIK XIV - İyilikseven Kimse & Seyirci Olmak",
+  },
+  {
+    number: "1408",
+    title: "Kamu Çalışanlarının Kaydedilmesi",
+    types: [],
+    paragraphs: [
+      "Kamu çalışanları, resmi görevlerini yerine getirirken her zaman kaydedilebilir.",
+    ],
+    classification: "BAŞLIK XIV - Video & Ses Kayıt Politikası",
+  },
+  {
+    number: "1409",
+    title: "Ses & Görüntü Kayıt Hakkı",
+    types: [],
+    paragraphs: [
+      "State of San Andreas, özel hayatın gizliliği beklentisine sahip gerçek bir kişinin yer almadığı durumlarda, insanlara ses veya görüntü kaydetme hakkı verir. Kamuya açık alanlarda bu gizlilik beklentisi her zaman yok sayılmalıdır. Bu madde, kolluk kuvvetleri tarafından özel bir ortamda yürütülen soruşturmaları kapsamaz ve bu soruşturma ile ilgili gerekli izin bulunmalıdır.",
+    ],
+    classification: "BAŞLIK XIV - Video & Ses Kayıt Politikası",
+  },
+  {
+    number: "1501",
+    title: "Sürücü Belgesi Yaş Sınırı",
+    types: [],
+    paragraphs: [
+      "16 yaşın altındaki hiç kimse sürücü belgesi alamaz.",
+    ],
+    classification: "BAŞLIK XV - Sürücü Belgeleri & İzinler",
+  },
+  {
+    number: "1502",
+    title: "Kamu Çalışanları Muafiyeti",
+    types: [],
+    paragraphs: [
+      "Kamu çalışanları, motorlu araçlar ve diğer ekipmanlar, kamuya açık bir yolun yüzeyinde fiilen çalışırken veya resmi trafik kontrol cihazlarının montajı, sökülmesi, onarımı veya bakımı ile uğraşırken, araçlarında sarı, kırmızı veya mavi ışıklar varsa ve söz konusu işi veya bakımı yapmaya yetkili iseler, bu başlıktan muaftır.",
+    ],
+    classification: "BAŞLIK XV - Sürüş Muafiyetleri",
+  },
+  {
+    number: "1503",
+    title: "Acil Durum Aracı Muafiyeti",
+    types: [],
+    paragraphs: [
+      "Yetkili bir acil durum aracının sürücüsü, araç acil bir çağrıya yanıt olarak sürülüyorsa ve aracın sürücüsü kırmızı, mavi veya sarı flaşörlerin herhangi bir kombinasyonunu gösteriyorsa, Başlık XV ve Başlık IV ihlallerinden muaftır. Bu bölüm, bir aracın sürücüsünü kamuya açık yolu kullanan tüm kişilerin güvenliğini gözeterek araç kullanma yükümlülüğünden kurtarmaz ya da bu bölümde verilen ayrıcalıkların keyfi olarak kullanılmasının sonuçlarından korumaz.",
+    ],
+    classification: "BAŞLIK XV - Sürüş Muafiyetleri",
+  },
+  {
+    number: "1504",
+    title: "Kırmızı & Mavi Flaşör Yetkisi",
+    types: [],
+    paragraphs: [
+      "Aşağıdaki devlet kurumları kırmızı ve mavi flaşörlü acil durum araçları kullanma yetkisine sahiptir: Bölüm 1009, 1010 ve 1011'de tanımlanan barış görevlilerini istihdam eden tüm kurumlar.",
+    ],
+    classification: "BAŞLIK XV - Sürüş Muafiyetleri",
+  },
+  {
+    number: "1505",
+    title: "Kırmızı Çakar Lambası Yetkisi",
+    types: [],
+    paragraphs: [
+      "Aşağıdaki devlet kurumları kırmızı çakar lambalı acil durum araçları kullanma yetkisine sahiptir: Bölüm 1009, 1010 ve 1011'de tanımlanan barış görevlilerini istihdam eden tüm kurumlar.",
+      "Los Santos Fire Department, Los Santos Sheriff's Department, Los Santos Police Department, Pillbox Hill Medical Center, Port of Los Santos, Los Santos County District Attorney's Office, San Andreas Aviation Authority, Governor's Office of Emergency Services, San Andreas Department of Forestry and Fire Protection.",
+    ],
+    classification: "BAŞLIK XV - Sürüş Muafiyetleri",
+  },
+  {
+    number: "1506",
+    title: "Yolun Sağ Tarafı",
+    types: [],
+    paragraphs: [
+      "Tüm kamu yollarında, bir araç yolun sağ tarafında kullanılmalıdır.",
+    ],
+    classification: "BAŞLIK XV - Kamu Yolu İşaretleri",
+  },
+  {
+    number: "1507",
+    title: "Yol Çizgileri",
+    types: [],
+    paragraphs: [
+      "Yolun ortasındaki sarı çizgiler, trafik yönlerini ayırır. Yolun üzerindeki beyaz kesik çizgiler ise trafik şeritlerini ayırır.",
+    ],
+    classification: "BAŞLIK XV - Kamu Yolu İşaretleri",
+  },
+  {
+    number: "1508",
+    title: "Duraklama Çizgisi",
+    types: [],
+    paragraphs: [
+      "Trafiğin geldiği yöne dik bir şekilde yolun üzerine çizilmiş olan tek beyaz çizgi, yaya geçişi olan bölgelerde yaya geçişine izin vermek için çizilmiş duraklama çizgisidir. Eğer yayalar geçmek istiyorsa, sürücüler bu çizginin önünde tamamen durmak zorundadır.",
+    ],
+    classification: "BAŞLIK XV - Kamu Yolu İşaretleri",
+  },
+  {
+    number: "1509",
+    title: "Trafik Işıkları",
+    types: [],
+    paragraphs: [
+      "Trafik ışıklarının bulunduğu bir kavşağa yaklaşıldığında, trafik ışığı kırmızı yanıyorsa, sürücü beyaz dik çizgiden veya yaya geçidinin son dik çizgisinden önce durmalıdır. Sürücü kavşaktan geçmeden önce tüm araçlara geçiş hakkı vermelidir. Trafik ışığı yeşil yanıyorsa, sürücünün durması gerekmez.",
+      "(( Senkronizasyon sorunları nedeniyle askıya alındı. 1512 bölümünü kontrol edin. ))",
+    ],
+    classification: "BAŞLIK XV - Araçlarda Geçiş Hakkı",
+  },
+  {
+    number: "1510",
+    title: "Sola Dönüş & U Dönüşü",
+    types: [],
+    paragraphs: [
+      "Kamuya açık bir yolda sola dönmek veya U dönüşü yapmak isteyen bir aracın sürücüsü, dönüş hareketi sırasında tehlike oluşturacak kadar yakın olan ve karşı yönden yaklaşan tüm araçlara geçiş hakkı verecek ve dönüş makul bir güvenlikle yapılana kadar geçiş hakkı vermeye devam edecektir.",
+    ],
+    classification: "BAŞLIK XV - Araçlarda Geçiş Hakkı",
+  },
+  {
+    number: "1511",
+    title: "Yola Giriş",
+    types: [],
+    paragraphs: [
+      "Herhangi bir kamu veya özel mülkten ya da bir ara sokaktan kamu yoluna girmek veya geçmek üzere olan herhangi bir aracın sürücüsü, acil bir tehlike oluşturacak kadar yakın olan tüm trafiğe geçiş hakkını vermeli ve makul bir güvenlikle ilerleyene kadar bu trafiğe geçiş hakkını vermeye devam etmelidir.",
+    ],
+    classification: "BAŞLIK XV - Araçlarda Geçiş Hakkı",
+  },
+  {
+    number: "1512",
+    title: "Acil Durum Aracına Yol Verme",
+    types: [],
+    paragraphs: [
+      "Siren çalan veya mavi ya da kırmızı ışık veren en az bir ışıklı lambaya sahip yetkili bir acil durum aracının hemen yaklaşması üzerine, çevredeki trafik geçiş hakkını verecek ve derhal sağ kenara veya kaldırıma doğru, herhangi bir kavşaktan uzak bir şekilde ilerleyecek ve duracaktır.",
+    ],
+    classification: "BAŞLIK XV - Araçlarda Geçiş Hakkı",
+  },
+  {
+    number: "1513",
+    title: "Yayaya Geçiş Hakkı",
+    types: [],
+    paragraphs: [
+      "Bir aracın sürücüsü, herhangi bir işaretli yaya geçidinde veya bir kavşaktaki işaretlenmemiş yaya geçidinde karşıdan karşıya geçen bir yayaya geçiş hakkını vermelidir.",
+    ],
+    classification: "BAŞLIK XV - Araçlarda Geçiş Hakkı",
+  },
+  {
+    number: "1514",
+    title: "Kırmızı Işıkta Durma",
+    types: [],
+    paragraphs: [
+      "Trafik ışıklarının bulunduğu bir kavşağa yaklaşıldığında trafik ışığı kırmızı yanıyorsa, sürücü devam etmeden önce durmalıdır. Kavşakta başka araç yoksa, sürücü dikkatli bir şekilde ilerleyebilir.",
+      "(( Senkronizasyon sorunları nedeniyle askıya alınmıştır. Geçici çözüm olarak tüm kesişimlere dört yol ağzı olarak davranılması kararlaştırılmıştır. ))",
+    ],
+    classification: "BAŞLIK XV - Araçlarda Geçiş Hakkı",
+  },
+  {
+    number: "1515",
+    title: "Sabit Acil Durum Araçları",
+    types: [],
+    paragraphs: [
+      "San Andreas Eyaletinde motorlu araç sürücüleri, sabit acil durum araçları etrafında güvenli araç kullanımına riayet etmelidir. Sürücülerin sabit duran bir acil durum aracını geçerken bitişik bir şeride geçmeleri kanunen zorunludur. Bitişik şeride geçmek mümkün ya da güvenli değilse, sürücü aracını 30 mil/saat hıza kadar yavaşlatmalıdır.",
+    ],
+    classification: "BAŞLIK XV - Araçlarda Geçiş Hakkı",
+  },
+  {
+    number: "1516",
+    title: "Araca El Koyma Koşulları",
+    types: [],
+    paragraphs: [
+      "Bir suçun işlenmesinde yer alan herhangi bir araç, söz konusu aracın sahibine karşı tutuklama kararı çıkarılması durumunda veya şüpheliye ömür boyu hapis cezası veya idam cezası verilmesi halinde el konulabilecektir. Aksi takdirde şüphelinin serbest bırakılmasına kadar veya tutuklamanın ardından 48 saat geçene kadar araca el koyulacaktır.",
+      "Bir haftalık süre içinde dört veya daha fazla trafikle ilgili ceza alan herhangi bir araç/sahibi, aracı el konulmadan yedi gün sonra geri alabilir.",
+      "ABD'ye yasa dışı yollardan sokulan herhangi bir araca otomatik olarak el konulacaktır ve kayıtlı sahibi hakkında federal tutuklama kararı çıkarılacaktır.",
+      "Yukarıdaki tanımlara uymayan ancak trafikle ilgili başka suçlar yoluyla engel oluşturan araç, kolluk kuvveti personelinin takdirine göre güvenli bir yere çektirilebilir.",
+    ],
+    classification: "BAŞLIK XV - Araca El Koyma, Aracı Çekme & Lisansa El Koyma",
+  },
+  {
+    number: "1517",
+    title: "Ehliyete El Koyma",
+    types: [],
+    paragraphs: [
+      "Trafikle ilgili belirli suçlar için özel olarak aksi belirtilmedikçe, ehliyetin askıya alınması, kişinin sicilinde belirli bir suçla ilgili belirli sayıda suç biriktikten sonra verilebilir. Bu askıya almalar yedi günden fazla sürmeyebilir ve yalnızca memurun takdirine bağlı olarak belirli bir suçun 3. suçundan sonra verilebilir. Bu, Başlık IV altında listelenen tüm suçlamalar için geçerli olacaktır.",
+    ],
+    classification: "BAŞLIK XV - Araca El Koyma, Aracı Çekme & Lisansa El Koyma",
+  },
+  {
+    number: "1518",
+    title: "Kavşaklarda Geçiş Hakkı",
+    types: [],
+    paragraphs: [
+      "Sürücüler olası kazaları önlemek için kavşağa yaklaşırken dikkatli olmalı ve aşağıdaki alt maddelere uymalıdır:",
+      "Kavşağa yaklaşan sürücüler kavşak bölgesine girmeden önce hızlarını tam olarak durmalarına olanak sağlayacak seviyeye indirmelidir.",
+      "Emniyet ve geçiş hakkı gibi trafik koşullarının zorunlu tutmadığı durumlarda kavşak öncesi tam duruş zorunlu değildir.",
+      "Bir yaya geçidi üzerinden geçen veya geçme niyeti olan yayalar tüm taşıtlara karşı geçiş üstünlüğüne sahiptir.",
+      "Aynı kavşağa sürücünün sağ tarafından başka bir taşıt yaklaşıyorsa, sağdan yaklaşan taşıta yol verilmelidir.",
+      "Asfalt yoldaki sürücüler asfalt olmayan yoldaki sürücülere karşı her zaman geçiş üstünlüğüne sahiptir.",
+      "(( Trafik ışıkları senkronizasyon ve diğer problemler nedeniyle kullanımda değildir ve rol detaylarına dahil edilmeyecektir. ))",
+    ],
+    classification: "BAŞLIK XV - Taşıtların Geçiş Hakkı",
+  },
+  {
+    number: "1519",
+    title: "Trafiğe Çıkması Yasaklı Araçlar",
+    types: [],
+    paragraphs: [
+      "San Andreas Eyaleti içerisinde Şehir olarak tanımlanan yerlerin içerisinde bulunan cadde ve sokaklarda trafiğe çıkması uygun olmayan ATV, Traktör, Golf aracı ve türevleri belirli kısıtlamalarla kullanılabilir.",
+      "Öncelikli olarak bu araçlar için 911 üzerinden eskort desteği talep edilmelidir, eğer bu karşılanmıyorsa çekici bulunmalıdır. Bu da mümkün değilse, trafikte şeridin en sağ tarafında tüm sinyal ışıkları açık bir şekilde 50 KM/h'i geçmeyecek şekilde ilerlenmesi gerekmektedir.",
+      "Bu maddeye bağlı olarak bu tipteki araçların kullanım alanlarına göre davranılması ve seyahat esnasında bu kısıtlamalara uyulması gerekmektedir.",
+    ],
+    classification: "BAŞLIK XV - Trafiğe Çıkması Yasaklı Araçlar ve Standartları",
+  },
+  {
+    number: "1520",
+    title: "Örtülü Onay",
+    types: [],
+    paragraphs: [
+      "Kamuya açık bir alanda motorlu araç kullanan herhangi bir birey, aşağıdaki koşullar dahilinde kendisine uygulanacak olan kimyasal testler için rızasını vermekle yükümlüdür:",
+      "(i) CK § 430 yasasına göre etki altında olduğu gerekçesiyle kanunlara uygun bir şekilde tutuklanan herhangi bir birey, bir polis istasyonunda veya önceden belirlenmiş standarda sahip bir tesiste delil niteliğinde bir nefes örneği vermeyi kabul etmiş sayılır. Alkol nefes örneği vermeyi reddeden bireyler § 431 yasasına göre suç teşkil etmektedir.",
+      "(ii) Bir birey, yalnızca ilgili kolluk kuvvetleri memurunun bir arama emrine istinaden veya IV. Amendment altında tanınmış olağanüstü durumlara uygun olarak kan örneği veya vücuda ait diğer sıvı örneklerini vermeyi kabul etmiş sayılır.",
+      "(iii) Hiçbir birey saha ayıklık testini kabul etmiş sayılmayacaktır ve bu tür testlerin reddedilmesi cezayı gerektiren bir suç teşkil etmeyecektir. Testin uygulanması veya reddedilmesi, makul nedenin belirlenebilmesi için delil olarak kullanılabilir.",
+    ],
+    classification: "BAŞLIK XV - Örtülü Onay",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
