@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
+import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as CaselawRouteImport } from './routes/caselaw'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
   id: '/arrest-calculator',
   path: '/arrest-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArrestReportRoute = ArrestReportRouteImport.update({
+  id: '/arrest-report',
+  path: '/arrest-report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaselawRoute = CaselawRouteImport.update({
@@ -44,6 +50,7 @@ const PenalCodeRoute = PenalCodeRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
+  '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
+  '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -59,6 +67,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
+  '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -68,6 +77,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/arrest-calculator'
+    | '/arrest-report'
     | '/caselaw'
     | '/paperwork-generators'
     | '/penal-code'
@@ -75,6 +85,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/arrest-calculator'
+    | '/arrest-report'
     | '/caselaw'
     | '/paperwork-generators'
     | '/penal-code'
@@ -82,6 +93,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/arrest-calculator'
+    | '/arrest-report'
     | '/caselaw'
     | '/paperwork-generators'
     | '/penal-code'
@@ -90,6 +102,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
+  ArrestReportRoute: typeof ArrestReportRoute
   CaselawRoute: typeof CaselawRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
@@ -109,6 +122,13 @@ declare module '@tanstack/react-router' {
       path: '/arrest-calculator'
       fullPath: '/arrest-calculator'
       preLoaderRoute: typeof ArrestCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/arrest-report': {
+      id: '/arrest-report'
+      path: '/arrest-report'
+      fullPath: '/arrest-report'
+      preLoaderRoute: typeof ArrestReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/caselaw': {
@@ -138,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
+  ArrestReportRoute: ArrestReportRoute,
   CaselawRoute: CaselawRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,

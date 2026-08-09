@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-report")({
   validateSearch: (search: Record<string, unknown>) => ({
-    c: typeof search.c === "string" ? search.c : "",
+    c: typeof search["c"] === "string" ? (search["c"] as string) : "",
   }),
   head: () => ({
     meta: [
