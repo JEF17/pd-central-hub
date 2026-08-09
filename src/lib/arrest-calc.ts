@@ -74,6 +74,7 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
     const definition = getCharge(row.number);
     if (!definition) continue;
     const variant = definition.variants.find((v) => v.cls === row.cls) ?? definition.variants[0];
+    if (!variant) continue;
     const add = additionMap[row.addition] ?? additionMap.offender;
     const paroleFactor = paroleViolator ? 2 : 1;
 
@@ -83,7 +84,7 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
 
     const offenseIndex = Math.min(Math.max(row.offense, 1), 3) - 1;
     const baseFine = variant.offenseFines.length
-      ? (variant.offenseFines[offenseIndex] ?? variant.offenseFines[variant.offenseFines.length - 1])
+      ? (variant.offenseFines[offenseIndex] ?? variant.offenseFines[variant.offenseFines.length - 1] ?? 0)
       : variant.fine;
     const fine = Math.round(baseFine * add.timeFactor);
 
@@ -155,8 +156,8 @@ export function decodeRows(value: string): { rows: ChargeRow[]; paroleViolator: 
     .map((part, index) => {
       const [number, cls, offense, addition] = part.split("~");
       return {
-        id: `${number}-${index}`,
-        number,
+        id: `${number ?? "?"}-${index}`,
+        number: number ?? "",
         cls: (cls as ChargeClass) ?? "C",
         offense: Number(offense) || 1,
         addition: (addition as AdditionKey) ?? "offender",
