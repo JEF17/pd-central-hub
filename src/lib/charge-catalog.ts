@@ -18,11 +18,22 @@ export interface BailInfo {
   optional: boolean;
 }
 
+export interface ChargeCategory {
+  /** Kontrollü madde kategorisi (A, B, C, D, T) */
+  key: string;
+  fine: number;
+  maxMinutes: number;
+  /** Hapis yerine uygulanan yaptırım varsa açıklaması */
+  note: string;
+}
+
 export interface ChargeDefinition {
   number: string;
   title: string;
   classification: string;
   variants: ChargeVariant[];
+  /** Uyuşturucu suçlarında (C.K. 601-606) madde kategorisine göre ceza tablosu */
+  categories?: ChargeCategory[];
   bail: BailInfo;
 }
 
@@ -3230,6 +3241,38 @@ export const chargeCatalog: ChargeDefinition[] = [
       }
     ],
     "classification": "C Sınıfı (7) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $50.000'a kadar para cezası ve 14 günden fazla olmamak üzere hapis cezası\nB — $45.000'a kadar para cezası ve 12 günden fazla olmamak üzere hapis cezası\nC — $40.000'a kadar para cezası ve 10 günden fazla olmamak üzere hapis cezası\nD — $20.000'a kadar para cezası ve 8 günden fazla olmamak üzere hapis cezası\nT — $15.000'a kadar para cezası ve 3 günden fazla olmamak üzere hapis cezası",
+    "categories": [
+      {
+        "key": "A",
+        "fine": 50000,
+        "maxMinutes": 20160,
+        "note": ""
+      },
+      {
+        "key": "B",
+        "fine": 45000,
+        "maxMinutes": 17280,
+        "note": ""
+      },
+      {
+        "key": "C",
+        "fine": 40000,
+        "maxMinutes": 14400,
+        "note": ""
+      },
+      {
+        "key": "D",
+        "fine": 20000,
+        "maxMinutes": 11520,
+        "note": ""
+      },
+      {
+        "key": "T",
+        "fine": 15000,
+        "maxMinutes": 4320,
+        "note": ""
+      }
+    ],
     "bail": {
       "amount": 470000,
       "auto": true,
@@ -3251,6 +3294,38 @@ export const chargeCatalog: ChargeDefinition[] = [
       }
     ],
     "classification": "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $4.500'a kadar para cezası ve 20 saatten fazla olmamak üzere hapis cezası\nB — $3.750'a kadar para cezası ve 15 saatten fazla olmamak üzere hapis cezası\nC — $3.000'a kadar para cezası ve 10 saatten fazla olmamak üzere hapis cezası\nD — $2.250'a kadar para cezası ve yazılı veya sözlü uyarı\nT — $500'a kadar para cezası ve yazılı veya sözlü uyarı",
+    "categories": [
+      {
+        "key": "A",
+        "fine": 4500,
+        "maxMinutes": 1200,
+        "note": ""
+      },
+      {
+        "key": "B",
+        "fine": 3750,
+        "maxMinutes": 900,
+        "note": ""
+      },
+      {
+        "key": "C",
+        "fine": 3000,
+        "maxMinutes": 600,
+        "note": ""
+      },
+      {
+        "key": "D",
+        "fine": 2250,
+        "maxMinutes": 0,
+        "note": "yazılı veya sözlü uyarı"
+      },
+      {
+        "key": "T",
+        "fine": 500,
+        "maxMinutes": 0,
+        "note": "yazılı veya sözlü uyarı"
+      }
+    ],
     "bail": {
       "amount": 20000,
       "auto": true,
@@ -3272,6 +3347,38 @@ export const chargeCatalog: ChargeDefinition[] = [
       }
     ],
     "classification": "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $15.000'a kadar para cezası ve 2 günden fazla olmamak üzere hapis cezası\nB — $10.500'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nC — $7.000'a kadar para cezası ve 14 saatten fazla olmamak üzere hapis cezası\nD — $5.250'a kadar para cezası ve 12 saatten fazla olmamak üzere hapis cezası\nT — $1.000'a kadar para cezası ve 6 saatten fazla olmamak üzere hapis cezası",
+    "categories": [
+      {
+        "key": "A",
+        "fine": 15000,
+        "maxMinutes": 2880,
+        "note": ""
+      },
+      {
+        "key": "B",
+        "fine": 10500,
+        "maxMinutes": 1440,
+        "note": ""
+      },
+      {
+        "key": "C",
+        "fine": 7000,
+        "maxMinutes": 840,
+        "note": ""
+      },
+      {
+        "key": "D",
+        "fine": 5250,
+        "maxMinutes": 720,
+        "note": ""
+      },
+      {
+        "key": "T",
+        "fine": 1000,
+        "maxMinutes": 360,
+        "note": ""
+      }
+    ],
     "bail": {
       "amount": 30000,
       "auto": true,
@@ -3293,6 +3400,38 @@ export const chargeCatalog: ChargeDefinition[] = [
       }
     ],
     "classification": "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $15.000'a kadar para cezası ve 2 günden fazla olmamak üzere hapis cezası\nB — $10.500'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nC — $7.000'a kadar para cezası ve 14 saatten fazla olmamak üzere hapis cezası\nD — $5.250'a kadar para cezası ve 12 saatten fazla olmamak üzere hapis cezası\nT — $1.000'a kadar para cezası ve 6 saatten fazla olmamak üzere hapis cezası",
+    "categories": [
+      {
+        "key": "A",
+        "fine": 15000,
+        "maxMinutes": 2880,
+        "note": ""
+      },
+      {
+        "key": "B",
+        "fine": 10500,
+        "maxMinutes": 1440,
+        "note": ""
+      },
+      {
+        "key": "C",
+        "fine": 7000,
+        "maxMinutes": 840,
+        "note": ""
+      },
+      {
+        "key": "D",
+        "fine": 5250,
+        "maxMinutes": 720,
+        "note": ""
+      },
+      {
+        "key": "T",
+        "fine": 1000,
+        "maxMinutes": 360,
+        "note": ""
+      }
+    ],
     "bail": {
       "amount": 70000,
       "auto": true,
@@ -3314,6 +3453,38 @@ export const chargeCatalog: ChargeDefinition[] = [
       }
     ],
     "classification": "C Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $22.500'a kadar para cezası ve 4 günden fazla olmamak üzere hapis cezası\nB — $18.750'a kadar para cezası ve 3 günden fazla olmamak üzere hapis cezası\nC — $15.000'a kadar para cezası ve 2 günden fazla olmamak üzere hapis cezası\nD — $11.500'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nT — $4.000'a kadar para cezası ve 10 saatten fazla olmamak üzere hapis cezası",
+    "categories": [
+      {
+        "key": "A",
+        "fine": 22500,
+        "maxMinutes": 5760,
+        "note": ""
+      },
+      {
+        "key": "B",
+        "fine": 18750,
+        "maxMinutes": 4320,
+        "note": ""
+      },
+      {
+        "key": "C",
+        "fine": 15000,
+        "maxMinutes": 2880,
+        "note": ""
+      },
+      {
+        "key": "D",
+        "fine": 11500,
+        "maxMinutes": 1440,
+        "note": ""
+      },
+      {
+        "key": "T",
+        "fine": 4000,
+        "maxMinutes": 600,
+        "note": ""
+      }
+    ],
     "bail": {
       "amount": 80000,
       "auto": true,
@@ -3335,6 +3506,38 @@ export const chargeCatalog: ChargeDefinition[] = [
       }
     ],
     "classification": "C Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Ceza yönergeleri:\nA — $45.000'a kadar para cezası ve 7 günden fazla olmamak üzere hapis cezası\nB — $37.500'a kadar para cezası ve 6 günden fazla olmamak üzere hapis cezası\nC — $30.000'a kadar para cezası ve 5 günden fazla olmamak üzere hapis cezası\nD — $22.500'a kadar para cezası ve 4 günden fazla olmamak üzere hapis cezası\nT — $8.000'a kadar para cezası ve 1 günden fazla olmamak üzere hapis cezası\nNot: Gözaltına alındığında veya tutuklandığında bulunan her 75 gram için cezasına ek 12 saat eklenecektir.",
+    "categories": [
+      {
+        "key": "A",
+        "fine": 45000,
+        "maxMinutes": 10080,
+        "note": ""
+      },
+      {
+        "key": "B",
+        "fine": 37500,
+        "maxMinutes": 8640,
+        "note": ""
+      },
+      {
+        "key": "C",
+        "fine": 30000,
+        "maxMinutes": 7200,
+        "note": ""
+      },
+      {
+        "key": "D",
+        "fine": 22500,
+        "maxMinutes": 5760,
+        "note": ""
+      },
+      {
+        "key": "T",
+        "fine": 8000,
+        "maxMinutes": 1440,
+        "note": ""
+      }
+    ],
     "bail": {
       "amount": 100000,
       "auto": true,
