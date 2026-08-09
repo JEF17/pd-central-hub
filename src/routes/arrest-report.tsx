@@ -303,3 +303,16 @@ function CopyField({
     </div>
   );
 }
+
+function ParoleValue({ base, final, active }: { base: string; final: string; active: boolean }) {
+  if (!active || base === final) return <span>{final}</span>;
+  return (
+    <span
+      className="inline-flex flex-col leading-tight"
+      title={`Normal: ${base} · Şartlı tahliye ihlali (x2): ${final}`}
+    >
+      <span className="font-semibold">{final}</span>
+      <span className="text-xs text-muted-foreground line-through">{base}</span>
+    </span>
+  );
+}
