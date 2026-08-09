@@ -78,6 +78,14 @@ function Page() {
                 </Link>
               );
             }
+            if (t.slug === "tutuklama-raporu") {
+              return (
+                <Link key={t.slug} to="/tutuklama-raporu" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
+
 
 
 
