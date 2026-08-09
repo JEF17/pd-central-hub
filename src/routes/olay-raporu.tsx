@@ -10,9 +10,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
+  areaOptions,
+  assignmentOptions,
   buildIncidentBBCode,
   buildIncidentTitle,
+  divisionOptions,
   emptyIncidentReport,
   followUpOptions,
   incidentTypeOptions,
@@ -99,8 +103,18 @@ function Page() {
           <Section title="Personel Bilgileri">
             <Field label="Adı Soyadı" value={data.officerName} onChange={(v) => set("officerName", v)} />
             <Field label="Seri No." value={data.serialNo} onChange={(v) => set("serialNo", v)} placeholder="00000" />
-            <Field label="Division" value={data.division} onChange={(v) => set("division", v)} placeholder="MISN" />
-            <Field label="Görevlendirme" value={data.assignment} onChange={(v) => set("assignment", v)} />
+            <SelectField
+              label="Division"
+              value={data.division}
+              onChange={(v) => set("division", v)}
+              options={divisionOptions.map((d) => ({ label: d, value: d }))}
+            />
+            <SelectField
+              label="Görevlendirme"
+              value={data.assignment}
+              onChange={(v) => set("assignment", v)}
+              options={assignmentOptions}
+            />
             <Field label="Tarih" value={data.date} onChange={(v) => set("date", v)} placeholder="GG/AA/YYYY" />
           </Section>
 
@@ -112,7 +126,12 @@ function Page() {
               placeholder="26/01/2026 - 22.20"
             />
             <Field label="Konum" value={data.location} onChange={(v) => set("location", v)} />
-            <Field label="Bölge" value={data.area} onChange={(v) => set("area", v)} />
+            <SelectField
+              label="Bölge"
+              value={data.area}
+              onChange={(v) => set("area", v)}
+              options={areaOptions.map((a) => ({ label: a, value: a }))}
+            />
             <div className="sm:col-span-2">
               <Label className="text-xs">Olay Türü</Label>
               <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
@@ -350,5 +369,35 @@ function CheckItem({
       <Checkbox checked={checked} onCheckedChange={onChange} />
       {label}
     </label>
+  );
+}
+
+function SelectField({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  options: { label: string; value: string }[];
+}) {
+  return (
+    <div>
+      <Label className="text-xs">{label}</Label>
+      <Select value={value || undefined} onValueChange={onChange}>
+        <SelectTrigger className="mt-2">
+          <SelectValue placeholder="Seçiniz" />
+        </SelectTrigger>
+        <SelectContent className="max-h-72">
+          {options.map((o) => (
+            <SelectItem key={o.value} value={o.value}>
+              {o.label}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 }

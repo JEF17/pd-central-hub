@@ -52,6 +52,58 @@ export const processOptions = [
 
 export const followUpOptions = ["DB", "Traffic Division", "Area GIT", "Area Detective Division", "Area Vice", "Diğer"];
 
+export const divisionOptions = ["MISN", "MISN B", "CTD", "METRO", "ASD", "VES"];
+
+export const assignmentOptions: { label: string; value: string }[] = [
+  { label: "Adam", value: "A" },
+  { label: "Other Units (Lincoln dahil)", value: "O" },
+  { label: "Field Supervisor", value: "FS" },
+  { label: "Gang Enforcement Detail (GIT)", value: "GIT" },
+  { label: "Gang Enforcement Detail (GED)", value: "GED" },
+  { label: "Tom", value: "T" },
+  { label: "Tom Lincoln", value: "TL" },
+  { label: "Mary", value: "M" },
+  { label: "Detective Unit", value: "W" },
+  { label: "Senior Lead Officer", value: "SL" },
+  { label: "Desk Officer", value: "DESK" },
+  { label: "Extra Patrol Unit", value: "X" },
+  { label: "Metropolitan Division Unit", value: "R" },
+];
+
+export const areaOptions = [
+  "ALTA",
+  "BACKLOT CITY",
+  "BURTON",
+  "CYPRESS FLATS",
+  "CHAMBERLAIN HILLS",
+  "DAVIS",
+  "DEL PERRO",
+  "DOWNTOWN",
+  "DOWNTOWN VINEWOOD",
+  "EAST VINEWOOD",
+  "EL BURRO HEIGHTS",
+  "HAWICK",
+  "LITTLE SEOUL",
+  "LS COUNTY",
+  "MISSION ROW",
+  "MORNINGWOOD",
+  "LA PUERTA",
+  "LA MESA",
+  "MIRROR PARK",
+  "RICHMAN",
+  "ROCKFORD HILLS",
+  "PILLBOX HILL",
+  "TEXTILE CITY",
+  "VESPUCCI",
+  "VESPUCCI CANALS",
+  "VINEWOOD",
+  "VINEWOOD HILLS",
+  "WEST VINEWOOD",
+  "STRAWBERRY",
+  "RANCHO",
+  "LSIA",
+];
+
 export const emptyIncidentReport = (): IncidentReportData => ({
   reportNo: "",
   officerName: "",
@@ -82,9 +134,9 @@ const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
 const val = (v: string, fallback = "—") => (v.trim() ? v.trim() : fallback);
 const reportNumber = (value: string) => value.trim().replace(/^26-/, "");
 
-/** Konu başlığı: "OR — 09/08/2026 - 12345" */
+/** Konu başlığı: "09/08/2026 - 12345" */
 export function buildIncidentTitle(data: IncidentReportData) {
-  return `OR — ${val(data.date, "GG/AA/YYYY")} - ${val(reportNumber(data.reportNo), "00000")}`;
+  return `${val(data.date, "GG/AA/YYYY")} - ${val(reportNumber(data.reportNo), "00000")}`;
 }
 
 export function buildIncidentBBCode(data: IncidentReportData) {
