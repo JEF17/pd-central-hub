@@ -167,8 +167,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
       "f) Trafik radar cezalarını ödemeyi reddeden veya söz konusu trafik radar cezaları için bir ödeme planı sağlandıktan sonra 14 gün içinde ödemeyen herhangi bir kişi.",
     ],
     classification:
-      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden fazla olmayacaktır ve/ya da para cezası  $20.000'dan fazla olmayacaktır. Duruma göre sadece hapis ya da para cezası veya her ikisi de ilgili kişiye karşı uygulanabilir.",
-      "(( Bu suç sadece kefalet ihlallerinin olması durumunda zorunlu olarak mahkemeye gidecektir. )) ",
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden fazla olmayacaktır ve/ya da para cezası  $20.000'dan fazla olmayacaktır. Duruma göre sadece hapis ya da para cezası veya her ikisi de ilgili kişiye karşı uygulanabilir.\n(( Bu suç sadece kefalet ihlallerinin olması durumunda zorunlu olarak mahkemeye gidecektir. ))",
   },
   {
     number: "111",
