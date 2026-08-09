@@ -103,17 +103,12 @@ function CaselawPage() {
             </a>
           ))}
 
-          <div className="flex min-h-32 flex-col gap-2 rounded-lg border border-border bg-card p-4 lg:h-32">
+          <div className="flex min-h-32 flex-col gap-3 rounded-lg border border-border bg-card p-4 lg:h-32">
             <div className="flex min-w-0 items-start gap-2">
               <ExternalLink className="mt-0.5 size-4 shrink-0 text-primary" />
-              <div>
-                <h2 className="font-semibold">San Andreas Eyaleti CCTV Standartları</h2>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  Şehir içi ve şehir dışı CCTV standartlarını görüntüleyin.
-                </p>
-              </div>
+              <h2 className="font-semibold">San Andreas Eyaleti CCTV Standartları</h2>
             </div>
-            <div className="mt-auto grid gap-2 sm:grid-cols-2">
+            <div className="grid gap-2 sm:grid-cols-2">
               {cctvStandards.map((standard) => (
                 <Button
                   key={standard.label}
