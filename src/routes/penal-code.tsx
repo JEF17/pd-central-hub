@@ -13,7 +13,7 @@ type FilterType = CrimeType | null;
 type PenalCodeEntry = {
   number: string;
   title: string;
-  type: CrimeType;
+  types: CrimeType[];
   paragraphs: string[];
   classification: string;
 };
