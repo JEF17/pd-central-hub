@@ -170,6 +170,34 @@ const penalCodeEntries: PenalCodeEntry[] = [
       "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden fazla olmayacaktır ve/ya da para cezası  $20.000'dan fazla olmayacaktır. Duruma göre sadece hapis ya da para cezası veya her ikisi de ilgili kişiye karşı uygulanabilir.",
       "(( Bu suç sadece kefalet ihlallerinin olması durumunda zorunlu olarak mahkemeye gidecektir. )) ",
   },
+  {
+    number: "111",
+    title: "Yalancı Şahitlik",
+    type: "F",
+    paragraphs: [
+      "a) Herhangi bir yetkili mahkeme, memur veya bir mahkeme oturumunda tanıklık edeceğine, beyan edeceğine, ifade vereceğine veya doğru olduğunu tasdik edeceğine dair yemin ettikten sonra, kasten ve yeminine aykırı olacak şekilde yanlış bildiği önemli bir bilgiyi, yanıltıcı bir şekilde doğru olarak sunan herhangi bir kişi.",
+      "b) Herhangi bir mahkeme prosedürünü yanıltmak veya geciktirmek amacıyla, yazılı veya sözlü beyan yoluyla kasıtlı olarak yanlış veya eksik bilgi sağlayan herhangi bir kişi.",
+      "c) Yalan beyanın yalnızca sanık dışında tek bir kişinin tanıklığına dayandırıldığı durumlarda, hiç kimse yalancı şahitlikten mahkum edilemez.",
+    ],
+    classification:
+      "C Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 5 saatten az 3 günden fazla olmayacaktır.",
+  },
+  {
+    number: "112",
+    title: " Kamu Görevini Engellemek",
+    type: "F", "M",
+    paragraphs: [
+      "(a) Meşru bir mazereti olmaksızın baskı veya şiddet kullanma yoluyla kamu adaletinin uygulanmasını engelleme veya geciktirme amacıyla bir tanık veya bir kamu görevlisine karşı ağır bedensel zarar verme ya da ölümüne neden olma niyetinde olan herhangi bir kişi.",
+      "(b) Meşru bir mazereti olmaksızın baskı veya şiddet kullanma yoluyla kamu adaletinin uygulanmasını engelleme veya geciktirme amacıyla bir tanık veya bir kamu görevlisine karşı $50,000 maddi değeri aşan ciddi bir mal zararına neden olan, $100,000 maddi değeri aşan ciddi bir kayba neden olan ya da bir başkasına hafif fiziksel zarar vermek niyetinde olan herhangi bir kişi.",
+      "(c) Meşru bir mazereti olmaksızın baskı veya şiddet kullanma yoluyla kamu adaletinin uygulanmasını engelleme veya geciktirme amacıyla bir tanık veya bir kamu görevlisine karşı:",
+      "(i) en fazla $50,000 maddi zarara neden olan,",
+      "(ii) (ii) kamu düzenini bozan veya bir başkasının kamu düzenini bozmasına neden olan herhangi bir kişi.",
+    ],
+    classification:
+      "Madde (a) ihlalinde A Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 4 günden fazla olmayacaktır.",
+      "Madde (b) ihlalinde B Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 2 günden fazla olmayacaktır.",
+      "Madde (c) ihlalinde C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 12 saatten fazla olmayacaktır.",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
