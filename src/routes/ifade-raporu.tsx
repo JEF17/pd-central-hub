@@ -342,7 +342,7 @@ function SelectField({
   return (
     <div>
       <Label className="text-xs">{label}</Label>
-      <Select value={value || undefined} onValueChange={onChange}>
+      <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="mt-2">
           <SelectValue placeholder="Seçiniz" />
         </SelectTrigger>

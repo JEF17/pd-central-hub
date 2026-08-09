@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as CaselawRouteImport } from './routes/caselaw'
+import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
@@ -37,6 +38,11 @@ const CaselawRoute = CaselawRouteImport.update({
   path: '/caselaw',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IfadeRaporuRoute = IfadeRaporuRouteImport.update({
+  id: '/ifade-raporu',
+  path: '/ifade-raporu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OlayRaporuRoute = OlayRaporuRouteImport.update({
   id: '/olay-raporu',
   path: '/olay-raporu',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/ifade-raporu': typeof IfadeRaporuRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/ifade-raporu': typeof IfadeRaporuRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/ifade-raporu': typeof IfadeRaporuRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/ifade-raporu'
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/ifade-raporu'
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/ifade-raporu'
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   ArrestReportRoute: typeof ArrestReportRoute
   CaselawRoute: typeof CaselawRoute
+  IfadeRaporuRoute: typeof IfadeRaporuRoute
   OlayRaporuRoute: typeof OlayRaporuRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaselawRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ifade-raporu': {
+      id: '/ifade-raporu'
+      path: '/ifade-raporu'
+      fullPath: '/ifade-raporu'
+      preLoaderRoute: typeof IfadeRaporuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/olay-raporu': {
       id: '/olay-raporu'
       path: '/olay-raporu'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   ArrestReportRoute: ArrestReportRoute,
   CaselawRoute: CaselawRoute,
+  IfadeRaporuRoute: IfadeRaporuRoute,
   OlayRaporuRoute: OlayRaporuRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
@@ -187,13 +208,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
