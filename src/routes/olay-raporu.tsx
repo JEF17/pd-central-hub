@@ -211,7 +211,7 @@ function Page() {
                 <ProcessItem
                   key={p}
                   label={p}
-                  icon={processIcons[p]}
+                  icon={processIcons[p] ?? FileSearch}
                   checked={data.process.includes(p)}
                   onChange={() => toggle("process", p)}
                 />
