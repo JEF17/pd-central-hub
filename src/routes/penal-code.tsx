@@ -50,6 +50,16 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "A, B veya C Sınıfı felony kapsamında sorumlu tutulacaktır ve cezası mahkemenin takdirine göre belirlenecektir.",
   },
+  {
+    number: "004",
+    title: "İç Terörizm Tehdidi",
+    type: "F",
+    paragraphs: [
+      "Sözlü veya yazılı olarak yapılan beyanın bir tehdit olarak algılanması için özel bir niyetle sivil bir nüfusu korkutmak veya baskılamak için başka bir kişiye ağır fiziksel yaralanma veya ölümle sonuçlanacak bir suç işlemekle kasten tehdit eden herhangi bir kişi.",
+    ],
+    classification:
+      "A, B veya C Sınıfı felony kapsamında sorumlu tutulacaktır ve cezası mahkemenin takdirine göre belirlenecektir.",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
@@ -124,9 +134,7 @@ function PenalCodePage() {
     <AppShell>
       <div className="mx-auto max-w-5xl px-6 py-8 sm:py-10">
         <header>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            LSPD Hukuk Birimi
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">LSPD Hukuk Birimi</p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground">Ceza Kanunları</h1>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             Suç ve kanun maddelerini arayın, suç türüne göre listeyi daraltın.
@@ -165,7 +173,12 @@ function PenalCodePage() {
                     active && "border-primary bg-primary/10 text-foreground ring-1 ring-primary/30",
                   )}
                 >
-                  <span className={cn("flex size-8 shrink-0 items-center justify-center rounded-md border text-sm font-bold", style.badge)}>
+                  <span
+                    className={cn(
+                      "flex size-8 shrink-0 items-center justify-center rounded-md border text-sm font-bold",
+                      style.badge,
+                    )}
+                  >
                     ({option.value})
                   </span>
                   <span className="min-w-0">
@@ -182,9 +195,7 @@ function PenalCodePage() {
           <p className="text-sm text-muted-foreground">
             {query ? `“${query}” için sonuçlar` : `${typeStyles[activeFilter].label} maddeleri`}
           </p>
-          <span className="text-xs font-medium text-muted-foreground">
-            {filteredEntries.length} madde
-          </span>
+          <span className="text-xs font-medium text-muted-foreground">{filteredEntries.length} madde</span>
         </div>
 
         <section className="mt-4 space-y-3" aria-live="polite" aria-label="Ceza kanunu sonuçları">
@@ -200,9 +211,7 @@ function PenalCodePage() {
                 )}
               >
                 <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
-                  <span className="font-mono text-base font-semibold text-foreground">
-                    {entry.number}.
-                  </span>
+                  <span className="font-mono text-base font-semibold text-foreground">{entry.number}.</span>
                   <h2 className="text-base font-semibold text-foreground">{entry.title}</h2>
                   <span className={cn("rounded border px-2 py-0.5 text-xs font-bold", style.badge)}>
                     ({entry.type}) {style.label}
