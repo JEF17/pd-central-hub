@@ -6,9 +6,11 @@ const PREFIX = "lspd-draft:";
  * Form state with automatic localStorage draft persistence.
  * Returns [data, setData, clearDraft, savedAt].
  */
-export function useFormDraft<T>(key: string, initial: T) {
+export function useFormDraft<T>(key: string, initialValue: T | (() => T)) {
+  const makeInitial = () =>
+    typeof initialValue === "function" ? (initialValue as () => T)() : initialValue;
   const storageKey = PREFIX + key;
-  const [data, setData] = useState<T>(initial);
+  const [data, setData] = useState<T>(makeInitial);
   const [savedAt, setSavedAt] = useState<Date | null>(null);
   const hydrated = useRef(false);
 
@@ -18,7 +20,7 @@ export function useFormDraft<T>(key: string, initial: T) {
       if (raw) {
         const parsed = JSON.parse(raw) as { data: T; savedAt?: string };
         if (parsed && typeof parsed === "object" && parsed.data) {
-          setData({ ...initial, ...parsed.data });
+          setData({ ...makeInitial(), ...parsed.data });
           if (parsed.savedAt) setSavedAt(new Date(parsed.savedAt));
         }
       }
@@ -52,7 +54,7 @@ export function useFormDraft<T>(key: string, initial: T) {
     } catch {
       /* yok sayılır */
     }
-    setData(initial);
+    setData(makeInitial());
     setSavedAt(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [storageKey]);
