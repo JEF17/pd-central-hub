@@ -1749,6 +1749,72 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "Madde (a) ihlalinde C Sınıfı (4) felony. Hapis cezası 2 günden az 6 günden fazla olmayacaktır.\nMadde (c) ihlalinde C Sınıfı (3) felony. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.\nDiğer maddelerin ihlalinde C Sınıfı misdemeanor. Hapis cezası 1 günden az 3 günden fazla olmayacaktır.",
   },
+  {
+    number: "801",
+    title: "Suç Ortağı",
+    types: [],
+    paragraphs: [
+      "Suçun işlenmesinde başka bir kişiye kasıtlı olarak yardım eden herhangi bir kişi, suçlu olarak kabul edilir ve suçun asıl işleyicisiyle aynı şekilde suçlanır.",
+    ],
+    classification: "BAŞLIK VIII - Suçun Tarafları: Suç ortağı & suça yardım eden sorumluluğu.",
+  },
+  {
+    number: "802",
+    title: "Suça Yardım Etme",
+    types: [],
+    paragraphs: [
+      "Herhangi bir kişinin suçun işlenmesinde suçluya yardım etme veya yakalanmasını, yargılanmasını veya cezalandırılmasını engelleme amacıyla suçlu kişiye barınak sağlaması, saklaması veya yardım etmesi suça yardım etme olarak kabul edilir.",
+    ],
+    classification: "Asıl suçun yarısı kadar azaltılmış bir ceza ve orijinal suçlama ile suçlanır.",
+  },
+  {
+    number: "803",
+    title: "Nefret Suçu",
+    types: [],
+    paragraphs: [
+      "Yargıca; ilgili suçlunun hapis cezasını artırma, ırksal duyarlılık eğitimine katılmayı ya da ruh sağlığı danışmanlığı almayı zorunlu hale getirme konusunda takdir yetkisi tanır.",
+      "Hapis cezası süresi gerçekleştirilen her bir suç için altı (6) aya kadar artırılabilir.",
+      "Suç teşkil eden eylemin kısmen ya da tamamen teşhis edilmemiş bir akıl hastalığı, dürtüsellik veya yürütme işlev bozukluğu ya da tedavi edilmemiş bir akıl hastalığı sonucunda gerçekleştiğine inanmak için bir neden varsa, ruh sağlığı danışmanlığı almayı zorunlu hale getirebilir.",
+    ],
+    classification: "Ceza artırımı ve yaptırımlar mahkemenin takdirindedir.",
+  },
+  {
+    number: "804",
+    title: "Suça Teşebbüs",
+    types: [],
+    paragraphs: [
+      "Bir kişi, suç işleme niyetiyle suçun işlenmesine yönelik davranışlarda bulunur ancak başarısız olursa ya da davranışı önlenir veya durdurulursa suça teşebbüs etmiş olur.",
+    ],
+    classification:
+      "TAMAMLANMAMIŞ SUÇLAR: Yasada ayrı bir hüküm bulunmadığında, orijinal suçlama ile aynı cezanın yarısı ve suç puanı (%50) ile cezalandırılır.",
+  },
+  {
+    number: "805",
+    title: "Suç için Anlaşma",
+    types: [],
+    paragraphs: [
+      "Bir kişi, suç teşkil eden bir davranışın gerçekleştirilmesi niyetiyle bir veya daha fazla kişiyle bu tür bir davranışta bulunmak ya da gerçekleştirilmesine neden olmak için anlaştığında komplo kurmaktan suçludur. Açık bir fiilin işlenmesini gerektirir.",
+    ],
+    classification: "Asıl suçlamadan dörtte bir (%25) ceza indirimi ve ceza puanı ile suçlanır.",
+  },
+  {
+    number: "806",
+    title: "Suça Teşvik",
+    types: [],
+    paragraphs: [
+      "Bir kişi, başka bir kişinin suç teşkil eden bir davranışta bulunmasını isteyerek, talep ederek veya emrederek suça teşvik ederse bu suçu işlemiş olur.",
+    ],
+    classification: "Orijinal suçlama ile aynı suç puanları ve cezanın çeyrek (%25) indirilmiş hali ile suçlanır.",
+  },
+  {
+    number: "807",
+    title: "Ceza Yuvarlama Kuralı",
+    types: [],
+    paragraphs: [
+      "Suç ortaklığı veya tamamlanmamış suçlardan kaynaklanan cezalar bir tam sayı değilse, en yakın ondalığa yuvarlanmalıdır.",
+    ],
+    classification: "Ceza hiçbir durumda birden (1) daha düşük olamaz.",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
