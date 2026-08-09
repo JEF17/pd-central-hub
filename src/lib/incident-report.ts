@@ -89,6 +89,7 @@ export const emptyIncidentReport = (): IncidentReportData => ({
 const SEP = "[color=#FFFFFF]___[/color]";
 const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
 const val = (v: string, fallback = "—") => (v.trim() ? v.trim() : fallback);
+const reportNumber = (value: string) => value.trim().replace(/^26-/, "");
 
 /** Konu başlığı: "OR — 09/08/2026 - 12345" */
 export function buildIncidentTitle(data: IncidentReportData) {
