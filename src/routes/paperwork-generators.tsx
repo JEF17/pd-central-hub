@@ -57,6 +57,14 @@ function Page() {
                 </Link>
               );
             }
+            if (t.slug === "ifade-raporu") {
+              return (
+                <Link key={t.slug} to="/ifade-raporu" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
+
             return (
               <button key={t.slug} type="button" className={cls}>
                 {content}
