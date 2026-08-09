@@ -49,6 +49,10 @@ export interface CalculatedCharge {
   minMinutes: number;
   maxMinutes: number;
   points: number;
+  /** Şartlı tahliye ihlali uygulanmadan önceki değerler */
+  baseMinMinutes: number;
+  baseMaxMinutes: number;
+  basePoints: number;
   fine: number;
   bailAmount: number;
   bailAuto: boolean;
