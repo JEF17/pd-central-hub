@@ -226,7 +226,7 @@ function Page() {
             </div>
           </Section>
 
-          <Section title="Kanıtlar">
+          <Section title="Kanıtlar" wide>
             <div className="sm:col-span-2 space-y-2">
               {data.evidence.map((e, i) => (
                 <div key={i} className="flex gap-2">
