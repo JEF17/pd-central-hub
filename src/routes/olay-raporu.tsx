@@ -103,8 +103,18 @@ function Page() {
           <Section title="Personel Bilgileri">
             <Field label="Adı Soyadı" value={data.officerName} onChange={(v) => set("officerName", v)} />
             <Field label="Seri No." value={data.serialNo} onChange={(v) => set("serialNo", v)} placeholder="00000" />
-            <Field label="Division" value={data.division} onChange={(v) => set("division", v)} placeholder="MISN" />
-            <Field label="Görevlendirme" value={data.assignment} onChange={(v) => set("assignment", v)} />
+            <SelectField
+              label="Division"
+              value={data.division}
+              onChange={(v) => set("division", v)}
+              options={divisionOptions.map((d) => ({ label: d, value: d }))}
+            />
+            <SelectField
+              label="Görevlendirme"
+              value={data.assignment}
+              onChange={(v) => set("assignment", v)}
+              options={assignmentOptions}
+            />
             <Field label="Tarih" value={data.date} onChange={(v) => set("date", v)} placeholder="GG/AA/YYYY" />
           </Section>
 
