@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy } from "lucide-react";
+import { ArrowLeft, BadgeAlert, CircleAlert, ClipboardCopy, ShieldAlert } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
@@ -47,6 +47,30 @@ export const Route = createFileRoute("/arac-el-koyma-raporu")({
   component: Page,
 });
 
+const violationStyles = {
+  Infraction: {
+    icon: BadgeAlert,
+    tone: "text-success",
+    selected: "border-success/60 bg-success/10 ring-1 ring-success/30",
+    iconBackground: "bg-success/15",
+    description: "İdari nitelikteki ihlaller",
+  },
+  Misdemeanor: {
+    icon: CircleAlert,
+    tone: "text-warning",
+    selected: "border-warning/60 bg-warning/10 ring-1 ring-warning/30",
+    iconBackground: "bg-warning/15",
+    description: "Orta düzeydeki suçlar",
+  },
+  Felony: {
+    icon: ShieldAlert,
+    tone: "text-destructive",
+    selected: "border-destructive/60 bg-destructive/10 ring-1 ring-destructive/30",
+    iconBackground: "bg-destructive/15",
+    description: "Ağır nitelikteki suçlar",
+  },
+} as const;
+
 function Page() {
   const [data, setData] = useState<ImpoundReportData>(emptyImpoundReport);
   const [output, setOutput] = useState("");
@@ -90,12 +114,49 @@ function Page() {
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <Section title="İhlal Türü">
-            <SelectField
-              label="Tür"
-              value={data.violationType}
-              onChange={(v) => set("violationType", v)}
-              options={violationTypes.map((v) => ({ label: v, value: v }))}
-            />
+            <div className="sm:col-span-2">
+              <div className="grid gap-3 md:grid-cols-3" role="group" aria-label="İhlal türü seçimi">
+                {violationTypes.map((type) => {
+                  const style = violationStyles[type as keyof typeof violationStyles];
+                  const Icon = style.icon;
+                  const selected = data.violationType === type;
+
+                  return (
+                    <Button
+                      key={type}
+                      type="button"
+                      variant="outline"
+                      aria-pressed={selected}
+                      onClick={() => set("violationType", type)}
+                      className={cn(
+                        "h-auto min-h-28 justify-start gap-3 whitespace-normal border-border bg-secondary/30 p-4 text-left transition-colors hover:bg-accent",
+                        selected && style.selected,
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "flex size-10 shrink-0 items-center justify-center rounded-lg",
+                          style.iconBackground,
+                        )}
+                      >
+                        <Icon className={cn("size-5", style.tone)} />
+                      </span>
+                      <span className="min-w-0">
+                        <span className={cn("block text-sm font-semibold", selected && style.tone)}>{type}</span>
+                        <span className="mt-1 block text-xs leading-4 text-muted-foreground">
+                          {style.description}
+                        </span>
+                      </span>
+                    </Button>
+                  );
+                })}
+              </div>
+              <p className="mt-3 text-xs text-muted-foreground">
+                {data.violationType
+                  ? `Seçilen ihlal sınıfı: ${data.violationType}`
+                  : "Rapor için uygun ihlal sınıfını seçin."}
+              </p>
+            </div>
           </Section>
 
           <Section title="Araç Bilgisi">
