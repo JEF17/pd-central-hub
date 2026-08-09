@@ -64,6 +64,14 @@ function Page() {
                 </Link>
               );
             }
+            if (t.slug === "field-interview-karti") {
+              return (
+                <Link key={t.slug} to="/field-interview-karti" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
+
 
             return (
               <button key={t.slug} type="button" className={cls}>
