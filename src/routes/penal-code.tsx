@@ -184,7 +184,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "112",
     title: " Kamu Görevini Engellemek",
-    types: ["F", "M", "I"],
+    types: ["F", "M"],
     paragraphs: [
       "(a) Meşru bir mazereti olmaksızın baskı veya şiddet kullanma yoluyla kamu adaletinin uygulanmasını engelleme veya geciktirme amacıyla bir tanık veya bir kamu görevlisine karşı ağır bedensel zarar verme ya da ölümüne neden olma niyetinde olan herhangi bir kişi.",
       "(b) Meşru bir mazereti olmaksızın baskı veya şiddet kullanma yoluyla kamu adaletinin uygulanmasını engelleme veya geciktirme amacıyla bir tanık veya bir kamu görevlisine karşı $50,000 maddi değeri aşan ciddi bir mal zararına neden olan, $100,000 maddi değeri aşan ciddi bir kayba neden olan ya da bir başkasına hafif fiziksel zarar vermek niyetinde olan herhangi bir kişi.",
