@@ -84,7 +84,7 @@ function Page() {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <Section title="Rapor">
-            <Field label="Rapor No." value={data.reportNo} onChange={(v) => set("reportNo", v)} placeholder="26-0000" />
+            <Field label="Rapor No." value={data.reportNo} onChange={(v) => set("reportNo", v)} placeholder="12345" />
             <div className="sm:col-span-2 rounded-lg border border-border bg-muted/30 p-3">
               <Label className="text-xs">Konu Başlığı</Label>
               <div className="mt-2 flex items-center gap-2">

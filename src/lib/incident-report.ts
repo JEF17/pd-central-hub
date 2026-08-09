@@ -89,10 +89,11 @@ export const emptyIncidentReport = (): IncidentReportData => ({
 const SEP = "[color=#FFFFFF]___[/color]";
 const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
 const val = (v: string, fallback = "—") => (v.trim() ? v.trim() : fallback);
+const reportNumber = (value: string) => value.trim().replace(/^26-/, "");
 
 /** Konu başlığı: "OR — 09/08/2026 - 12345" */
 export function buildIncidentTitle(data: IncidentReportData) {
-  return `OR — ${val(data.date, "GG/AA/YYYY")} - ${val(data.reportNo, "00000")}`;
+  return `OR — ${val(data.date, "GG/AA/YYYY")} - ${val(reportNumber(data.reportNo), "00000")}`;
 }
 
 export function buildIncidentBBCode(data: IncidentReportData) {
@@ -141,7 +142,7 @@ ${cb(p.status === "victim")} MAĞDUR${SEP}${cb(p.status === "witness")} TANIK[/i
 [center][size=125]LOS SANTOS POLICE DEPARTMENT
 [b]OLAY RAPORU[/b][/size][/center][/tdwidth]
 [tdwidth=#ffffff,#ffffff,top,left,2,1][size=85][indent=2][b]RAPOR NO.[/b]
-OR ${val(data.reportNo, "26-0000")}[/indent][/size][/tdwidth]
+OR 26-${val(reportNumber(data.reportNo), "0000")}[/indent][/size][/tdwidth]
 [/table]
 
 
