@@ -452,6 +452,50 @@ function CheckItem({
   );
 }
 
+function ProcessItem({
+  label,
+  icon: Icon,
+  checked,
+  onChange,
+}: {
+  label: string;
+  icon: LucideIcon;
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <label
+      className={cn(
+        "group flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors",
+        checked
+          ? "border-primary/50 bg-primary/10 text-foreground"
+          : "border-border/80 bg-muted/20 text-muted-foreground hover:border-primary/30 hover:bg-muted/50",
+      )}
+    >
+      <Checkbox checked={checked} onCheckedChange={onChange} className="sr-only" />
+      <span
+        className={cn(
+          "flex size-8 shrink-0 items-center justify-center rounded-md border transition-colors",
+          checked
+            ? "border-primary/40 bg-primary text-primary-foreground"
+            : "border-border bg-card text-muted-foreground group-hover:text-foreground",
+        )}
+      >
+        <Icon className="size-4" />
+      </span>
+      <span className="flex-1 text-sm font-medium leading-tight">{label}</span>
+      <span
+        className={cn(
+          "flex size-5 shrink-0 items-center justify-center rounded-full border text-[10px] transition-colors",
+          checked ? "border-primary bg-primary text-primary-foreground" : "border-border text-transparent",
+        )}
+      >
+        <BadgeCheck className="size-3" />
+      </span>
+    </label>
+  );
+}
+
 function SelectField({
   label,
   value,
