@@ -4,8 +4,10 @@ import {
   Files,
   Gavel,
   LayoutGrid,
+  UserCog,
   type LucideIcon,
 } from "lucide-react";
+
 
 export type NavItem = {
   label: string;
