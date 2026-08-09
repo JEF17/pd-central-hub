@@ -249,12 +249,12 @@ function PenalCodePage() {
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
 
     return penalCodeEntries.filter((entry) => {
-      const matchesType = activeFilter === null || entry.type === activeFilter;
+      const matchesType = activeFilter === null || entry.types.includes(activeFilter);
       const searchableText = [
         entry.number,
         entry.title,
-        entry.type,
-        typeStyles[entry.type].label,
+        ...entry.types,
+        ...entry.types.map((type) => typeStyles[type].label),
         ...entry.paragraphs,
         entry.classification,
       ]
@@ -339,7 +339,7 @@ function PenalCodePage() {
 
         <section className="mt-4 space-y-3" aria-live="polite" aria-label="Ceza kanunu sonuçları">
           {filteredEntries.map((entry) => {
-            const style = typeStyles[entry.type];
+            const style = typeStyles[entry.types[0]];
 
             return (
               <article
@@ -352,10 +352,16 @@ function PenalCodePage() {
                 <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
                   <span className="font-mono text-base font-semibold text-foreground">{entry.number}.</span>
                   <h2 className="text-base font-semibold text-foreground">{entry.title}</h2>
-                  <span className={cn("rounded border px-2 py-0.5 text-xs font-bold", style.badge)}>
-                    ({entry.type}) {style.label}
-                  </span>
+                  {entry.types.map((type) => (
+                    <span
+                      key={type}
+                      className={cn("rounded border px-2 py-0.5 text-xs font-bold", typeStyles[type].badge)}
+                    >
+                      ({type}) {typeStyles[type].label}
+                    </span>
+                  ))}
                 </div>
+
 
                 <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
                   {entry.paragraphs.map((paragraph) => (
