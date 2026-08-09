@@ -193,8 +193,12 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 2,
         "minMinutes": 2880,
         "maxMinutes": 7200,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 5000,
+        "offenseFines": [
+          5000,
+          10000,
+          15000
+        ]
       }
     ],
     "classification": "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $5,000 para cezası\n2. $10,000 para cezası\n3. $15,000 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -532,7 +536,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 4,
         "minMinutes": 1440,
         "maxMinutes": 7200,
-        "fine": 0,
+        "fine": 5000,
         "offenseFines": []
       }
     ],
@@ -616,7 +620,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 240,
         "maxMinutes": 1440,
-        "fine": 0,
+        "fine": 10000,
         "offenseFines": []
       }
     ],
@@ -895,7 +899,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 5,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 45000,
         "offenseFines": []
       }
     ],
@@ -2107,8 +2111,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 60,
         "maxMinutes": 1440,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 1 günden fazla olmayacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 7 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $15.000 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür. Bu suç için ceza artırımlarına izin verilmektedir.",
@@ -2128,8 +2135,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $8.000 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2149,8 +2159,10 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 8000,
+        "offenseFines": [
+          8000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $8.000 para cezası\n2. 1 günlüğüne taşıta el koyulacaktır, 2 günlüğüne lisans askıya alınacaktır ve $8.000 para cezası\n3. 3 günlüğüne taşıta el koyulacaktır, 4 günlüğüne lisans askıya alınacaktır ve $12.000 para cezası\n4. 7 günlüğüne taşıta el koyulacaktır, 7 günlüğüne lisans askıya alınacaktır ve $15.000 para cezası\n5. 10 günlüğüne taşıta el koyulacaktır, 10 günlüğüne lisans askıya alınacaktır ve $20.000 para cezası",
@@ -2170,8 +2182,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2191,8 +2206,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2212,8 +2230,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2233,8 +2254,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2254,8 +2278,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2275,8 +2302,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2296,8 +2326,12 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 1000,
+        "offenseFines": [
+          1000,
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $1.000 para cezası\n2. $2.500 para cezası\n3. $5.000 para cezası\nNot: Trafik akışını engelleyen veya halk için risk oluşturan araçlara 1 gün süreyle el koyulabilir.",
@@ -2398,8 +2432,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2419,8 +2456,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2440,8 +2480,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2461,8 +2504,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2482,8 +2528,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2503,8 +2552,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2524,8 +2576,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 2 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2545,8 +2600,12 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 1000,
+        "offenseFines": [
+          1000,
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $1.000 para cezası\n2. $2.500 para cezası\n3. $5.000 para cezası\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -2566,7 +2625,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 5000,
         "offenseFines": []
       }
     ],
@@ -2587,7 +2646,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 5000,
         "offenseFines": []
       }
     ],
@@ -2818,8 +2877,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 2500,
+        "offenseFines": [
+          2500,
+          5000
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $2.500 para cezası\n2. $5.000 para cezası\n3. 3 günlüğüne taşıta el koyulacaktır, 3 günlüğüne lisans askıya alınacaktır ve $7.500 para cezası",
@@ -2860,8 +2922,11 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
-        "offenseFines": []
+        "fine": 500,
+        "offenseFines": [
+          500,
+          2500
+        ]
       }
     ],
     "classification": "C Sınıfı infraction kapsamında sorumlu tutulacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:\n1. $500 para cezası\n2. $2.500 para cezası\n3. 2 günlüğüne taşıta, 2 günlüğüne lisansa el koyulacaktır ve $7.500 para cezası yanında araçtan ilgili ekipmanların sökümü iadesiz olarak sağlanacaktır.\nSuçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
@@ -3160,7 +3225,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 7,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 50000,
         "offenseFines": []
       }
     ],
@@ -3181,7 +3246,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 4500,
         "offenseFines": []
       }
     ],
@@ -3202,7 +3267,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 15000,
         "offenseFines": []
       }
     ],
@@ -3223,7 +3288,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 4,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 15000,
         "offenseFines": []
       }
     ],
@@ -3244,7 +3309,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 3,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 22500,
         "offenseFines": []
       }
     ],
@@ -3265,7 +3330,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 5,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0,
+        "fine": 45000,
         "offenseFines": []
       }
     ],
