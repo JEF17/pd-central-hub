@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * LS Panel — dark warm-neutral operations panel.
- * Near-black warm surfaces, amber accent, Inter typography.
+ * LSPD Portal — LAPD-inspired navy command theme.
+ * Cool desaturated navy surfaces, LAPD badge blue primary, muted gold accent.
+ * Contrast tuned down slightly for long reading sessions.
  */
 
 @theme inline {
@@ -47,48 +48,50 @@
   --color-panel: var(--panel);
   --color-panel-foreground: var(--panel-foreground);
   --color-brand: var(--brand);
+  --color-gold: var(--gold);
 }
 
 :root {
   --radius: 0.5rem;
 
-  --background: hsl(30 6% 8%);
-  --foreground: hsl(40 12% 92%);
+  --background: hsl(218 32% 11%);
+  --foreground: hsl(213 25% 88%);
 
-  --card: hsl(30 6% 11%);
-  --card-foreground: hsl(40 12% 92%);
+  --card: hsl(218 30% 14%);
+  --card-foreground: hsl(213 25% 88%);
 
-  --popover: hsl(30 6% 11%);
-  --popover-foreground: hsl(40 12% 92%);
+  --popover: hsl(218 30% 14%);
+  --popover-foreground: hsl(213 25% 88%);
 
-  --primary: hsl(210 100% 42%);
-  --primary-foreground: hsl(210 100% 97%);
+  --primary: hsl(212 78% 52%);
+  --primary-foreground: hsl(215 45% 8%);
 
-  --secondary: hsl(30 5% 16%);
-  --secondary-foreground: hsl(40 12% 90%);
+  --secondary: hsl(218 26% 19%);
+  --secondary-foreground: hsl(213 22% 86%);
 
-  --muted: hsl(30 5% 15%);
-  --muted-foreground: hsl(35 6% 60%);
+  --muted: hsl(218 24% 18%);
+  --muted-foreground: hsl(214 14% 62%);
 
-  --accent: hsl(30 5% 18%);
-  --accent-foreground: hsl(40 12% 94%);
+  --accent: hsl(218 26% 21%);
+  --accent-foreground: hsl(213 25% 90%);
 
-  --destructive: hsl(0 72% 52%);
+  --destructive: hsl(0 62% 52%);
   --destructive-foreground: hsl(0 0% 100%);
 
-  --success: hsl(152 50% 42%);
-  --success-foreground: hsl(0 0% 100%);
+  --success: hsl(155 44% 44%);
+  --success-foreground: hsl(160 60% 8%);
 
-  --warning: hsl(38 92% 55%);
-  --warning-foreground: hsl(30 20% 10%);
+  --warning: hsl(42 78% 56%);
+  --warning-foreground: hsl(40 60% 10%);
 
-  --border: hsl(30 5% 18%);
-  --input: hsl(30 5% 20%);
-  --ring: hsl(210 100% 42%);
+  --border: hsl(218 24% 22%);
+  --input: hsl(218 24% 24%);
+  --ring: hsl(212 78% 52%);
 
-  --panel: hsl(30 6% 9%);
-  --panel-foreground: hsl(40 10% 86%);
-  --brand: hsl(210 100% 19%);
+  --panel: hsl(219 34% 9%);
+  --panel-foreground: hsl(213 20% 82%);
+  --brand: hsl(214 62% 22%);
+  --gold: hsl(43 62% 58%);
 }
 
 .dark {
@@ -110,6 +113,6 @@
 
 @utility card-shadow {
   box-shadow:
-    0 1px 2px 0 hsl(0 0% 0% / 0.4),
-    0 8px 24px -12px hsl(0 0% 0% / 0.6);
+    0 1px 2px 0 hsl(218 45% 4% / 0.45),
+    0 10px 28px -14px hsl(218 45% 4% / 0.65);
 }
