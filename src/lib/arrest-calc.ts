@@ -95,6 +95,10 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
     const baseMax = category ? category.maxMinutes : variant.maxMinutes;
     const baseMin = category ? Math.min(variant.minMinutes, baseMax) : variant.minMinutes;
 
+    const baseMinMinutes = roundMinutes(baseMin * add.timeFactor);
+    const baseMaxMinutes = roundMinutes(baseMax * add.timeFactor);
+    const basePoints = Math.round(variant.points * add.pointFactor * 10) / 10;
+
     const minMinutes = roundMinutes(baseMin * add.timeFactor * paroleFactor);
     const maxMinutes = roundMinutes(baseMax * add.timeFactor * paroleFactor);
     const points = Math.round(variant.points * add.pointFactor * paroleFactor * 10) / 10;
@@ -115,6 +119,9 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
       minMinutes,
       maxMinutes,
       points,
+      baseMinMinutes,
+      baseMaxMinutes,
+      basePoints,
       fine,
       bailAmount: definition.bail.amount,
       bailAuto: definition.bail.auto,
