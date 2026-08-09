@@ -15,6 +15,7 @@ import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-ra
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as CaselawRouteImport } from './routes/caselaw'
+import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
@@ -51,6 +52,11 @@ const ArrestReportRoute = ArrestReportRouteImport.update({
 const CaselawRoute = CaselawRouteImport.update({
   id: '/caselaw',
   path: '/caselaw',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EPostaRoute = EPostaRouteImport.update({
+  id: '/e-posta',
+  path: '/e-posta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FieldInterviewKartiRoute = FieldInterviewKartiRouteImport.update({
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -111,6 +118,7 @@ export interface FileRoutesByTo {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -127,6 +135,7 @@ export interface FileRoutesById {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -144,6 +153,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/e-posta'
     | '/field-interview-karti'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/e-posta'
     | '/field-interview-karti'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/e-posta'
     | '/field-interview-karti'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -190,6 +202,7 @@ export interface RootRouteChildren {
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   ArrestReportRoute: typeof ArrestReportRoute
   CaselawRoute: typeof CaselawRoute
+  EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
@@ -241,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: '/caselaw'
       fullPath: '/caselaw'
       preLoaderRoute: typeof CaselawRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/e-posta': {
+      id: '/e-posta'
+      path: '/e-posta'
+      fullPath: '/e-posta'
+      preLoaderRoute: typeof EPostaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/field-interview-karti': {
@@ -302,6 +322,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   ArrestReportRoute: ArrestReportRoute,
   CaselawRoute: CaselawRoute,
+  EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
@@ -313,3 +334,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
