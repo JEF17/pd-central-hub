@@ -4,6 +4,7 @@ import { ArrowLeft, ClipboardCopy, Info, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -113,6 +114,14 @@ function Page() {
           </Section>
 
           <Section title="Personel Bilgisi" wide>
+            <div className="sm:col-span-2">
+              <ProfileFillButton
+                onFill={(p) => {
+              updateOfficer(0, { name: p.name, serialNo: p.serialNo, ...(p.division ? { division: p.division } : {}) });
+                }}
+              />
+            </div>
+
             <div className="sm:col-span-2 space-y-4">
               {data.officers.map((o, i) => (
                 <div key={i} className="rounded-lg border border-border bg-muted/20 p-4">

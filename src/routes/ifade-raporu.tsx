@@ -4,6 +4,7 @@ import { ArrowLeft, ClipboardCopy, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
 import { Button } from "@/components/ui/button";
@@ -108,6 +109,14 @@ function Page() {
           </Section>
 
           <Section title="Personel Bilgileri">
+            <div className="sm:col-span-2">
+              <ProfileFillButton
+                onFill={(p) => {
+              setData((d) => ({ ...d, officerName: p.name, serialNo: p.serialNo, division: p.division || d.division }));
+                }}
+              />
+            </div>
+
             <Field label="İfadeyi Alan" value={data.officerName} onChange={(v) => set("officerName", v)} />
             <Field label="Seri No." value={data.serialNo} onChange={(v) => set("serialNo", v)} placeholder="00000" />
             <SelectField
