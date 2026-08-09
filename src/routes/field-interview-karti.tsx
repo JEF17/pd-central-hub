@@ -80,25 +80,42 @@ function Page() {
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <Section title="Kişi Bilgileri">
-            <Field label="Adı Soyadı" value={data.personName} onChange={(v) => set("personName", v)} />
-            <Field label="Takma Adı" value={data.nickname} onChange={(v) => set("nickname", v)} />
-            <div>
-              <Label className="text-xs">Cinsiyet</Label>
-              <div className="mt-3 flex gap-4">
-                <CheckItem
-                  label="Erkek"
-                  checked={data.gender === "male"}
-                  onChange={() => set("gender", data.gender === "male" ? "" : "male")}
-                />
-                <CheckItem
-                  label="Kadın"
-                  checked={data.gender === "female"}
-                  onChange={() => set("gender", data.gender === "female" ? "" : "female")}
-                />
+            <div className="sm:col-span-2 space-y-5">
+              <div>
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                  Kimlik
+                </p>
+                <div className="grid gap-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
+                  <Field label="Adı Soyadı" value={data.personName} onChange={(v) => set("personName", v)} />
+                  <Field label="Takma Adı" value={data.nickname} onChange={(v) => set("nickname", v)} />
+                  <div className="space-y-2">
+                    <Label className="text-xs">Cinsiyet</Label>
+                    <div className="flex h-10 items-center gap-4 rounded-md border border-input bg-background px-3">
+                      <CheckItem
+                        label="Erkek"
+                        checked={data.gender === "male"}
+                        onChange={() => set("gender", data.gender === "male" ? "" : "male")}
+                      />
+                      <CheckItem
+                        label="Kadın"
+                        checked={data.gender === "female"}
+                        onChange={() => set("gender", data.gender === "female" ? "" : "female")}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-border/70 pt-5">
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                  İletişim
+                </p>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <Field label="İletişim Bilgisi" value={data.contact} onChange={(v) => set("contact", v)} />
+                  <Field label="Adres Bilgisi" value={data.address} onChange={(v) => set("address", v)} />
+                </div>
               </div>
             </div>
-            <Field label="İletişim Bilgisi" value={data.contact} onChange={(v) => set("contact", v)} />
-            <Field label="Adres Bilgisi" value={data.address} onChange={(v) => set("address", v)} />
           </Section>
 
           <Section title="Konu Başlığı">
