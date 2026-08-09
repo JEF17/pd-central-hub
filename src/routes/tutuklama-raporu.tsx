@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, Info, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,7 +20,6 @@ import { cn } from "@/lib/utils";
 import { assignmentOptions, divisionOptions } from "@/lib/incident-report";
 import {
   buildArrestReportHtml,
-  emptyArrestOfficer,
   emptyArrestReport,
   genderOptions,
   type ArrestReportData,
@@ -105,26 +105,7 @@ function Page() {
             <div className="sm:col-span-2 space-y-4">
               {data.officers.map((o, i) => (
                 <div key={i} className="rounded-lg border border-border bg-muted/20 p-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-muted-foreground">
-                      Personel #{i + 1}
-                    </span>
-                    {data.officers.length > 1 ? (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        aria-label="Personeli kaldır"
-                        onClick={() =>
-                          set(
-                            "officers",
-                            data.officers.filter((_, idx) => idx !== i),
-                          )
-                        }
-                      >
-                        <Trash2 className="size-4" />
-                      </Button>
-                    ) : null}
-                  </div>
+                  <span className="text-xs font-medium text-muted-foreground">Personel #{i + 1}</span>
                   <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <Field
                       label="Adı Soyadı"
@@ -158,14 +139,6 @@ function Page() {
                   </div>
                 </div>
               ))}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => set("officers", [...data.officers, emptyArrestOfficer()])}
-              >
-                <Plus className="size-4" />
-                Personel ekle
-              </Button>
             </div>
           </Section>
 
@@ -184,11 +157,35 @@ function Page() {
 
           <Section title="Kanıtlar" wide>
             <div className="sm:col-span-2 space-y-3">
+              <Alert className="border-primary/20 bg-primary/5">
+                <Info className="size-4" />
+                <AlertTitle>Not</AlertTitle>
+                <AlertDescription>
+                  <p>Başlık kullanımında aşağıdaki formatların dışına çıkmayın:</p>
+                  <ul className="mt-2 space-y-1 font-mono text-xs leading-relaxed">
+                    <li>OR — 00/00/2025 — 00000</li>
+                    <li>IR — 00/00/2025 — 00000</li>
+                    <li>EV-20250000-000</li>
+                    <li>CCTV ID #000 — Konum — GG/AA/YYYY</li>
+                    <li>DICVS Seri No. 00000 - GG/AA/YYYY</li>
+                    <li>BWV A. Soyadı #00000 - GG/AA/YYYY</li>
+                    <li>Trafik Kazası Fotoğrafları (Plaka)</li>
+                    <li>Impound Report - Araç Modeli - Plaka</li>
+                    <li>Tutuklama Raporu (Şüpheli Adı)</li>
+                    <li>FSD Sillah Adı - Balistik İncelemesi</li>
+                    <li>FSD Eşya Adı - Parmak İzi İncelemesi</li>
+                    <li>FSD DNA İnceleme Raporu</li>
+                    <li>APB - Şüpheli Adı (APB Numarası)</li>
+                    <li>Coroner Raporu (Mağdur Adı)</li>
+                  </ul>
+                </AlertDescription>
+              </Alert>
+
               {data.evidence.map((e, i) => (
                 <div key={i} className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
                   <Input
                     value={e.label}
-                    placeholder="Etiket (ör. Olay yeri fotoğrafı)"
+                    placeholder="Başlık"
                     onChange={(ev) => updateEvidence(i, { label: ev.target.value })}
                   />
                   <Input
