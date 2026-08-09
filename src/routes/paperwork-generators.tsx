@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
@@ -35,22 +35,34 @@ function Page() {
         </p>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {paperworkTypes.map((t) => (
-            <button
-              key={t.slug}
-              type="button"
-              className="group rounded-lg border border-border bg-card p-5 text-left transition-colors hover:border-primary/40 hover:bg-accent/40"
-            >
-              <div className="flex size-10 items-center justify-center rounded-md bg-primary/15 text-primary ring-1 ring-primary/25">
-                <t.icon className="size-5" />
-              </div>
-              <h2 className="mt-4 flex items-center gap-1 font-semibold">
-                {t.label}
-                <ChevronRight className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">{t.description}</p>
-            </button>
-          ))}
+          {paperworkTypes.map((t) => {
+            const content = (
+              <>
+                <div className="flex size-10 items-center justify-center rounded-md bg-primary/15 text-primary ring-1 ring-primary/25">
+                  <t.icon className="size-5" />
+                </div>
+                <h2 className="mt-4 flex items-center gap-1 font-semibold">
+                  {t.label}
+                  <ChevronRight className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">{t.description}</p>
+              </>
+            );
+            const cls =
+              "group rounded-lg border border-border bg-card p-5 text-left transition-colors hover:border-primary/40 hover:bg-accent/40";
+            if (t.slug === "olay-raporu") {
+              return (
+                <Link key={t.slug} to="/olay-raporu" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
+            return (
+              <button key={t.slug} type="button" className={cls}>
+                {content}
+              </button>
+            );
+          })}
         </div>
       </div>
     </AppShell>
