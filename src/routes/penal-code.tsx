@@ -108,13 +108,13 @@ export const Route = createFileRoute("/penal-code")({
 
 function PenalCodePage() {
   const [query, setQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<FilterType>("F");
+  const [activeFilter, setActiveFilter] = useState<FilterType>(null);
 
   const filteredEntries = useMemo(() => {
     const normalizedQuery = query.trim().toLocaleLowerCase("tr-TR");
 
     return penalCodeEntries.filter((entry) => {
-      const matchesType = entry.type === activeFilter;
+      const matchesType = activeFilter === null || entry.type === activeFilter;
       const searchableText = [
         entry.number,
         entry.title,
@@ -166,7 +166,7 @@ function PenalCodePage() {
                   key={option.value}
                   type="button"
                   variant="outline"
-                  onClick={() => setActiveFilter(option.value)}
+                  onClick={() => setActiveFilter(active ? null : option.value)}
                   aria-pressed={active}
                   className={cn(
                     "h-auto justify-start border-border bg-card px-4 py-3 text-left hover:bg-accent",
@@ -193,7 +193,11 @@ function PenalCodePage() {
 
         <div className="mt-8 flex items-center justify-between gap-4 border-b border-border pb-3">
           <p className="text-sm text-muted-foreground">
-            {query ? `“${query}” için sonuçlar` : `${typeStyles[activeFilter].label} maddeleri`}
+            {query
+              ? `“${query}” için sonuçlar`
+              : activeFilter === null
+                ? "Tüm ceza kanunları"
+                : `${typeStyles[activeFilter].label} maddeleri`}
           </p>
           <span className="text-xs font-medium text-muted-foreground">{filteredEntries.length} madde</span>
         </div>
