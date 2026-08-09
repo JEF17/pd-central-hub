@@ -1,22 +1,14 @@
 import { useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Bell, PanelLeft } from "lucide-react";
+import { PanelLeft } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
-import { announcements } from "@/lib/announcements";
 import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
-  const [newsOpen, setNewsOpen] = useState(false);
+
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
