@@ -1,4 +1,10 @@
-import { chargeCatalog, type ChargeClass, type ChargeDefinition, type ChargeVariant } from "./charge-catalog";
+import {
+  chargeCatalog,
+  type ChargeCategory,
+  type ChargeClass,
+  type ChargeDefinition,
+  type ChargeVariant,
+} from "./charge-catalog";
 
 export type AdditionKey = "offender" | "attempt" | "accomplice" | "accessory" | "conspiracy" | "solicitation";
 
@@ -31,12 +37,15 @@ export interface ChargeRow {
   /** Kaçıncı kez işlendiği (1-3) */
   offense: number;
   addition: AdditionKey;
+  /** Uyuşturucu suçlarında (C.K. 601-606) kontrollü madde kategorisi */
+  category?: string | undefined;
 }
 
 export interface CalculatedCharge {
   row: ChargeRow;
   definition: ChargeDefinition;
   variant: ChargeVariant;
+  category?: ChargeCategory | undefined;
   minMinutes: number;
   maxMinutes: number;
   points: number;
@@ -78,20 +87,27 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
     const add = additionMap[row.addition] ?? additionMap.offender;
     const paroleFactor = paroleViolator ? 2 : 1;
 
-    const minMinutes = roundMinutes(variant.minMinutes * add.timeFactor * paroleFactor);
-    const maxMinutes = roundMinutes(variant.maxMinutes * add.timeFactor * paroleFactor);
+    const category = definition.categories?.find((c) => c.key === row.category);
+    const baseMax = category ? category.maxMinutes : variant.maxMinutes;
+    const baseMin = category ? Math.min(variant.minMinutes, baseMax) : variant.minMinutes;
+
+    const minMinutes = roundMinutes(baseMin * add.timeFactor * paroleFactor);
+    const maxMinutes = roundMinutes(baseMax * add.timeFactor * paroleFactor);
     const points = Math.round(variant.points * add.pointFactor * paroleFactor * 10) / 10;
 
     const offenseIndex = Math.min(Math.max(row.offense, 1), 3) - 1;
-    const baseFine = variant.offenseFines.length
+    const baseFine = category
+      ? category.fine
+      : variant.offenseFines.length
       ? (variant.offenseFines[offenseIndex] ?? variant.offenseFines[variant.offenseFines.length - 1] ?? 0)
-      : variant.fine;
+        : variant.fine;
     const fine = Math.round(baseFine * add.timeFactor);
 
     charges.push({
       row,
       definition,
       variant,
+      category,
       minMinutes,
       maxMinutes,
       points,
@@ -144,7 +160,9 @@ export const typeClasses: Record<string, string> = {
 
 /** Hesaplamayı URL üzerinden taşımak için kompakt kodlama. */
 export function encodeRows(rows: ChargeRow[], paroleViolator: boolean) {
-  const compact = rows.map((r) => [r.number, r.cls, r.offense, r.addition].join("~")).join("|");
+  const compact = rows
+    .map((r) => [r.number, r.cls, r.offense, r.addition, r.category ?? ""].join("~"))
+    .join("|");
   return `${paroleViolator ? "1" : "0"}!${compact}`;
 }
 
@@ -154,13 +172,14 @@ export function decodeRows(value: string): { rows: ChargeRow[]; paroleViolator: 
     .split("|")
     .filter(Boolean)
     .map((part, index) => {
-      const [number, cls, offense, addition] = part.split("~");
+      const [number, cls, offense, addition, category] = part.split("~");
       return {
         id: `${number ?? "?"}-${index}`,
         number: number ?? "",
         cls: (cls as ChargeClass) ?? "C",
         offense: Number(offense) || 1,
         addition: (addition as AdditionKey) ?? "offender",
+        category: category || undefined,
       };
     });
   return { rows, paroleViolator: flag === "1" };

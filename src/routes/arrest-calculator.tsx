@@ -127,7 +127,14 @@ function ChargeRowCard({
 
   return (
     <div className="rounded-xl border border-border bg-card p-4">
-      <div className="grid gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.2fr)_auto] md:items-end">
+      <div
+        className={cn(
+          "grid gap-4 md:items-end",
+          definition?.categories?.length
+            ? "md:grid-cols-[minmax(0,2fr)_minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.2fr)_auto]"
+            : "md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.2fr)_auto]",
+        )}
+      >
         <div className="space-y-2">
           <Label>Suçlama</Label>
           <Popover open={open} onOpenChange={setOpen}>
@@ -173,6 +180,7 @@ function ChargeRowCard({
                           onChange({
                             number: charge.number,
                             cls: charge.variants[0]?.cls ?? "C",
+                            category: charge.categories?.[0]?.key,
                           });
                           setOpen(false);
                         }}
@@ -213,6 +221,27 @@ function ChargeRowCard({
             </SelectContent>
           </Select>
         </div>
+
+        {definition?.categories?.length ? (
+          <div className="space-y-2">
+            <Label>Kategori</Label>
+            <Select
+              value={row.category ?? definition.categories[0]?.key ?? ""}
+              onValueChange={(value) => onChange({ category: value })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Kategori" />
+              </SelectTrigger>
+              <SelectContent>
+                {definition.categories.map((category) => (
+                  <SelectItem key={category.key} value={category.key}>
+                    {category.key} Kategorisi
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        ) : null}
 
         <div className="space-y-2">
           <Label>Suç Sayısı</Label>
