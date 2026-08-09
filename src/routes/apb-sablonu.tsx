@@ -4,6 +4,7 @@ import { ArrowLeft, ClipboardCopy } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
 import { Button } from "@/components/ui/button";
@@ -116,6 +117,14 @@ function Page() {
           </Section>
 
           <Section title="İletişim" wide>
+            <div className="sm:col-span-2">
+              <ProfileFillButton
+                onFill={(p) => {
+              setData((d) => ({ ...d, officerName: p.name }));
+                }}
+              />
+            </div>
+
             <Field label="Memur Adı Soyadı" value={data.officerName} onChange={(v) => set("officerName", v)} />
             <Field label="Telefon Numarası" value={data.phone} onChange={(v) => set("phone", v)} placeholder="1234567" />
           </Section>

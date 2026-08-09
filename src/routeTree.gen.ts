@@ -22,6 +22,7 @@ import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
+import { Route as PersonelProfiliRouteImport } from './routes/personel-profili'
 import { Route as TutuklamaRaporuRouteImport } from './routes/tutuklama-raporu'
 
 const IndexRoute = IndexRouteImport.update({
@@ -89,6 +90,11 @@ const PenalCodeRoute = PenalCodeRouteImport.update({
   path: '/penal-code',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PersonelProfiliRoute = PersonelProfiliRouteImport.update({
+  id: '/personel-profili',
+  path: '/personel-profili',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TutuklamaRaporuRoute = TutuklamaRaporuRouteImport.update({
   id: '/tutuklama-raporu',
   path: '/tutuklama-raporu',
@@ -109,6 +115,7 @@ export interface FileRoutesByFullPath {
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
+  '/personel-profili': typeof PersonelProfiliRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
 }
 export interface FileRoutesByTo {
@@ -125,6 +132,7 @@ export interface FileRoutesByTo {
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
+  '/personel-profili': typeof PersonelProfiliRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
 }
 export interface FileRoutesById {
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
+  '/personel-profili': typeof PersonelProfiliRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
 }
 export interface FileRouteTypes {
@@ -160,6 +169,7 @@ export interface FileRouteTypes {
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
+    | '/personel-profili'
     | '/tutuklama-raporu'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -176,6 +186,7 @@ export interface FileRouteTypes {
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
+    | '/personel-profili'
     | '/tutuklama-raporu'
   id:
     | '__root__'
@@ -192,6 +203,7 @@ export interface FileRouteTypes {
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
+    | '/personel-profili'
     | '/tutuklama-raporu'
   fileRoutesById: FileRoutesById
 }
@@ -209,6 +221,7 @@ export interface RootRouteChildren {
   OlayRaporuRoute: typeof OlayRaporuRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
+  PersonelProfiliRoute: typeof PersonelProfiliRoute
   TutuklamaRaporuRoute: typeof TutuklamaRaporuRoute
 }
 
@@ -305,6 +318,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PenalCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/personel-profili': {
+      id: '/personel-profili'
+      path: '/personel-profili'
+      fullPath: '/personel-profili'
+      preLoaderRoute: typeof PersonelProfiliRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tutuklama-raporu': {
       id: '/tutuklama-raporu'
       path: '/tutuklama-raporu'
@@ -329,6 +349,7 @@ const rootRouteChildren: RootRouteChildren = {
   OlayRaporuRoute: OlayRaporuRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
+  PersonelProfiliRoute: PersonelProfiliRoute,
   TutuklamaRaporuRoute: TutuklamaRaporuRoute,
 }
 export const routeTree = rootRouteImport

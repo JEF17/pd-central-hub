@@ -4,6 +4,7 @@ import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone } from 
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
 import { Button } from "@/components/ui/button";
@@ -153,6 +154,14 @@ function Page() {
           </Section>
 
           <Section title="Personel Bilgisi" wide>
+            <div className="sm:col-span-2">
+              <ProfileFillButton
+                onFill={(p) => {
+              setOfficer({ name: p.name, serialNo: p.serialNo, ...(p.division ? { division: p.division } : {}) });
+                }}
+              />
+            </div>
+
             <div className="sm:col-span-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <Field label="Adı Soyadı" value={data.officer.name} onChange={(v) => setOfficer({ name: v })} />
               <Field

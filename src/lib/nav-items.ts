@@ -4,8 +4,10 @@ import {
   Files,
   Gavel,
   LayoutGrid,
+  UserCog,
   type LucideIcon,
 } from "lucide-react";
+
 
 export type NavItem = {
   label: string;
@@ -38,6 +40,12 @@ export const navItems: NavItem[] = [
     to: "/penal-code",
     icon: BookOpen,
     description: "San Andreas Ceza Kanunu'na kolayca erişebilirsiniz.",
+  },
+  {
+    label: "Personel Profili",
+    to: "/personel-profili",
+    icon: UserCog,
+    description: "Adı soyadı, seri numarası, rütbe ve division bilgilerini kaydet.",
   },
   {
     label: "Emsal Kararlar & Kaynaklar",
