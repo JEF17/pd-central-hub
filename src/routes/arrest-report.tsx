@@ -144,9 +144,27 @@ function Page() {
                         <td className={cn("py-4 pr-4 font-semibold", typeClasses[charge.variant.type])}>
                           {typeLabels[charge.variant.type]}
                         </td>
-                        <td className="py-4 pr-4">{formatDuration(charge.minMinutes)}</td>
-                        <td className="py-4 pr-4">{formatDuration(charge.maxMinutes)}</td>
-                        <td className="py-4 pr-4">{charge.points}</td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={formatDuration(charge.baseMinMinutes)}
+                            final={formatDuration(charge.minMinutes)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={formatDuration(charge.baseMaxMinutes)}
+                            final={formatDuration(charge.maxMinutes)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={String(charge.basePoints)}
+                            final={String(charge.points)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
                         <td className="py-4 pr-4">{formatMoney(charge.fine)}</td>
                         <td className="py-4 pr-4">
                           {charge.bailAuto ? (
