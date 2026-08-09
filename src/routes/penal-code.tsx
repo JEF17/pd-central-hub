@@ -240,7 +240,7 @@ function PenalCodePage() {
                   ))}
                 </div>
 
-                <p className="mt-4 border-t border-border pt-3 text-sm font-medium leading-6 text-foreground/80">
+                <p className="mt-4 whitespace-pre-line border-t border-border pt-3 text-sm font-medium leading-6 text-foreground/80">
                   {entry.classification}
                 </p>
               </article>
