@@ -93,7 +93,7 @@ const reportNumber = (value: string) => value.trim().replace(/^26-/, "");
 
 /** Konu başlığı: "OR — 09/08/2026 - 12345" */
 export function buildIncidentTitle(data: IncidentReportData) {
-  return `OR — ${val(data.date, "GG/AA/YYYY")} - ${val(data.reportNo, "00000")}`;
+  return `OR — ${val(data.date, "GG/AA/YYYY")} - ${val(reportNumber(data.reportNo), "00000")}`;
 }
 
 export function buildIncidentBBCode(data: IncidentReportData) {
