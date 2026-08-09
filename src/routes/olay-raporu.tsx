@@ -134,7 +134,7 @@ function Page() {
             />
             <div className="sm:col-span-2">
               <Label className="text-xs">Olay Türü</Label>
-              <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+              <div className="mt-2 grid grid-cols-2 gap-2">
                 {incidentTypeOptions.map((t) => (
                   <CheckItem
                     key={t}
@@ -156,7 +156,7 @@ function Page() {
           </Section>
 
           <Section title="Süreç">
-            <div className="sm:col-span-2 flex flex-col gap-2">
+            <div className="sm:col-span-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {processOptions.map((p) => (
                 <CheckItem
                   key={p}
