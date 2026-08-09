@@ -53,21 +53,18 @@ const violationStyles = {
     tone: "text-success",
     selected: "border-success/60 bg-success/10 ring-1 ring-success/30",
     iconBackground: "bg-success/15",
-    description: "İdari nitelikteki ihlaller",
   },
   Misdemeanor: {
     icon: CircleAlert,
     tone: "text-warning",
     selected: "border-warning/60 bg-warning/10 ring-1 ring-warning/30",
     iconBackground: "bg-warning/15",
-    description: "Orta düzeydeki suçlar",
   },
   Felony: {
     icon: ShieldAlert,
     tone: "text-destructive",
     selected: "border-destructive/60 bg-destructive/10 ring-1 ring-destructive/30",
     iconBackground: "bg-destructive/15",
-    description: "Ağır nitelikteki suçlar",
   },
 } as const;
 
@@ -141,12 +138,7 @@ function Page() {
                       >
                         <Icon className={cn("size-5", style.tone)} />
                       </span>
-                      <span className="min-w-0">
-                        <span className={cn("block text-sm font-semibold", selected && style.tone)}>{type}</span>
-                        <span className="mt-1 block text-xs leading-4 text-muted-foreground">
-                          {style.description}
-                        </span>
-                      </span>
+                      <span className={cn("text-sm font-semibold", selected && style.tone)}>{type}</span>
                     </Button>
                   );
                 })}
