@@ -59,14 +59,12 @@ const violationStyles = {
     tone: "text-warning",
     selected: "border-warning/60 bg-warning/10 ring-1 ring-warning/30",
     iconBackground: "bg-warning/15",
-    description: "Orta düzeydeki suçlar",
   },
   Felony: {
     icon: ShieldAlert,
     tone: "text-destructive",
     selected: "border-destructive/60 bg-destructive/10 ring-1 ring-destructive/30",
     iconBackground: "bg-destructive/15",
-    description: "Ağır nitelikteki suçlar",
   },
 } as const;
 
