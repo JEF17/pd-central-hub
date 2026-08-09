@@ -53,7 +53,6 @@ const violationStyles = {
     tone: "text-success",
     selected: "border-success/60 bg-success/10 ring-1 ring-success/30",
     iconBackground: "bg-success/15",
-    description: "İdari nitelikteki ihlaller",
   },
   Misdemeanor: {
     icon: CircleAlert,
