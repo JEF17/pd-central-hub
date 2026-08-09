@@ -264,42 +264,6 @@ function Page() {
               </Button>
             </div>
           </Section>
-
-          <Section title="İdari Bilgiler">
-            <div className="sm:col-span-2">
-              <Label className="text-xs">Takip Soruşturması</Label>
-              <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
-                {followUpOptions.map((f) => (
-                  <CheckItem
-                    key={f}
-                    label={f}
-                    checked={data.followUps.includes(f)}
-                    onChange={() => toggle("followUps", f)}
-                  />
-                ))}
-              </div>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                {data.followUps.includes("DB") ? (
-                  <Input
-                    placeholder="DB detayı"
-                    value={data.followUpDb}
-                    onChange={(e) => set("followUpDb", e.target.value)}
-                  />
-                ) : null}
-                {data.followUps.includes("Diğer") ? (
-                  <Input
-                    placeholder="Diğer birim"
-                    value={data.followUpOther}
-                    onChange={(e) => set("followUpOther", e.target.value)}
-                  />
-                ) : null}
-              </div>
-            </div>
-            <Field label="Field Supervisor İmzası" value={data.supervisorName} onChange={(v) => set("supervisorName", v)} placeholder="A. SOYADI" />
-            <Field label="Seri No." value={data.supervisorSerial} onChange={(v) => set("supervisorSerial", v)} placeholder="00000" />
-            <Field label="Watch Commander İmzası" value={data.watchCommanderName} onChange={(v) => set("watchCommanderName", v)} placeholder="A. SOYADI" />
-            <Field label="Seri No." value={data.watchCommanderSerial} onChange={(v) => set("watchCommanderSerial", v)} placeholder="00000" />
-          </Section>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
