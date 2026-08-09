@@ -215,7 +215,7 @@ function Page() {
             </div>
           </section>
 
-          <Section title="Açıklama">
+          <Section title="Açıklama" wide>
             <div className="sm:col-span-2">
               <Textarea
                 rows={8}
