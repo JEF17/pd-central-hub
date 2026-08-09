@@ -22,7 +22,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "001",
     title: "İhanet",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Amerika Birleşik Devletleri'ne ve/veya ona bağlı olanlara karşı savaş açan ve düşmanlarının yanında bulunan kişi veya kuruluşlarla iş birliği içinde olan ve/veya Amerika Birleşik Devletleri içinde veya başka bir yerde onlara yardım ve yataklık sağlayan herhangi bir kişi.",
     ],
@@ -32,7 +32,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "002",
     title: "Casusluk",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Amerika Birleşik Devletleri'nin savunma bilgileri, sağlık tesisleri ve/veya iletişim istihbaratlarıyla ilgili herhangi bir gizli bilgiyi, Amerika Birleşik Devletleri'nin güvenliğine, çıkarlarına veya yabancı bir ülkeye zarar verecek şekilde başka bir kişiye bilerek ileten, iletmeye teşebbüs eden veya yetkisiz bir kişinin kullanımına sunan herhangi bir kişi.",
     ],
@@ -42,7 +42,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "003",
     title: "İç Terörizm",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "a) Sivil nüfusu, hükümeti ve/veya hükümetin politika ve davranışını etkilemek ve zorlamak amacıyla büyük çaplı bedensel yaralanmalara veya ölümlere sebep verecek suç işleyen ve/veya teşebbüs eden herhangi bir kişi.",
       "b) Sivil nüfusu korkutmak veya zorlamak amacıyla herhangi bir kasıt olsun veya olmasın, büyük çaplı bedensel yaralanmalara ve/veya ölümlere yol açacak bir suç işlemekle yazılı veya sözlü tehdit eden herhangi bir kişi.",
@@ -53,7 +53,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "004",
     title: "İç Terörizm Tehdidi",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Sözlü veya yazılı olarak yapılan beyanın bir tehdit olarak algılanması için özel bir niyetle sivil bir nüfusu korkutmak veya baskılamak için başka bir kişiye ağır fiziksel yaralanma veya ölümle sonuçlanacak bir suç işlemekle kasten tehdit eden herhangi bir kişi.",
     ],
@@ -63,7 +63,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "101",
     title: "Vergi Kaçakçılığı",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "a) Yasaların gerektirdiği süre içerisinde bilerek eyalete, şehre, alt kurumlara veya kamu dairelerine herhangi bir beyanname vermeyen, imzalayan, düzeltmeyen veya dosyalamayan herhangi bir kişi.",
       "b) Vergiden kaçınma niyetiyle herhangi bir yanlış veya hileli beyanda bulunan, veren, imzalayan veya doğrulayan ya da eyalete, şehre, alt kurumlara veya kamu dairelerine yanlış veya hileli bilgi sağlayan herhangi bir kişi.",
@@ -75,7 +75,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "102",
     title: "Seçimde Sahtekarlık",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Oy eklemeye, çıkarmaya veya silmeye çalışan veya bir seçimin sonuçlarını tahrif etmeye çalışan veya baskı, ikna, vaat, rüşvet, tehdit, dolandırıclık veya hile yoluyla seçim sonuçlarını etkilemeye çalışan herhangi bir kişi.",
     ],
@@ -85,7 +85,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "103",
     title: "Kamu Görevinde Yolsuzluk",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Belediye, bölge veya eyalet düzeyindeki bir kurumda istihdam edildiği sırada veya bir kamu görevlisiyle uyum içinde hareket eden bir kişinin, mülk, fiili hizmet ve kaynak elde etmek amacıyla hükümeti veya herhangi bir kesimini dolandırma niyetiyle yanlış veya hileli iddialarda ve vaatlerde bulunması.",
     ],
@@ -95,7 +95,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "104",
     title: "Kamu Görevini İhmal",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Belediye, bölge veya eyalet düzeyindeki bir kurumda istihdam edildiği sırada yasanın kendisine yüklediği veya açıkça görevinin doğasında bulunan bir görevi yerine getirmekten kasten veya ihmalkar olarak kaçınarak kamu güvenliğinin bozulmasına, fiziksel zarar riskine, fiziksel zarara veya bu kanunun ihlaline sebebiyet veren herhangi bir kişi.",
     ],
@@ -105,7 +105,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "105",
     title: "Kamu Görevlisine Rüşvet",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Bir kamu çalışanının resmi eylemini, görüşünü, muhakemesini, kararını veya takdir yetkisini kullanmasını kendi amaçları doğrultusunda etkilemek için söz konusu kamu çalışanına para, mal, hizmet, menfaat veya değerli herhangi bir şeyi uygunsuz bir şekilde vermeyi teklif eden herhangi bir kişi.",
     ],
@@ -115,7 +115,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "106",
     title: "İsyana Teşvik",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "İsyana neden olma niyetiyle, isyana teşvik eden şiddetli davranışlarda bulunan, başkalarını şiddet veya mülke zarar verme eylemleri yapmaya teşvik eden herhangi bir kişi.",
     ],
@@ -125,7 +125,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "107",
     title: "Yasa Dışı Toplanma",
-    type: "M",
+    types: ["M"],
     paragraphs: [
       "a) Geçerli bir izne sahip olmadan kamu tesisi veya alanından dağılmayı, terk etmeyi reddedilen veya kolluk kuvvetleri tarafından terk etmesi emredilen herhangi bir kişi.",
       "b) Halkı muhtemel şiddetli ve/veya gürültülü davranışlarda bulunmaya teşvik eden veya bu davranışlarda bulunmaya hazırlanmak için iki veya daha fazla kişiyle bir araya gelen herhangi bir kişi.",
@@ -137,7 +137,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "108",
     title: "Delillerle Oynama",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Hukuki süreci engellemek, yanıltmak veya başka bir şekilde aldatıcı bir etki yaratmak amacıyla delil olarak kullanılan herhangi bir şeyi bilerek değiştiren, üreten, yerleştiren, yok eden, zarar veren, gizleyen veya hareket ettiren herhangi bir kişi.",
     ],
@@ -147,7 +147,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "109",
     title: "Tanık veya Mağdura Tehdit ",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "Bir tanığı veya mağduru herhangi bir hukuki sürece veya soruşturmaya katılmasını, ifade vermesini veya cezai işlem yapılmasına yol açabilecek bir rapor hazırlamasını engellemek amacıyla onu caydıran, kötü niyetle engelleyen veya engellemeye ve caydırmaya teşebbüs eden herhangi bir kişi.",
     ],
@@ -157,7 +157,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "110",
     title: "Mahkemeye Saygısızlık",
-    type: "M",
+    types: ["M"],
     paragraphs: [
       "a) Bir mahkemenin oturumu sırasında göz önünde ve yargıcın huzurunda işlenen, doğrudan yargılama sürecini kesintiye uğratmaya veya yargıya bağlı olan saygıyı zedeleme eğiliminde işlenen düzensiz, aşağılayıcı ve küstah davranışları gerçekleştiren herhangi bir kişi.",
       "b) Mahkemenin işlemlerini kesintiye uğratma amacıyla huzuru bozan, gürültü çıkaran veya huzuru bozma amacıyla diğer eylemleri gerçekleştiren herhangi bir kişi.",
@@ -173,7 +173,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
   {
     number: "111",
     title: "Yalancı Şahitlik",
-    type: "F",
+    types: ["F"],
     paragraphs: [
       "a) Herhangi bir yetkili mahkeme, memur veya bir mahkeme oturumunda tanıklık edeceğine, beyan edeceğine, ifade vereceğine veya doğru olduğunu tasdik edeceğine dair yemin ettikten sonra, kasten ve yeminine aykırı olacak şekilde yanlış bildiği önemli bir bilgiyi, yanıltıcı bir şekilde doğru olarak sunan herhangi bir kişi.",
       "b) Herhangi bir mahkeme prosedürünü yanıltmak veya geciktirmek amacıyla, yazılı veya sözlü beyan yoluyla kasıtlı olarak yanlış veya eksik bilgi sağlayan herhangi bir kişi.",
