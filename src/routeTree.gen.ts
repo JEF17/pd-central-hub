@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as CaselawRouteImport } from './routes/caselaw'
+import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
 
@@ -36,6 +37,11 @@ const CaselawRoute = CaselawRouteImport.update({
   path: '/caselaw',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OlayRaporuRoute = OlayRaporuRouteImport.update({
+  id: '/olay-raporu',
+  path: '/olay-raporu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PaperworkGeneratorsRoute = PaperworkGeneratorsRouteImport.update({
   id: '/paperwork-generators',
   path: '/paperwork-generators',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
+  '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
+    | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
   fileRoutesById: FileRoutesById
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   ArrestReportRoute: typeof ArrestReportRoute
   CaselawRoute: typeof CaselawRoute
+  OlayRaporuRoute: typeof OlayRaporuRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
 }
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaselawRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/olay-raporu': {
+      id: '/olay-raporu'
+      path: '/olay-raporu'
+      fullPath: '/olay-raporu'
+      preLoaderRoute: typeof OlayRaporuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/paperwork-generators': {
       id: '/paperwork-generators'
       path: '/paperwork-generators'
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   ArrestReportRoute: ArrestReportRoute,
   CaselawRoute: CaselawRoute,
+  OlayRaporuRoute: OlayRaporuRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
 }
