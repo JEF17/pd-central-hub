@@ -72,6 +72,21 @@ function Page() {
           </div>
         ) : (
           <>
+            {result.points >= 30 ? (
+              <div
+                role="alert"
+                className="mt-8 flex items-start gap-3 rounded-xl border border-warning/50 bg-warning/10 p-4 text-warning"
+              >
+                <AlertTriangle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+                <div>
+                  <p className="font-semibold">Suç puanı 30 veya üzeri.</p>
+                  <p className="mt-1 text-sm text-warning/80">
+                    Toplam suç puanı 30'u geçtiği için ilgili prosedürleri kontrol edin.
+                  </p>
+                </div>
+              </div>
+            ) : null}
+
             <section className="mt-8 rounded-xl border border-border bg-card p-6">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h2 className="text-xl font-semibold">Suçlamalar</h2>
