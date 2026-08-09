@@ -1,6 +1,17 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy, Plus, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  BadgeCheck,
+  ClipboardCopy,
+  FileSearch,
+  Gavel,
+  Plus,
+  Search,
+  ShieldAlert,
+  Trash2,
+  type LucideIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
