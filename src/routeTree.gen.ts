@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as CaselawRouteImport } from './routes/caselaw'
@@ -22,6 +23,11 @@ import { Route as PenalCodeRouteImport } from './routes/penal-code'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApbSablonuRoute = ApbSablonuRouteImport.update({
+  id: '/apb-sablonu',
+  path: '/apb-sablonu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
@@ -67,6 +73,7 @@ const PenalCodeRoute = PenalCodeRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/apb-sablonu': typeof ApbSablonuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/apb-sablonu': typeof ApbSablonuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
@@ -90,6 +98,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/apb-sablonu': typeof ApbSablonuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
@@ -103,6 +112,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/apb-sablonu'
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
@@ -114,6 +124,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/apb-sablonu'
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
@@ -125,6 +136,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/apb-sablonu'
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
@@ -137,6 +149,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApbSablonuRoute: typeof ApbSablonuRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   ArrestReportRoute: typeof ArrestReportRoute
   CaselawRoute: typeof CaselawRoute
@@ -154,6 +167,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/apb-sablonu': {
+      id: '/apb-sablonu'
+      path: '/apb-sablonu'
+      fullPath: '/apb-sablonu'
+      preLoaderRoute: typeof ApbSablonuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/arrest-calculator': {
@@ -217,6 +237,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApbSablonuRoute: ApbSablonuRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   ArrestReportRoute: ArrestReportRoute,
   CaselawRoute: CaselawRoute,
