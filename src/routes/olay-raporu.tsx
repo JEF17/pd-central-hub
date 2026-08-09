@@ -183,8 +183,10 @@ function Page() {
             </div>
             <div className="mt-4 h-1 overflow-hidden rounded-full bg-muted">
               <div
-                className="h-full rounded-full bg-primary transition-all duration-300"
-                style={{ width: `${(data.process.length / processOptions.length) * 100}%` }}
+                className={cn(
+                  "h-full rounded-full bg-primary transition-all duration-300",
+                  processProgressClasses[data.process.length],
+                )}
               />
             </div>
             <div className="mt-4 grid gap-2 sm:grid-cols-2">
