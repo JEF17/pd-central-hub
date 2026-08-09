@@ -12,7 +12,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import {
-  areaOptions,
   assignmentOptions,
   buildStatementBBCode,
   buildStatementTitle,
@@ -160,11 +159,11 @@ function Page() {
           </Section>
 
           <Section title="İfade Bilgileri">
-            <SelectField
+            <Field
               label="İfade Alınan Konum"
               value={data.statementLocation}
               onChange={(v) => set("statementLocation", v)}
-              options={areaOptions.map((a) => ({ label: a, value: a }))}
+              placeholder="Konumu girin"
             />
             <Field
               label="İfade Tarihi"
