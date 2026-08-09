@@ -166,18 +166,39 @@ function Page() {
             </div>
           </Section>
 
-          <Section title="Süreç">
-            <div className="sm:col-span-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <section className="rounded-xl border border-border bg-card p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-lg font-semibold">Süreç</h2>
+                  <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    {data.process.length}/{processOptions.length}
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">Raporun mevcut işlem durumunu işaretleyin.</p>
+              </div>
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary">
+                <FileSearch className="size-4" />
+              </div>
+            </div>
+            <div className="mt-4 h-1 overflow-hidden rounded-full bg-muted">
+              <div
+                className="h-full rounded-full bg-primary transition-all duration-300"
+                style={{ width: `${(data.process.length / processOptions.length) * 100}%` }}
+              />
+            </div>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {processOptions.map((p) => (
-                <CheckItem
+                <ProcessItem
                   key={p}
                   label={p}
+                  icon={processIcons[p]}
                   checked={data.process.includes(p)}
                   onChange={() => toggle("process", p)}
                 />
               ))}
             </div>
-          </Section>
+          </section>
 
           <section className="lg:col-span-2 rounded-xl border border-border bg-card p-6">
             <div className="flex items-center justify-between">
