@@ -202,7 +202,7 @@ ${val(data.division)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]GÖREVLENDİRME
 ${val(data.assignment)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]TARİH
-${val(data.date, "GG/AA/YYYY")}[/indent][/size][/tdwidth][/table]
+OR—${val(data.date, "GG/AA/YYYY")}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#ffffff,#ffffff,top,left,2,1][b]OLAY BİLGİLERİ[/b][/table]
