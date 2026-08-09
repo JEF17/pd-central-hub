@@ -6,6 +6,12 @@ export interface IncidentPerson {
   status: "victim" | "witness" | "";
 }
 
+export interface IncidentEvidence {
+  id: string;
+  label: string;
+  url: string;
+}
+
 export interface IncidentReportData {
   reportNo: string;
   officerName: string;
@@ -20,7 +26,7 @@ export interface IncidentReportData {
   otherType: string;
   people: IncidentPerson[];
   description: string;
-  evidence: string[];
+  evidence: IncidentEvidence[];
   process: string[];
   followUps: string[];
   followUpDb: string;
