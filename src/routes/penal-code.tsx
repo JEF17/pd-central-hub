@@ -195,6 +195,39 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "Madde (a) ihlalinde A Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 4 günden fazla olmayacaktır.\nMadde (b) ihlalinde B Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 2 günden fazla olmayacaktır.\nMadde (c) ihlalinde C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 12 saatten fazla olmayacaktır.",
   },
+  {
+    number: "113",
+    title: "Kolluk Kuvvetlerinde Görevli Hayvanı Engellemek",
+    types: ["M", "F"],
+    paragraphs: [
+      "a) Kolluk kuvveti personelinin görev yaparken kullandığı herhangi bir hayvanı kasten ve kötü niyetle ve hiçbir yasal gerekçe olmaksızın, korkutarak, alay ederek, ajite ederek veya taciz ederek hayvana müdahale eden, engelleyen veya görevinin ifasına teşebbüs eden kişi.",
+      "b) Hukuki bir gerekçesi olmaksızın kasten kolluk kuvveti personelinin gözetiminde görev yapan hayvana vuran, döven, tekmeleyen, kesen, bıçaklayan, ateş eden, zehirleyen veya başka bir şekilde yaralayan herhangi bir kişi.",
+      "c) (a) ve (b) hükümlerini ihlal ederek, yaralamaya veya ölüme neden olma niyetiyle ölüm, herhangi bir vücut uzvunun kaybı veya işlev bozukluğu dahil ciddi fiziksel yaralanmaya veya ciddi sakatlığa neden olan herhangi bir kişi.",
+    ],
+    classification:
+      "Madde (a) ihlalinde B Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 12 saatten az 2 günden fazla olmayacaktır.\n Madde (b) ihlalinde B Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 4 günden fazla olmayacaktır.\nMadde (c) ihlalinde A Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 3 günden az 8 günden fazla olmayacaktır.",
+  },
+  {
+    number: "114",
+    title: "Yasal Gözaltından Kaçmak",
+    types: ["F"],
+    paragraphs: [
+      "Tutuklanan, suçla itham edilen veya bir suçtan hüküm giyen ve daha sonra bir bölge veya şehir hapishanesinden, gözaltı tesisinden, toplum hizmetinden veya kendisinden sorumlu bir ıslah memurunun gözetiminden kaçan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 7 günden az 9 günden fazla olmayacaktır.",
+  },
+  {
+    number: "115",
+    title: "Kolluk Kuvvetlerinden Kaçmak",
+    types: ["F"],
+    paragraphs: [
+      "a) Motorlu taşıt veya bisiklet kullanırken veya bindikten sonra kaçma niyetiyle kasten kaçan veya onu takip eden bir kolluk kuvveti personelinden kaçmaya çalışan herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 günden az 5 günden fazla olmayacaktır. Ayrıca sürücü lisansına 7 günlüğüne el koyulacaktır. Aracın çekilmesine ve para cezasına ilişkin cezalar ise aşağıdaki gibidir:\n7 günlüğüne araca el koyulacaktır ve $5.000 para cezası\n2. 14 günlüğüne araca el koyulacaktır ve $10.000 para cezası\n3.14 günlüğüne araca el koyulacaktır ve $20.000 para cezası\n Suçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder.",
+    "Not:Not: Bu suç kişiye karşıdır ve araca karşı değildir. Bu nedenle kovalama farklı bir araçta başladıysa ve kaçan kişi farklı bir araca geçerse son kullandığı araç çekilebilir. Eğer araç başka birisine aitse ve çalındığını kanıtlayabilirse aracı teslim alabilir. Eğer aracın plaka kaydı yoksa araç parçalatılacaktır.",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
