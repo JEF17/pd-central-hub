@@ -28,6 +28,22 @@ export const legalResources = [
     description: "Resmî kefalet ve teminat cetvelini görüntüleyin.",
     href: "https://docs.google.com/spreadsheets/d/1Gx7QAujLMvwc7TvFjovNdZ5UwUmhu7TXuJS40ZqKafw/edit?usp=sharing",
   },
+  {
+    title: "2023 Uyuşturucuyla Mücadele ve Önleme Yasası (DEPA)",
+    description: "2023 tarihli Uyuşturucuyla Mücadele ve Önleme Yasasını görüntüleyin.",
+    href: "https://forum-tr.gta.world/index.php?/topic/7076-2023-uyu%C5%9Fturucuyla-m%C3%BCcadele-ve-%C3%B6nleme-yasas%C4%B1-depa/",
+  },
+];
+
+export const cctvStandards = [
+  {
+    label: "Şehir İçi",
+    href: "https://drive.google.com/file/d/1e5HqS3F9HbLFHEUMpJ9iFBPBBygNuF4P/view",
+  },
+  {
+    label: "Şehir Dışı",
+    href: "https://drive.google.com/file/d/1TItxWybbhL71mufxOx_8XKZUYH4kyE3l/view",
+  },
 ];
 
 export const caseEntries: CaseEntry[] = [

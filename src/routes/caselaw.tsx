@@ -6,7 +6,13 @@ import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { caseEntries, legalResources, mirandaRights, type Jurisdiction } from "@/lib/caselaw-data";
+import {
+  caseEntries,
+  cctvStandards,
+  legalResources,
+  mirandaRights,
+  type Jurisdiction,
+} from "@/lib/caselaw-data";
 import { cn } from "@/lib/utils";
 
 type Filter = "ALL" | Jurisdiction;
@@ -96,6 +102,28 @@ function CaselawPage() {
               <p className="mt-1 text-sm text-muted-foreground">{resource.description}</p>
             </a>
           ))}
+
+          <div className="flex min-h-full flex-col gap-4 rounded-lg border border-border bg-card p-4">
+            <div className="flex min-w-0 items-start gap-2">
+              <ExternalLink className="mt-0.5 size-4 shrink-0 text-primary" />
+              <div>
+                <h2 className="font-semibold">San Andreas Eyaleti CCTV Standartları</h2>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Şehir içi ve şehir dışı CCTV standartlarını görüntüleyin.
+                </p>
+              </div>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1">
+              {cctvStandards.map((standard) => (
+                <Button key={standard.label} asChild variant="outline" size="sm" className="justify-between">
+                  <a href={standard.href} target="_blank" rel="noreferrer">
+                    {standard.label}
+                    <ExternalLink className="size-3.5" />
+                  </a>
+                </Button>
+              ))}
+            </div>
+          </div>
 
           <div className="flex min-h-full flex-col items-start justify-between gap-3 rounded-lg border border-border bg-card p-4">
             <div className="flex min-w-0 items-center gap-2">
