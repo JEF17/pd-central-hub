@@ -214,7 +214,7 @@ function PenalCodePage() {
           <span className="text-xs font-medium text-muted-foreground">{filteredEntries.length} madde</span>
         </div>
 
-        <section className="mt-4 space-y-3" aria-live="polite" aria-label="Ceza kanunu sonuçları">
+        <section className="mt-4 grid grid-cols-1 gap-3" aria-live="polite" aria-label="Ceza kanunu sonuçları">
           {filteredEntries.map((entry) => {
             const style = typeStyles[entry.type];
 
