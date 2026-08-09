@@ -339,7 +339,7 @@ function PenalCodePage() {
 
         <section className="mt-4 space-y-3" aria-live="polite" aria-label="Ceza kanunu sonuçları">
           {filteredEntries.map((entry) => {
-            const style = typeStyles[entry.types[0]];
+            const style = typeStyles[entry.types[0] ?? "F"];
 
             return (
               <article
