@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 import {
   buildIncidentBBCode,
   buildIncidentTitle,
@@ -215,7 +216,7 @@ function Page() {
             </div>
           </section>
 
-          <Section title="Açıklama">
+          <Section title="Açıklama" wide>
             <div className="sm:col-span-2">
               <Textarea
                 rows={8}
@@ -226,7 +227,7 @@ function Page() {
             </div>
           </Section>
 
-          <Section title="Kanıtlar">
+          <Section title="Kanıtlar" wide>
             <div className="sm:col-span-2 space-y-2">
               {data.evidence.map((e, i) => (
                 <div key={i} className="flex gap-2">
@@ -264,42 +265,6 @@ function Page() {
               </Button>
             </div>
           </Section>
-
-          <Section title="İdari Bilgiler">
-            <div className="sm:col-span-2">
-              <Label className="text-xs">Takip Soruşturması</Label>
-              <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
-                {followUpOptions.map((f) => (
-                  <CheckItem
-                    key={f}
-                    label={f}
-                    checked={data.followUps.includes(f)}
-                    onChange={() => toggle("followUps", f)}
-                  />
-                ))}
-              </div>
-              <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                {data.followUps.includes("DB") ? (
-                  <Input
-                    placeholder="DB detayı"
-                    value={data.followUpDb}
-                    onChange={(e) => set("followUpDb", e.target.value)}
-                  />
-                ) : null}
-                {data.followUps.includes("Diğer") ? (
-                  <Input
-                    placeholder="Diğer birim"
-                    value={data.followUpOther}
-                    onChange={(e) => set("followUpOther", e.target.value)}
-                  />
-                ) : null}
-              </div>
-            </div>
-            <Field label="Field Supervisor İmzası" value={data.supervisorName} onChange={(v) => set("supervisorName", v)} placeholder="A. SOYADI" />
-            <Field label="Seri No." value={data.supervisorSerial} onChange={(v) => set("supervisorSerial", v)} placeholder="00000" />
-            <Field label="Watch Commander İmzası" value={data.watchCommanderName} onChange={(v) => set("watchCommanderName", v)} placeholder="A. SOYADI" />
-            <Field label="Seri No." value={data.watchCommanderSerial} onChange={(v) => set("watchCommanderSerial", v)} placeholder="00000" />
-          </Section>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
@@ -330,9 +295,17 @@ function Page() {
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function Section({
+  title,
+  children,
+  wide,
+}: {
+  title: string;
+  children: React.ReactNode;
+  wide?: boolean;
+}) {
   return (
-    <section className="rounded-xl border border-border bg-card p-6">
+    <section className={cn("rounded-xl border border-border bg-card p-6", wide && "lg:col-span-2")}>
       <h2 className="text-lg font-semibold">{title}</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">{children}</div>
     </section>
