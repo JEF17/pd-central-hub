@@ -4,6 +4,8 @@ import { ArrowLeft, ClipboardCopy } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { DraftBar } from "@/components/DraftBar";
+import { useFormDraft } from "@/hooks/use-form-draft";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -43,7 +45,7 @@ export const Route = createFileRoute("/field-interview-karti")({
 });
 
 function Page() {
-  const [data, setData] = useState<FiCardData>(emptyFiCard);
+  const [data, setData, clearDraft, savedAt] = useFormDraft<FiCardData>("field-interview-karti", emptyFiCard);
   const [output, setOutput] = useState<string>("");
 
   const set = <K extends keyof FiCardData>(key: K, value: FiCardData[K]) =>
@@ -77,6 +79,15 @@ function Page() {
         <p className="mt-2 text-muted-foreground">
           Alanları doldur, alt kısımda foruma yapıştırabileceğin BBCode çıktısı oluşsun.
         </p>
+
+        <DraftBar
+          savedAt={savedAt}
+          onClear={() => {
+            clearDraft();
+            setOutput("");
+            toast.success("Şablon temizlendi");
+          }}
+        />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <Section title="Kişi Bilgileri">

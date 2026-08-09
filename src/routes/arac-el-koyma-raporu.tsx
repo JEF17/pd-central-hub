@@ -4,6 +4,8 @@ import { ArrowLeft, BadgeAlert, CircleAlert, ClipboardCopy, ShieldAlert } from "
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { DraftBar } from "@/components/DraftBar";
+import { useFormDraft } from "@/hooks/use-form-draft";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -69,7 +71,7 @@ const violationStyles = {
 } as const;
 
 function Page() {
-  const [data, setData] = useState<ImpoundReportData>(emptyImpoundReport);
+  const [data, setData, clearDraft, savedAt] = useFormDraft<ImpoundReportData>("arac-el-koyma-raporu", emptyImpoundReport);
   const [output, setOutput] = useState("");
   const title = buildImpoundTitle(data);
 
@@ -97,6 +99,15 @@ function Page() {
         <p className="mt-2 text-muted-foreground">
           Bu rapor HTML çıktısı üretir. Konu başlığı tarih, plaka ve modelden otomatik oluşur.
         </p>
+
+        <DraftBar
+          savedAt={savedAt}
+          onClear={() => {
+            clearDraft();
+            setOutput("");
+            toast.success("Şablon temizlendi");
+          }}
+        />
 
         <section className="mt-6 rounded-xl border border-border bg-card p-5">
           <Label className="text-xs">Konu Başlığı</Label>

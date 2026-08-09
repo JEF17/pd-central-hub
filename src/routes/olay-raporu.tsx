@@ -15,6 +15,8 @@ import {
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { DraftBar } from "@/components/DraftBar";
+import { useFormDraft } from "@/hooks/use-form-draft";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -75,7 +77,7 @@ export const Route = createFileRoute("/olay-raporu")({
 });
 
 function Page() {
-  const [data, setData] = useState<IncidentReportData>(emptyIncidentReport);
+  const [data, setData, clearDraft, savedAt] = useFormDraft<IncidentReportData>("olay-raporu", emptyIncidentReport);
   const [output, setOutput] = useState<string>("");
 
   const set = <K extends keyof IncidentReportData>(key: K, value: IncidentReportData[K]) =>
@@ -113,6 +115,15 @@ function Page() {
         <p className="mt-2 text-muted-foreground">
           Alanları doldur, alt kısımda foruma yapıştırabileceğin BBCode çıktısı oluşsun.
         </p>
+
+        <DraftBar
+          savedAt={savedAt}
+          onClear={() => {
+            clearDraft();
+            setOutput("");
+            toast.success("Şablon temizlendi");
+          }}
+        />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <Section title="Rapor">

@@ -4,6 +4,8 @@ import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone } from 
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { DraftBar } from "@/components/DraftBar";
+import { useFormDraft } from "@/hooks/use-form-draft";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -68,7 +70,7 @@ const kindStyles = {
 } as const;
 
 function Page() {
-  const [data, setData] = useState<ViolationReportData>(emptyViolationReport);
+  const [data, setData, clearDraft, savedAt] = useFormDraft<ViolationReportData>("ihlal-raporu", emptyViolationReport);
   const [output, setOutput] = useState("");
 
   const set = <K extends keyof ViolationReportData>(key: K, value: ViolationReportData[K]) =>
@@ -95,6 +97,15 @@ function Page() {
         <p className="mt-2 text-muted-foreground">
           Bu rapor HTML çıktısı üretir. Konu başlığı bulunmuyor.
         </p>
+
+        <DraftBar
+          savedAt={savedAt}
+          onClear={() => {
+            clearDraft();
+            setOutput("");
+            toast.success("Şablon temizlendi");
+          }}
+        />
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <Section title="İhlal Türü">

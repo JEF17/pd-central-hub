@@ -4,6 +4,8 @@ import { ArrowLeft, ClipboardCopy, Info, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
+import { DraftBar } from "@/components/DraftBar";
+import { useFormDraft } from "@/hooks/use-form-draft";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,7 +49,7 @@ export const Route = createFileRoute("/tutuklama-raporu")({
 });
 
 function Page() {
-  const [data, setData] = useState<ArrestReportData>(emptyArrestReport);
+  const [data, setData, clearDraft, savedAt] = useFormDraft<ArrestReportData>("tutuklama-raporu", emptyArrestReport);
   const [output, setOutput] = useState("");
 
   const set = <K extends keyof ArrestReportData>(key: K, value: ArrestReportData[K]) =>
@@ -71,6 +73,15 @@ function Page() {
         <p className="mt-2 text-muted-foreground">
           Bu rapor BBCode değil, HTML çıktısı üretir. Alanları doldur ve çıktıyı kopyala.
         </p>
+
+        <DraftBar
+          savedAt={savedAt}
+          onClear={() => {
+            clearDraft();
+            setOutput("");
+            toast.success("Şablon temizlendi");
+          }}
+        />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-2">
           <Section title="Şüpheli Bilgisi">
