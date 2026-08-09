@@ -126,7 +126,12 @@ function Page() {
               placeholder="26/01/2026 - 22.20"
             />
             <Field label="Konum" value={data.location} onChange={(v) => set("location", v)} />
-            <Field label="Bölge" value={data.area} onChange={(v) => set("area", v)} />
+            <SelectField
+              label="Bölge"
+              value={data.area}
+              onChange={(v) => set("area", v)}
+              options={areaOptions.map((a) => ({ label: a, value: a }))}
+            />
             <div className="sm:col-span-2">
               <Label className="text-xs">Olay Türü</Label>
               <div className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
