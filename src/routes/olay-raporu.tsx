@@ -1,6 +1,17 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy, Plus, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  BadgeCheck,
+  ClipboardCopy,
+  FileSearch,
+  Gavel,
+  Plus,
+  Search,
+  ShieldAlert,
+  Trash2,
+  type LucideIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
@@ -11,6 +22,23 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+const processIcons: Record<string, LucideIcon> = {
+  "Güç Kullanıldı": ShieldAlert,
+  "Tutuklama Yapıldı": Gavel,
+  "Takip Soruşturması Gerekiyor": Search,
+  "APB Gerekiyor": BadgeCheck,
+  Sonuçlandı: BadgeCheck,
+};
+
+const processProgressClasses: Record<number, string> = {
+  0: "w-0",
+  1: "w-1/5",
+  2: "w-2/5",
+  3: "w-3/5",
+  4: "w-4/5",
+  5: "w-full",
+};
+
 import {
   areaOptions,
   assignmentOptions,
@@ -155,18 +183,41 @@ function Page() {
             </div>
           </Section>
 
-          <Section title="Süreç">
-            <div className="sm:col-span-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          <section className="rounded-xl border border-border bg-card p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-lg font-semibold">Süreç</h2>
+                  <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    {data.process.length}/{processOptions.length}
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-muted-foreground">Raporun mevcut işlem durumunu işaretleyin.</p>
+              </div>
+              <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-primary/30 bg-primary/10 text-primary">
+                <FileSearch className="size-4" />
+              </div>
+            </div>
+            <div className="mt-4 h-1 overflow-hidden rounded-full bg-muted">
+              <div
+                className={cn(
+                  "h-full rounded-full bg-primary transition-all duration-300",
+                  processProgressClasses[data.process.length],
+                )}
+              />
+            </div>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
               {processOptions.map((p) => (
-                <CheckItem
+                <ProcessItem
                   key={p}
                   label={p}
+                  icon={processIcons[p] ?? FileSearch}
                   checked={data.process.includes(p)}
                   onChange={() => toggle("process", p)}
                 />
               ))}
             </div>
-          </Section>
+          </section>
 
           <section className="lg:col-span-2 rounded-xl border border-border bg-card p-6">
             <div className="flex items-center justify-between">
@@ -397,6 +448,50 @@ function CheckItem({
     <label className="flex cursor-pointer items-center gap-2 text-sm">
       <Checkbox checked={checked} onCheckedChange={onChange} />
       {label}
+    </label>
+  );
+}
+
+function ProcessItem({
+  label,
+  icon: Icon,
+  checked,
+  onChange,
+}: {
+  label: string;
+  icon: LucideIcon;
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <label
+      className={cn(
+        "group flex min-h-14 cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors",
+        checked
+          ? "border-primary/50 bg-primary/10 text-foreground"
+          : "border-border/80 bg-muted/20 text-muted-foreground hover:border-primary/30 hover:bg-muted/50",
+      )}
+    >
+      <Checkbox checked={checked} onCheckedChange={onChange} className="sr-only" />
+      <span
+        className={cn(
+          "flex size-8 shrink-0 items-center justify-center rounded-md border transition-colors",
+          checked
+            ? "border-primary/40 bg-primary text-primary-foreground"
+            : "border-border bg-card text-muted-foreground group-hover:text-foreground",
+        )}
+      >
+        <Icon className="size-4" />
+      </span>
+      <span className="flex-1 text-sm font-medium leading-tight">{label}</span>
+      <span
+        className={cn(
+          "flex size-5 shrink-0 items-center justify-center rounded-full border text-[10px] transition-colors",
+          checked ? "border-primary bg-primary text-primary-foreground" : "border-border text-transparent",
+        )}
+      >
+        <BadgeCheck className="size-3" />
+      </span>
     </label>
   );
 }
