@@ -60,6 +60,23 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "A, B veya C Sınıfı felony kapsamında sorumlu tutulacaktır ve cezası mahkemenin takdirine göre belirlenecektir.",
   },
+  {
+    number: "101",
+    title: "Vergi Kaçakçılığı",
+    type: "F",
+    paragraphs: [
+      "a) Yasaların gerektirdiği süre içerisinde bilerek eyalete, şehre, alt kurumlara veya kamu dairelerine herhangi bir beyanname vermeyen, imzalayan, düzeltmeyen veya dosyalamayan herhangi bir kişi.",
+      "b) Vergiden kaçınma niyetiyle herhangi bir yanlış veya hileli beyanda bulunan, veren, imzalayan veya doğrulayan ya da eyalete, şehre, alt kurumlara veya kamu dairelerine yanlış veya hileli bilgi sağlayan herhangi bir kişi."
+      "c) Lisans gerektiren bir faaliyeti geçerli bir lisans olmadan gerçekleştiren ve bunu takip eden işlemlerinde eyalete, şehre, alt kurumlara veya kamu dairelerine vergi vermeyi reddeden herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır ve aşağıdaki suç sayısı kriterlerine göre para cezası ile cezalandırılacaktır:",
+" 1. $5,000 para cezası
+  2. $10,000 para cezası
+  3. $15,000 para cezası
+Suçun devam etmesi halinde üçüncü cezaya dönülür ve ceza işlenmeye devam eder."
+    
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
