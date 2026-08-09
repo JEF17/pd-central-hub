@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
+import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as CaselawRouteImport } from './routes/caselaw'
@@ -29,6 +30,11 @@ const IndexRoute = IndexRouteImport.update({
 const ApbSablonuRoute = ApbSablonuRouteImport.update({
   id: '/apb-sablonu',
   path: '/apb-sablonu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AracElKoymaRaporuRoute = AracElKoymaRaporuRouteImport.update({
+  id: '/arac-el-koyma-raporu',
+  path: '/arac-el-koyma-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
@@ -80,6 +86,7 @@ const TutuklamaRaporuRoute = TutuklamaRaporuRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/apb-sablonu': typeof ApbSablonuRoute
+  '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/apb-sablonu': typeof ApbSablonuRoute
+  '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
@@ -107,6 +115,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/apb-sablonu': typeof ApbSablonuRoute
+  '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
   '/caselaw': typeof CaselawRoute
@@ -122,6 +131,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/apb-sablonu'
+    | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
@@ -135,6 +145,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/apb-sablonu'
+    | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
@@ -148,6 +159,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/apb-sablonu'
+    | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/arrest-report'
     | '/caselaw'
@@ -162,6 +174,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
+  AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   ArrestReportRoute: typeof ArrestReportRoute
   CaselawRoute: typeof CaselawRoute
@@ -187,6 +200,13 @@ declare module '@tanstack/react-router' {
       path: '/apb-sablonu'
       fullPath: '/apb-sablonu'
       preLoaderRoute: typeof ApbSablonuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/arac-el-koyma-raporu': {
+      id: '/arac-el-koyma-raporu'
+      path: '/arac-el-koyma-raporu'
+      fullPath: '/arac-el-koyma-raporu'
+      preLoaderRoute: typeof AracElKoymaRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/arrest-calculator': {
@@ -258,6 +278,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApbSablonuRoute: ApbSablonuRoute,
+  AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   ArrestReportRoute: ArrestReportRoute,
   CaselawRoute: CaselawRoute,
