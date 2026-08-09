@@ -112,6 +112,28 @@ const penalCodeEntries: PenalCodeEntry[] = [
     classification:
       "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 3 günden az 5 günden fazla olmayacaktır.",
   },
+  {
+    number: "106",
+    title: "İsyana Teşvik",
+    type: "F",
+    paragraphs: [
+      "İsyana neden olma niyetiyle, isyana teşvik eden şiddetli davranışlarda bulunan, başkalarını şiddet veya mülke zarar verme eylemleri yapmaya teşvik eden herhangi bir kişi.",
+    ],
+    classification:
+      "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 6 saatten az 2 günden fazla olmayacaktır.",
+  },
+  {
+    number: "107",
+    title: "Yasa Dışı Toplanma",
+    type: "M",
+    paragraphs: [
+      "a) Geçerli bir izne sahip olmadan kamu tesisi veya alanından dağılmayı, terk etmeyi reddedilen veya kolluk kuvvetleri tarafından terk etmesi emredilen herhangi bir kişi.",
+      "b) Halkı muhtemel şiddetli ve/veya gürültülü davranışlarda bulunmaya teşvik eden veya bu davranışlarda bulunmaya hazırlanmak için iki veya daha fazla kişiyle bir araya gelen herhangi bir kişi.",
+      "c) Yasal protesto, ifade özgürlüğünün ifadesi veya geçerli bir izinle yapılan barışçıl toplantılar hariç olmak üzere, herhangi bir ceza kanununu ihlal edecek bir davranışta bulunmak amacıyla bilerek iki veya daha fazla kişiyle bir araya gelen veya pervasızca kamusal alarm, rahatsızlık veya sıkıntı riski yaratan bir davranışta bulunan herhangi bir kişi. ",
+    ],
+    classification:
+      "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 3 saatten az 1 günden fazla olmayacaktır.",
+  },
 ];
 
 const filterOptions: Array<{ value: CrimeType; label: string; description: string }> = [
