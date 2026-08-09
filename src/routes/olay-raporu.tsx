@@ -22,6 +22,23 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+const processIcons: Record<string, LucideIcon> = {
+  "Güç Kullanıldı": ShieldAlert,
+  "Tutuklama Yapıldı": Gavel,
+  "Takip Soruşturması Gerekiyor": Search,
+  "APB Gerekiyor": BadgeCheck,
+  Sonuçlandı: BadgeCheck,
+};
+
+const processProgressClasses: Record<number, string> = {
+  0: "w-0",
+  1: "w-1/5",
+  2: "w-2/5",
+  3: "w-3/5",
+  4: "w-4/5",
+  5: "w-full",
+};
+
 import {
   areaOptions,
   assignmentOptions,
