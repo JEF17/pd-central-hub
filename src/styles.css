@@ -173,22 +173,6 @@ html[data-density="compact"] {
   font-size: 14.5px;
 }
 
-/* Eye-comfort mode — softer contrast for long sessions. */
-html[data-contrast="soft"] {
-  --foreground: hsl(213 18% 80%);
-  --card-foreground: hsl(213 18% 80%);
-  --muted-foreground: hsl(214 12% 58%);
-  --border: hsl(218 20% 20%);
-}
-
-html.theme-light[data-contrast="soft"] {
-  --background: hsl(210 22% 94%);
-  --foreground: hsl(218 20% 28%);
-  --card: hsl(210 30% 99%);
-  --card-foreground: hsl(218 20% 28%);
-  --muted-foreground: hsl(216 10% 48%);
-  --border: hsl(214 16% 86%);
-}
 
 /* Micro-interactions */
 @layer base {
