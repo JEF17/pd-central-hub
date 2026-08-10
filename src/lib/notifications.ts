@@ -75,7 +75,7 @@ export function addNotification(
 
 export function markAllRead() {
   hydrate();
-  items = items.map((n) => (n.read ? n : { ...n, read: false || true }));
+  items = items.map((n) => (n.read ? n : { ...n, read: true }));
   emit();
 }
 
