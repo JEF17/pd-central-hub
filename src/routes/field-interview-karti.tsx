@@ -222,16 +222,30 @@ function Page() {
           <Button className="press" onClick={() => setOutput(buildFiCardBBCode(data))}>Kartı Oluştur</Button>
           {output ? (
             <>
-              <Button variant="outline" onClick={() => copy(output, "BBCode")}>
+              <Button variant="outline" className="press" onClick={() => copy(output, "BBCode")}>
                 <ClipboardCopy className="size-4" />
                 BBCode kopyala
               </Button>
-              <Button variant="outline" onClick={() => copy(title, "Konu başlığı")}>
+              <Button variant="outline" className="press" onClick={() => copy(title, "Konu başlığı")}>
                 <ClipboardCopy className="size-4" />
                 Konu başlığı kopyala
               </Button>
             </>
           ) : null}
+          <span className="ml-auto hidden items-center gap-2 self-center text-xs text-muted-foreground sm:flex">
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
+            +
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd>
+            oluştur
+            <span className="opacity-50">·</span>
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
+            +
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Shift</kbd>
+            +
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">C</kbd>
+            kopyala
+          </span>
+
         </div>
 
         {output ? (
