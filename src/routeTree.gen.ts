@@ -14,6 +14,7 @@ import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as ArrestReportRouteImport } from './routes/arrest-report'
+import { Route as AyarlarRouteImport } from './routes/ayarlar'
 import { Route as CaselawRouteImport } from './routes/caselaw'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
@@ -22,7 +23,6 @@ import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
-import { Route as PersonelProfiliRouteImport } from './routes/personel-profili'
 import { Route as TutuklamaRaporuRouteImport } from './routes/tutuklama-raporu'
 
 const IndexRoute = IndexRouteImport.update({
@@ -48,6 +48,11 @@ const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
 const ArrestReportRoute = ArrestReportRouteImport.update({
   id: '/arrest-report',
   path: '/arrest-report',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AyarlarRoute = AyarlarRouteImport.update({
+  id: '/ayarlar',
+  path: '/ayarlar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaselawRoute = CaselawRouteImport.update({
@@ -90,11 +95,6 @@ const PenalCodeRoute = PenalCodeRouteImport.update({
   path: '/penal-code',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PersonelProfiliRoute = PersonelProfiliRouteImport.update({
-  id: '/personel-profili',
-  path: '/personel-profili',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TutuklamaRaporuRoute = TutuklamaRaporuRouteImport.update({
   id: '/tutuklama-raporu',
   path: '/tutuklama-raporu',
@@ -107,6 +107,7 @@ export interface FileRoutesByFullPath {
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
+  '/ayarlar': typeof AyarlarRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
@@ -115,7 +116,6 @@ export interface FileRoutesByFullPath {
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/personel-profili': typeof PersonelProfiliRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
 }
 export interface FileRoutesByTo {
@@ -124,6 +124,7 @@ export interface FileRoutesByTo {
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
+  '/ayarlar': typeof AyarlarRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
@@ -132,7 +133,6 @@ export interface FileRoutesByTo {
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/personel-profili': typeof PersonelProfiliRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
 }
 export interface FileRoutesById {
@@ -142,6 +142,7 @@ export interface FileRoutesById {
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/arrest-report': typeof ArrestReportRoute
+  '/ayarlar': typeof AyarlarRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
@@ -150,7 +151,6 @@ export interface FileRoutesById {
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/personel-profili': typeof PersonelProfiliRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
 }
 export interface FileRouteTypes {
@@ -161,6 +161,7 @@ export interface FileRouteTypes {
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/arrest-report'
+    | '/ayarlar'
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
@@ -169,7 +170,6 @@ export interface FileRouteTypes {
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
-    | '/personel-profili'
     | '/tutuklama-raporu'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -178,6 +178,7 @@ export interface FileRouteTypes {
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/arrest-report'
+    | '/ayarlar'
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
@@ -186,7 +187,6 @@ export interface FileRouteTypes {
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
-    | '/personel-profili'
     | '/tutuklama-raporu'
   id:
     | '__root__'
@@ -195,6 +195,7 @@ export interface FileRouteTypes {
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/arrest-report'
+    | '/ayarlar'
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
@@ -203,7 +204,6 @@ export interface FileRouteTypes {
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
-    | '/personel-profili'
     | '/tutuklama-raporu'
   fileRoutesById: FileRoutesById
 }
@@ -213,6 +213,7 @@ export interface RootRouteChildren {
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   ArrestReportRoute: typeof ArrestReportRoute
+  AyarlarRoute: typeof AyarlarRoute
   CaselawRoute: typeof CaselawRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
@@ -221,7 +222,6 @@ export interface RootRouteChildren {
   OlayRaporuRoute: typeof OlayRaporuRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
-  PersonelProfiliRoute: typeof PersonelProfiliRoute
   TutuklamaRaporuRoute: typeof TutuklamaRaporuRoute
 }
 
@@ -260,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/arrest-report'
       fullPath: '/arrest-report'
       preLoaderRoute: typeof ArrestReportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ayarlar': {
+      id: '/ayarlar'
+      path: '/ayarlar'
+      fullPath: '/ayarlar'
+      preLoaderRoute: typeof AyarlarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/caselaw': {
@@ -318,13 +325,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PenalCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/personel-profili': {
-      id: '/personel-profili'
-      path: '/personel-profili'
-      fullPath: '/personel-profili'
-      preLoaderRoute: typeof PersonelProfiliRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tutuklama-raporu': {
       id: '/tutuklama-raporu'
       path: '/tutuklama-raporu'
@@ -341,6 +341,7 @@ const rootRouteChildren: RootRouteChildren = {
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   ArrestReportRoute: ArrestReportRoute,
+  AyarlarRoute: AyarlarRoute,
   CaselawRoute: CaselawRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
@@ -349,7 +350,6 @@ const rootRouteChildren: RootRouteChildren = {
   OlayRaporuRoute: OlayRaporuRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
-  PersonelProfiliRoute: PersonelProfiliRoute,
   TutuklamaRaporuRoute: TutuklamaRaporuRoute,
 }
 export const routeTree = rootRouteImport

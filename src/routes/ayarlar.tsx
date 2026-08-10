@@ -25,7 +25,7 @@ import {
   type OfficerProfile,
 } from "@/lib/officer-profile";
 
-export const Route = createFileRoute("/personel-profili")({
+export const Route = createFileRoute("/ayarlar")({
   head: () => ({
     meta: [
       { title: "Personel Profili — LSPD Portal" },
