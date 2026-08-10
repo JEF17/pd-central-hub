@@ -62,26 +62,53 @@ export function AppShell({ children }: { children: ReactNode }) {
 
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
-          {navItems.map((item) => {
-            const active = pathname === item.to;
-            return (
-              <Link
-                key={item.to}
-                to={item.to}
-                title={item.label}
-                className={cn(
-                  "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                  active
-                    ? "bg-accent text-accent-foreground"
-                    : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
-                  collapsed && "justify-center px-0",
-                )}
-              >
-                <item.icon className="size-4 shrink-0" />
-                {!collapsed && <span className="truncate">{item.label}</span>}
-              </Link>
-            );
-          })}
+          {navItems
+            .filter((item) => item.to !== "/ayarlar")
+            .map((item) => {
+              const active = pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  title={item.label}
+                  className={cn(
+                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                    active
+                      ? "bg-accent text-accent-foreground"
+                      : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
+                    collapsed && "justify-center px-0",
+                  )}
+                >
+                  <item.icon className="size-4 shrink-0" />
+                  {!collapsed && <span className="truncate">{item.label}</span>}
+                </Link>
+              );
+            })}
+        </nav>
+
+        <nav className="border-t border-border px-3 py-2">
+          {navItems
+            .filter((item) => item.to === "/ayarlar")
+            .map((item) => {
+              const active = pathname === item.to;
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  title={item.label}
+                  className={cn(
+                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                    active
+                      ? "bg-accent text-accent-foreground"
+                      : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
+                    collapsed && "justify-center px-0",
+                  )}
+                >
+                  <item.icon className="size-4 shrink-0" />
+                  {!collapsed && <span className="truncate">{item.label}</span>}
+                </Link>
+              );
+            })}
         </nav>
 
       </aside>
