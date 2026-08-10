@@ -111,7 +111,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="tr" className="dark" data-density="comfortable" data-contrast="normal">
+    <html
+      lang="tr"
+      className="dark"
+      data-density="comfortable"
+      data-contrast="normal"
+      suppressHydrationWarning
+    >
       <head>
         <HeadContent />
         <script dangerouslySetInnerHTML={{ __html: appearanceBootScript }} />
