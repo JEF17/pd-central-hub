@@ -4,7 +4,6 @@ import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone, Triang
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
-import { useReportShortcuts } from "@/hooks/use-report-shortcuts";
 import {
   ReportHeader,
   FormSection as Section,
@@ -91,11 +90,6 @@ function Page() {
     notify.success(`${label} kopyalandı`);
   };
 
-  useReportShortcuts({
-    generate: () => setOutput(buildViolationReportHtml(data)),
-    output,
-    outputLabel: "HTML",
-  });
 
   return (
     <AppShell>
@@ -255,19 +249,6 @@ function Page() {
               HTML kopyala
             </Button>
           ) : null}
-          <span className="ml-auto hidden items-center gap-2 self-center text-xs text-muted-foreground sm:flex">
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
-            +
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd>
-            oluştur
-            <span className="opacity-50">·</span>
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
-            +
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Shift</kbd>
-            +
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">C</kbd>
-            kopyala
-          </span>
 
         </div>
 

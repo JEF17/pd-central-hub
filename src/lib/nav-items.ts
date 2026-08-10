@@ -4,7 +4,7 @@ import {
   Files,
   Gavel,
   LayoutGrid,
-  UserCog,
+  Settings,
   type LucideIcon,
 } from "lucide-react";
 
@@ -42,10 +42,10 @@ export const navItems: NavItem[] = [
     description: "San Andreas Ceza Kanunu'na kolayca erişebilirsiniz.",
   },
   {
-    label: "Personel Profili",
-    to: "/personel-profili",
-    icon: UserCog,
-    description: "Adı soyadı, seri numarası, rütbe ve division bilgilerini kaydet.",
+    label: "Ayarlar",
+    to: "/ayarlar",
+    icon: Settings,
+    description: "Personel profili ve tema tercihleri.",
   },
   {
     label: "Emsal Kararlar & Kaynaklar",
