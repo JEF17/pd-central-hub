@@ -1,5 +1,5 @@
 import { UserCheck } from "lucide-react";
-import { toast } from "sonner";
+import { notify } from "@/lib/notifications";
 
 import { Button } from "@/components/ui/button";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
@@ -34,7 +34,7 @@ export function ProfileFillButton({ onFill, label = "Profilden Doldur" }: Props)
           division: divisionCode(profile.division),
           profile,
         });
-        toast.success("Personel bilgileri profilden dolduruldu");
+        notify.success("Personel bilgileri profilden dolduruldu");
       }}
     >
       <UserCheck className="size-4" />

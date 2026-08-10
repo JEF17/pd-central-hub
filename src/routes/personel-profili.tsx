@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Save, Trash2, UserCog } from "lucide-react";
-import { toast } from "sonner";
+import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -136,7 +136,7 @@ function Page() {
             <Button
               onClick={() => {
                 saveOfficerProfile(data);
-                toast.success("Profil kaydedildi");
+                notify.success("Profil kaydedildi");
               }}
             >
               <Save className="size-4" />
@@ -147,7 +147,7 @@ function Page() {
               onClick={() => {
                 clearOfficerProfile();
                 setData(emptyOfficerProfile);
-                toast.success("Profil temizlendi");
+                notify.success("Profil temizlendi");
               }}
             >
               <Trash2 className="size-4" />

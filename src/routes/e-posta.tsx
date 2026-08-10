@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ClipboardCopy } from "lucide-react";
-import { toast } from "sonner";
+import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
 import { DraftBar } from "@/components/DraftBar";
@@ -43,7 +43,7 @@ function Page() {
 
   const copy = (value: string) => {
     void navigator.clipboard.writeText(value);
-    toast.success("BBCode kopyalandı");
+    notify.success("BBCode kopyalandı");
   };
 
   return (
@@ -65,7 +65,7 @@ function Page() {
           onClear={() => {
             clearDraft();
             setOutput("");
-            toast.success("Şablon temizlendi");
+            notify.success("Şablon temizlendi");
           }}
         />
 
