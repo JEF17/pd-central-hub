@@ -3,6 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { PanelLeft } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
+import { AppearanceMenu } from "@/components/AppearanceMenu";
 import { NotificationBell } from "@/components/NotificationBell";
 import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
@@ -16,7 +17,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="relative flex min-h-screen bg-background">
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 bg-center bg-no-repeat opacity-[0.04]"
+        className="lspd-watermark pointer-events-none fixed inset-0 z-0 bg-center bg-no-repeat opacity-[0.04]"
         style={{
           backgroundImage: `url(${lspdLogo.url})`,
           backgroundSize: "min(70vw, 700px)",
@@ -90,11 +91,12 @@ export function AppShell({ children }: { children: ReactNode }) {
         <header className="flex h-16 items-center gap-3 border-b border-border px-6">
           <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain md:hidden" />
           <span className="font-bold md:hidden">LSPD Portal</span>
-          <div className="ml-auto">
+          <div className="ml-auto flex items-center gap-1">
+            <AppearanceMenu />
             <NotificationBell />
           </div>
         </header>
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 fade-rise">{children}</main>
         <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground" />
       </div>
     </div>

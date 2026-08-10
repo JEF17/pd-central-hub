@@ -116,3 +116,124 @@
     0 1px 2px 0 hsl(218 45% 4% / 0.45),
     0 10px 28px -14px hsl(218 45% 4% / 0.65);
 }
+
+/* ---------------------------------------------------------------
+ * Appearance preferences: light theme, density, eye-comfort mode.
+ * ------------------------------------------------------------ */
+
+html.theme-light {
+  color-scheme: light;
+
+  --background: hsl(213 30% 96%);
+  --foreground: hsl(218 32% 18%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(218 32% 18%);
+
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(218 32% 18%);
+
+  --primary: hsl(212 72% 44%);
+  --primary-foreground: hsl(0 0% 100%);
+
+  --secondary: hsl(213 28% 91%);
+  --secondary-foreground: hsl(218 32% 22%);
+
+  --muted: hsl(213 28% 93%);
+  --muted-foreground: hsl(216 14% 42%);
+
+  --accent: hsl(213 32% 89%);
+  --accent-foreground: hsl(218 34% 20%);
+
+  --destructive: hsl(0 62% 46%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --success: hsl(155 44% 34%);
+  --success-foreground: hsl(0 0% 100%);
+
+  --warning: hsl(38 74% 42%);
+  --warning-foreground: hsl(0 0% 100%);
+
+  --border: hsl(214 22% 84%);
+  --input: hsl(214 22% 82%);
+  --ring: hsl(212 72% 44%);
+
+  --panel: hsl(215 32% 98%);
+  --panel-foreground: hsl(218 30% 26%);
+  --brand: hsl(214 62% 36%);
+  --gold: hsl(40 62% 42%);
+}
+
+/* Density — scales every rem-based size at once. */
+html[data-density="comfortable"] {
+  font-size: 16px;
+}
+
+html[data-density="compact"] {
+  font-size: 14.5px;
+}
+
+/* Eye-comfort mode — softer contrast for long sessions. */
+html[data-contrast="soft"] {
+  --foreground: hsl(213 18% 80%);
+  --card-foreground: hsl(213 18% 80%);
+  --muted-foreground: hsl(214 12% 58%);
+  --border: hsl(218 20% 20%);
+}
+
+html.theme-light[data-contrast="soft"] {
+  --background: hsl(210 22% 94%);
+  --foreground: hsl(218 20% 28%);
+  --card: hsl(210 30% 99%);
+  --card-foreground: hsl(218 20% 28%);
+  --muted-foreground: hsl(216 10% 48%);
+  --border: hsl(214 16% 86%);
+}
+
+/* Micro-interactions */
+@layer base {
+  button,
+  a,
+  input,
+  textarea,
+  [role="button"] {
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+    transition-duration: 160ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility press {
+  &:active {
+    transform: translateY(1px) scale(0.99);
+  }
+}
+
+@utility fade-rise {
+  animation: fade-rise 260ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html.theme-light .lspd-watermark {
+  opacity: 0.025;
+  filter: grayscale(1);
+}

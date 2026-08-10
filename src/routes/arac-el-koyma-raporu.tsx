@@ -4,6 +4,7 @@ import { ArrowLeft, BadgeAlert, CircleAlert, ClipboardCopy, ShieldAlert, Car, } 
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
+import { useReportShortcuts } from "@/hooks/use-report-shortcuts";
 import {
   ReportHeader,
   FormSection as Section,
@@ -92,6 +93,12 @@ function Page() {
     notify.success(`${label} kopyalandı`);
   };
 
+  useReportShortcuts({
+    generate: () => setOutput(buildImpoundReportHtml(data)),
+    output,
+    outputLabel: "HTML",
+  });
+
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl px-6 py-10">
@@ -115,7 +122,7 @@ function Page() {
           <Label className="text-xs">Konu Başlığı</Label>
           <div className="mt-2 flex gap-3">
             <Input readOnly value={title} className="font-mono" />
-            <Button variant="outline" onClick={() => copy(title, "Başlık")}>
+            <Button variant="outline" className="press" onClick={() => copy(title, "Başlık")}>
               <ClipboardCopy className="size-4" />
               Kopyala
             </Button>
@@ -255,13 +262,27 @@ function Page() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button onClick={() => setOutput(buildImpoundReportHtml(data))}>Raporu Oluştur</Button>
+          <Button className="press" onClick={() => setOutput(buildImpoundReportHtml(data))}>Raporu Oluştur</Button>
           {output ? (
-            <Button variant="outline" onClick={() => copy(output, "HTML")}>
+            <Button variant="outline" className="press" onClick={() => copy(output, "HTML")}>
               <ClipboardCopy className="size-4" />
               HTML kopyala
             </Button>
           ) : null}
+          <span className="ml-auto hidden items-center gap-2 self-center text-xs text-muted-foreground sm:flex">
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
+            +
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd>
+            oluştur
+            <span className="opacity-50">·</span>
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
+            +
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Shift</kbd>
+            +
+            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">C</kbd>
+            kopyala
+          </span>
+
         </div>
 
         {output ? (
