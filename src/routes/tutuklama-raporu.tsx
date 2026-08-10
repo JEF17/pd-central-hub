@@ -250,13 +250,6 @@ function Page() {
               HTML kopyala
             </Button>
           ) : null}
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
-            +
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Shift</kbd>
-            +
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">C</kbd>
-            kopyala
-          </span>
 
         </div>
 
