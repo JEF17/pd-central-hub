@@ -1,9 +1,14 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, Plus, Trash2 MessageSquareQuote, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
+import {
+  ReportHeader,
+  FormSection as Section,
+  TextField as Field,
+} from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
@@ -69,16 +74,12 @@ function Page() {
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl px-6 py-10">
-        <Button variant="ghost" size="sm" asChild className="-ml-2 mb-4">
-          <Link to="/paperwork-generators">
-            <ArrowLeft className="size-4" />
-            Rapor Oluştur
-          </Link>
-        </Button>
-        <h1 className="text-3xl font-bold tracking-tight">İfade Raporu</h1>
-        <p className="mt-2 text-muted-foreground">
-          Alanları doldur, alt kısımda foruma yapıştırabileceğin BBCode çıktısı oluşsun.
-        </p>
+        <ReportHeader
+          title="İfade Raporu"
+          description="Alanları doldur, alt kısımda foruma yapıştırabileceğin BBCode çıktısı oluşsun."
+          format="BBCode"
+          icon={MessageSquareQuote}
+        />
 
         <DraftBar
           savedAt={savedAt}
@@ -305,38 +306,7 @@ function Page() {
   );
 }
 
-function Section({ title, children, wide }: { title: string; children: React.ReactNode; wide?: boolean }) {
-  return (
-    <section className={cn("rounded-xl border border-border bg-card p-6", wide && "lg:col-span-2")}>
-      <h2 className="text-lg font-semibold">{title}</h2>
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">{children}</div>
-    </section>
-  );
-}
 
-function Field({
-  label,
-  value,
-  onChange,
-  placeholder,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  placeholder?: string;
-}) {
-  return (
-    <div>
-      <Label className="text-xs">{label}</Label>
-      <Input
-        className="mt-2"
-        value={value}
-        placeholder={placeholder ?? ""}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
-  );
-}
 
 function CheckItem({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void }) {
   return (
