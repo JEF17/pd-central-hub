@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone TriangleAlert, } from "lucide-react";
+import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone, TriangleAlert, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
