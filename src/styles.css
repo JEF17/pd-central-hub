@@ -232,3 +232,8 @@ html.theme-light[data-contrast="soft"] {
     transform: none;
   }
 }
+
+html.theme-light .lspd-watermark {
+  opacity: 0.025;
+  filter: grayscale(1);
+}

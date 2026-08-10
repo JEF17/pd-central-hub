@@ -17,7 +17,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="relative flex min-h-screen bg-background">
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 bg-center bg-no-repeat opacity-[0.04]"
+        className="lspd-watermark pointer-events-none fixed inset-0 z-0 bg-center bg-no-repeat opacity-[0.04]"
         style={{
           backgroundImage: `url(${lspdLogo.url})`,
           backgroundSize: "min(70vw, 700px)",
