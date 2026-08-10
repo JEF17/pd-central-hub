@@ -14,7 +14,6 @@ import {
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
-import { useReportShortcuts } from "@/hooks/use-report-shortcuts";
 import {
   ReportHeader,
   FormSection as Section,
@@ -108,11 +107,6 @@ function Page() {
     notify.success(`${label} kopyalandı`);
   };
 
-  useReportShortcuts({
-    generate: () => setOutput(buildIncidentBBCode(data)),
-    output,
-    outputLabel: "BBCode",
-  });
 
   return (
     <AppShell>
@@ -199,14 +193,6 @@ function Page() {
                   />
                 ))}
               </div>
-              {data.incidentTypes.includes("Diğer") ? (
-                <Input
-                  className="mt-3"
-                  placeholder="Diğer olay türü"
-                  value={data.otherType}
-                  onChange={(e) => set("otherType", e.target.value)}
-                />
-              ) : null}
             </div>
           </Section>
 
@@ -407,12 +393,6 @@ function Page() {
               </Button>
             </>
           ) : null}
-          <span className="ml-auto hidden items-center gap-2 self-center text-xs text-muted-foreground sm:flex">
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
-            +
-            <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Enter</kbd>
-            oluştur
-            <span className="opacity-50">·</span>
             <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Ctrl</kbd>
             +
             <kbd className="rounded border border-border bg-muted/60 px-1.5 py-0.5 font-mono text-[10px]">Shift</kbd>
