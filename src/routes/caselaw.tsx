@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Copy, ExternalLink, Scale, Search, ShieldAlert } from "lucide-react";
 import { useMemo, useState } from "react";
-import { toast } from "sonner";
+import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -68,9 +68,9 @@ function CaselawPage() {
   const copyMiranda = async () => {
     try {
       await navigator.clipboard.writeText(mirandaRights.join("\n"));
-      toast.success("Miranda hakları panoya kopyalandı.");
+      notify.success("Miranda hakları panoya kopyalandı.");
     } catch {
-      toast.error("Kopyalama başarısız oldu.");
+      notify.error("Kopyalama başarısız oldu.");
     }
   };
 

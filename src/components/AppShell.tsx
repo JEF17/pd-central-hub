@@ -3,6 +3,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { PanelLeft } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
+import { NotificationBell } from "@/components/NotificationBell";
 import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
 
@@ -86,9 +87,12 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
-        <header className="flex h-16 items-center gap-3 border-b border-border px-6 md:hidden">
-          <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain" />
-          <span className="font-bold">LSPD Portal</span>
+        <header className="flex h-16 items-center gap-3 border-b border-border px-6">
+          <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain md:hidden" />
+          <span className="font-bold md:hidden">LSPD Portal</span>
+          <div className="ml-auto">
+            <NotificationBell />
+          </div>
         </header>
         <main className="flex-1">{children}</main>
         <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground" />
