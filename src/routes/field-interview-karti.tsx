@@ -4,6 +4,7 @@ import { ArrowLeft, ClipboardCopy, IdCard, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
+import { useReportShortcuts } from "@/hooks/use-report-shortcuts";
 import {
   ReportHeader,
   FormSection as Section,
@@ -71,6 +72,12 @@ function Page() {
     void navigator.clipboard.writeText(value);
     notify.success(`${label} kopyalandı`);
   };
+
+  useReportShortcuts({
+    generate: () => setOutput(buildFiCardBBCode(data)),
+    output,
+    outputLabel: "BBCode",
+  });
 
   return (
     <AppShell>
@@ -212,7 +219,7 @@ function Page() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button onClick={() => setOutput(buildFiCardBBCode(data))}>Kartı Oluştur</Button>
+          <Button className="press" onClick={() => setOutput(buildFiCardBBCode(data))}>Kartı Oluştur</Button>
           {output ? (
             <>
               <Button variant="outline" onClick={() => copy(output, "BBCode")}>

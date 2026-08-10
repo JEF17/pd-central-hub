@@ -14,6 +14,7 @@ import {
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
+import { useReportShortcuts } from "@/hooks/use-report-shortcuts";
 import {
   ReportHeader,
   FormSection as Section,
@@ -106,6 +107,12 @@ function Page() {
     void navigator.clipboard.writeText(value);
     notify.success(`${label} kopyalandı`);
   };
+
+  useReportShortcuts({
+    generate: () => setOutput(buildIncidentBBCode(data)),
+    output,
+    outputLabel: "BBCode",
+  });
 
   return (
     <AppShell>
@@ -387,7 +394,7 @@ function Page() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button onClick={() => setOutput(buildIncidentBBCode(data))}>Raporu Oluştur</Button>
+          <Button className="press" onClick={() => setOutput(buildIncidentBBCode(data))}>Raporu Oluştur</Button>
           {output ? (
             <>
               <Button variant="outline" onClick={() => copy(output, "BBCode")}>
