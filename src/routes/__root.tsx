@@ -86,7 +86,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "LSPD - Paperwork Tool" },
       { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:image", content: "" },
     ],
     links: [
       {
