@@ -22,17 +22,10 @@ import { buildApbBBCode, emptyApb, type ApbData } from "@/lib/apb-template";
 export const Route = createFileRoute("/apb-sablonu")({
   head: () => ({
     meta: [
-      { title: "APB Şablonu Oluşturucu — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "LSPD APB (All Points Bulletin) duyurusunu doldur, foruma hazır BBCode çıktısı oluştur.",
-      },
-      { property: "og:title", content: "APB Şablonu Oluşturucu — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Formu doldur, tek tıkla BBCode APB duyurusu al.",
-      },
+      { title: "APB Şablonu Oluşturucu — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "APB Şablonu Oluşturucu — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

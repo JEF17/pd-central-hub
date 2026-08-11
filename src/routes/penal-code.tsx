@@ -2680,16 +2680,10 @@ const typeStyles: Record<CrimeType, { badge: string; label: string; accent: stri
 export const Route = createFileRoute("/penal-code")({
   head: () => ({
     meta: [
-      { title: "Ceza Kanunları — LSPD Portal" },
-      {
-        name: "description",
-        content: "GTA:W TR Roleplay için San Andreas ceza kanunlarını arayın ve filtreleyin.",
-      },
-      { property: "og:title", content: "Ceza Kanunları — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "San Andreas ceza kanunlarını suç türüne göre arayın ve filtreleyin.",
-      },
+      { title: "Ceza Kanunları — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Ceza Kanunları — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

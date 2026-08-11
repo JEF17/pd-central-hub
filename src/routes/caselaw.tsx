@@ -26,17 +26,10 @@ const filterOptions: Array<{ value: Filter; label: string }> = [
 export const Route = createFileRoute("/caselaw")({
   head: () => ({
     meta: [
-      { title: "Emsal Kararlar & Kaynaklar — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "GTA:W TR Roleplay için Türkçe emsal karar veritabanı, Miranda hakları ve resmî hukuki kaynaklar.",
-      },
-      { property: "og:title", content: "Emsal Kararlar & Kaynaklar — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Türkçe emsal karar veritabanı, Miranda hakları ve resmî hukuki kaynaklar.",
-      },
+      { title: "Emsal Kararlar & Kaynaklar — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Emsal Kararlar & Kaynaklar — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
