@@ -122,7 +122,34 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="flex-1 fade-rise">{children}</main>
-        <footer className="border-t border-border px-6 py-6 text-center text-xs text-muted-foreground" />
+        <footer className="border-t border-border px-6 py-5">
+          <div className="flex flex-col items-center justify-center gap-2 text-center text-xs text-muted-foreground">
+            <p>
+              <span className="rounded bg-accent/60 px-2 py-0.5 text-accent-foreground">Demo Sürüm</span>
+              <span className="mx-2 text-border">·</span>
+              Muptazelle tarafından geliştirildi · AI ile desteklendi
+            </p>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://lspd-tr.gta.world/index.php"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-primary transition-colors hover:text-primary/80 hover:underline"
+              >
+                LSPD Forum
+              </a>
+              <span className="text-border">·</span>
+              <a
+                href="https://discord.gg/kYSu2UeNkZ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-primary transition-colors hover:text-primary/80 hover:underline"
+              >
+                Discord
+              </a>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );
