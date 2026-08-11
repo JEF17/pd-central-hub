@@ -41,10 +41,6 @@ export function ReportHeader({
     </header>
   );
 }
-      </div>
-    </header>
-  );
-}
 
 /** Card wrapper for a group of form fields. */
 export function FormSection({
