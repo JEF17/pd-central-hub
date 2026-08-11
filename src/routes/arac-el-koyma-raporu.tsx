@@ -91,8 +91,8 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <ReportHeader
           title="Araç El Koyma Raporu"
-          description="Bu rapor HTML çıktısı üretir. Konu başlığı tarih, plaka ve modelden otomatik oluşur."
-          format="HTML"
+          description="Konu başlığı tarih, plaka ve modelden otomatik oluşur."
+          format="MDC"
           icon={Car}
         />
 
