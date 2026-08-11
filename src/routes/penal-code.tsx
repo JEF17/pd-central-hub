@@ -2638,10 +2638,10 @@ const typeStyles: Record<CrimeType, { badge: string; label: string; accent: stri
 export const Route = createFileRoute("/penal-code")({
   head: () => ({
     meta: [
-      { title: "Ceza Kanunları — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "Ceza Kanunları — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "Ceza Kanunları — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "Ceza Kanunları — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

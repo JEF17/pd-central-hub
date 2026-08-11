@@ -21,10 +21,10 @@ import { buildEmailBBCode, emptyEmail, type EmailData } from "@/lib/email-templa
 export const Route = createFileRoute("/e-posta")({
   head: () => ({
     meta: [
-      { title: "E-Posta Şablonu Oluşturucu — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "E-Posta Şablonu Oluşturucu — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "E-Posta Şablonu Oluşturucu — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "E-Posta Şablonu Oluşturucu — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

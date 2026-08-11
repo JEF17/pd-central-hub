@@ -7,10 +7,10 @@ import { navItems } from "@/lib/nav-items";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

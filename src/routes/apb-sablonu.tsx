@@ -22,10 +22,10 @@ import { buildApbBBCode, emptyApb, type ApbData } from "@/lib/apb-template";
 export const Route = createFileRoute("/apb-sablonu")({
   head: () => ({
     meta: [
-      { title: "APB Şablonu Oluşturucu — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "APB Şablonu Oluşturucu — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "APB Şablonu Oluşturucu — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "APB Şablonu Oluşturucu — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

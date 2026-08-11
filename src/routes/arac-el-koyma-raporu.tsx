@@ -37,10 +37,10 @@ import {
 export const Route = createFileRoute("/arac-el-koyma-raporu")({
   head: () => ({
     meta: [
-      { title: "Araç El Koyma Raporu Oluşturucu — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "Araç El Koyma Raporu Oluşturucu — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "Araç El Koyma Raporu Oluşturucu — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "Araç El Koyma Raporu Oluşturucu — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

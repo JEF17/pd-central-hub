@@ -29,10 +29,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/arrest-calculator")({
   head: () => ({
     meta: [
-      { title: "Süre Hesapla — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "Süre Hesapla — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "Süre Hesapla — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "Süre Hesapla — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
