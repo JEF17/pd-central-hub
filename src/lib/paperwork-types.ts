@@ -45,7 +45,7 @@ export const paperworkTypes: PaperworkType[] = [
   {
     slug: "tutuklama-raporu",
     label: "Tutuklama Raporu",
-    description: "Tutuklanan oyuncular için kullanılan tutuklama raporu formu. Oldukça detaylı bir şekilde girilmek zorunda. Lütfen bu konuyu ziyaret edin.",
+    description: "Tutuklanan oyuncular için kullanılan tutuklama raporu formu. Oldukça detaylı bir şekilde girilmek zorunda.",
     icon: Gavel,
   },
   {
