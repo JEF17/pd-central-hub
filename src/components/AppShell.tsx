@@ -72,7 +72,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
         </nav>
 
-        <nav className="border-t border-border px-3 py-2">
+        <nav className="flex h-16 shrink-0 items-center border-t border-border px-3">
           {navItems
             .filter((item) => item.to === "/ayarlar")
             .map((item) => {
@@ -83,7 +83,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   to={item.to}
                   title={item.label}
                   className={cn(
-                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                    "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
                     active
                       ? "bg-accent text-accent-foreground"
                       : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
@@ -107,8 +107,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="flex-1 fade-rise">{children}</main>
-        <footer className="border-t border-border px-6 py-4">
-          <div className="flex flex-col items-center justify-between gap-3 text-xs md:flex-row">
+        <footer className="flex min-h-16 items-center border-t border-border px-6 py-3">
+          <div className="flex w-full flex-col items-center justify-between gap-3 text-xs md:flex-row">
             <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-warning">
                 Demo Sürüm
