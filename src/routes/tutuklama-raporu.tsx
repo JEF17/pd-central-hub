@@ -65,8 +65,8 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <ReportHeader
           title="Tutuklama Raporu"
-          description="Bu rapor BBCode değil, HTML çıktısı üretir. Alanları doldur ve çıktıyı kopyala."
-          format="HTML"
+          description="Alanları doldur ve çıktıyı kopyala."
+          format="MDC"
           icon={ShieldAlert}
         />
 
