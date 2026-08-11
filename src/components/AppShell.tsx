@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { PanelLeft } from "lucide-react";
+import { MessageSquare, PanelLeft, Sparkles, Users } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { NotificationBell } from "@/components/NotificationBell";
