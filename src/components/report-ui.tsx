@@ -10,12 +10,10 @@ import { cn } from "@/lib/utils";
 /** Shared page header for every report generator. */
 export function ReportHeader({
   title,
-  description,
-  format,
   icon: Icon = FileText,
 }: {
   title: string;
-  description: string;
+  description?: string;
   format?: "BBCode" | "HTML" | "MDC";
   icon?: LucideIcon;
 }) {
@@ -32,16 +30,17 @@ export function ReportHeader({
         </Link>
       </Button>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-4">
+      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
         <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
           <Icon className="size-5" />
         </span>
         <div className="min-w-0">
-          <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
-          </div>
-          <p className="mt-1.5 text-sm text-muted-foreground">{description}</p>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
         </div>
+      </div>
+    </header>
+  );
+}
       </div>
     </header>
   );
