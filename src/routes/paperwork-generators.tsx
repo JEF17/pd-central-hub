@@ -7,10 +7,10 @@ import { paperworkTypes } from "@/lib/paperwork-types";
 export const Route = createFileRoute("/paperwork-generators")({
   head: () => ({
     meta: [
-      { title: "Rapor Oluştur — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "Rapor Oluştur — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "Rapor Oluştur — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "Rapor Oluştur — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

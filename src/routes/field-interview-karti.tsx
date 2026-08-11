@@ -32,10 +32,10 @@ import {
 export const Route = createFileRoute("/field-interview-karti")({
   head: () => ({
     meta: [
-      { title: "Field Interview Kartı Oluşturucu — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "Field Interview Kartı Oluşturucu — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "Field Interview Kartı Oluşturucu — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "Field Interview Kartı Oluşturucu — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

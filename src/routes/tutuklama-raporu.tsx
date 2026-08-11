@@ -36,10 +36,10 @@ import {
 export const Route = createFileRoute("/tutuklama-raporu")({
   head: () => ({
     meta: [
-      { title: "Tutuklama Raporu Oluşturucu — LSPD - Paperwork Tool" },
-      { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "Tutuklama Raporu Oluşturucu — LSPD - Paperwork Tool" },
-      { property: "og:description", content: "LSPD - Paperwork Tool" },
+      { title: "Tutuklama Raporu Oluşturucu — LSPD - Toolkit" },
+      { name: "description", content: "LSPD - Toolkit" },
+      { property: "og:title", content: "Tutuklama Raporu Oluşturucu — LSPD - Toolkit" },
+      { property: "og:description", content: "LSPD - Toolkit" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
