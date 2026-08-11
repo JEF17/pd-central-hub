@@ -7,17 +7,10 @@ import { paperworkTypes } from "@/lib/paperwork-types";
 export const Route = createFileRoute("/paperwork-generators")({
   head: () => ({
     meta: [
-      { title: "Paperwork Generators — LS Panel" },
-      {
-        name: "description",
-        content:
-          "Olay, ifade, ihlal, araç el koyma, tutuklama raporları, APB, Field Interview kartı ve e-posta şablonları.",
-      },
-      { property: "og:title", content: "Paperwork Generators — LS Panel" },
-      {
-        property: "og:description",
-        content: "GTA:W TR Roleplay için LSPD evrak ve rapor şablonu üreticileri.",
-      },
+      { title: "Paperwork Generators — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Paperwork Generators — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

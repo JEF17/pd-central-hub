@@ -36,17 +36,10 @@ import {
 export const Route = createFileRoute("/tutuklama-raporu")({
   head: () => ({
     meta: [
-      { title: "Tutuklama Raporu Oluşturucu — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "LSPD tutuklama raporu formunu doldur, foruma hazır HTML çıktısını tek tıkla kopyala.",
-      },
-      { property: "og:title", content: "Tutuklama Raporu Oluşturucu — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Şüpheli, tutuklama, personel ve kanıt alanlarını doldur, HTML raporu al.",
-      },
+      { title: "Tutuklama Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Tutuklama Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

@@ -21,17 +21,10 @@ import { buildEmailBBCode, emptyEmail, type EmailData } from "@/lib/email-templa
 export const Route = createFileRoute("/e-posta")({
   head: () => ({
     meta: [
-      { title: "E-Posta Şablonu Oluşturucu — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "Departman içi resmi e-posta şablonunu doldur, foruma hazır BBCode çıktısını tek tıkla kopyala.",
-      },
-      { property: "og:title", content: "E-Posta Şablonu Oluşturucu — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Kimden, kime, konu ve içerik alanlarını doldur, BBCode e-posta çıktısı al.",
-      },
+      { title: "E-Posta Şablonu Oluşturucu — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "E-Posta Şablonu Oluşturucu — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

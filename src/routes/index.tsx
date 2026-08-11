@@ -7,17 +7,10 @@ import { navItems } from "@/lib/nav-items";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "LS Panel — GTA:W TR Roleplay Police Toolkit" },
-      {
-        name: "description",
-        content:
-          "Dashboard for LS Panel: arrest calculator, arrest reports, paperwork generators, penal code and legal resources for GTA:W TR Roleplay.",
-      },
-      { property: "og:title", content: "LS Panel — Police Toolkit Dashboard" },
-      {
-        property: "og:description",
-        content: "All your GTA:W TR Roleplay police paperwork tools in one panel.",
-      },
+      { title: "LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

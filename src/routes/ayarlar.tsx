@@ -31,17 +31,10 @@ import {
 export const Route = createFileRoute("/ayarlar")({
   head: () => ({
     meta: [
-      { title: "Ayarlar — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "Personel profilini kaydet ve portal temasını kendine göre ayarla.",
-      },
-      { property: "og:title", content: "Ayarlar — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Personel profili ve tema tercihlerini buradan yönet.",
-      },
+      { title: "Ayarlar — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Ayarlar — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

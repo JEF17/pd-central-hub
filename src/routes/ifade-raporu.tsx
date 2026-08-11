@@ -33,17 +33,10 @@ import {
 export const Route = createFileRoute("/ifade-raporu")({
   head: () => ({
     meta: [
-      { title: "İfade Raporu Oluşturucu — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "LSPD İfade Raporu formunu doldur, forum için hazır BBCode çıktısı ve konu başlığı oluştur.",
-      },
-      { property: "og:title", content: "İfade Raporu Oluşturucu — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Formu doldur, tek tıkla BBCode ifade raporu ve konu başlığı al.",
-      },
+      { title: "İfade Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "İfade Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

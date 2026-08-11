@@ -29,16 +29,10 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/arrest-calculator")({
   head: () => ({
     meta: [
-      { title: "Süre Hesapla — LSPD Portal" },
-      {
-        name: "description",
-        content: "San Andreas Ceza Kanunu'na göre tutuklama süresi, ceza puanı, para cezası ve kefalet hesaplaması.",
-      },
-      { property: "og:title", content: "Süre Hesapla — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Suçlamaları ekleyerek hapis süresi, ceza puanı ve kefalet tutarını hesaplayın.",
-      },
+      { title: "Süre Hesapla — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Süre Hesapla — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

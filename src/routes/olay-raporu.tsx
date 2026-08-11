@@ -63,17 +63,10 @@ import {
 export const Route = createFileRoute("/olay-raporu")({
   head: () => ({
     meta: [
-      { title: "Olay Raporu Oluşturucu — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "LSPD Olay Raporu formunu doldur, forum için hazır BBCode çıktısı ve konu başlığı oluştur.",
-      },
-      { property: "og:title", content: "Olay Raporu Oluşturucu — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Formu doldur, tek tıkla BBCode olay raporu ve konu başlığı al.",
-      },
+      { title: "Olay Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Olay Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

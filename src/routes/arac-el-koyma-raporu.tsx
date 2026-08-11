@@ -37,17 +37,10 @@ import {
 export const Route = createFileRoute("/arac-el-koyma-raporu")({
   head: () => ({
     meta: [
-      { title: "Araç El Koyma Raporu Oluşturucu — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "LSPD araç el koyma raporu formunu doldur, konu başlığını ve foruma hazır HTML çıktısını kopyala.",
-      },
-      { property: "og:title", content: "Araç El Koyma Raporu Oluşturucu — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Araç, şüpheli ve ihlal bilgilerini doldur, HTML raporu ve başlığı al.",
-      },
+      { title: "Araç El Koyma Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Araç El Koyma Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

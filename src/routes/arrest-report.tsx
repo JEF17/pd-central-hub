@@ -24,16 +24,10 @@ export const Route = createFileRoute("/arrest-report")({
   }),
   head: () => ({
     meta: [
-      { title: "Tutuklama Özeti — LSPD Portal" },
-      {
-        name: "description",
-        content: "Hesaplanan suçlamaların hapis süresi, ceza puanı, para cezası ve kefalet özeti.",
-      },
-      { property: "og:title", content: "Tutuklama Özeti — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Suçlamalara göre hesaplanan tutuklama süresi ve kefalet özeti.",
-      },
+      { title: "Tutuklama Özeti — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Tutuklama Özeti — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

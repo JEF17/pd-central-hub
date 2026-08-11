@@ -36,17 +36,10 @@ import {
 export const Route = createFileRoute("/ihlal-raporu")({
   head: () => ({
     meta: [
-      { title: "İhlal Raporu Oluşturucu — LSPD Portal" },
-      {
-        name: "description",
-        content:
-          "LSPD ihlal raporu formunu doldur, foruma hazır HTML çıktısını tek tıkla kopyala.",
-      },
-      { property: "og:title", content: "İhlal Raporu Oluşturucu — LSPD Portal" },
-      {
-        property: "og:description",
-        content: "Araç, şüpheli ve ihlal bilgilerini doldur, HTML raporunu al.",
-      },
+      { title: "İhlal Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { name: "description", content: "LSPD - Paperwork Tool" },
+      { property: "og:title", content: "İhlal Raporu Oluşturucu — LSPD - Paperwork Tool" },
+      { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
