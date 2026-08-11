@@ -263,7 +263,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     types: ["M"],
     paragraphs: [
       "a) Kasten kendini bir başkası olarak tanıtan, bir kişi ya da kuruluşun temsilcisi gibi davranan, internet sitesi veya diğer elektronik yollarla iletişim kurarak bir başkasını taklit eden ve bunun gibi sıfatlarla menfaat elde etmek, bir başkasını yaralamak veya dolandırmak amacıyla hareket eden herhangi bir kişi.",
-      "b) Kasten kamu görevlisi gibi davranan, kamu görevlisini yasal olarak ayırt eden herhangi bir üniforma, rozet veya amblemi yetkisiz olarak giyen veya sergileyen, söz ve eylemleriyle kamu görevlisi olduğunu ifade eden ve bu amaçla bir başkasını \"sözde\" resmi otoriteye boyun eğmeye zorlayan herhangi bir kişi.",
+      'b) Kasten kamu görevlisi gibi davranan, kamu görevlisini yasal olarak ayırt eden herhangi bir üniforma, rozet veya amblemi yetkisiz olarak giyen veya sergileyen, söz ve eylemleriyle kamu görevlisi olduğunu ifade eden ve bu amaçla bir başkasını "sözde" resmi otoriteye boyun eğmeye zorlayan herhangi bir kişi.',
       "c) Başka bir kişiyi kolluk görevlisi olduğuna inanması ve yetkilerine boyun eğmesi için kandırmak amacıyla, üniforma, rozet veya yaygın olarak bu tür bir görevliyle ilişkilendirilen diğer nişanları takarak veya sergileyerek ya da sözlü olarak veya eylemleriyle kolluk görevlisi olduğunu belirterek kendisini yanlış bir şekilde kolluk görevlisi olarak tanıtan kişi(ler).",
     ],
     classification:
@@ -427,7 +427,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     title: "Hapishane İçerisinde Yetkisiz Anahtar Bulundurmak",
     types: ["M"],
     paragraphs: [
-      "Yerel bir ıslahevinde tutulan ve kelepçe anahtarı bulundurma yetkisi olmayan herhangi bir kişi. \"Kelepçe anahtarı\", bir kelepçeyi açmak veya mandalını açmak için tasarlanmış veya amaçlanmış herhangi bir cihaz anlamına gelir.",
+      'Yerel bir ıslahevinde tutulan ve kelepçe anahtarı bulundurma yetkisi olmayan herhangi bir kişi. "Kelepçe anahtarı", bir kelepçeyi açmak veya mandalını açmak için tasarlanmış veya amaçlanmış herhangi bir cihaz anlamına gelir.',
     ],
     classification:
       "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 1 günden fazla olmayacaktır, para cezası ise $2.500 olacaktır.",
@@ -525,8 +525,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
       "c) Aynı plan veya davranış biçiminde kasten birden fazla kişiyi öldüren herhangi bir kişi.",
       "d) Ömür boyu hapis cezasını çekerken, kasıtlı eylemlerle başka bir insanın ölümüne neden olan herhangi bir hapsedilmiş kişi.",
     ],
-    classification:
-      "A Sınıfı (18) felony kapsamında sorumlu tutulacaktır. Hapis cezası 20 günden az olmayacaktır.",
+    classification: "A Sınıfı (18) felony kapsamında sorumlu tutulacaktır. Hapis cezası 20 günden az olmayacaktır.",
   },
   {
     number: "202",
@@ -535,8 +534,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Önceden kötü niyetle tasarlanmış eylemler yoluyla başka bir insanın ölümüne neden olan herhangi bir kişi.",
     ],
-    classification:
-      "A Sınıfı (15) felony kapsamında sorumlu tutulacaktır. Hapis cezası 18 günden az olmayacaktır.",
+    classification: "A Sınıfı (15) felony kapsamında sorumlu tutulacaktır. Hapis cezası 18 günden az olmayacaktır.",
   },
   {
     number: "203",
@@ -545,8 +543,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Önceden düşünülmemiş, kötü niyetle planlanmamış eylemler yoluyla başka bir insanın ölümüne neden olan herhangi bir kişi.",
     ],
-    classification:
-      "A Sınıfı (10) felony kapsamında sorumlu tutulacaktır. Hapis cezası 15 günden az olmayacaktır.",
+    classification: "A Sınıfı (10) felony kapsamında sorumlu tutulacaktır. Hapis cezası 15 günden az olmayacaktır.",
   },
   {
     number: "204",
@@ -593,9 +590,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "208",
     title: "Darp",
     types: ["M"],
-    paragraphs: [
-      "Başka bir kişiye karşı kasıtlı ve yasa dışı fiziksel güç kullanan herhangi bir kişi.",
-    ],
+    paragraphs: ["Başka bir kişiye karşı kasıtlı ve yasa dışı fiziksel güç kullanan herhangi bir kişi."],
     classification:
       "B Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 7 saatten az 3 günden fazla olmayacaktır.",
   },
@@ -617,8 +612,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Zor kullanarak veya başka bir yolla korku uyandırarak, herhangi bir kişiyi başka bir ülkeye, eyalete, ilçeye veya ülkenin başka bir yerine taşımak amacıyla kaçıran, tutan, alıkoyan veya yasa dışı bir şekilde tutuklayan herhangi bir kişi.",
     ],
-    classification:
-      "B Sınıfı (7) felony kapsamında sorumlu tutulacaktır. Hapis cezası 5 günden az olmayacaktır.",
+    classification: "B Sınıfı (7) felony kapsamında sorumlu tutulacaktır. Hapis cezası 5 günden az olmayacaktır.",
   },
   {
     number: "211",
@@ -627,8 +621,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Zorlama, şiddet veya diğer yasa dışı yollarla zorla çalıştırma veya hizmet elde etme niyetiyle ya da San Andreas'ın para karşılığı cinsel ilişki için seks işçisi sağlama yasasını ihlal etme niyetiyle birini kişisel özgürlüğünden mahrum eden herhangi bir kişi.",
     ],
-    classification:
-      "A Sınıfı (9) felony kapsamında sorumlu tutulacaktır. Hapis cezası 6 günden az olmayacaktır.",
+    classification: "A Sınıfı (9) felony kapsamında sorumlu tutulacaktır. Hapis cezası 6 günden az olmayacaktır.",
   },
   {
     number: "212",
@@ -647,8 +640,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "İntikam, gasp, ikna veya herhangi bir sadist amaç için acımasız veya aşırı acı ve ıstıraba neden olma niyetiyle bir başkasına büyük bedensel zarar veren herhangi bir kişi.",
     ],
-    classification:
-      "A Sınıfı (10) felony kapsamında sorumlu tutulacaktır. Hapis cezası 6 günden az olmayacaktır.",
+    classification: "A Sınıfı (10) felony kapsamında sorumlu tutulacaktır. Hapis cezası 6 günden az olmayacaktır.",
   },
   {
     number: "214",
@@ -697,8 +689,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "18 yaşından küçük bir bireyle karşılıklı rızaya dayalı olarak cinsel ilişkiye giren herhangi bir kişi.",
     ],
-    classification:
-      "A Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden az olmayacaktır.",
+    classification: "A Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 4 günden az olmayacaktır.",
   },
   {
     number: "219",
@@ -747,8 +738,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Herhangi bir yapı, orman arazisi veya mülkü kasten ve kötü niyetle ateşe veren, yakan veya yakılmasına sebep olan veya yakılmasına yardım eden veya tavsiyede bulunan herhangi bir kişi.",
     ],
-    classification:
-      "A Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 7 günden az olmayacaktır.",
+    classification: "A Sınıfı (5) felony kapsamında sorumlu tutulacaktır. Hapis cezası 7 günden az olmayacaktır.",
   },
   {
     number: "302",
@@ -804,9 +794,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "307",
     title: "Ateşli Silah Hırsızlığı",
     types: ["F"],
-    paragraphs: [
-      "Değeri ne olursa olsun, kayıtlı olan herhangi bir ateşli silahı çalan herhangi bir kişi.",
-    ],
+    paragraphs: ["Değeri ne olursa olsun, kayıtlı olan herhangi bir ateşli silahı çalan herhangi bir kişi."],
     classification:
       "C Sınıfı (3) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.",
   },
@@ -898,9 +886,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "402",
     title: "Askıya Alınmış Bir Sürücü Lisansıyla Araç Kullanma",
     types: ["M"],
-    paragraphs: [
-      "Araç sürme ayrıcalıkları askıya alınmış veya iptal edilmişken araç kullanan herhangi bir kişi.",
-    ],
+    paragraphs: ["Araç sürme ayrıcalıkları askıya alınmış veya iptal edilmişken araç kullanan herhangi bir kişi."],
     classification:
       "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 45 dakikadan az 1 günden fazla olmayacaktır. Para cezası ise $5.000 olacaktır ve araç 2 günlüğüne bağlanacaktır.",
   },
@@ -911,8 +897,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Kamuya açık bir yolda motorlu taşıt kullanırken, kolluk kuvvetleri personeli tarafından yasalar çerçevesinde talep edilen geçerli sürücü lisansını ibraz edemeyen veya etmeyi reddeden herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "404",
@@ -921,8 +906,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Kamuya açık bir yolda motorlu taşıt kullanırken, kolluk kuvvetleri personeli tarafından yasalar çerçevesinde talep edilen geçerli taşıt tescil belgesini ibraz edemeyen veya etmeyi reddeden herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "405",
@@ -931,8 +915,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Kamuya açık bir yolda motorlu taşıt kullanırken, kolluk kuvvetleri personeli tarafından yasalar çerçevesinde talep edilen geçerli taşıt sigorta belgesini ibraz edemeyen veya etmeyi reddeden herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "406",
@@ -1106,8 +1089,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "20:30 (8:30 PM) ile 06:30 (06:30 AM) saatleri arasında ya da hava, yol koşulları veya diğer faktörler nedeniyle görüş mesafesinin azaldığı herhangi bir zamanda taşıtının farlarını çalıştırmadan kullanan herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $2.500 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $2.500 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "422",
@@ -1243,8 +1225,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
       "b) Sürücülere veya diğer yayalara tehlike riski oluşturması.",
       "Eğer mevcutsa yayalar kendileri için belirlenmiş yaya geçitlerini kullanmak zorundadır. Dört yollarda veya diğer kavşaklarda yaya geçidi sınırlarının dışında karşıya geçmek yaya geçidi ihlali sayılır.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.500 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.500 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "434",
@@ -1253,8 +1234,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Motorlu taşıt kullanırken kapağı veya ağzı açık bir şekilde alkollü içecek veya performans değiştirici maddeler bulunduran herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "435",
@@ -1263,8 +1243,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Araç kullanırken veya seyir halindeyken bireyin, kendisini minimum güvenlik standartlarında güvene almaması, emniyet kemeri veya emniyet ekipmanları kullanmaması ve seyir halinde trafik güvenliği standartlarını karşılamayan herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "436",
@@ -1280,9 +1259,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "437",
     title: "Geçerli Bir Lisans Olmadan Hava Aracı Kullanma",
     types: ["M"],
-    paragraphs: [
-      "PPL lisansına sahip olmadan bir hava aracını kullanan herhangi bir kişi.",
-    ],
+    paragraphs: ["PPL lisansına sahip olmadan bir hava aracını kullanan herhangi bir kişi."],
     classification:
       "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 5 günden fazla olmayacaktır.",
   },
@@ -1300,9 +1277,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "439",
     title: "ATC Talimatlarına Uymamak",
     types: ["F"],
-    paragraphs: [
-      "Bir hava aracı kullanırken ATC talimatlarına veya protokollerine uymayan herhangi bir kişi.",
-    ],
+    paragraphs: ["Bir hava aracı kullanırken ATC talimatlarına veya protokollerine uymayan herhangi bir kişi."],
     classification:
       "C Sınıfı (2) felony kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 1 günden fazla olmayacaktır. Para cezası ise $50.000 olacaktır.",
   },
@@ -1310,9 +1285,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "440",
     title: "Hava Aracıyla Kaçma",
     types: ["F"],
-    paragraphs: [
-      "Bir hava aracıyla pilot veya yolcu olarak kolluk kuvvetlerinden kaçan herhangi bir kişi.",
-    ],
+    paragraphs: ["Bir hava aracıyla pilot veya yolcu olarak kolluk kuvvetlerinden kaçan herhangi bir kişi."],
     classification:
       "C Sınıfı (4) felony kapsamında sorumlu tutulacaktır. Hapis cezası 2 günden az 4 günden fazla olmayacaktır. Para cezası ise $100.000 olacak ve taşıta 7 gün el koyulacaktır.",
   },
@@ -1323,8 +1296,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Bir mala veya diğer sürücülere ya da yayalara karşı tehlike oluşturabilecek şekilde bisiklet süren herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $2.500 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $2.500 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "442",
@@ -1564,9 +1536,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "610",
     title: "Yüzün Gizlenmesi",
     types: ["M"],
-    paragraphs: [
-      "Suç işlerken yüzünü gizleyen veya maskeleyen herhangi bir kişi.",
-    ],
+    paragraphs: ["Suç işlerken yüzünü gizleyen veya maskeleyen herhangi bir kişi."],
     classification:
       "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 1 saatten az 2 günden fazla olmayacaktır.",
   },
@@ -1577,8 +1547,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "State Fire Marshal tarafından uygulanması zorunlu tutulan yangın yönetmeliğindeki herhangi bir ihlali işleyen herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $3.000 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $3.000 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "612",
@@ -1587,16 +1556,13 @@ const penalCodeEntries: PenalCodeEntry[] = [
     paragraphs: [
       "Kendi mülkü dışında herhangi bir kamu veya özel mülkte, uygun atık imha yeri dışına çöp atan herhangi bir kişi.",
     ],
-    classification:
-      "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
+    classification: "C Sınıfı infraction kapsamında sorumlu tutulacaktır. $1.000 para cezası ile cezalandırılacaktır.",
   },
   {
     number: "613",
     title: "SRCB İhlali",
     types: ["M"],
-    paragraphs: [
-      "Hayırseverlik Yasası'nın hükümlerine uymayan herhangi bir kişi.",
-    ],
+    paragraphs: ["Hayırseverlik Yasası'nın hükümlerine uymayan herhangi bir kişi."],
     classification:
       "C Sınıfı misdemeanor kapsamında sorumlu tutulacaktır. Hapis cezası 10 saat ve para cezası $50.000 olacaktır.",
   },
@@ -1869,7 +1835,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     title: "Kimliği Belirlenemeyen Kişinin Tutulması",
     types: [],
     paragraphs: [
-      "Kimliği belirlenemeyen kişi, Yabancı Uyruklu Kişilerin Tutuklanması maddesi devreye girdikten sonra yetkili kolluk kuvveti personeli tarafından kimliği belirlenene kadar yetkili bir hapishanede belirsiz bir süreliğine tutulacaktır. Tüm uygun raporlar ve tutuklama \"John Doe\" ismi altında tamamlanmalı ve dosyalanmalıdır.",
+      'Kimliği belirlenemeyen kişi, Yabancı Uyruklu Kişilerin Tutuklanması maddesi devreye girdikten sonra yetkili kolluk kuvveti personeli tarafından kimliği belirlenene kadar yetkili bir hapishanede belirsiz bir süreliğine tutulacaktır. Tüm uygun raporlar ve tutuklama "John Doe" ismi altında tamamlanmalı ve dosyalanmalıdır.',
     ],
     classification: "BAŞLIK IX - Yabancı Uyruklu Kişilerin Tutuklanması",
   },
@@ -1886,9 +1852,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "1002",
     title: "Ömür Boyu Hapis Şartı",
     types: [],
-    paragraphs: [
-      "Mahkeme kararı olmadan hiçbir birey ömür boyu hapis cezasıyla cezalandırılamaz.",
-    ],
+    paragraphs: ["Mahkeme kararı olmadan hiçbir birey ömür boyu hapis cezasıyla cezalandırılamaz."],
     classification: "BAŞLIK X - Ceza Usülleri & Uygulama (Genel Hükümler)",
   },
   {
@@ -2396,7 +2360,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     title: "Acil Durum Tanımı",
     types: [],
     paragraphs: [
-      "Acil durumlar, \"bir vatandaşın, polis veya diğer kişilerin fiziksel zarar görmesini, ilgili kanıtların yok edilmesini, şüphelinin kaçmasını veya meşru kanuni uygulamaları haksız şekilde engelleyen başka sonuçların önlenmesi gerektiğine inanmasına neden olacak koşullar\" olarak tanımlanır. Acil durum tanımına uyan herhangi bir durumda, kolluk kuvveti personeli durumu bu şekilde tanımlayabilir.",
+      'Acil durumlar, "bir vatandaşın, polis veya diğer kişilerin fiziksel zarar görmesini, ilgili kanıtların yok edilmesini, şüphelinin kaçmasını veya meşru kanuni uygulamaları haksız şekilde engelleyen başka sonuçların önlenmesi gerektiğine inanmasına neden olacak koşullar" olarak tanımlanır. Acil durum tanımına uyan herhangi bir durumda, kolluk kuvveti personeli durumu bu şekilde tanımlayabilir.',
     ],
     classification: "BAŞLIK XIV - Kolluk Kuvveti Personeli Güvenliği",
   },
@@ -2440,9 +2404,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "1408",
     title: "Kamu Çalışanlarının Kaydedilmesi",
     types: [],
-    paragraphs: [
-      "Kamu çalışanları, resmi görevlerini yerine getirirken her zaman kaydedilebilir.",
-    ],
+    paragraphs: ["Kamu çalışanları, resmi görevlerini yerine getirirken her zaman kaydedilebilir."],
     classification: "BAŞLIK XIV - Video & Ses Kayıt Politikası",
   },
   {
@@ -2458,9 +2420,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "1501",
     title: "Sürücü Belgesi Yaş Sınırı",
     types: [],
-    paragraphs: [
-      "16 yaşın altındaki hiç kimse sürücü belgesi alamaz.",
-    ],
+    paragraphs: ["16 yaşın altındaki hiç kimse sürücü belgesi alamaz."],
     classification: "BAŞLIK XV - Sürücü Belgeleri & İzinler",
   },
   {
@@ -2504,9 +2464,7 @@ const penalCodeEntries: PenalCodeEntry[] = [
     number: "1506",
     title: "Yolun Sağ Tarafı",
     types: [],
-    paragraphs: [
-      "Tüm kamu yollarında, bir araç yolun sağ tarafında kullanılmalıdır.",
-    ],
+    paragraphs: ["Tüm kamu yollarında, bir araç yolun sağ tarafında kullanılmalıdır."],
     classification: "BAŞLIK XV - Kamu Yolu İşaretleri",
   },
   {
@@ -2719,7 +2677,6 @@ function PenalCodePage() {
     <AppShell>
       <div className="mx-auto max-w-5xl px-6 py-8 sm:py-10">
         <header>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">LSPD Hukuk Birimi</p>
           <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground">Ceza Kanunları</h1>
           <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
             Suç ve kanun maddelerini arayın, suç türüne göre listeyi daraltın.
