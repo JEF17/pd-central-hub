@@ -29,22 +29,9 @@ export function AppShell({ children }: { children: ReactNode }) {
           collapsed ? "w-[68px]" : "w-64",
         )}
       >
-        <div
-          className={cn(
-            "flex items-center gap-3 px-3",
-            collapsed ? "h-auto flex-col py-3" : "h-16",
-          )}
-        >
-          <img
-            src={lspdLogo.url}
-            alt="LSPD badge"
-            className="size-9 shrink-0 rounded-full object-contain"
-          />
-          {!collapsed && (
-            <span className="truncate text-lg font-bold tracking-tight">
-              LSPD Portal
-            </span>
-          )}
+        <div className={cn("flex items-center gap-3 px-3", collapsed ? "h-auto flex-col py-3" : "h-16")}>
+          <img src={lspdLogo.url} alt="LSPD badge" className="size-9 shrink-0 rounded-full object-contain" />
+          {!collapsed && <span className="truncate text-lg font-bold tracking-tight">LSPD Toolkit</span>}
           <button
             type="button"
             onClick={() => setCollapsed((c) => !c)}
@@ -59,7 +46,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <PanelLeft className="size-4" />
           </button>
         </div>
-
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
           {navItems
@@ -110,7 +96,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               );
             })}
         </nav>
-
       </aside>
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
@@ -131,8 +116,8 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="flex items-center gap-1.5 text-muted-foreground">
                 <Sparkles className="size-3 text-primary/70" />
                 <span>
-                  <span className="font-medium text-foreground">Muptazelle</span>
-                  {" "}tarafından geliştirildi · AI ile desteklendi
+                  <span className="font-medium text-foreground">Muptazelle</span> tarafından geliştirildi · AI ile
+                  desteklendi
                 </span>
               </span>
             </div>
@@ -163,4 +148,3 @@ export function AppShell({ children }: { children: ReactNode }) {
     </div>
   );
 }
-
