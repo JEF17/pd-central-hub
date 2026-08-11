@@ -16,7 +16,7 @@ export function ReportHeader({
 }: {
   title: string;
   description: string;
-  format?: "BBCode" | "HTML";
+  format?: "BBCode" | "HTML" | "MDC";
   icon?: LucideIcon;
 }) {
   return (

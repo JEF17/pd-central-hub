@@ -89,8 +89,8 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <ReportHeader
           title="İhlal Raporu"
-          description="Bu rapor HTML çıktısı üretir. Konu başlığı bulunmuyor."
-          format="HTML"
+          description={"\n"}
+          format="MDC"
           icon={TriangleAlert}
         />
 
