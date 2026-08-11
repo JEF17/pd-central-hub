@@ -72,7 +72,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
         </nav>
 
-        <nav className="border-t border-border px-3 py-2">
+        <nav className="flex h-16 shrink-0 items-center border-t border-border px-3">
           {navItems
             .filter((item) => item.to === "/ayarlar")
             .map((item) => {
