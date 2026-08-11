@@ -83,7 +83,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   to={item.to}
                   title={item.label}
                   className={cn(
-                    "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                    "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
                     active
                       ? "bg-accent text-accent-foreground"
                       : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
