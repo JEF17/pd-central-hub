@@ -21,13 +21,13 @@ export const paperworkTypes: PaperworkType[] = [
   {
     slug: "olay-raporu",
     label: "Olay Raporu",
-    description: "Genel olay bildirimi ve olay yeri detayları.",
+    description: "Oyun içerisinde gerçekleşen tüm çağrı, vakaların ve suç bildirilerinin raporlanabilmesi için kullanılan form türü.",
     icon: FileText,
   },
   {
     slug: "ifade-raporu",
     label: "İfade Raporu",
-    description: "Şüpheli, mağdur veya tanık ifadeleri.",
+    description: "Bir çağrıyla, olayla veya suç bildirisiyle ilgili olarak ifade veren kişilerin ifadelerinin raporlandığı resmi doküman. Bu rapor tek başına bir işleve sahip değildir ve mutlaka bir Olay Raporu Formuna veya herhangi bir soruşturma raporuna ilave edilmelidir.",
     icon: MessageSquareText,
   },
   {
