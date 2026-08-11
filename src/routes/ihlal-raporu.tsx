@@ -41,7 +41,7 @@ export const Route = createFileRoute("/ihlal-raporu")({
       { property: "og:title", content: "İhlal Raporu Oluşturucu — LSPD - Paperwork Tool" },
       { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Page,
