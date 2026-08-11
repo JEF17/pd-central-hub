@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { PanelLeft } from "lucide-react";
+import { MessageSquare, PanelLeft, Sparkles, Users } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { NotificationBell } from "@/components/NotificationBell";
@@ -122,32 +122,41 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="flex-1 fade-rise">{children}</main>
-        <footer className="border-t border-border px-6 py-5">
-          <div className="flex flex-col items-center justify-center gap-2 text-center text-xs text-muted-foreground">
-            <p>
-              <span className="rounded bg-accent/60 px-2 py-0.5 text-accent-foreground">Demo Sürüm</span>
-              <span className="mx-2 text-border">·</span>
-              Muptazelle tarafından geliştirildi · AI ile desteklendi
-            </p>
-            <div className="flex items-center gap-4">
+        <footer className="border-t border-border px-6 py-4">
+          <div className="flex flex-col items-center justify-between gap-3 text-xs md:flex-row">
+            <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-warning">
+                Demo Sürüm
+              </span>
+              <span className="flex items-center gap-1.5 text-muted-foreground">
+                <Sparkles className="size-3 text-primary/70" />
+                <span>
+                  <span className="font-medium text-foreground">Muptazelle</span>
+                  {" "}tarafından geliştirildi · AI ile desteklendi
+                </span>
+              </span>
+            </div>
+
+            <nav className="flex items-center gap-1">
               <a
                 href="https://lspd-tr.gta.world/index.php"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-primary transition-colors hover:text-primary/80 hover:underline"
+                className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
+                <MessageSquare className="size-3.5" />
                 LSPD Forum
               </a>
-              <span className="text-border">·</span>
               <a
                 href="https://discord.gg/kYSu2UeNkZ"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-primary transition-colors hover:text-primary/80 hover:underline"
+                className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
               >
+                <Users className="size-3.5" />
                 Discord
               </a>
-            </div>
+            </nav>
           </div>
         </footer>
       </div>
