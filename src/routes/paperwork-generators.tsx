@@ -7,9 +7,9 @@ import { paperworkTypes } from "@/lib/paperwork-types";
 export const Route = createFileRoute("/paperwork-generators")({
   head: () => ({
     meta: [
-      { title: "Paperwork Generators — LSPD - Paperwork Tool" },
+      { title: "Rapor Oluştur — LSPD - Paperwork Tool" },
       { name: "description", content: "LSPD - Paperwork Tool" },
-      { property: "og:title", content: "Paperwork Generators — LSPD - Paperwork Tool" },
+      { property: "og:title", content: "Rapor Oluştur — LSPD - Paperwork Tool" },
       { property: "og:description", content: "LSPD - Paperwork Tool" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -22,7 +22,7 @@ function Page() {
   return (
     <AppShell>
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <h1 className="text-3xl font-bold tracking-tight">Paperwork Generators</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Rapor Oluştur</h1>
         <p className="mt-2 text-muted-foreground">
           Doldurmak istediğin evrak türünü seç.
         </p>
