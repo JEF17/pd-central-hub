@@ -87,7 +87,7 @@ function Page() {
             onCheckedChange={(value) => setParole(value === true)}
           />
           <Label htmlFor="parole" className="cursor-pointer font-semibold">
-            Şüpheli şartlı tahliye / denetimli serbestlik ihlalcisi (C.K. 904)
+            Şüpheli şartlı tahliye / denetimli serbestlik ihlali gerçekleştirdi. (C.K. 904)
           </Label>
         </div>
 
