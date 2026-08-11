@@ -75,7 +75,7 @@ function CaselawPage() {
             Emsal Kararlar & Kaynaklar
           </h1>
           <p className="text-sm text-muted-foreground">
-            Sahada işinize yarayacak emsal kararlar, Miranda hakları ve resmî hukuki kaynaklar.
+            Sahada işinize yarayacak emsal kararlar, Miranda hakları ve resmî kaynaklar.
           </p>
         </header>
 
