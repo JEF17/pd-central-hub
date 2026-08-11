@@ -19,7 +19,7 @@ export interface AdditionDef {
 }
 
 export const additions: AdditionDef[] = [
-  { key: "offender", label: "Fail (Offender)", timeFactor: 1, pointFactor: 1, note: "Suçun asıl faili." },
+  { key: "offender", label: "Suçlu (Offender)", timeFactor: 1, pointFactor: 1, note: "Suçun asıl faili." },
   { key: "accomplice", label: "Suç Ortağı (Accomplice)", timeFactor: 1, pointFactor: 1, note: "C.K. 801 — asıl fail ile aynı şekilde suçlanır." },
   { key: "accessory", label: "Suça Yardım (Accessory)", timeFactor: 0.5, pointFactor: 0.5, note: "C.K. 802 — asıl suçun yarısı." },
   { key: "attempt", label: "Teşebbüs (Attempt)", timeFactor: 0.5, pointFactor: 0.5, note: "C.K. 804 — ceza ve puanın %50'si." },
