@@ -116,8 +116,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="flex items-center gap-1.5 text-muted-foreground">
                 <Sparkles className="size-3 text-primary/70" />
                 <span>
-                  <span className="font-medium text-foreground">Muptazelle</span> tarafından geliştirildi · AI ile
-                  desteklendi
+                  <span className="font-medium text-foreground">Muptazelle</span> tarafından geliştirildi
                 </span>
               </span>
             </div>
