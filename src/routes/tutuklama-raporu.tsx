@@ -65,7 +65,7 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <ReportHeader
           title="Tutuklama Raporu"
-          description="Alanları doldur ve çıktıyı kopyala."
+          description=""
           format="MDC"
           icon={ShieldAlert}
         />
