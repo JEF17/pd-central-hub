@@ -60,7 +60,7 @@ function Page() {
             Hesaplanacak suçlama bulunamadı.
             <div className="mt-4">
               <Button asChild>
-                <Link to="/arrest-calculator">Süre Hesapla sayfasına dön</Link>
+                <Link to="/arrest-calculator" search={{ c: undefined }}>Süre Hesapla sayfasına dön</Link>
               </Button>
             </div>
           </div>
@@ -114,7 +114,7 @@ function Page() {
                     Bağlantıyı kopyala
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <Link to="/arrest-calculator">
+                    <Link to="/arrest-calculator" search={{ c }}>
                       <Pencil className="size-4" />
                       Suçlamaları düzenle
                     </Link>
