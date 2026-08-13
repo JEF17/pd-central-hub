@@ -17,7 +17,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { buildApbBBCode, emptyApb, type ApbData } from "@/lib/apb-template";
+import { buildApbBBCode, emptyApb, rankTitle, type ApbData } from "@/lib/apb-template";
+import { rankOptions } from "@/lib/officer-profile";
 
 export const Route = createFileRoute("/apb-sablonu")({
   head: () => ({
@@ -115,9 +116,32 @@ function Page() {
             <div className="sm:col-span-2">
               <ProfileFillButton
                 onFill={(p) => {
-              setData((d) => ({ ...d, officerName: p.name }));
+              setData((d) => ({ ...d, officerName: p.name, officerRank: p.rank }));
                 }}
               />
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="apb-rank">Rütbe</Label>
+              <select
+                id="apb-rank"
+                value={data.officerRank}
+                onChange={(e) => set("officerRank", e.target.value)}
+                className={cn(
+                  "h-10 w-full rounded-md border border-input bg-background px-3 text-sm",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                )}
+              >
+                <option value="">Seçiniz (varsayılan: Officer)</option>
+                {rankOptions.map((r) => (
+                  <option key={r} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-muted-foreground">
+                Raporda görünecek unvan: {rankTitle(data.officerRank)}
+              </p>
             </div>
 
             <Field label="Memur Adı Soyadı" value={data.officerName} onChange={(v) => set("officerName", v)} />
