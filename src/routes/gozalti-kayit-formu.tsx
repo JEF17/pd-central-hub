@@ -183,20 +183,6 @@ function Page() {
             </div>
           </Section>
 
-          <Section title="İmzalar" wide>
-            <Field
-              label="Field Supervisor İmzası"
-              value={data.fieldSupervisor}
-              onChange={(v) => set("fieldSupervisor", v)}
-              placeholder="A. SOYADI"
-            />
-            <Field
-              label="Watch Commander İmzası"
-              value={data.watchCommander}
-              onChange={(v) => set("watchCommander", v)}
-              placeholder="A. SOYADI"
-            />
-          </Section>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
