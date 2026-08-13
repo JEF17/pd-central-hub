@@ -98,25 +98,17 @@ function Page() {
           </Label>
         </div>
 
-        <div className="mt-4 max-w-xl space-y-2 rounded-xl border border-border bg-card p-4">
-          <Label htmlFor="prior" className="font-semibold">
-            Şüphelinin sabıka durumu (kefalet için gerekli)
+        <div className="mt-3 flex items-center gap-2">
+          <Checkbox
+            id="prior"
+            checked={prior === "prior"}
+            onCheckedChange={(value) => setPrior(value === true ? "prior" : "clean")}
+          />
+          <Label htmlFor="prior" className="cursor-pointer font-semibold">
+            Şüphelinin daha önce sabıkası var. (kefalet uygulanmaz)
           </Label>
-          <Select value={prior} onValueChange={(value) => setPrior(value as PriorRecord)}>
-            <SelectTrigger id="prior">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="unknown">Sicil kontrol edilmedi / bilinmiyor</SelectItem>
-              <SelectItem value="clean">Sabıkası yok (temiz sicil)</SelectItem>
-              <SelectItem value="prior">Daha önce misdemeanor/felony hükmü var</SelectItem>
-            </SelectContent>
-          </Select>
-          <p className="text-xs text-muted-foreground">
-            Kefalet yalnızca sicili temiz şüpheliler için uygundur. Sicil kontrol edilmediyse sonuç
-            sayfasında kefalet "teyit gerekli" olarak gösterilir.
-          </p>
         </div>
+
 
 
         <div className="mt-6 space-y-4">
