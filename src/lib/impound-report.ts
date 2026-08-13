@@ -7,7 +7,7 @@ export interface ImpoundOfficer {
 }
 
 export interface ImpoundReportData {
-  violationType: string; // Infraction | Misdemeanor | Felony
+  violationType: string[]; // Infraction | Misdemeanor | Felony
   officer: ImpoundOfficer;
   vehicleBrand: string;
   vehicleModel: string;
@@ -26,7 +26,7 @@ export const violationTypes = ["Infraction", "Misdemeanor", "Felony"];
 export const genderOptions = ["Erkek", "Kadın"];
 
 export const emptyImpoundReport = (): ImpoundReportData => ({
-  violationType: "",
+  violationType: [],
   officer: { name: "", serialNo: "", division: "", assignment: "", date: "" },
   vehicleBrand: "",
   vehicleModel: "",
@@ -64,6 +64,9 @@ function sectionOpen(title: string) {
 <td style="border:1px solid #ffffff;background:#ffffff;vertical-align:top;text-align:left;width:2%;padding:1px">${SPAN}</span><div style="padding-left:2px">${SPAN}<strong><span style="color:#000000">${title}</span></strong></span></div>`;
 }
 
+export const violationTypeList = (v: string[] | string): string[] =>
+  Array.isArray(v) ? v : v ? [v] : [];
+
 function checkbox(label: string, selected: boolean) {
   const box = selected ? "☑" : "☐";
   return `<span style="font-size:120%;line-height:116%"><span style="color:#000000">${box}</span></span> <span style="font-size:95%;line-height:116%"><span style="color:#000000">${label}</span></span>`;
@@ -93,7 +96,7 @@ CITY OF LOS SANTOS<br>
 <table border="1"><tbody><tr>
 <td style="border:1px solid #ffffff;background:#ffffff;vertical-align:top;text-align:left;width:2%;padding:1px"></td>
 <td style="border:1px solid #ffffff;background:#ffffff;vertical-align:top;text-align:left;width:2%;padding:1px">${SPAN}</span><div style="padding-left:2px">${SPAN}<span style="color:#000000">İHLAL TÜRÜ</span></span><br>
-${checkbox("Infraction", data.violationType === "Infraction")}<span style="color:#FFFFFF">___</span>${checkbox("Misdemeanor", data.violationType === "Misdemeanor")}<span style="color:#FFFFFF">___</span>${checkbox("Felony", data.violationType === "Felony")}</div></td></tr>
+${checkbox("Infraction", violationTypeList(data.violationType).includes("Infraction"))}<span style="color:#FFFFFF">___</span>${checkbox("Misdemeanor", violationTypeList(data.violationType).includes("Misdemeanor"))}<span style="color:#FFFFFF">___</span>${checkbox("Felony", violationTypeList(data.violationType).includes("Felony"))}</div></td></tr>
 </tbody></table>
 
 <table border="1"><tbody><tr>

@@ -21,6 +21,7 @@ import {
   violationGenderOptions,
   violationKinds,
   type ViolationReportData,
+  violationTypeList,
 } from "@/lib/violation-report";
 
 export const Route = createFileRoute("/ihlal-raporu")({
@@ -94,7 +95,8 @@ function Page() {
                 {violationKinds.map((type) => {
                   const style = kindStyles[type as keyof typeof kindStyles];
                   const Icon = style.icon;
-                  const selected = data.violationType === type;
+                  const list = violationTypeList(data.violationType);
+                  const selected = list.includes(type);
 
                   return (
                     <Button
@@ -102,7 +104,12 @@ function Page() {
                       type="button"
                       variant="outline"
                       aria-pressed={selected}
-                      onClick={() => set("violationType", type)}
+                      onClick={() =>
+                        set(
+                          "violationType",
+                          selected ? list.filter((t) => t !== type) : [...list, type],
+                        )
+                      }
                       className={cn(
                         "h-auto min-h-28 justify-start gap-3 whitespace-normal border-border bg-secondary/30 p-4 text-left transition-colors hover:bg-accent",
                         selected && style.selected,
