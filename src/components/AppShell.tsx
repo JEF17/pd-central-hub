@@ -113,12 +113,6 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-warning">
                 Demo Sürüm
               </span>
-              <span className="flex items-center gap-1.5 text-muted-foreground">
-                <Sparkles className="size-3 text-primary/70" />
-                <span>
-                  <span className="font-medium text-foreground">Muptazelle</span> tarafından geliştirildi
-                </span>
-              </span>
             </div>
 
             <nav className="flex items-center gap-1">
