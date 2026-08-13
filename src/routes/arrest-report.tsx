@@ -154,13 +154,7 @@ function Page() {
                         </td>
                         <td className="py-4 pr-4">
                           {charge.minMinutes === 0 ? (
-                            <span
-                              className="inline-flex items-center gap-1 rounded bg-warning/15 px-2 py-1 text-xs font-bold text-warning"
-                              title="Alt sınır yok — süre takdire bağlıdır"
-                            >
-                              <AlertTriangle className="size-3.5" aria-hidden="true" />
-                              0 dk · TAKDİRE BAĞLI
-                            </span>
+                            <span className="text-xs font-semibold text-warning">0 dk (takdiri)</span>
                           ) : (
                             <ParoleValue
                               base={formatDuration(charge.baseMinMinutes)}
@@ -169,6 +163,7 @@ function Page() {
                             />
                           )}
                         </td>
+
 
                         <td className="py-4 pr-4">
                           <ParoleValue
