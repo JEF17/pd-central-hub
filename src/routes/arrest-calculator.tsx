@@ -50,6 +50,7 @@ function Page() {
   const navigate = useNavigate();
   const [rows, setRows] = useState<ChargeRow[]>([makeRow()]);
   const [parole, setParole] = useState(false);
+  const [prior, setPrior] = useState<PriorRecord>("unknown");
 
   const update = (id: string, patch: Partial<ChargeRow>) =>
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -58,7 +59,7 @@ function Page() {
 
   const calculate = () => {
     if (!valid.length) return;
-    navigate({ to: "/arrest-report", search: { c: encodeRows(valid, parole) } });
+    navigate({ to: "/arrest-report", search: { c: encodeRows(valid, parole, prior) } });
   };
 
   return (
