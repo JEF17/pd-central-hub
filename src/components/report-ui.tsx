@@ -1,7 +1,8 @@
 import type { LucideIcon } from "lucide-react";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, FileText, Info } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
