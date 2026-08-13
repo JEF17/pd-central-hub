@@ -105,7 +105,7 @@ function Page() {
             onCheckedChange={(value) => setPrior(value === true ? "prior" : "clean")}
           />
           <Label htmlFor="prior" className="cursor-pointer font-semibold">
-            Şüphelinin daha önce sabıkası var. (kefalet uygulanmaz)
+            Şüphelinin daha önce sabıkası var.
           </Label>
         </div>
 
