@@ -82,52 +82,17 @@ function Page() {
             ) : null}
 
             {result.zeroMinCharges.length ? (
-              <div
-                role="alert"
-                className="mt-4 flex items-start gap-3 rounded-xl border border-warning/50 bg-warning/10 p-4 text-warning"
-              >
-                <AlertTriangle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-                <div>
-                  <p className="font-semibold">Minimum süresi 0 dakika olan suçlama var.</p>
-                  <p className="mt-1 text-sm text-warning/80">
-                    Aşağıdaki suçlamalarda alt sınır 0 dakikadır; bu suçlar toplam "minimum süre"
-                    hesabına süre eklemez ve ceza tamamen memurun/mahkemenin takdirindedir. Toplam
-                    minimum süreyi tek başına bağlayıcı kabul etmeyin.
-                  </p>
-                  <p className="mt-2 text-sm font-medium">
-                    {result.zeroMinCharges
-                      .map((c) => `${c.definition.number}. ${c.definition.title}`)
-                      .join(" · ")}
-                  </p>
-                </div>
-              </div>
+              <p className="mt-4 rounded-lg border border-warning/40 bg-warning/10 px-4 py-2 text-sm text-warning">
+                Bazı suçlamaların alt sınırı 0 dakika; minimum süre takdire bağlıdır.
+              </p>
             ) : null}
 
-            {result.priorRecord || result.priorRecordUnknown ? (
-              <div
-                role="alert"
-                className={cn(
-                  "mt-4 flex items-start gap-3 rounded-xl border p-4",
-                  result.priorRecord
-                    ? "border-destructive/50 bg-destructive/10 text-destructive"
-                    : "border-warning/50 bg-warning/10 text-warning",
-                )}
-              >
-                <AlertTriangle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-                <div>
-                  <p className="font-semibold">
-                    {result.priorRecord
-                      ? "Şüphelinin sabıkası bildirildi — kefalet uygulanamaz."
-                      : "Kefalet uygunluğu teyide muhtaç."}
-                  </p>
-                  <p className="mt-1 text-sm opacity-80">
-                    {result.priorRecord
-                      ? "Daha önce misdemeanor veya felony hükmü bulunan şüpheliler kefaletten yararlanamaz."
-                      : "Bu hesaplama yalnızca seçilen suçlamalara dayanır; şüphelinin geçmiş sicilini bilmez. Kefalet uygun görünse dahi MDC üzerinden sicil kontrolü yapılmadan kefalet verilmemelidir."}
-                  </p>
-                </div>
-              </div>
+            {result.priorRecord ? (
+              <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
+                Şüphelinin sabıkası var — kefalet uygulanamaz.
+              </p>
             ) : null}
+
 
 
             <section className="mt-8 rounded-xl border border-border bg-card p-6">
