@@ -89,7 +89,7 @@ function Page() {
 
             {result.priorRecord ? (
               <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
-                Şüphelinin sabıkası var — kefalet uygulanamaz.
+                Şüphelinin geçmiş dönem suç kaydı bulunuyor. Kefalet uygulanamaz.
               </p>
             ) : null}
 
