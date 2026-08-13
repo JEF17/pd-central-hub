@@ -154,8 +154,12 @@ export function calculate(
   const basePoints = Math.round(charges.reduce((sum, c) => sum + c.basePoints, 0) * 10) / 10;
 
   // Kefalet cetveli: birden fazla suçta tutarlar toplanmaz, en yüksek tutar esas alınır.
-  const bailEligible = charges.length > 0 && charges.every((c) => c.bailAuto) && !paroleViolator;
+  // Daha önce misdemeanor/felony hükümlüsü olan şüpheliler kefaletten yararlanamaz.
+  const bailEligible =
+    charges.length > 0 && charges.every((c) => c.bailAuto) && !paroleViolator && prior !== "prior";
   const highestBail = bailEligible ? Math.max(0, ...charges.map((c) => c.bailAmount)) : 0;
+
+  const zeroMinCharges = charges.filter((c) => c.minMinutes === 0);
 
   return {
     charges,
@@ -169,6 +173,9 @@ export function calculate(
     highestBail,
     bailEligible,
     paroleViolator,
+    priorRecord: prior === "prior",
+    priorRecordUnknown: prior === "unknown",
+    zeroMinCharges,
   };
 }
 
