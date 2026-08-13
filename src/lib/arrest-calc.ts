@@ -72,7 +72,14 @@ export interface CalculationResult {
   highestBail: number;
   bailEligible: boolean;
   paroleViolator: boolean;
+  /** Şüphelinin daha önce misdemeanor/felony sabıkası olduğu bildirildi mi? */
+  priorRecord: boolean;
+  /** Sabıka durumu kullanıcı tarafından teyit edilmedi (belirsiz) */
+  priorRecordUnknown: boolean;
+  /** Minimum süresi 0 dakika olan (takdire bağlı) suçlamalar */
+  zeroMinCharges: CalculatedCharge[];
 }
+
 
 export function getCharge(number: string): ChargeDefinition | undefined {
   return chargeCatalog.find((c) => c.number === number);
