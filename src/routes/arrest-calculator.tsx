@@ -56,7 +56,7 @@ function Page() {
   const navigate = useNavigate();
   const [rows, setRows] = useState<ChargeRow[]>([makeRow()]);
   const [parole, setParole] = useState(false);
-  const [prior, setPrior] = useState<PriorRecord>("unknown");
+  const [prior, setPrior] = useState<PriorRecord>("clean");
 
   const update = (id: string, patch: Partial<ChargeRow>) =>
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
