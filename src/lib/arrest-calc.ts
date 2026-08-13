@@ -90,7 +90,13 @@ function roundMinutes(value: number) {
   return Math.round(value);
 }
 
-export function calculate(rows: ChargeRow[], paroleViolator: boolean): CalculationResult {
+export type PriorRecord = "unknown" | "clean" | "prior";
+
+export function calculate(
+  rows: ChargeRow[],
+  paroleViolator: boolean,
+  prior: PriorRecord = "unknown",
+): CalculationResult {
   const charges: CalculatedCharge[] = [];
 
   for (const row of rows) {
