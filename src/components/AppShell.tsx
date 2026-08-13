@@ -1,3 +1,4 @@
+// Geliştirici: Muptazelle
 import { useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { MessageSquare, PanelLeft, Sparkles, Users } from "lucide-react";
