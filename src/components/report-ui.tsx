@@ -1,7 +1,8 @@
 import type { LucideIcon } from "lucide-react";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, FileText, Info } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,6 +39,14 @@ export function ReportHeader({
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
         </div>
       </div>
+
+      <Alert className="mt-4 border-primary/20 bg-primary/5">
+        <Info className="size-4" />
+        <AlertTitle>Bilgi</AlertTitle>
+        <AlertDescription>
+          Rapor içeriklerinde büyük harf kullanımına dikkat ediniz. (Örn: AD SOYAD, KONUM, SUÇ BAŞLIĞI)
+        </AlertDescription>
+      </Alert>
     </header>
   );
 }
