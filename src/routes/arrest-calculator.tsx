@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Calculator, Check, ChevronsUpDown, Plus, Trash2 } from "lucide-react";
+import { Calculator, Check, ChevronsUpDown, ExternalLink, Plus, Trash2 } from "lucide-react";
 
+import { BAIL_SHEET_URL } from "@/lib/bail-sheet";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -80,7 +81,7 @@ function Page() {
       : [makeRow()],
   );
   const [parole, setParole] = useState(initial?.paroleViolator ?? false);
-  const [prior, setPrior] = useState<PriorRecord>(initial?.prior ?? "clean");
+  const prior: PriorRecord = "clean";
 
   const update = (id: string, patch: Partial<ChargeRow>) =>
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -98,7 +99,7 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <h1 className="text-3xl font-bold tracking-tight">Süre Hesapla</h1>
         <p className="mt-2 text-muted-foreground">
-          Suçlamalara göre tutuklama süresini, ceza puanını ve kefalet tutarını hesaplayın.
+          Suçlamalara göre tutuklama süresini, ceza puanını ve para cezasını hesaplayın.
         </p>
 
         <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -123,15 +124,17 @@ function Page() {
           </Label>
         </div>
 
-        <div className="mt-3 flex items-center gap-2">
-          <Checkbox
-            id="prior"
-            checked={prior === "prior"}
-            onCheckedChange={(value) => setPrior(value === true ? "prior" : "clean")}
-          />
-          <Label htmlFor="prior" className="cursor-pointer font-semibold">
-            Şüphelinin daha önce sabıkası var.
-          </Label>
+        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
+          <span>Suçlamalar ile alakalı kefalet şablonunu kontrol etmeyin.</span>
+          <a
+            href={BAIL_SHEET_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
+          >
+            İlgili Kefalet Cetveli
+            <ExternalLink className="size-3.5" />
+          </a>
         </div>
 
 
