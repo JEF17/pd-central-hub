@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AlertTriangle, ClipboardCopy, ExternalLink, Link2, Pencil } from "lucide-react";
+import { AlertTriangle, ClipboardCopy, ExternalLink, Pencil } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
