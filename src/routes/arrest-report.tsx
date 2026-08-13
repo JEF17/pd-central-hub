@@ -208,8 +208,8 @@ function Page() {
               </div>
             </section>
 
-            <section className="mt-6 rounded-xl border border-border bg-card p-6">
-              <h2 className="text-xl font-semibold">Özet</h2>
+            <section className="mt-6 rounded-xl border border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-6 shadow-lg shadow-primary/5">
+              <h2 className="text-xl font-semibold text-primary">Özet</h2>
               <div className="mt-4 overflow-x-auto">
                 <table className="w-full min-w-[820px] text-sm">
                   <thead>
