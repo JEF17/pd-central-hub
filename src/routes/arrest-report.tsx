@@ -188,12 +188,23 @@ function Page() {
                           {typeLabels[charge.variant.type]}
                         </td>
                         <td className="py-4 pr-4">
-                          <ParoleValue
-                            base={formatDuration(charge.baseMinMinutes)}
-                            final={formatDuration(charge.minMinutes)}
-                            active={result.paroleViolator}
-                          />
+                          {charge.minMinutes === 0 ? (
+                            <span
+                              className="inline-flex items-center gap-1 rounded bg-warning/15 px-2 py-1 text-xs font-bold text-warning"
+                              title="Alt sınır yok — süre takdire bağlıdır"
+                            >
+                              <AlertTriangle className="size-3.5" aria-hidden="true" />
+                              0 dk · TAKDİRE BAĞLI
+                            </span>
+                          ) : (
+                            <ParoleValue
+                              base={formatDuration(charge.baseMinMinutes)}
+                              final={formatDuration(charge.minMinutes)}
+                              active={result.paroleViolator}
+                            />
+                          )}
                         </td>
+
                         <td className="py-4 pr-4">
                           <ParoleValue
                             base={formatDuration(charge.baseMaxMinutes)}
