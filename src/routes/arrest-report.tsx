@@ -93,6 +93,12 @@ function Page() {
               </p>
             ) : null}
 
+            {result.charges.some((c) => c.row.offense > 2) ? (
+              <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
+                Suç sayısı 2'yi geçtiği için kefalet uygulanamaz.
+              </p>
+            ) : null}
+
 
 
             <section className="mt-8 rounded-xl border border-border bg-card p-6">

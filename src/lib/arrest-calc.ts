@@ -155,9 +155,16 @@ export function calculate(
 
   // Kefalet cetveli: birden fazla suçta tutarlar toplanmaz, en yüksek tutar esas alınır.
   // Daha önce misdemeanor/felony hükümlüsü olan şüpheliler kefaletten yararlanamaz.
+  // Suç sayısı 2'yi geçen (3. kez ve üzeri) suçlamalarda kefalet uygulanmaz.
+  const repeatOffense = charges.some((c) => c.row.offense > 2);
   const bailEligible =
-    charges.length > 0 && charges.every((c) => c.bailAuto) && !paroleViolator && prior !== "prior";
+    charges.length > 0 &&
+    charges.every((c) => c.bailAuto) &&
+    !paroleViolator &&
+    prior !== "prior" &&
+    !repeatOffense;
   const highestBail = bailEligible ? Math.max(0, ...charges.map((c) => c.bailAmount)) : 0;
+
 
   const zeroMinCharges = charges.filter((c) => c.minMinutes === 0);
 
