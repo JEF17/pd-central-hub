@@ -182,11 +182,18 @@ function Page() {
                         <td className="py-4 pr-4">{formatMoney(charge.fine)}</td>
                         <td className="py-4 pr-4">
                           {charge.bailAuto ? (
-                            <span className="rounded bg-success/15 px-2 py-1 text-xs font-bold text-success">
+                            <span
+                              className={cn(
+                                "inline-flex items-center rounded px-2 py-1 text-xs font-bold leading-tight",
+                                charge.bailOptional
+                                  ? "bg-warning/15 text-warning"
+                                  : "bg-success/15 text-success",
+                              )}
+                            >
                               {charge.bailOptional ? "İSTEĞE BAĞLI" : "OTOMATİK"}
                             </span>
                           ) : (
-                            <span className="rounded bg-destructive/15 px-2 py-1 text-xs font-bold text-destructive">
+                            <span className="inline-flex items-center rounded bg-destructive/15 px-2 py-1 text-xs font-bold leading-tight text-destructive">
                               KEFALET YOK
                             </span>
                           )}
