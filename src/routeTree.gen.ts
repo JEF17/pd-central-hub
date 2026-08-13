@@ -18,6 +18,7 @@ import { Route as AyarlarRouteImport } from './routes/ayarlar'
 import { Route as CaselawRouteImport } from './routes/caselaw'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
+import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
@@ -70,6 +71,11 @@ const FieldInterviewKartiRoute = FieldInterviewKartiRouteImport.update({
   path: '/field-interview-karti',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GozaltiKayitFormuRoute = GozaltiKayitFormuRouteImport.update({
+  id: '/gozalti-kayit-formu',
+  path: '/gozalti-kayit-formu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IfadeRaporuRoute = IfadeRaporuRouteImport.update({
   id: '/ifade-raporu',
   path: '/ifade-raporu',
@@ -111,6 +117,7 @@ export interface FileRoutesByFullPath {
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/olay-raporu': typeof OlayRaporuRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/olay-raporu': typeof OlayRaporuRoute
@@ -146,6 +154,7 @@ export interface FileRoutesById {
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/olay-raporu': typeof OlayRaporuRoute
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/olay-raporu'
@@ -182,6 +192,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/olay-raporu'
@@ -199,6 +210,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/olay-raporu'
@@ -217,6 +229,7 @@ export interface RootRouteChildren {
   CaselawRoute: typeof CaselawRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
+  GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
   OlayRaporuRoute: typeof OlayRaporuRoute
@@ -290,6 +303,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FieldInterviewKartiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gozalti-kayit-formu': {
+      id: '/gozalti-kayit-formu'
+      path: '/gozalti-kayit-formu'
+      fullPath: '/gozalti-kayit-formu'
+      preLoaderRoute: typeof GozaltiKayitFormuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ifade-raporu': {
       id: '/ifade-raporu'
       path: '/ifade-raporu'
@@ -345,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   CaselawRoute: CaselawRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
+  GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
   OlayRaporuRoute: OlayRaporuRoute,

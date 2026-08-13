@@ -5,10 +5,12 @@ import {
   Fingerprint,
   Gavel,
   IdCard,
+  Lock,
   Mail,
   MessageSquareText,
   type LucideIcon,
 } from "lucide-react";
+
 
 export type PaperworkType = {
   slug: string;
@@ -60,6 +62,13 @@ export const paperworkTypes: PaperworkType[] = [
     description: "Bir çağrıyla, olayla veya suç bildirisiyle ilgili olarak ifade veren kişilerin kişisel bilgileriyle birlikte ifadelerinin not alındığı doküman.",
     icon: IdCard,
   },
+  {
+    slug: "gozalti-kayit-formu",
+    label: "Gözaltı Kayıt Formu",
+    description: "Gözaltına alınan şüphelinin kayıt bilgileri, booking durumu ve Miranda tavsiyelerinin belgelendiği form.",
+    icon: Lock,
+  },
+
   {
     slug: "e-posta",
     label: "E-Posta",
