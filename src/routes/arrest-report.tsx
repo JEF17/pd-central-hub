@@ -82,52 +82,17 @@ function Page() {
             ) : null}
 
             {result.zeroMinCharges.length ? (
-              <div
-                role="alert"
-                className="mt-4 flex items-start gap-3 rounded-xl border border-warning/50 bg-warning/10 p-4 text-warning"
-              >
-                <AlertTriangle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-                <div>
-                  <p className="font-semibold">Minimum süresi 0 dakika olan suçlama var.</p>
-                  <p className="mt-1 text-sm text-warning/80">
-                    Aşağıdaki suçlamalarda alt sınır 0 dakikadır; bu suçlar toplam "minimum süre"
-                    hesabına süre eklemez ve ceza tamamen memurun/mahkemenin takdirindedir. Toplam
-                    minimum süreyi tek başına bağlayıcı kabul etmeyin.
-                  </p>
-                  <p className="mt-2 text-sm font-medium">
-                    {result.zeroMinCharges
-                      .map((c) => `${c.definition.number}. ${c.definition.title}`)
-                      .join(" · ")}
-                  </p>
-                </div>
-              </div>
+              <p className="mt-4 rounded-lg border border-warning/40 bg-warning/10 px-4 py-2 text-sm text-warning">
+                Bazı suçlamaların alt sınırı 0 dakika; minimum süre takdire bağlıdır.
+              </p>
             ) : null}
 
-            {result.priorRecord || result.priorRecordUnknown ? (
-              <div
-                role="alert"
-                className={cn(
-                  "mt-4 flex items-start gap-3 rounded-xl border p-4",
-                  result.priorRecord
-                    ? "border-destructive/50 bg-destructive/10 text-destructive"
-                    : "border-warning/50 bg-warning/10 text-warning",
-                )}
-              >
-                <AlertTriangle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
-                <div>
-                  <p className="font-semibold">
-                    {result.priorRecord
-                      ? "Şüphelinin sabıkası bildirildi — kefalet uygulanamaz."
-                      : "Kefalet uygunluğu teyide muhtaç."}
-                  </p>
-                  <p className="mt-1 text-sm opacity-80">
-                    {result.priorRecord
-                      ? "Daha önce misdemeanor veya felony hükmü bulunan şüpheliler kefaletten yararlanamaz."
-                      : "Bu hesaplama yalnızca seçilen suçlamalara dayanır; şüphelinin geçmiş sicilini bilmez. Kefalet uygun görünse dahi MDC üzerinden sicil kontrolü yapılmadan kefalet verilmemelidir."}
-                  </p>
-                </div>
-              </div>
+            {result.priorRecord ? (
+              <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
+                Şüphelinin sabıkası var — kefalet uygulanamaz.
+              </p>
             ) : null}
+
 
 
             <section className="mt-8 rounded-xl border border-border bg-card p-6">
@@ -189,13 +154,7 @@ function Page() {
                         </td>
                         <td className="py-4 pr-4">
                           {charge.minMinutes === 0 ? (
-                            <span
-                              className="inline-flex items-center gap-1 rounded bg-warning/15 px-2 py-1 text-xs font-bold text-warning"
-                              title="Alt sınır yok — süre takdire bağlıdır"
-                            >
-                              <AlertTriangle className="size-3.5" aria-hidden="true" />
-                              0 dk · TAKDİRE BAĞLI
-                            </span>
+                            <span className="text-xs font-semibold text-warning">0 dk (takdiri)</span>
                           ) : (
                             <ParoleValue
                               base={formatDuration(charge.baseMinMinutes)}
@@ -204,6 +163,7 @@ function Page() {
                             />
                           )}
                         </td>
+
 
                         <td className="py-4 pr-4">
                           <ParoleValue
@@ -264,11 +224,6 @@ function Page() {
                           final={formatDuration(result.minMinutes)}
                           active={result.paroleViolator}
                         />
-                        {result.zeroMinCharges.length ? (
-                          <span className="mt-1 block text-xs font-medium text-warning">
-                            {result.zeroMinCharges.length} suçlama alt sınırsız (0 dk)
-                          </span>
-                        ) : null}
                       </td>
                       <td className="py-4 pr-4">
                         <ParoleValue
@@ -287,13 +242,9 @@ function Page() {
                       <td className="py-4 pr-4">{formatMoney(result.fine)}</td>
                       <td className="py-4 pr-4">{result.paroleViolator ? "Evet" : "Hayır"}</td>
                       <td className="py-4 pr-4">
-                        {result.bailEligible && !result.priorRecordUnknown ? (
+                        {result.bailEligible ? (
                           <span className="rounded bg-success/15 px-2 py-1 text-xs font-bold text-success">
                             UYGUN
-                          </span>
-                        ) : result.bailEligible ? (
-                          <span className="rounded bg-warning/15 px-2 py-1 text-xs font-bold text-warning">
-                            SİCİL TEYİDİ GEREKLİ
                           </span>
                         ) : (
                           <span className="rounded bg-destructive/15 px-2 py-1 text-xs font-bold text-destructive">
@@ -307,12 +258,10 @@ function Page() {
                 </table>
               </div>
               <p className="mt-4 text-xs text-muted-foreground">
-                Kefalet cetveli yönergesi: birden fazla suçlamada tutarlar toplanmaz, en yüksek kefalet
-                tutarı esas alınır. Daha önce misdemeanor veya felony suçtan hüküm giymiş şüpheliler
-                kefalet için uygun değildir; bu hesaplama şüphelinin geçmiş sicilini bilmez, sicili MDC
-                üzerinden doğrulayın. Bond tutarı, tam kefaletin %10'udur. Minimum süresi 0 dakika olan
-                suçlamalarda alt sınır bulunmaz ve süre takdire bağlıdır.
+                Birden fazla suçlamada kefalet tutarları toplanmaz, en yüksek tutar esas alınır. Bond
+                tutarı, tam kefaletin %10'udur.
               </p>
+
 
             </section>
 
