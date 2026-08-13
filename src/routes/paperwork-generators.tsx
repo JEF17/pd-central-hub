@@ -99,6 +99,14 @@ function Page() {
                 </Link>
               );
             }
+            if (t.slug === "gozalti-kayit-formu") {
+              return (
+                <Link key={t.slug} to="/gozalti-kayit-formu" className={cls}>
+                  {content}
+                </Link>
+              );
+            }
+
 
             return (
               <button key={t.slug} type="button" className={cls}>
