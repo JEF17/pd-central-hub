@@ -208,15 +208,24 @@ export const typeClasses: Record<string, string> = {
 };
 
 /** Hesaplamayı URL üzerinden taşımak için kompakt kodlama. */
-export function encodeRows(rows: ChargeRow[], paroleViolator: boolean) {
+export function encodeRows(
+  rows: ChargeRow[],
+  paroleViolator: boolean,
+  prior: PriorRecord = "unknown",
+) {
   const compact = rows
     .map((r) => [r.number, r.cls, r.offense, r.addition, r.category ?? ""].join("~"))
     .join("|");
-  return `${paroleViolator ? "1" : "0"}!${compact}`;
+  const priorFlag = prior === "prior" ? "2" : prior === "clean" ? "1" : "0";
+  return `${paroleViolator ? "1" : "0"}${priorFlag}!${compact}`;
 }
 
-export function decodeRows(value: string): { rows: ChargeRow[]; paroleViolator: boolean } {
-  const [flag, compact = ""] = value.split("!");
+export function decodeRows(value: string): {
+  rows: ChargeRow[];
+  paroleViolator: boolean;
+  prior: PriorRecord;
+} {
+  const [flags = "", compact = ""] = value.split("!");
   const rows: ChargeRow[] = compact
     .split("|")
     .filter(Boolean)
@@ -231,5 +240,7 @@ export function decodeRows(value: string): { rows: ChargeRow[]; paroleViolator: 
         category: category || undefined,
       };
     });
-  return { rows, paroleViolator: flag === "1" };
+  const priorFlag = flags[1] ?? "0";
+  const prior: PriorRecord = priorFlag === "2" ? "prior" : priorFlag === "1" ? "clean" : "unknown";
+  return { rows, paroleViolator: flags[0] === "1", prior };
 }
