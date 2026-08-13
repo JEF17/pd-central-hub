@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AlertTriangle, ClipboardCopy, ExternalLink, Link2, Pencil } from "lucide-react";
+import { AlertTriangle, ClipboardCopy, ExternalLink, Pencil } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
@@ -107,14 +107,6 @@ function Page() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h2 className="text-xl font-semibold">Suçlamalar</h2>
                 <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => copy(window.location.href, "Hesaplama bağlantısı")}
-                  >
-                    <Link2 className="size-4" />
-                    Bağlantıyı kopyala
-                  </Button>
                   <Button variant="outline" size="sm" asChild>
                     <Link to="/arrest-calculator" search={{ c }}>
                       <Pencil className="size-4" />
