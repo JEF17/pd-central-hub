@@ -38,8 +38,8 @@ export const Route = createFileRoute("/arrest-report")({
 function Page() {
   const { c } = Route.useSearch();
   const result = useMemo(() => {
-    const { rows, paroleViolator } = decodeRows(c);
-    return calculate(rows, paroleViolator);
+    const { rows, paroleViolator, prior } = decodeRows(c);
+    return calculate(rows, paroleViolator, prior);
   }, [c]);
 
   const copy = (value: string, label: string) => {
