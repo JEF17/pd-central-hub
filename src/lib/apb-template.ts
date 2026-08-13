@@ -8,6 +8,7 @@ export interface ApbData {
   suspect: string;
   details: string;
   officerName: string;
+  officerRank: string;
   phone: string;
 }
 
@@ -23,8 +24,23 @@ export const emptyApb = (): ApbData => ({
   suspect: "",
   details: "",
   officerName: "",
+  officerRank: "",
   phone: "",
 });
+
+/** Rütbeden APB'de kullanılacak unvanı çıkarır: "Detective II" -> "DETECTIVE" */
+export function rankTitle(rank: string): string {
+  const r = rank.trim().toUpperCase();
+  if (!r) return "OFFICER";
+  if (r.includes("CHIEF")) return "CHIEF";
+  if (r.includes("COMMANDER")) return "COMMANDER";
+  if (r.includes("CAPTAIN")) return "CAPTAIN";
+  if (r.includes("LIEUTENANT")) return "LIEUTENANT";
+  if (r.includes("SERGEANT")) return "SERGEANT";
+  if (r.includes("DETECTIVE")) return "DETECTIVE";
+  if (r.includes("OFFICER")) return "OFFICER";
+  return r;
+}
 
 const val = (v: string, fallback = "—") => (v.trim() ? v.trim() : fallback);
 
@@ -73,7 +89,7 @@ export function buildApbBBCode(data: ApbData) {
 
 
 [br][/br][center]
-[size=85][b]DAHA FAZLA BİLGİ İÇİN OFFICER ${val(
+[size=85][b]DAHA FAZLA BİLGİ İÇİN ${rankTitle(data.officerRank)} ${val(
     data.officerName,
     "ADI SOYADI",
   ).toUpperCase()} İLE ${val(data.phone, "1234567")} NUMARASINDAN İLETİŞİME GEÇEBİLİRSİNİZ.[/b][/size][/center]
