@@ -182,11 +182,18 @@ function Page() {
                         <td className="py-4 pr-4">{formatMoney(charge.fine)}</td>
                         <td className="py-4 pr-4">
                           {charge.bailAuto ? (
-                            <span className="rounded bg-success/15 px-2 py-1 text-xs font-bold text-success">
+                            <span
+                              className={cn(
+                                "inline-flex items-center rounded px-2 py-1 text-xs font-bold leading-tight",
+                                charge.bailOptional
+                                  ? "bg-warning/15 text-warning"
+                                  : "bg-success/15 text-success",
+                              )}
+                            >
                               {charge.bailOptional ? "İSTEĞE BAĞLI" : "OTOMATİK"}
                             </span>
                           ) : (
-                            <span className="rounded bg-destructive/15 px-2 py-1 text-xs font-bold text-destructive">
+                            <span className="inline-flex items-center rounded bg-destructive/15 px-2 py-1 text-xs font-bold leading-tight text-destructive">
                               KEFALET YOK
                             </span>
                           )}
@@ -201,8 +208,8 @@ function Page() {
               </div>
             </section>
 
-            <section className="mt-6 rounded-xl border border-border bg-card p-6">
-              <h2 className="text-xl font-semibold">Özet</h2>
+            <section className="mt-6 rounded-xl border border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-6 shadow-lg shadow-primary/5">
+              <h2 className="text-xl font-semibold text-primary">Özet</h2>
               <div className="mt-4 overflow-x-auto">
                 <table className="w-full min-w-[820px] text-sm">
                   <thead>
@@ -257,7 +264,7 @@ function Page() {
                   </tbody>
                 </table>
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">
+              <p className="mt-4 text-xs text-primary/80">
                 Birden fazla suçlamada kefalet tutarları toplanmaz, en yüksek tutar esas alınır. Bond
                 tutarı, tam kefaletin %10'udur.
               </p>
