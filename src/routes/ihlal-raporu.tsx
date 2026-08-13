@@ -1,14 +1,10 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone, TriangleAlert, } from "lucide-react";
+import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone, TriangleAlert } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
-import {
-  ReportHeader,
-  FormSection as Section,
-  TextField as Field,
-} from "@/components/report-ui";
+import { ReportHeader, FormSection as Section, TextField as Field } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
@@ -16,13 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { assignmentOptions, divisionOptions } from "@/lib/incident-report";
 import {
@@ -83,16 +73,10 @@ function Page() {
     notify.success(`${label} kopyalandı`);
   };
 
-
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl px-6 py-10">
-        <ReportHeader
-          title="İhlal Raporu"
-          description={"\n"}
-          format="MDC"
-          icon={TriangleAlert}
-        />
+        <ReportHeader title="İhlal Raporu" description={"\n"} format="MDC" icon={TriangleAlert} />
 
         <DraftBar
           savedAt={savedAt}
@@ -141,8 +125,18 @@ function Page() {
           </Section>
 
           <Section title="Araç Bilgisi">
-            <Field label="Marka" value={data.vehicleBrand} onChange={(v) => set("vehicleBrand", v)} placeholder="Declasse" />
-            <Field label="Model" value={data.vehicleModel} onChange={(v) => set("vehicleModel", v)} placeholder="Scout" />
+            <Field
+              label="Marka"
+              value={data.vehicleBrand}
+              onChange={(v) => set("vehicleBrand", v)}
+              placeholder="Declasse"
+            />
+            <Field
+              label="Model"
+              value={data.vehicleModel}
+              onChange={(v) => set("vehicleModel", v)}
+              placeholder="Scout"
+            />
             <div className="sm:col-span-2">
               <Field label="Plaka" value={data.plate} onChange={(v) => set("plate", v)} placeholder="JBC 123" />
             </div>
@@ -152,7 +146,7 @@ function Page() {
             <div className="sm:col-span-2">
               <ProfileFillButton
                 onFill={(p) => {
-              setOfficer({ name: p.name, serialNo: p.serialNo, ...(p.division ? { division: p.division } : {}) });
+                  setOfficer({ name: p.name, serialNo: p.serialNo, ...(p.division ? { division: p.division } : {}) });
                 }}
               />
             </div>
@@ -206,14 +200,19 @@ function Page() {
 
           <Section title="İhlal Bilgisi" wide>
             <div className="sm:col-span-2">
-              <Field label="Konum" value={data.location} onChange={(v) => set("location", v)} placeholder="000 Palomino Avenue" />
+              <Field
+                label="Konum"
+                value={data.location}
+                onChange={(v) => set("location", v)}
+                placeholder="000 Palomino Avenue"
+              />
             </div>
             <div className="sm:col-span-2">
               <Field
                 label="Ceza Kanunu"
                 value={data.penalCode}
                 onChange={(v) => set("penalCode", v)}
-                placeholder="502. Alkollü Araç Kullanma"
+                placeholder="502."
               />
             </div>
             <Field label="Tarih" value={data.date} onChange={(v) => set("date", v)} placeholder="GG/AA/YYYY" />
@@ -235,14 +234,15 @@ function Page() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button className="press" onClick={() => setOutput(buildViolationReportHtml(data))}>Raporu Oluştur</Button>
+          <Button className="press" onClick={() => setOutput(buildViolationReportHtml(data))}>
+            Raporu Oluştur
+          </Button>
           {output ? (
             <Button variant="outline" className="press" onClick={() => copy(output, "HTML")}>
               <ClipboardCopy className="size-4" />
               HTML kopyala
             </Button>
           ) : null}
-
         </div>
 
         {output ? (
@@ -255,8 +255,6 @@ function Page() {
     </AppShell>
   );
 }
-
-
 
 function SelectField({
   label,
