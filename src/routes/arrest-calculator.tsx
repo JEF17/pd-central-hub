@@ -23,7 +23,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { chargeCatalog, type ChargeClass } from "@/lib/charge-catalog";
-import { additions, encodeRows, typeClasses, type ChargeRow } from "@/lib/arrest-calc";
+import {
+  additions,
+  encodeRows,
+  typeClasses,
+  type ChargeRow,
+  type PriorRecord,
+} from "@/lib/arrest-calc";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-calculator")({
@@ -50,6 +56,7 @@ function Page() {
   const navigate = useNavigate();
   const [rows, setRows] = useState<ChargeRow[]>([makeRow()]);
   const [parole, setParole] = useState(false);
+  const [prior, setPrior] = useState<PriorRecord>("unknown");
 
   const update = (id: string, patch: Partial<ChargeRow>) =>
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -58,7 +65,7 @@ function Page() {
 
   const calculate = () => {
     if (!valid.length) return;
-    navigate({ to: "/arrest-report", search: { c: encodeRows(valid, parole) } });
+    navigate({ to: "/arrest-report", search: { c: encodeRows(valid, parole, prior) } });
   };
 
   return (
@@ -90,6 +97,27 @@ function Page() {
             Şüpheli şartlı tahliye / denetimli serbestlik ihlali gerçekleştirdi. (C.K. 904)
           </Label>
         </div>
+
+        <div className="mt-4 max-w-xl space-y-2 rounded-xl border border-border bg-card p-4">
+          <Label htmlFor="prior" className="font-semibold">
+            Şüphelinin sabıka durumu (kefalet için gerekli)
+          </Label>
+          <Select value={prior} onValueChange={(value) => setPrior(value as PriorRecord)}>
+            <SelectTrigger id="prior">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="unknown">Sicil kontrol edilmedi / bilinmiyor</SelectItem>
+              <SelectItem value="clean">Sabıkası yok (temiz sicil)</SelectItem>
+              <SelectItem value="prior">Daha önce misdemeanor/felony hükmü var</SelectItem>
+            </SelectContent>
+          </Select>
+          <p className="text-xs text-muted-foreground">
+            Kefalet yalnızca sicili temiz şüpheliler için uygundur. Sicil kontrol edilmediyse sonuç
+            sayfasında kefalet "teyit gerekli" olarak gösterilir.
+          </p>
+        </div>
+
 
         <div className="mt-6 space-y-4">
           {rows.map((row) => (

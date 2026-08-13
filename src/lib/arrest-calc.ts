@@ -72,7 +72,14 @@ export interface CalculationResult {
   highestBail: number;
   bailEligible: boolean;
   paroleViolator: boolean;
+  /** Şüphelinin daha önce misdemeanor/felony sabıkası olduğu bildirildi mi? */
+  priorRecord: boolean;
+  /** Sabıka durumu kullanıcı tarafından teyit edilmedi (belirsiz) */
+  priorRecordUnknown: boolean;
+  /** Minimum süresi 0 dakika olan (takdire bağlı) suçlamalar */
+  zeroMinCharges: CalculatedCharge[];
 }
+
 
 export function getCharge(number: string): ChargeDefinition | undefined {
   return chargeCatalog.find((c) => c.number === number);
@@ -83,7 +90,13 @@ function roundMinutes(value: number) {
   return Math.round(value);
 }
 
-export function calculate(rows: ChargeRow[], paroleViolator: boolean): CalculationResult {
+export type PriorRecord = "unknown" | "clean" | "prior";
+
+export function calculate(
+  rows: ChargeRow[],
+  paroleViolator: boolean,
+  prior: PriorRecord = "unknown",
+): CalculationResult {
   const charges: CalculatedCharge[] = [];
 
   for (const row of rows) {
@@ -141,8 +154,12 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
   const basePoints = Math.round(charges.reduce((sum, c) => sum + c.basePoints, 0) * 10) / 10;
 
   // Kefalet cetveli: birden fazla suçta tutarlar toplanmaz, en yüksek tutar esas alınır.
-  const bailEligible = charges.length > 0 && charges.every((c) => c.bailAuto) && !paroleViolator;
+  // Daha önce misdemeanor/felony hükümlüsü olan şüpheliler kefaletten yararlanamaz.
+  const bailEligible =
+    charges.length > 0 && charges.every((c) => c.bailAuto) && !paroleViolator && prior !== "prior";
   const highestBail = bailEligible ? Math.max(0, ...charges.map((c) => c.bailAmount)) : 0;
+
+  const zeroMinCharges = charges.filter((c) => c.minMinutes === 0);
 
   return {
     charges,
@@ -156,6 +173,9 @@ export function calculate(rows: ChargeRow[], paroleViolator: boolean): Calculati
     highestBail,
     bailEligible,
     paroleViolator,
+    priorRecord: prior === "prior",
+    priorRecordUnknown: prior === "unknown",
+    zeroMinCharges,
   };
 }
 
@@ -188,15 +208,24 @@ export const typeClasses: Record<string, string> = {
 };
 
 /** Hesaplamayı URL üzerinden taşımak için kompakt kodlama. */
-export function encodeRows(rows: ChargeRow[], paroleViolator: boolean) {
+export function encodeRows(
+  rows: ChargeRow[],
+  paroleViolator: boolean,
+  prior: PriorRecord = "unknown",
+) {
   const compact = rows
     .map((r) => [r.number, r.cls, r.offense, r.addition, r.category ?? ""].join("~"))
     .join("|");
-  return `${paroleViolator ? "1" : "0"}!${compact}`;
+  const priorFlag = prior === "prior" ? "2" : prior === "clean" ? "1" : "0";
+  return `${paroleViolator ? "1" : "0"}${priorFlag}!${compact}`;
 }
 
-export function decodeRows(value: string): { rows: ChargeRow[]; paroleViolator: boolean } {
-  const [flag, compact = ""] = value.split("!");
+export function decodeRows(value: string): {
+  rows: ChargeRow[];
+  paroleViolator: boolean;
+  prior: PriorRecord;
+} {
+  const [flags = "", compact = ""] = value.split("!");
   const rows: ChargeRow[] = compact
     .split("|")
     .filter(Boolean)
@@ -211,5 +240,7 @@ export function decodeRows(value: string): { rows: ChargeRow[]; paroleViolator: 
         category: category || undefined,
       };
     });
-  return { rows, paroleViolator: flag === "1" };
+  const priorFlag = flags[1] ?? "0";
+  const prior: PriorRecord = priorFlag === "2" ? "prior" : priorFlag === "1" ? "clean" : "unknown";
+  return { rows, paroleViolator: flags[0] === "1", prior };
 }
