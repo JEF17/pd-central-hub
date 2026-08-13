@@ -39,6 +39,14 @@ export function ReportHeader({
           <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
         </div>
       </div>
+
+      <Alert className="mt-4 border-primary/20 bg-primary/5">
+        <Info className="size-4" />
+        <AlertTitle>Bilgi</AlertTitle>
+        <AlertDescription>
+          Rapor içeriklerinde büyük harf kullanımına dikkat ediniz. (Örn: AD SOYAD, KONUM, SUÇ BAŞLIĞI)
+        </AlertDescription>
+      </Alert>
     </header>
   );
 }
