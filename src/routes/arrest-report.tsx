@@ -16,7 +16,7 @@ import {
   typeClasses,
   typeLabels,
 } from "@/lib/arrest-calc";
-import { BAIL_SHEET_URL } from "./arrest-calculator";
+import { BAIL_SHEET_URL } from "@/lib/bail-sheet";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-report")({

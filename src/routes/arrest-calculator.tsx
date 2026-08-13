@@ -2,9 +2,7 @@ import { useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Calculator, Check, ChevronsUpDown, ExternalLink, Plus, Trash2 } from "lucide-react";
 
-export const BAIL_SHEET_URL =
-  "https://docs.google.com/spreadsheets/d/1Gx7QAujLMvwc7TvFjovNdZ5UwUmhu7TXuJS40ZqKafw/edit?usp=sharing";
-
+import { BAIL_SHEET_URL } from "@/lib/bail-sheet";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
