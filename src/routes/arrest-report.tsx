@@ -229,11 +229,6 @@ function Page() {
                           final={formatDuration(result.minMinutes)}
                           active={result.paroleViolator}
                         />
-                        {result.zeroMinCharges.length ? (
-                          <span className="mt-1 block text-xs font-medium text-warning">
-                            {result.zeroMinCharges.length} suçlama alt sınırsız (0 dk)
-                          </span>
-                        ) : null}
                       </td>
                       <td className="py-4 pr-4">
                         <ParoleValue
@@ -252,13 +247,9 @@ function Page() {
                       <td className="py-4 pr-4">{formatMoney(result.fine)}</td>
                       <td className="py-4 pr-4">{result.paroleViolator ? "Evet" : "Hayır"}</td>
                       <td className="py-4 pr-4">
-                        {result.bailEligible && !result.priorRecordUnknown ? (
+                        {result.bailEligible ? (
                           <span className="rounded bg-success/15 px-2 py-1 text-xs font-bold text-success">
                             UYGUN
-                          </span>
-                        ) : result.bailEligible ? (
-                          <span className="rounded bg-warning/15 px-2 py-1 text-xs font-bold text-warning">
-                            SİCİL TEYİDİ GEREKLİ
                           </span>
                         ) : (
                           <span className="rounded bg-destructive/15 px-2 py-1 text-xs font-bold text-destructive">
@@ -272,12 +263,10 @@ function Page() {
                 </table>
               </div>
               <p className="mt-4 text-xs text-muted-foreground">
-                Kefalet cetveli yönergesi: birden fazla suçlamada tutarlar toplanmaz, en yüksek kefalet
-                tutarı esas alınır. Daha önce misdemeanor veya felony suçtan hüküm giymiş şüpheliler
-                kefalet için uygun değildir; bu hesaplama şüphelinin geçmiş sicilini bilmez, sicili MDC
-                üzerinden doğrulayın. Bond tutarı, tam kefaletin %10'udur. Minimum süresi 0 dakika olan
-                suçlamalarda alt sınır bulunmaz ve süre takdire bağlıdır.
+                Birden fazla suçlamada kefalet tutarları toplanmaz, en yüksek tutar esas alınır. Bond
+                tutarı, tam kefaletin %10'udur.
               </p>
+
 
             </section>
 
