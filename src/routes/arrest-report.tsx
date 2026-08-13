@@ -87,17 +87,18 @@ function Page() {
               </p>
             ) : null}
 
-            {result.priorRecord ? (
-              <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
-                Şüphelinin geçmiş dönem suç kaydı bulunuyor. Kefalet uygulanamaz.
-              </p>
-            ) : null}
-
-            {result.charges.some((c) => c.row.offense > 2) ? (
-              <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
-                Suç sayısı 2'yi geçtiği için kefalet uygulanamaz.
-              </p>
-            ) : null}
+            <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
+              <span>Suçlamalar ile alakalı kefalet şablonunu kontrol etmeyin.</span>
+              <a
+                href={BAIL_SHEET_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
+              >
+                İlgili Kefalet Cetveli
+                <ExternalLink className="size-3.5" />
+              </a>
+            </div>
 
 
 
@@ -134,8 +135,6 @@ function Page() {
                       <th className="py-3 pr-4 font-medium">Maks. Süre</th>
                       <th className="py-3 pr-4 font-medium">Puan</th>
                       <th className="py-3 pr-4 font-medium">Para Cezası</th>
-                      <th className="py-3 pr-4 font-medium">Oto. Kefalet</th>
-                      <th className="py-3 font-medium">Kefalet</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -185,28 +184,7 @@ function Page() {
                             active={result.paroleViolator}
                           />
                         </td>
-                        <td className="py-4 pr-4">{formatMoney(charge.fine)}</td>
-                        <td className="py-4 pr-4">
-                          {charge.bailAuto ? (
-                            <span
-                              className={cn(
-                                "inline-flex items-center rounded px-2 py-1 text-xs font-bold leading-tight",
-                                charge.bailOptional
-                                  ? "bg-warning/15 text-warning"
-                                  : "bg-success/15 text-success",
-                              )}
-                            >
-                              {charge.bailOptional ? "İSTEĞE BAĞLI" : "OTOMATİK"}
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center rounded bg-destructive/15 px-2 py-1 text-xs font-bold leading-tight text-destructive">
-                              KEFALET YOK
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-4">
-                          {charge.bailAuto ? formatMoney(charge.bailAmount) : "—"}
-                        </td>
+                        <td className="py-4">{formatMoney(charge.fine)}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -224,9 +202,7 @@ function Page() {
                       <th className="py-3 pr-4 font-medium">Maks. Süre</th>
                       <th className="py-3 pr-4 font-medium">Ceza Puanı</th>
                       <th className="py-3 pr-4 font-medium">Para Cezası</th>
-                      <th className="py-3 pr-4 font-medium">Şartlı Tahliye İhlali</th>
-                      <th className="py-3 pr-4 font-medium">Kefalet Durumu</th>
-                      <th className="py-3 font-medium">En Yüksek Kefalet</th>
+                      <th className="py-3 font-medium">Şartlı Tahliye İhlali</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -253,47 +229,21 @@ function Page() {
                         />
                       </td>
                       <td className="py-4 pr-4">{formatMoney(result.fine)}</td>
-                      <td className="py-4 pr-4">{result.paroleViolator ? "Evet" : "Hayır"}</td>
-                      <td className="py-4 pr-4">
-                        {result.bailEligible ? (
-                          <span className="rounded bg-success/15 px-2 py-1 text-xs font-bold text-success">
-                            UYGUN
-                          </span>
-                        ) : (
-                          <span className="rounded bg-destructive/15 px-2 py-1 text-xs font-bold text-destructive">
-                            UYGUN DEĞİL
-                          </span>
-                        )}
-                      </td>
-                      <td className="py-4 font-semibold">{formatMoney(result.highestBail)}</td>
+                      <td className="py-4">{result.paroleViolator ? "Evet" : "Hayır"}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <p className="mt-4 text-xs text-primary/80">
-                Birden fazla suçlamada kefalet tutarları toplanmaz, en yüksek tutar esas alınır. Bond
-                tutarı, tam kefaletin %10'udur.
-              </p>
+
 
 
             </section>
 
-            <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <CopyField label="Min. Dakika" value={String(result.minMinutes)} onCopy={copy} />
               <CopyField label="Maks. Dakika" value={String(result.maxMinutes)} onCopy={copy} />
               <CopyField label="Ceza Puanı" value={String(result.points)} onCopy={copy} />
               <CopyField label="Para Cezası" value={String(result.fine)} onCopy={copy} />
-              <CopyField
-                label="Bond (%10)"
-                value={String(Math.round(result.highestBail / 10))}
-                onCopy={copy}
-              />
-              <CopyField
-                label="En Yüksek Kefalet"
-                value={String(result.highestBail)}
-                onCopy={copy}
-                highlight={!result.bailEligible}
-              />
             </section>
           </>
         )}
