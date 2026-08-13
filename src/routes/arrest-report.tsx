@@ -264,7 +264,7 @@ function Page() {
                   </tbody>
                 </table>
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">
+              <p className="mt-4 text-xs text-primary/80">
                 Birden fazla suçlamada kefalet tutarları toplanmaz, en yüksek tutar esas alınır. Bond
                 tutarı, tam kefaletin %10'udur.
               </p>
