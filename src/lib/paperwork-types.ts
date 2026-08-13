@@ -68,7 +68,6 @@ export const paperworkTypes: PaperworkType[] = [
     description: "Gözaltına alınan şüphelinin kayıt bilgileri, booking durumu ve Miranda tavsiyelerinin belgelendiği form.",
     icon: Lock,
   },
-
   {
     slug: "e-posta",
     label: "E-Posta",
