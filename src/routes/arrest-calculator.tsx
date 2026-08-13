@@ -25,6 +25,7 @@ import {
 import { chargeCatalog, type ChargeClass } from "@/lib/charge-catalog";
 import {
   additions,
+  decodeRows,
   encodeRows,
   typeClasses,
   type ChargeRow,
@@ -33,6 +34,9 @@ import {
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-calculator")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    c: typeof search['c'] === "string" ? (search['c'] as string) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Süre Hesapla — LSPD - Toolkit" },
@@ -54,9 +58,29 @@ function makeRow(): ChargeRow {
 
 function Page() {
   const navigate = useNavigate();
-  const [rows, setRows] = useState<ChargeRow[]>([makeRow()]);
-  const [parole, setParole] = useState(false);
-  const [prior, setPrior] = useState<PriorRecord>("clean");
+  const { c } = Route.useSearch();
+
+  const initial = (() => {
+    if (!c) return null;
+    try {
+      const decoded = decodeRows(c);
+      if (!decoded.rows.length) return null;
+      return decoded;
+    } catch {
+      return null;
+    }
+  })();
+
+  const [rows, setRows] = useState<ChargeRow[]>(() =>
+    initial
+      ? initial.rows.map((r) => {
+          rowCounter += 1;
+          return { ...r, id: `row-${rowCounter}` };
+        })
+      : [makeRow()],
+  );
+  const [parole, setParole] = useState(initial?.paroleViolator ?? false);
+  const [prior, setPrior] = useState<PriorRecord>(initial?.prior ?? "clean");
 
   const update = (id: string, patch: Partial<ChargeRow>) =>
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
@@ -67,6 +91,7 @@ function Page() {
     if (!valid.length) return;
     navigate({ to: "/arrest-report", search: { c: encodeRows(valid, parole, prior) } });
   };
+
 
   return (
     <AppShell>
