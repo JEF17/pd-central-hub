@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AlertTriangle, ClipboardCopy, Link2, Pencil } from "lucide-react";
+import { AlertTriangle, ClipboardCopy, ExternalLink, Link2, Pencil } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
@@ -16,6 +16,7 @@ import {
   typeClasses,
   typeLabels,
 } from "@/lib/arrest-calc";
+import { BAIL_SHEET_URL } from "./arrest-calculator";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-report")({
