@@ -89,7 +89,7 @@ function Page() {
             ) : null}
 
             <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-              <span>Suçlamalar ile alakalı kefalet şablonunu kontrol etmeyin.</span>
+              <span>Suçlamalar ile alakalı kefalet şablonunu kontrol etmeyi unutmayın.</span>
               <a
                 href={BAIL_SHEET_URL}
                 target="_blank"
