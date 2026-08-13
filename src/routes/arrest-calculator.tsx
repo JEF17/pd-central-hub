@@ -23,7 +23,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { chargeCatalog, type ChargeClass } from "@/lib/charge-catalog";
-import { additions, encodeRows, typeClasses, type ChargeRow } from "@/lib/arrest-calc";
+import {
+  additions,
+  encodeRows,
+  typeClasses,
+  type ChargeRow,
+  type PriorRecord,
+} from "@/lib/arrest-calc";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-calculator")({
