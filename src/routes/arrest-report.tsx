@@ -83,7 +83,7 @@ function Page() {
 
             {result.zeroMinCharges.length ? (
               <p className="mt-4 rounded-lg border border-warning/40 bg-warning/10 px-4 py-2 text-sm text-warning">
-                Bazı suçlamaların alt sınırı 0 dakika; minimum süre takdire bağlıdır.
+                Bazı suçlamaların alt sınırı alt sınırı bulunmuyor.
               </p>
             ) : null}
 
@@ -154,7 +154,7 @@ function Page() {
                         </td>
                         <td className="py-4 pr-4">
                           {charge.minMinutes === 0 ? (
-                            <span className="text-xs font-semibold text-warning">0 dk (takdiri)</span>
+                            <span className="text-xs font-semibold text-warning">0 dk (alt sınır bulunmuyor.)</span>
                           ) : (
                             <ParoleValue
                               base={formatDuration(charge.baseMinMinutes)}
