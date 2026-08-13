@@ -22,6 +22,7 @@ import {
   genderOptions,
   violationTypes,
   type ImpoundReportData,
+  violationTypeList,
 } from "@/lib/impound-report";
 
 export const Route = createFileRoute("/arac-el-koyma-raporu")({
@@ -115,7 +116,8 @@ function Page() {
                 {violationTypes.map((type) => {
                   const style = violationStyles[type as keyof typeof violationStyles];
                   const Icon = style.icon;
-                  const selected = data.violationType === type;
+                  const list = violationTypeList(data.violationType);
+                  const selected = list.includes(type);
 
                   return (
                     <Button
@@ -123,7 +125,12 @@ function Page() {
                       type="button"
                       variant="outline"
                       aria-pressed={selected}
-                      onClick={() => set("violationType", type)}
+                      onClick={() =>
+                        set(
+                          "violationType",
+                          selected ? list.filter((t) => t !== type) : [...list, type],
+                        )
+                      }
                       className={cn(
                         "h-auto min-h-28 justify-start gap-3 whitespace-normal border-border bg-secondary/30 p-4 text-left transition-colors hover:bg-accent",
                         selected && style.selected,
