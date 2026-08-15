@@ -100,7 +100,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
           {!collapsed && (
             <p className="mt-1 text-center text-[10px] leading-tight text-muted-foreground/50">
-              jef ve muptazelle + (AI)&nbsp; tarafından geliştirildi.
+              jef ve muptazelle + (AI) tarafından geliştirildi.
             </p>
           )}
         </nav>
