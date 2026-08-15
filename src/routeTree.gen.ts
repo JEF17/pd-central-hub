@@ -18,6 +18,7 @@ import { Route as AyarlarRouteImport } from './routes/ayarlar'
 import { Route as CaselawRouteImport } from './routes/caselaw'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
+import { Route as GelistiriciGunlukleriRouteImport } from './routes/gelistirici-gunlukleri'
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
@@ -71,6 +72,11 @@ const FieldInterviewKartiRoute = FieldInterviewKartiRouteImport.update({
   path: '/field-interview-karti',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GelistiriciGunlukleriRoute = GelistiriciGunlukleriRouteImport.update({
+  id: '/gelistirici-gunlukleri',
+  path: '/gelistirici-gunlukleri',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GozaltiKayitFormuRoute = GozaltiKayitFormuRouteImport.update({
   id: '/gozalti-kayit-formu',
   path: '/gozalti-kayit-formu',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gelistirici-gunlukleri': typeof GelistiriciGunlukleriRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByTo {
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gelistirici-gunlukleri': typeof GelistiriciGunlukleriRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gelistirici-gunlukleri': typeof GelistiriciGunlukleriRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -174,6 +183,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gelistirici-gunlukleri'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -192,6 +202,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gelistirici-gunlukleri'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -210,6 +221,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gelistirici-gunlukleri'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -229,6 +241,7 @@ export interface RootRouteChildren {
   CaselawRoute: typeof CaselawRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
+  GelistiriciGunlukleriRoute: typeof GelistiriciGunlukleriRoute
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
@@ -303,6 +316,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FieldInterviewKartiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gelistirici-gunlukleri': {
+      id: '/gelistirici-gunlukleri'
+      path: '/gelistirici-gunlukleri'
+      fullPath: '/gelistirici-gunlukleri'
+      preLoaderRoute: typeof GelistiriciGunlukleriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gozalti-kayit-formu': {
       id: '/gozalti-kayit-formu'
       path: '/gozalti-kayit-formu'
@@ -365,6 +385,7 @@ const rootRouteChildren: RootRouteChildren = {
   CaselawRoute: CaselawRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
+  GelistiriciGunlukleriRoute: GelistiriciGunlukleriRoute,
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
