@@ -5,7 +5,6 @@ import {
   Gavel,
   LayoutGrid,
   Settings,
-  Terminal,
   type LucideIcon,
 } from "lucide-react";
 
@@ -52,13 +51,6 @@ export const navItems: NavItem[] = [
     icon: Gavel,
     description: "Alınmış emsal kararları ve daha fazlasına ulaşabilirsiniz.",
     position: "main",
-  },
-  {
-    label: "Geliştirici Günlükleri",
-    to: "/gelistirici-gunlukleri",
-    icon: Terminal,
-    description: "Uygulamaya eklenen güncellemeler ve düzeltmeler.",
-    position: "bottom",
   },
   {
     label: "Ayarlar",
