@@ -73,7 +73,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
         </nav>
 
-        <nav className="flex shrink-0 flex-col gap-1 border-t border-border px-3 py-2">
+        <nav className="flex min-h-16 shrink-0 flex-col justify-center gap-1 border-t border-border px-3 py-2">
           {navItems
             .filter((item) => item.position === "bottom")
             .map((item, index, arr) => {
