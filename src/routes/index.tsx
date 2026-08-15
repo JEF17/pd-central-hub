@@ -19,7 +19,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Dashboard() {
-  const tools = navItems.filter((i) => i.to !== "/" && i.to !== "/ayarlar");
+  const tools = navItems.filter((i) => i.to !== "/" && i.position !== "bottom");
 
   return (
     <AppShell>
