@@ -6,6 +6,7 @@ import {
   ClipboardCopy,
   FileSearch,
   Gavel,
+  Info,
   Plus,
   Search,
   ShieldAlert,
