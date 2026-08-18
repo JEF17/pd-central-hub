@@ -6,6 +6,7 @@ import {
   ClipboardCopy,
   FileSearch,
   Gavel,
+  Info,
   Plus,
   Search,
   ShieldAlert,
@@ -22,6 +23,7 @@ import {
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
@@ -305,6 +307,30 @@ function Page() {
 
           <Section title="Kanıtlar" wide>
             <div className="sm:col-span-2 space-y-3">
+              <Alert className="border-primary/20 bg-primary/5">
+                <Info className="size-4" />
+                <AlertTitle>Not</AlertTitle>
+                <AlertDescription>
+                  <p>Başlık kullanımında aşağıdaki formatların dışına çıkmayın:</p>
+                  <ul className="mt-2 space-y-1 font-mono text-xs leading-relaxed">
+                    <li>OR — 00/00/2025 — 00000</li>
+                    <li>IR — 00/00/2025 — 00000</li>
+                    <li>EV-20250000-000</li>
+                    <li>CCTV ID #000 — Konum — GG/AA/YYYY</li>
+                    <li>DICVS Seri No. 00000 - GG/AA/YYYY</li>
+                    <li>BWV A. Soyadı #00000 - GG/AA/YYYY</li>
+                    <li>Trafik Kazası Fotoğrafları (Plaka)</li>
+                    <li>Impound Report - Araç Modeli - Plaka</li>
+                    <li>Tutuklama Raporu (Şüpheli Adı)</li>
+                    <li>FSD Sillah Adı - Balistik İncelemesi</li>
+                    <li>FSD Eşya Adı - Parmak İzi İncelemesi</li>
+                    <li>FSD DNA İnceleme Raporu</li>
+                    <li>APB - Şüpheli Adı (APB Numarası)</li>
+                    <li>Coroner Raporu (Mağdur Adı)</li>
+                  </ul>
+                </AlertDescription>
+              </Alert>
+
               {data.evidence.map((e, i) => (
                 <div key={e.id} className="grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
                   <div>
