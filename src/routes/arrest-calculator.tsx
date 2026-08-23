@@ -242,9 +242,9 @@ function Page() {
                   <SummaryStat
                     label="Min. Süre"
                     value={
-                      <ParoleValue
-                        base={formatDuration(result.baseMinMinutes)}
-                        final={formatDuration(result.minMinutes)}
+                      <DurationValue
+                        baseMinutes={result.baseMinMinutes}
+                        finalMinutes={result.minMinutes}
                         active={result.paroleViolator}
                       />
                     }
@@ -254,9 +254,9 @@ function Page() {
                   <SummaryStat
                     label="Maks. Süre"
                     value={
-                      <ParoleValue
-                        base={formatDuration(result.baseMaxMinutes)}
-                        final={formatDuration(result.maxMinutes)}
+                      <DurationValue
+                        baseMinutes={result.baseMaxMinutes}
+                        finalMinutes={result.maxMinutes}
                         active={result.paroleViolator}
                       />
                     }
@@ -326,17 +326,17 @@ function Page() {
                             {charge.minMinutes === 0 ? (
                               <span className="text-xs font-semibold text-warning">0 dk (alt sınır bulunmuyor.)</span>
                             ) : (
-                              <ParoleValue
-                                base={formatDuration(charge.baseMinMinutes)}
-                                final={formatDuration(charge.minMinutes)}
+                              <DurationValue
+                                baseMinutes={charge.baseMinMinutes}
+                                finalMinutes={charge.minMinutes}
                                 active={result.paroleViolator}
                               />
                             )}
                           </td>
                           <td className="py-4 pr-4">
-                            <ParoleValue
-                              base={formatDuration(charge.baseMaxMinutes)}
-                              final={formatDuration(charge.maxMinutes)}
+                            <DurationValue
+                              baseMinutes={charge.baseMaxMinutes}
+                              finalMinutes={charge.maxMinutes}
                               active={result.paroleViolator}
                             />
                           </td>
@@ -571,6 +571,39 @@ function SummaryStat({
   );
 }
 
+
+function DurationValue({
+  baseMinutes,
+  finalMinutes,
+  active,
+}: {
+  baseMinutes: number;
+  finalMinutes: number;
+  active: boolean;
+}) {
+  const base = formatDuration(baseMinutes);
+  const final = formatDuration(finalMinutes);
+  if (!active || base === final) {
+    return (
+      <div className="flex flex-col">
+        <span>{final}</span>
+        {finalMinutes > 0 ? (
+          <span className="text-xs text-muted-foreground">{finalMinutes} dakika</span>
+        ) : null}
+      </div>
+    );
+  }
+  return (
+    <span
+      className="inline-flex flex-col leading-tight"
+      title={`Normal: ${base} · Şartlı tahliye ihlali (x2): ${final}`}
+    >
+      <span className="font-semibold">{final}</span>
+      <span className="text-xs text-muted-foreground line-through">{base}</span>
+      <span className="text-xs text-muted-foreground">{finalMinutes} dakika</span>
+    </span>
+  );
+}
 
 function ParoleValue({ base, final, active }: { base: string; final: string; active: boolean }) {
   if (!active || base === final) return <span>{final}</span>;
