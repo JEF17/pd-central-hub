@@ -1,11 +1,21 @@
 import { useState } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Calculator, Check, ChevronsUpDown, ExternalLink, Plus, Trash2 } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import {
+  AlertTriangle,
+  Calculator,
+  Check,
+  ChevronsUpDown,
+  ClipboardCopy,
+  ExternalLink,
+  Plus,
+  Trash2,
+} from "lucide-react";
 
 import { BAIL_SHEET_URL } from "@/lib/bail-sheet";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Command,
@@ -26,12 +36,17 @@ import {
 import { chargeCatalog, type ChargeClass } from "@/lib/charge-catalog";
 import {
   additions,
+  additionMap,
+  calculate as computeSentence,
   decodeRows,
-  encodeRows,
+  formatDuration,
+  formatMoney,
   typeClasses,
+  typeLabels,
   type ChargeRow,
   type PriorRecord,
 } from "@/lib/arrest-calc";
+import { notify } from "@/lib/notifications";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-calculator")({
@@ -58,8 +73,8 @@ function makeRow(): ChargeRow {
 }
 
 function Page() {
-  const navigate = useNavigate();
   const { c } = Route.useSearch();
+  const prior: PriorRecord = "clean";
 
   const initial = (() => {
     if (!c) return null;
@@ -81,18 +96,24 @@ function Page() {
       : [makeRow()],
   );
   const [parole, setParole] = useState(initial?.paroleViolator ?? false);
-  const prior: PriorRecord = "clean";
+  const [result, setResult] = useState<ReturnType<typeof computeSentence> | null>(() =>
+    initial ? computeSentence(initial.rows, initial.paroleViolator, prior) : null,
+  );
 
   const update = (id: string, patch: Partial<ChargeRow>) =>
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
 
   const valid = rows.filter((r) => r.number);
 
-  const calculate = () => {
+  const handleCalculate = () => {
     if (!valid.length) return;
-    navigate({ to: "/arrest-report", search: { c: encodeRows(valid, parole, prior) } });
+    setResult(computeSentence(valid, parole, prior));
   };
 
+  const copy = (value: string, label: string) => {
+    void navigator.clipboard.writeText(value);
+    notify.success(`${label} kopyalandı`);
+  };
 
   return (
     <AppShell>
@@ -107,7 +128,7 @@ function Page() {
             <Plus className="size-4" />
             Suçlama Ekle
           </Button>
-          <Button variant="secondary" onClick={calculate} disabled={!valid.length}>
+          <Button variant="secondary" onClick={handleCalculate} disabled={!valid.length}>
             <Calculator className="size-4" />
             Süreyi Hesapla
           </Button>
@@ -137,8 +158,6 @@ function Page() {
           </a>
         </div>
 
-
-
         <div className="mt-6 space-y-4">
           {rows.map((row) => (
             <ChargeRowCard
@@ -149,6 +168,156 @@ function Page() {
             />
           ))}
         </div>
+
+        {result ? (
+          result.charges.length === 0 ? (
+            <div className="mt-8 rounded-xl border border-dashed border-border bg-card/50 p-10 text-center text-muted-foreground">
+              Hesaplanacak suçlama bulunamadı.
+            </div>
+          ) : (
+            <>
+              {result.points >= 30 ? (
+                <div
+                  role="alert"
+                  className="mt-8 flex items-start gap-3 rounded-xl border border-warning/50 bg-warning/10 p-4 text-warning"
+                >
+                  <AlertTriangle className="mt-0.5 size-5 shrink-0" aria-hidden="true" />
+                  <div>
+                    <p className="font-semibold">Suç puanı 30 veya üzeri.</p>
+                    <p className="mt-1 text-sm text-warning/80">
+                      Toplam suç puanı 30 veya üzerine çıktığı için ilgili prosedürleri kontrol edin.
+                    </p>
+                  </div>
+                </div>
+              ) : null}
+
+              {result.zeroMinCharges.length ? (
+                <p className="mt-4 rounded-lg border border-warning/40 bg-warning/10 px-4 py-2 text-sm text-warning">
+                  Bazı suçlamaların alt sınırı bulunmuyor.
+                </p>
+              ) : null}
+
+              <section className="mt-8 rounded-xl border border-border bg-card p-6">
+                <h2 className="text-xl font-semibold">Suçlamalar</h2>
+                <div className="mt-4 overflow-x-auto">
+                  <table className="w-full min-w-[900px] text-sm">
+                    <thead>
+                      <tr className="border-b border-border text-left text-muted-foreground">
+                        <th className="py-3 pr-4 font-medium">Suçlama</th>
+                        <th className="py-3 pr-4 font-medium">Ek Durum</th>
+                        <th className="py-3 pr-4 font-medium">Suç No</th>
+                        <th className="py-3 pr-4 font-medium">Tür</th>
+                        <th className="py-3 pr-4 font-medium">Min. Süre</th>
+                        <th className="py-3 pr-4 font-medium">Maks. Süre</th>
+                        <th className="py-3 pr-4 font-medium">Puan</th>
+                        <th className="py-3 pr-4 font-medium">Para Cezası</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {result.charges.map((charge, index) => (
+                        <tr key={`${charge.definition.number}-${index}`} className="border-b border-border/60">
+                          <td className="py-4 pr-4 font-semibold">
+                            {charge.variant.cls}
+                            {charge.variant.type} {charge.definition.number}. {charge.definition.title}
+                            {charge.category ? (
+                              <span className="ml-2 rounded bg-muted px-1.5 py-0.5 text-xs font-bold text-muted-foreground">
+                                Kategori {charge.category.key}
+                              </span>
+                            ) : null}
+                          </td>
+                          <td className="py-4 pr-4 text-muted-foreground">
+                            {additionMap[charge.row.addition]?.label}
+                          </td>
+                          <td className="py-4 pr-4">{charge.row.offense}</td>
+                          <td className={cn("py-4 pr-4 font-semibold", typeClasses[charge.variant.type])}>
+                            {typeLabels[charge.variant.type]}
+                          </td>
+                          <td className="py-4 pr-4">
+                            {charge.minMinutes === 0 ? (
+                              <span className="text-xs font-semibold text-warning">0 dk (alt sınır bulunmuyor.)</span>
+                            ) : (
+                              <ParoleValue
+                                base={formatDuration(charge.baseMinMinutes)}
+                                final={formatDuration(charge.minMinutes)}
+                                active={result.paroleViolator}
+                              />
+                            )}
+                          </td>
+                          <td className="py-4 pr-4">
+                            <ParoleValue
+                              base={formatDuration(charge.baseMaxMinutes)}
+                              final={formatDuration(charge.maxMinutes)}
+                              active={result.paroleViolator}
+                            />
+                          </td>
+                          <td className="py-4 pr-4">
+                            <ParoleValue
+                              base={String(charge.basePoints)}
+                              final={String(charge.points)}
+                              active={result.paroleViolator}
+                            />
+                          </td>
+                          <td className="py-4">{formatMoney(charge.fine)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section className="mt-6 rounded-xl border border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-6 shadow-lg shadow-primary/5">
+                <h2 className="text-xl font-semibold text-primary">Özet</h2>
+                <div className="mt-4 overflow-x-auto">
+                  <table className="w-full min-w-[820px] text-sm">
+                    <thead>
+                      <tr className="border-b border-border text-left text-muted-foreground">
+                        <th className="py-3 pr-4 font-medium">Min. Süre</th>
+                        <th className="py-3 pr-4 font-medium">Maks. Süre</th>
+                        <th className="py-3 pr-4 font-medium">Ceza Puanı</th>
+                        <th className="py-3 pr-4 font-medium">Para Cezası</th>
+                        <th className="py-3 font-medium">Şartlı Tahliye İhlali</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={formatDuration(result.baseMinMinutes)}
+                            final={formatDuration(result.minMinutes)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={formatDuration(result.baseMaxMinutes)}
+                            final={formatDuration(result.maxMinutes)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
+                        <td className="py-4 pr-4">
+                          <ParoleValue
+                            base={String(result.basePoints)}
+                            final={String(result.points)}
+                            active={result.paroleViolator}
+                          />
+                        </td>
+                        <td className="py-4 pr-4">{formatMoney(result.fine)}</td>
+                        <td className="py-4">{result.paroleViolator ? "Evet" : "Hayır"}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <CopyField label="Min. Dakika" value={String(result.minMinutes)} onCopy={copy} />
+                <CopyField label="Maks. Dakika" value={String(result.maxMinutes)} onCopy={copy} />
+                <CopyField label="Ceza Puanı" value={String(result.points)} onCopy={copy} />
+                <CopyField label="Para Cezası" value={String(result.fine)} onCopy={copy} />
+              </section>
+            </>
+          )
+        ) : null}
       </div>
     </AppShell>
   );
@@ -325,5 +494,40 @@ function ChargeRowCard({
         </Button>
       </div>
     </div>
+  );
+}
+
+function CopyField({
+  label,
+  value,
+  onCopy,
+}: {
+  label: string;
+  value: string;
+  onCopy: (value: string, label: string) => void;
+}) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-4">
+      <Label className="text-xs">{label}</Label>
+      <div className="mt-2 flex items-center gap-2">
+        <Input readOnly value={value} className="font-mono" />
+        <Button variant="outline" size="icon" onClick={() => onCopy(value, label)} aria-label={`${label} kopyala`}>
+          <ClipboardCopy className="size-4" />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function ParoleValue({ base, final, active }: { base: string; final: string; active: boolean }) {
+  if (!active || base === final) return <span>{final}</span>;
+  return (
+    <span
+      className="inline-flex flex-col leading-tight"
+      title={`Normal: ${base} · Şartlı tahliye ihlali (x2): ${final}`}
+    >
+      <span className="font-semibold">{final}</span>
+      <span className="text-xs text-muted-foreground line-through">{base}</span>
+    </span>
   );
 }
