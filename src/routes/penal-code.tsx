@@ -2821,7 +2821,7 @@ function PenalCodePage() {
                   {entry.paragraphs.map((paragraph, index) => (
                     <p
                       key={`${entry.number}-${index}`}
-                      className="text-sm leading-7 text-muted-foreground"
+                      className="whitespace-pre-line text-sm leading-7 text-muted-foreground"
                     >
                       {paragraph}
                     </p>
@@ -2831,9 +2831,29 @@ function PenalCodePage() {
                 <CardFooter className="border-t border-border bg-muted/30 px-6 py-4">
                   <div className="flex items-start gap-3">
                     <Scale className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
-                    <p className="text-sm font-medium leading-6 text-foreground/90">
-                      {entry.classification}
-                    </p>
+                    <div className="space-y-1.5 text-sm font-medium leading-6 text-foreground/90">
+                      {entry.classification
+                        .split("\n")
+                        .map((line) => line.trim())
+                        .filter(Boolean)
+                        .map((line, index) => {
+                          const listed = /^(\d+[.)]|[-•])\s*/.exec(line);
+                          if (listed) {
+                            return (
+                              <div
+                                key={`${entry.number}-cls-${index}`}
+                                className="flex gap-2 pl-1"
+                              >
+                                <span className="font-mono text-xs text-primary">
+                                  {listed[1]}
+                                </span>
+                                <span>{line.slice(listed[0].length)}</span>
+                              </div>
+                            );
+                          }
+                          return <p key={`${entry.number}-cls-${index}`}>{line}</p>;
+                        })}
+                    </div>
                   </div>
                 </CardFooter>
               </Card>
