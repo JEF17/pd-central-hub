@@ -2743,6 +2743,7 @@ function PenalCodePage() {
                       : "border-border bg-card text-foreground hover:border-primary/50 hover:bg-accent",
                   )}
                 >
+                  <Icon className="size-4" aria-hidden="true" />
                   <span
                     className={cn(
                       "flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-bold",
