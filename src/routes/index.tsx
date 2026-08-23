@@ -67,11 +67,42 @@ function Dashboard() {
     ? [profile.rank, profile.name].filter(Boolean).join(" ")
     : "Memur profili tanımlı değil";
 
+  const typeCount = (t: "F" | "M" | "I") =>
+    chargeCatalog.filter((c) => c.variants.some((v) => v.type === t)).length;
+
   const stats = [
-    { label: "Rapor şablonu", value: paperworkTypes.length, icon: Files },
-    { label: "Ceza maddesi", value: chargeCatalog.length, icon: BookOpen },
-    { label: "Emsal karar", value: caseEntries.length, icon: Gavel },
-    { label: "Açık taslak", value: recent.length, icon: Clock },
+    {
+      label: "Ceza maddesi",
+      value: chargeCatalog.length,
+      detail: `${typeCount("F")} F · ${typeCount("M")} M · ${typeCount("I")} I`,
+      icon: BookOpen,
+      to: "/penal-code" as const,
+      tone: "text-primary",
+    },
+    {
+      label: "Rapor şablonu",
+      value: paperworkTypes.length,
+      detail: "BBCode & HTML çıktısı",
+      icon: Files,
+      to: "/paperwork-generators" as const,
+      tone: "text-gold",
+    },
+    {
+      label: "Emsal karar",
+      value: caseEntries.length,
+      detail: "Kararlar & kaynaklar",
+      icon: Gavel,
+      to: "/caselaw" as const,
+      tone: "text-success",
+    },
+    {
+      label: "Kayıtlı taslak",
+      value: recent.length,
+      detail: recent[0] ? `Son: ${formatRelative(recent[0].savedAt)}` : "Henüz taslak yok",
+      icon: Clock,
+      to: "/paperwork-generators" as const,
+      tone: "text-warning",
+    },
   ];
 
   return (
