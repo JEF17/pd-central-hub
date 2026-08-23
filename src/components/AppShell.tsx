@@ -17,7 +17,7 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="relative flex min-h-screen bg-background">
       <div
         aria-hidden
-        className="lspd-watermark pointer-events-none fixed bottom-0 right-0 z-0 size-[420px] translate-x-1/4 translate-y-1/4 bg-contain bg-no-repeat opacity-[0.025]"
+        className="lspd-watermark pointer-events-none fixed left-1/2 top-1/2 z-0 size-[min(70vw,640px)] -translate-x-1/2 -translate-y-1/2 bg-contain bg-center bg-no-repeat opacity-[0.03]"
         style={{ backgroundImage: `url(${lspdLogo.url})` }}
       />
       {/* Ortam ışıkları — sayfaya derinlik katar. */}
