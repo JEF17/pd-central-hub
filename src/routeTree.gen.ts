@@ -20,6 +20,7 @@ import { Route as FieldInterviewKartiRouteImport } from './routes/field-intervie
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
+import { Route as KartvizitRouteImport } from './routes/kartvizit'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
@@ -80,6 +81,11 @@ const IhlalRaporuRoute = IhlalRaporuRouteImport.update({
   path: '/ihlal-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KartvizitRoute = KartvizitRouteImport.update({
+  id: '/kartvizit',
+  path: '/kartvizit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OlayRaporuRoute = OlayRaporuRouteImport.update({
   id: '/olay-raporu',
   path: '/olay-raporu',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
+  '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -130,6 +137,7 @@ export interface FileRoutesByTo {
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
+  '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -148,6 +156,7 @@ export interface FileRoutesById {
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
+  '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
@@ -167,6 +176,7 @@ export interface FileRouteTypes {
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
+    | '/kartvizit'
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
@@ -184,6 +194,7 @@ export interface FileRouteTypes {
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
+    | '/kartvizit'
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
@@ -201,6 +212,7 @@ export interface FileRouteTypes {
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
+    | '/kartvizit'
     | '/olay-raporu'
     | '/paperwork-generators'
     | '/penal-code'
@@ -219,6 +231,7 @@ export interface RootRouteChildren {
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
+  KartvizitRoute: typeof KartvizitRoute
   OlayRaporuRoute: typeof OlayRaporuRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
@@ -304,6 +317,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IhlalRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kartvizit': {
+      id: '/kartvizit'
+      path: '/kartvizit'
+      fullPath: '/kartvizit'
+      preLoaderRoute: typeof KartvizitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/olay-raporu': {
       id: '/olay-raporu'
       path: '/olay-raporu'
@@ -347,6 +367,7 @@ const rootRouteChildren: RootRouteChildren = {
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
+  KartvizitRoute: KartvizitRoute,
   OlayRaporuRoute: OlayRaporuRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
