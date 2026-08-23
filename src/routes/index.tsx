@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronRight } from "lucide-react";
 
+import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { AppShell } from "@/components/AppShell";
 import { navItems } from "@/lib/nav-items";
 
