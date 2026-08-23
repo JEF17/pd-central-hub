@@ -214,7 +214,7 @@ function BusinessCardPage() {
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundColor: template ? "#f4f6f8" : undefined,
-                    marginLeft: -(CARD_W * (1 - scale)) / 2,
+                    
                   }}
                   className={
                     template
