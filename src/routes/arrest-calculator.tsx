@@ -242,9 +242,9 @@ function Page() {
                   <SummaryStat
                     label="Min. Süre"
                     value={
-                      <ParoleValue
-                        base={formatDuration(result.baseMinMinutes)}
-                        final={formatDuration(result.minMinutes)}
+                      <DurationValue
+                        baseMinutes={result.baseMinMinutes}
+                        finalMinutes={result.minMinutes}
                         active={result.paroleViolator}
                       />
                     }
@@ -254,9 +254,9 @@ function Page() {
                   <SummaryStat
                     label="Maks. Süre"
                     value={
-                      <ParoleValue
-                        base={formatDuration(result.baseMaxMinutes)}
-                        final={formatDuration(result.maxMinutes)}
+                      <DurationValue
+                        baseMinutes={result.baseMaxMinutes}
+                        finalMinutes={result.maxMinutes}
                         active={result.paroleViolator}
                       />
                     }
