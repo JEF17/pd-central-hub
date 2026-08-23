@@ -153,7 +153,7 @@ function BusinessCardPage() {
             <div className="min-w-0">
               <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Kartvizit Oluştur</h1>
               <p className="mt-1 text-sm text-muted-foreground">
-                Divizyon şablonunu seç, bilgileri gir ve kartviziti PNG olarak indir.
+                İlgili alanları doldurup kartvizit oluşturabilirsiniz.
               </p>
             </div>
           </div>
