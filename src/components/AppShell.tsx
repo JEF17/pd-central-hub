@@ -73,7 +73,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             })}
         </nav>
 
-        <nav className="flex min-h-16 shrink-0 flex-col justify-center gap-1 border-t border-border px-3 py-2">
+        <nav className="flex min-h-16 shrink-0 flex-col justify-center gap-1 px-3 py-2">
           {navItems
             .filter((item) => item.position === "bottom")
             .map((item, index, arr) => {
@@ -102,7 +102,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
-        <header className="flex h-16 items-center gap-3 border-b border-border px-6">
+        <header className="flex h-16 items-center gap-3 px-6">
           <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain md:hidden" />
           <span className="font-bold md:hidden">LSPD Toolkit</span>
           <div className="ml-auto flex items-center gap-1">
@@ -110,14 +110,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           </div>
         </header>
         <main className="flex-1 fade-rise">{children}</main>
-        <footer className="flex min-h-16 items-center border-t border-border px-3 py-3">
+        <footer className="flex min-h-16 items-center px-3 py-3">
           <div className="flex w-full flex-col items-center justify-between gap-3 text-xs md:flex-row">
-            <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-3">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-warning/30 bg-warning/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-warning">
-                Demo Sürüm
-              </span>
-            </div>
-
             <nav className="flex items-center gap-1">
               <a
                 href="https://lspd-tr.gta.world/index.php"
