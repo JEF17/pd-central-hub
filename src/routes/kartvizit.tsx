@@ -197,9 +197,10 @@ function BusinessCardPage() {
           <div className="space-y-4">
             <div ref={wrapRef} className="w-full">
               <div
-                style={{ height: CARD_H * scale }}
-                className="flex justify-center overflow-hidden"
+                style={{ width: CARD_W * scale, height: CARD_H * scale }}
+                className="mx-auto overflow-hidden"
               >
+
                 <div
                   ref={cardRef}
                   data-business-card
