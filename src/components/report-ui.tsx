@@ -19,10 +19,10 @@ export function ReportHeader({
   icon?: LucideIcon;
 }) {
   return (
-    <header className="relative overflow-hidden rounded-2xl border border-border bg-card/70 px-6 py-6 shadow-sm">
+    <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-6 shadow-sm">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent"
+        className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-primary/10 blur-3xl"
       />
       <Button variant="ghost" size="sm" asChild className="-ml-2 mb-4 h-7 px-2 text-xs">
         <Link to="/paperwork-generators">
@@ -31,8 +31,8 @@ export function ReportHeader({
         </Link>
       </Button>
 
-      <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
-        <span className="grid size-11 shrink-0 place-items-center rounded-xl border border-primary/30 bg-primary/10 text-primary">
+      <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
+        <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/25 to-gold/15 text-primary ring-1 ring-primary/25">
           <Icon className="size-5" />
         </span>
         <div className="min-w-0">
@@ -68,12 +68,12 @@ export function FormSection({
   return (
     <section
       className={cn(
-        "group/section overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-colors hover:border-primary/30",
+        "group/section overflow-hidden rounded-xl border border-border bg-card/80 shadow-sm transition-all hover:border-primary/30 hover:shadow-md",
         wide && "lg:col-span-2",
       )}
     >
-      <div className="flex items-center gap-3 border-b border-border/70 bg-muted/30 px-5 py-3">
-        <span className="h-5 w-1 rounded-full bg-primary/70" />
+      <div className="flex items-center gap-3 border-b border-border/70 bg-gradient-to-r from-primary/10 via-muted/30 to-transparent px-5 py-3">
+        <span className="h-5 w-1 rounded-full bg-gradient-to-b from-primary to-gold" />
         {Icon ? <Icon className="size-4 shrink-0 text-primary/80" /> : null}
         <h2 className="min-w-0 truncate text-[13px] font-semibold uppercase tracking-[0.14em] text-foreground/90">
           {title}

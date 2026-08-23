@@ -22,7 +22,7 @@ export function DraftBar({ savedAt, onClear }: DraftBarProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card/60 px-4 py-2.5">
+    <div className="sticky top-2 z-20 mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card/80 px-4 py-2.5 shadow-sm backdrop-blur-md supports-[backdrop-filter]:bg-card/60">
       <span className="flex items-center gap-2 text-xs text-muted-foreground">
         <Check className="size-3.5 text-success" />
         {savedAt
