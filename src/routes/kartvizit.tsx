@@ -77,29 +77,52 @@ function BusinessCardPage() {
       toast.error("Lütfen önce bir şablon seçiniz.");
       return;
     }
-    const node = cardRef.current;
-    if (!node) return;
     setBusy(true);
     try {
-      await document.fonts?.ready;
-      const { default: html2canvas } = await import("html2canvas");
-      const canvas = await html2canvas(node, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: "#ffffff",
-        width: CARD_W,
-        height: CARD_H,
-        windowWidth: CARD_W,
-        windowHeight: CARD_H,
-        onclone: (doc) => {
-          const clone = doc.querySelector<HTMLElement>("[data-business-card]");
-          if (clone) {
-            clone.style.transform = "none";
-            clone.style.boxShadow = "none";
-            clone.style.borderRadius = "0";
-          }
-        },
+      // Şablonun kendi çözünürlüğünde çiziyoruz: çıktı net kalıyor.
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = `/kartvizit/${template}.png`;
+      await img.decode();
+
+      try {
+        await (document as any).fonts?.load?.("25px Slimshoot");
+        await (document as any).fonts?.ready;
+      } catch {
+        /* font yüklenmese de devam */
+      }
+
+      const W = img.naturalWidth || 500;
+      const H = img.naturalHeight || 290;
+      const k = W / CARD_W; // önizleme koordinatlarını şablon ölçeğine indir
+
+      const canvas = document.createElement("canvas");
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) throw new Error("Canvas desteklenmiyor.");
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, W, H);
+      ctx.drawImage(img, 0, 0, W, H);
+
+      const fontSize = 25 * k;
+      ctx.font = `${fontSize}px Slimshoot, sans-serif`;
+      ctx.fillStyle = "#2d436b";
+      ctx.textBaseline = "top";
+      ctx.textAlign = "left";
+
+      if (phone.trim()) {
+        ctx.fillText(phone, 540 * k, 22 * k, 150 * k);
+      }
+
+      const lines = name.split("\n");
+      const lineH = 32.5 * k;
+      const blockTop = (400 - 62) * k - lines.length * lineH;
+      lines.forEach((line, i) => {
+        if (!line.trim()) return;
+        ctx.fillText(line, 75 * k, blockTop + i * lineH + 3.75 * k, 500 * k);
       });
+
       const link = document.createElement("a");
       link.href = canvas.toDataURL("image/png");
       link.download = "lspd_kartvizit.png";
@@ -113,6 +136,7 @@ function BusinessCardPage() {
       setBusy(false);
     }
   }
+
 
   return (
     <AppShell>
