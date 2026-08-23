@@ -17,10 +17,16 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="relative flex min-h-screen bg-background">
       <div
         aria-hidden
-        className="lspd-watermark pointer-events-none fixed inset-0 z-0 bg-center bg-no-repeat opacity-[0.04]"
+        className="lspd-watermark pointer-events-none fixed bottom-0 right-0 z-0 size-[420px] translate-x-1/4 translate-y-1/4 bg-contain bg-no-repeat opacity-[0.025]"
+        style={{ backgroundImage: `url(${lspdLogo.url})` }}
+      />
+      {/* Ortam ışıkları — sayfaya derinlik katar. */}
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-0 z-0 opacity-70"
         style={{
-          backgroundImage: `url(${lspdLogo.url})`,
-          backgroundSize: "min(70vw, 700px)",
+          backgroundImage:
+            "radial-gradient(900px 420px at 12% -10%, color-mix(in oklab, var(--primary) 16%, transparent), transparent 70%), radial-gradient(700px 380px at 100% 0%, color-mix(in oklab, var(--gold) 10%, transparent), transparent 70%), radial-gradient(800px 500px at 50% 110%, color-mix(in oklab, var(--primary) 10%, transparent), transparent 70%)",
         }}
       />
 
