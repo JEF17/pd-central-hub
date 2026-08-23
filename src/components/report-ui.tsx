@@ -68,12 +68,12 @@ export function FormSection({
   return (
     <section
       className={cn(
-        "group/section overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-colors hover:border-primary/30",
+        "group/section overflow-hidden rounded-xl border border-border bg-card/80 shadow-sm transition-all hover:border-primary/30 hover:shadow-md",
         wide && "lg:col-span-2",
       )}
     >
-      <div className="flex items-center gap-3 border-b border-border/70 bg-muted/30 px-5 py-3">
-        <span className="h-5 w-1 rounded-full bg-primary/70" />
+      <div className="flex items-center gap-3 border-b border-border/70 bg-gradient-to-r from-primary/10 via-muted/30 to-transparent px-5 py-3">
+        <span className="h-5 w-1 rounded-full bg-gradient-to-b from-primary to-gold" />
         {Icon ? <Icon className="size-4 shrink-0 text-primary/80" /> : null}
         <h2 className="min-w-0 truncate text-[13px] font-semibold uppercase tracking-[0.14em] text-foreground/90">
           {title}
