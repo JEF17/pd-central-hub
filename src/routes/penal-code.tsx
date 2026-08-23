@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Search } from "lucide-react";
+import { Search, X, Scale, Shield, Gavel, AlertTriangle } from "lucide-react";
 import { useMemo, useState } from "react";
 
 import { AppShell } from "@/components/AppShell";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
@@ -2617,21 +2619,24 @@ const filterOptions: Array<{ value: CrimeType; label: string; description: strin
   { value: "I", label: "Infraction", description: "İhlaller" },
 ];
 
-const typeStyles: Record<CrimeType, { badge: string; label: string; accent: string }> = {
+const typeStyles: Record<CrimeType, { badge: string; label: string; accent: string; bar: string }> = {
   F: {
     badge: "border-destructive/30 bg-destructive/10 text-destructive",
     label: "Felony",
     accent: "border-l-destructive",
+    bar: "var(--destructive)",
   },
   M: {
     badge: "border-warning/30 bg-warning/10 text-warning",
     label: "Misdemeanor",
     accent: "border-l-warning",
+    bar: "var(--warning)",
   },
   I: {
     badge: "border-success/30 bg-success/10 text-success",
     label: "Infraction",
     accent: "border-l-success",
+    bar: "var(--success)",
   },
 };
 
@@ -2673,35 +2678,56 @@ function PenalCodePage() {
     });
   }, [activeFilter, query]);
 
+  const typeIcon: Record<CrimeType, typeof Scale> = {
+    F: AlertTriangle,
+    M: Gavel,
+    I: Shield,
+  };
+
   return (
     <AppShell>
-      <div className="mx-auto max-w-5xl px-6 py-8 sm:py-10">
-        <header>
-          <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground">Ceza Kanunları</h1>
-          <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-            Suç ve kanun maddelerini arayın, suç türüne göre listeyi daraltın.
+      <div className="mx-auto max-w-5xl px-6 py-8 sm:py-12">
+        {/* Header */}
+        <header className="mb-10 text-center sm:text-left">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            Ceza Kanunları
+          </h1>
+          <p className="mt-3 max-w-2xl text-base text-muted-foreground">
+            San Andreas Ceza Kanunu&apos;nu suç türüne veya madde numarasına göre kolayca arayın.
           </p>
         </header>
 
-        <section className="mt-8 space-y-4" aria-label="Ceza kanunları arama ve filtreleme">
+        {/* Search & Filters */}
+        <section className="mb-8 space-y-5" aria-label="Ceza kanunları arama ve filtreleme">
           <div className="relative">
             <Search
               aria-hidden="true"
-              className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+              className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground"
             />
             <Input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              placeholder="Kanun maddelerinde ara..."
+              placeholder="Madde numarası, suç adı veya anahtar kelime ara..."
               aria-label="Kanun maddelerinde ara"
-              className="h-11 border-border bg-card pl-10"
+              className="h-14 rounded-xl border-border bg-card pl-12 pr-12 text-base shadow-sm transition-all focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary/30"
             />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-md p-1 text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                aria-label="Aramayı temizle"
+              >
+                <X className="size-4" />
+              </button>
+            )}
           </div>
 
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+          <div className="flex flex-wrap gap-3">
             {filterOptions.map((option) => {
               const active = activeFilter === option.value;
               const style = typeStyles[option.value];
+              const Icon = typeIcon[option.value];
 
               return (
                 <Button
@@ -2711,84 +2737,125 @@ function PenalCodePage() {
                   onClick={() => setActiveFilter(active ? null : option.value)}
                   aria-pressed={active}
                   className={cn(
-                    "h-auto justify-start border-border bg-card px-4 py-3 text-left hover:bg-accent",
-                    active && "border-primary bg-primary/10 text-foreground ring-1 ring-primary/30",
+                    "h-auto gap-2 rounded-full border px-4 py-2.5 text-sm font-medium transition-all",
+                    active
+                      ? "border-transparent bg-primary text-primary-foreground shadow-md hover:bg-primary/90"
+                      : "border-border bg-card text-foreground hover:border-primary/50 hover:bg-accent",
                   )}
                 >
+                  <Icon className="size-4" aria-hidden="true" />
                   <span
                     className={cn(
-                      "flex size-8 shrink-0 items-center justify-center rounded-md border text-sm font-bold",
-                      style.badge,
+                      "flex size-6 shrink-0 items-center justify-center rounded-full border text-xs font-bold",
+                      active ? "border-primary-foreground/30 bg-primary-foreground/20 text-primary-foreground" : style.badge,
                     )}
                   >
-                    ({option.value})
+                    {option.value}
                   </span>
-                  <span className="min-w-0">
-                    <span className="block text-sm font-semibold">{option.label}</span>
-                    <span className="block text-xs font-normal text-muted-foreground">{option.description}</span>
-                  </span>
+                  <span className="font-medium">{option.label}</span>
+                  <span className="hidden text-xs opacity-70 sm:inline">{option.description}</span>
                 </Button>
               );
             })}
           </div>
         </section>
 
-        <div className="mt-8 flex items-center justify-between gap-4 border-b border-border pb-3">
-          <p className="text-sm text-muted-foreground">
+        {/* Results header */}
+        <div className="mb-5 flex items-center justify-between gap-4 border-b border-border pb-4">
+          <p className="text-sm font-medium text-muted-foreground">
             {query
               ? `“${query}” için sonuçlar`
               : activeFilter === null
                 ? "Tüm ceza kanunları"
                 : `${typeStyles[activeFilter].label} maddeleri`}
           </p>
-          <span className="text-xs font-medium text-muted-foreground">{filteredEntries.length} madde</span>
+          <Badge variant="secondary" className="font-mono">
+            {filteredEntries.length} madde
+          </Badge>
         </div>
 
-        <section className="mt-4 space-y-3" aria-live="polite" aria-label="Ceza kanunu sonuçları">
+        {/* Results */}
+        <section
+          className="grid gap-5"
+          aria-live="polite"
+          aria-label="Ceza kanunu sonuçları"
+        >
           {filteredEntries.map((entry) => {
-            const firstType = entry.types[0];
-            const style = firstType ? typeStyles[firstType] : { accent: "border-l-primary" };
+            const primaryType = entry.types[0];
+            const style = primaryType ? typeStyles[primaryType] : null;
+            const accentColor = style ? style.bar : "var(--primary)";
 
             return (
-              <article
+              <Card
                 key={entry.number}
                 className={cn(
-                  "border border-border border-l-4 bg-card px-5 py-5 shadow-sm transition-colors hover:bg-card sm:px-6",
-                  style.accent,
+                  "overflow-hidden border border-border bg-card transition-all duration-200 hover:border-primary/30 hover:shadow-lg",
                 )}
               >
-                <div className="flex flex-wrap items-start gap-x-3 gap-y-2">
-                  <span className="font-mono text-base font-semibold text-foreground">{entry.number}.</span>
-                  <h2 className="text-base font-semibold text-foreground">{entry.title}</h2>
-                  {entry.types.map((type) => (
-                    <span
-                      key={type}
-                      className={cn("rounded border px-2 py-0.5 text-xs font-bold", typeStyles[type].badge)}
+                <div
+                  className="h-1 w-full"
+                  style={{ backgroundColor: accentColor }}
+                  aria-hidden="true"
+                />
+                <CardHeader className="pb-3">
+                  <div className="flex flex-wrap items-start gap-3">
+                    <span className="font-mono text-lg font-bold text-primary">{entry.number}</span>
+                    <CardTitle className="flex-1 text-lg font-semibold leading-snug tracking-tight text-foreground">
+                      {entry.title}
+                    </CardTitle>
+                    <div className="flex flex-wrap gap-2">
+                      {entry.types.map((type) => (
+                        <Badge
+                          key={type}
+                          variant="outline"
+                          className={cn("gap-1 border px-2 py-0.5 text-xs font-bold", typeStyles[type].badge)}
+                        >
+                          {type}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-4 pb-5">
+                  {entry.paragraphs.map((paragraph, index) => (
+                    <p
+                      key={`${entry.number}-${index}`}
+                      className="text-sm leading-7 text-muted-foreground"
                     >
-                      ({type}) {typeStyles[type].label}
-                    </span>
+                      {paragraph}
+                    </p>
                   ))}
-                </div>
+                </CardContent>
 
-                <div className="mt-4 space-y-3 text-sm leading-7 text-muted-foreground">
-                  {entry.paragraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
-                  ))}
-                </div>
-
-                <p className="mt-4 whitespace-pre-line border-t border-border pt-3 text-sm font-medium leading-6 text-foreground/80">
-                  {entry.classification}
-                </p>
-              </article>
+                <CardFooter className="border-t border-border bg-muted/30 px-6 py-4">
+                  <div className="flex items-start gap-3">
+                    <Scale className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
+                    <p className="text-sm font-medium leading-6 text-foreground/90">
+                      {entry.classification}
+                    </p>
+                  </div>
+                </CardFooter>
+              </Card>
             );
           })}
 
           {filteredEntries.length === 0 && (
-            <div className="border border-dashed border-border bg-card/40 px-6 py-12 text-center">
-              <p className="text-sm font-medium text-foreground">Sonuç bulunamadı</p>
-              <p className="mt-1 text-sm text-muted-foreground">
+            <div className="rounded-xl border border-dashed border-border bg-card/40 px-6 py-14 text-center">
+              <p className="text-base font-semibold text-foreground">Sonuç bulunamadı</p>
+              <p className="mt-2 text-sm text-muted-foreground">
                 Arama metnini veya suç türü filtresini değiştirerek tekrar deneyin.
               </p>
+              <Button
+                variant="outline"
+                className="mt-5"
+                onClick={() => {
+                  setQuery("");
+                  setActiveFilter(null);
+                }}
+              >
+                Filtreleri temizle
+              </Button>
             </div>
           )}
         </section>
