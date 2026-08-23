@@ -41,11 +41,6 @@ export function ReportHeader({
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
-            {format ? (
-              <span className="rounded-full border border-primary/25 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary">
-                {format}
-              </span>
-            ) : null}
           </div>
           {hint ? (
             <p className="mt-1 truncate text-sm text-muted-foreground">{hint}</p>
