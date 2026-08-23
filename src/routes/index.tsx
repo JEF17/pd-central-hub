@@ -24,26 +24,35 @@ function Dashboard() {
   return (
     <AppShell>
       <div className="mx-auto max-w-6xl px-6 py-10">
-        <h1 className="text-3xl font-bold tracking-tight">LSPD Toolkit</h1>
-        <p className="mt-2 text-muted-foreground">
-          {"\n"}
-        </p>
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card/60 p-8 card-shadow">
+          <div className="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-primary/10 blur-3xl" />
+          <div className="absolute bottom-0 left-0 h-24 w-24 -translate-x-6 translate-y-6 rounded-full bg-gold/10 blur-3xl" />
+          <div className="relative">
+            <h1 className="text-3xl font-bold tracking-tight text-gradient">LSPD Toolkit</h1>
+            <p className="mt-2 max-w-xl text-muted-foreground">
+              Görev sırasında ihtiyaç duyduğunuz tüm raporlama, hesaplama ve kaynak araçları tek bir panelde.
+            </p>
+          </div>
+        </div>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {tools.map((tool) => (
             <Link
               key={tool.to}
               to={tool.to}
-              className="group rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/40 hover:bg-accent/40"
+              className="group relative overflow-hidden rounded-xl border border-border bg-card p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent/30 hover:glow-card"
             >
-              <div className="flex size-10 items-center justify-center rounded-md bg-primary/15 text-primary ring-1 ring-primary/25">
-                <tool.icon className="size-5" />
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-br from-primary/5 to-transparent" />
+              <div className="relative">
+                <div className="flex size-10 items-center justify-center rounded-md icon-gradient text-primary-foreground ring-1 ring-primary/20 shadow-lg shadow-primary/10">
+                  <tool.icon className="size-5" />
+                </div>
+                <h2 className="mt-4 flex items-center gap-1 font-semibold">
+                  {tool.label}
+                  <ChevronRight className="size-4 text-primary opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">{tool.description}</p>
               </div>
-              <h2 className="mt-4 flex items-center gap-1 font-semibold">
-                {tool.label}
-                <ChevronRight className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-              </h2>
-              <p className="mt-1 text-sm text-muted-foreground">{tool.description}</p>
             </Link>
           ))}
         </div>
