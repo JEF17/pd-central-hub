@@ -2782,9 +2782,7 @@ function PenalCodePage() {
           {filteredEntries.map((entry) => {
             const primaryType = entry.types[0];
             const style = primaryType ? typeStyles[primaryType] : null;
-            const accentColor = style
-              ? style.accent.replace("border-l-", "")
-              : "var(--primary)";
+            const accentColor = style ? style.bar : "var(--primary)";
 
             return (
               <Card
