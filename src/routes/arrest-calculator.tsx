@@ -326,17 +326,17 @@ function Page() {
                             {charge.minMinutes === 0 ? (
                               <span className="text-xs font-semibold text-warning">0 dk (alt sınır bulunmuyor.)</span>
                             ) : (
-                              <ParoleValue
-                                base={formatDuration(charge.baseMinMinutes)}
-                                final={formatDuration(charge.minMinutes)}
+                              <DurationValue
+                                baseMinutes={charge.baseMinMinutes}
+                                finalMinutes={charge.minMinutes}
                                 active={result.paroleViolator}
                               />
                             )}
                           </td>
                           <td className="py-4 pr-4">
-                            <ParoleValue
-                              base={formatDuration(charge.baseMaxMinutes)}
-                              final={formatDuration(charge.maxMinutes)}
+                            <DurationValue
+                              baseMinutes={charge.baseMaxMinutes}
+                              finalMinutes={charge.maxMinutes}
                               active={result.paroleViolator}
                             />
                           </td>
