@@ -286,3 +286,12 @@ html.theme-light .lspd-watermark {
   opacity: 0.025;
   filter: grayscale(1);
 }
+
+/* Kartvizit şablonlarında kullanılan imza yazı tipi. */
+@font-face {
+  font-family: "Slimshoot";
+  src: url("/kartvizit/Slimshoot.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
