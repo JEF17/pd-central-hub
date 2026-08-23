@@ -93,11 +93,6 @@ function Page() {
                   <div className="grid size-11 place-items-center rounded-xl bg-gradient-to-br from-primary/20 to-gold/10 text-primary ring-1 ring-primary/25 transition-transform group-hover:scale-105">
                     <t.icon className="size-5" />
                   </div>
-                  {t.format ? (
-                    <span className="rounded-full border border-border bg-muted/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      {t.format}
-                    </span>
-                  ) : null}
                 </div>
 
                 <h2 className="mt-4 text-base font-semibold tracking-tight">{t.label}</h2>
