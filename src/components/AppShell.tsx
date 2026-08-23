@@ -84,14 +84,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                     to={item.to}
                     title={item.label}
                     className={cn(
-                      "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
+                      "flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-all",
                       active
-                        ? "bg-accent text-accent-foreground"
-                        : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
+                        ? "nav-active font-semibold"
+                        : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground hover:translate-x-0.5",
                       collapsed && "justify-center px-0",
                     )}
                   >
-                    <item.icon className="size-4 shrink-0" />
+                    <item.icon className={cn("size-4 shrink-0", active && "text-primary")} />
                     {!collapsed && <span className="truncate">{item.label}</span>}
                   </Link>
                   {index < arr.length - 1 && <div className="my-1 h-px bg-border" />}
