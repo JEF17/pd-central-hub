@@ -15,7 +15,7 @@ import { BAIL_SHEET_URL } from "@/lib/bail-sheet";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
+
 import { Label } from "@/components/ui/label";
 import {
   Command,
@@ -118,60 +118,89 @@ function Page() {
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl px-6 py-10">
-        <h1 className="text-3xl font-bold tracking-tight">Süre Hesapla</h1>
-        <p className="mt-2 text-muted-foreground">
-          Suçlamalara göre tutuklama süresini, ceza puanını ve para cezasını hesaplayın.
-        </p>
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-card/60 p-6 shadow-sm">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary via-gold to-transparent"
+          />
+          <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
+            <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/25 to-gold/15 text-primary ring-1 ring-primary/25">
+              <Calculator className="size-5" />
+            </span>
+            <div className="min-w-0">
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Süre Hesapla</h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Suçlamalara göre tutuklama süresini, ceza puanını ve para cezasını hesaplayın.
+              </p>
+            </div>
+          </div>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Button onClick={() => setRows((prev) => [...prev, makeRow()])}>
-            <Plus className="size-4" />
-            Suçlama Ekle
-          </Button>
-          <Button variant="secondary" onClick={handleCalculate} disabled={!valid.length}>
+          <div className="mt-5 flex flex-wrap items-center gap-3 rounded-xl border border-border/70 bg-muted/30 px-4 py-3 text-sm text-muted-foreground">
+            <span>Suçlamalar ile alakalı kefalet şablonunu kontrol etmeyi unutmayın.</span>
+            <a
+              href={BAIL_SHEET_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
+            >
+              İlgili Kefalet Cetveli
+              <ExternalLink className="size-3.5" />
+            </a>
+          </div>
+        </div>
+
+        <section className="mt-6 rounded-2xl border border-border bg-card/60 p-5 shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-semibold tracking-tight">Suçlamalar</h2>
+              <p className="text-sm text-muted-foreground">
+                {valid.length} suçlama seçildi · toplam {rows.length} satır
+              </p>
+            </div>
+            <Button variant="outline" onClick={() => setRows((prev) => [...prev, makeRow()])}>
+              <Plus className="size-4" />
+              Suçlama Ekle
+            </Button>
+          </div>
+
+          <div className="mt-5 space-y-4">
+            {rows.map((row, index) => (
+              <ChargeRowCard
+                key={row.id}
+                index={index + 1}
+                row={row}
+                onChange={(patch) => update(row.id, patch)}
+                onRemove={() => setRows((prev) => (prev.length > 1 ? prev.filter((r) => r.id !== row.id) : prev))}
+              />
+            ))}
+          </div>
+
+          <div className="mt-5 flex items-start gap-2 rounded-xl border border-border/70 bg-muted/30 px-4 py-3">
+            <Checkbox
+              id="parole"
+              className="mt-0.5"
+              checked={parole}
+              onCheckedChange={(value) => setParole(value === true)}
+            />
+            <Label htmlFor="parole" className="cursor-pointer text-sm font-medium leading-snug">
+              Şüpheli şartlı tahliye / denetimli serbestlik ihlali gerçekleştirdi. (C.K. 904)
+            </Label>
+          </div>
+        </section>
+
+        <div className="sticky bottom-4 z-10 mt-6 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-border bg-card/80 px-4 py-3 shadow-lg backdrop-blur">
+          <span className="text-sm text-muted-foreground">
+            {valid.length ? "Hesaplamaya hazır." : "Devam etmek için en az bir suçlama seçin."}
+          </span>
+          <Button onClick={handleCalculate} disabled={!valid.length}>
             <Calculator className="size-4" />
             Süreyi Hesapla
           </Button>
         </div>
 
-        <div className="mt-4 flex items-center gap-2">
-          <Checkbox
-            id="parole"
-            checked={parole}
-            onCheckedChange={(value) => setParole(value === true)}
-          />
-          <Label htmlFor="parole" className="cursor-pointer font-semibold">
-            Şüpheli şartlı tahliye / denetimli serbestlik ihlali gerçekleştirdi. (C.K. 904)
-          </Label>
-        </div>
-
-        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-muted/40 px-4 py-3 text-sm text-muted-foreground">
-          <span>Suçlamalar ile alakalı kefalet şablonunu kontrol etmeyi unutmayın.</span>
-          <a
-            href={BAIL_SHEET_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 font-semibold text-primary hover:underline"
-          >
-            İlgili Kefalet Cetveli
-            <ExternalLink className="size-3.5" />
-          </a>
-        </div>
-
-        <div className="mt-6 space-y-4">
-          {rows.map((row) => (
-            <ChargeRowCard
-              key={row.id}
-              row={row}
-              onChange={(patch) => update(row.id, patch)}
-              onRemove={() => setRows((prev) => (prev.length > 1 ? prev.filter((r) => r.id !== row.id) : prev))}
-            />
-          ))}
-        </div>
-
         {result ? (
           result.charges.length === 0 ? (
-            <div className="mt-8 rounded-xl border border-dashed border-border bg-card/50 p-10 text-center text-muted-foreground">
+            <div className="mt-8 rounded-2xl border border-dashed border-border bg-card/50 p-10 text-center text-muted-foreground">
               Hesaplanacak suçlama bulunamadı.
             </div>
           ) : (
@@ -197,25 +226,86 @@ function Page() {
                 </p>
               ) : null}
 
-              <section className="mt-8 rounded-xl border border-border bg-card p-6">
-                <h2 className="text-xl font-semibold">Suçlamalar</h2>
+              <section className="relative mt-6 overflow-hidden rounded-2xl border border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-6 shadow-lg shadow-primary/5">
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary via-gold to-transparent"
+                />
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h2 className="text-lg font-semibold tracking-tight text-primary">Özet</h2>
+                  <span className="rounded-full border border-border bg-muted/40 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Şartlı tahliye ihlali: {result.paroleViolator ? "Evet" : "Hayır"}
+                  </span>
+                </div>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  <SummaryStat
+                    label="Min. Süre"
+                    value={
+                      <ParoleValue
+                        base={formatDuration(result.baseMinMinutes)}
+                        final={formatDuration(result.minMinutes)}
+                        active={result.paroleViolator}
+                      />
+                    }
+                    copyValue={String(result.minMinutes)}
+                    onCopy={copy}
+                  />
+                  <SummaryStat
+                    label="Maks. Süre"
+                    value={
+                      <ParoleValue
+                        base={formatDuration(result.baseMaxMinutes)}
+                        final={formatDuration(result.maxMinutes)}
+                        active={result.paroleViolator}
+                      />
+                    }
+                    copyValue={String(result.maxMinutes)}
+                    onCopy={copy}
+                  />
+                  <SummaryStat
+                    label="Ceza Puanı"
+                    value={
+                      <ParoleValue
+                        base={String(result.basePoints)}
+                        final={String(result.points)}
+                        active={result.paroleViolator}
+                      />
+                    }
+                    copyValue={String(result.points)}
+                    onCopy={copy}
+                  />
+                  <SummaryStat
+                    label="Para Cezası"
+                    value={<span>{formatMoney(result.fine)}</span>}
+                    copyValue={String(result.fine)}
+                    onCopy={copy}
+                  />
+                </div>
+              </section>
+
+              <section className="mt-6 rounded-2xl border border-border bg-card/60 p-6 shadow-sm">
+                <h2 className="text-lg font-semibold tracking-tight">Suçlama Dökümü</h2>
                 <div className="mt-4 overflow-x-auto">
                   <table className="w-full min-w-[900px] text-sm">
                     <thead>
-                      <tr className="border-b border-border text-left text-muted-foreground">
-                        <th className="py-3 pr-4 font-medium">Suçlama</th>
-                        <th className="py-3 pr-4 font-medium">Ek Durum</th>
-                        <th className="py-3 pr-4 font-medium">Suç No</th>
-                        <th className="py-3 pr-4 font-medium">Tür</th>
-                        <th className="py-3 pr-4 font-medium">Min. Süre</th>
-                        <th className="py-3 pr-4 font-medium">Maks. Süre</th>
-                        <th className="py-3 pr-4 font-medium">Puan</th>
-                        <th className="py-3 pr-4 font-medium">Para Cezası</th>
+                      <tr className="border-b border-border text-left text-xs uppercase tracking-wider text-muted-foreground">
+                        <th className="py-3 pr-4 font-semibold">Suçlama</th>
+                        <th className="py-3 pr-4 font-semibold">Ek Durum</th>
+                        <th className="py-3 pr-4 font-semibold">Suç No</th>
+                        <th className="py-3 pr-4 font-semibold">Tür</th>
+                        <th className="py-3 pr-4 font-semibold">Min. Süre</th>
+                        <th className="py-3 pr-4 font-semibold">Maks. Süre</th>
+                        <th className="py-3 pr-4 font-semibold">Puan</th>
+                        <th className="py-3 pr-4 font-semibold">Para Cezası</th>
                       </tr>
                     </thead>
                     <tbody>
                       {result.charges.map((charge, index) => (
-                        <tr key={`${charge.definition.number}-${index}`} className="border-b border-border/60">
+                        <tr
+                          key={`${charge.definition.number}-${index}`}
+                          className="border-b border-border/60 transition-colors hover:bg-muted/30"
+                        >
                           <td className="py-4 pr-4 font-semibold">
                             {charge.variant.cls}
                             {charge.variant.type} {charge.definition.number}. {charge.definition.title}
@@ -264,57 +354,6 @@ function Page() {
                   </table>
                 </div>
               </section>
-
-              <section className="mt-6 rounded-xl border border-primary/30 bg-gradient-to-br from-card via-card to-primary/5 p-6 shadow-lg shadow-primary/5">
-                <h2 className="text-xl font-semibold text-primary">Özet</h2>
-                <div className="mt-4 overflow-x-auto">
-                  <table className="w-full min-w-[820px] text-sm">
-                    <thead>
-                      <tr className="border-b border-border text-left text-muted-foreground">
-                        <th className="py-3 pr-4 font-medium">Min. Süre</th>
-                        <th className="py-3 pr-4 font-medium">Maks. Süre</th>
-                        <th className="py-3 pr-4 font-medium">Ceza Puanı</th>
-                        <th className="py-3 pr-4 font-medium">Para Cezası</th>
-                        <th className="py-3 font-medium">Şartlı Tahliye İhlali</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="py-4 pr-4">
-                          <ParoleValue
-                            base={formatDuration(result.baseMinMinutes)}
-                            final={formatDuration(result.minMinutes)}
-                            active={result.paroleViolator}
-                          />
-                        </td>
-                        <td className="py-4 pr-4">
-                          <ParoleValue
-                            base={formatDuration(result.baseMaxMinutes)}
-                            final={formatDuration(result.maxMinutes)}
-                            active={result.paroleViolator}
-                          />
-                        </td>
-                        <td className="py-4 pr-4">
-                          <ParoleValue
-                            base={String(result.basePoints)}
-                            final={String(result.points)}
-                            active={result.paroleViolator}
-                          />
-                        </td>
-                        <td className="py-4 pr-4">{formatMoney(result.fine)}</td>
-                        <td className="py-4">{result.paroleViolator ? "Evet" : "Hayır"}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </section>
-
-              <section className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                <CopyField label="Min. Dakika" value={String(result.minMinutes)} onCopy={copy} />
-                <CopyField label="Maks. Dakika" value={String(result.maxMinutes)} onCopy={copy} />
-                <CopyField label="Ceza Puanı" value={String(result.points)} onCopy={copy} />
-                <CopyField label="Para Cezası" value={String(result.fine)} onCopy={copy} />
-              </section>
             </>
           )
         ) : null}
@@ -324,10 +363,12 @@ function Page() {
 }
 
 function ChargeRowCard({
+  index,
   row,
   onChange,
   onRemove,
 }: {
+  index: number;
   row: ChargeRow;
   onChange: (patch: Partial<ChargeRow>) => void;
   onRemove: () => void;
@@ -337,7 +378,10 @@ function ChargeRowCard({
   const classOptions = definition?.variants ?? [];
 
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div className="relative rounded-xl border border-border bg-background/50 p-4 pt-8 transition-colors hover:border-primary/30 md:pt-4 md:pl-12">
+      <span className="absolute left-4 top-4 grid size-6 place-items-center rounded-md bg-primary/10 text-xs font-bold text-primary ring-1 ring-primary/20">
+        {index}
+      </span>
       <div
         className={cn(
           "grid gap-4 md:items-end",
@@ -497,27 +541,36 @@ function ChargeRowCard({
   );
 }
 
-function CopyField({
+function SummaryStat({
   label,
   value,
+  copyValue,
   onCopy,
 }: {
   label: string;
-  value: string;
+  value: React.ReactNode;
+  copyValue: string;
   onCopy: (value: string, label: string) => void;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <Label className="text-xs">{label}</Label>
-      <div className="mt-2 flex items-center gap-2">
-        <Input readOnly value={value} className="font-mono" />
-        <Button variant="outline" size="icon" onClick={() => onCopy(value, label)} aria-label={`${label} kopyala`}>
-          <ClipboardCopy className="size-4" />
+    <div className="group relative rounded-xl border border-border bg-background/60 p-4 transition-colors hover:border-primary/40">
+      <div className="flex items-start justify-between gap-2">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</span>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-7 opacity-60 transition-opacity hover:opacity-100"
+          onClick={() => onCopy(copyValue, label)}
+          aria-label={`${label} kopyala`}
+        >
+          <ClipboardCopy className="size-3.5" />
         </Button>
       </div>
+      <div className="mt-2 text-xl font-bold tracking-tight text-foreground">{value}</div>
     </div>
   );
 }
+
 
 function ParoleValue({ base, final, active }: { base: string; final: string; active: boolean }) {
   if (!active || base === final) return <span>{final}</span>;
