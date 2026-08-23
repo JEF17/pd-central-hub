@@ -117,7 +117,7 @@ function BusinessCardPage() {
 
       const lines = name.split("\n");
       const lineH = 32.5 * k;
-      const blockTop = (400 - 62) * k - lines.length * lineH;
+      const blockTop = (400 - 48) * k - lines.length * lineH;
       lines.forEach((line, i) => {
         if (!line.trim()) return;
         ctx.fillText(line, 75 * k, blockTop + i * lineH + 3.75 * k, 500 * k);
