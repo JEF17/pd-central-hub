@@ -17,6 +17,8 @@ export type PaperworkType = {
   label: string;
   description: string;
   icon: LucideIcon;
+  /** Çıktı biçimi rozeti. */
+  format?: "BBCode" | "HTML";
 };
 
 export const paperworkTypes: PaperworkType[] = [
