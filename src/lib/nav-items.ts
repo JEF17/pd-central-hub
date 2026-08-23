@@ -3,10 +3,12 @@ import {
   Calculator,
   Files,
   Gavel,
+  IdCard,
   LayoutGrid,
   Settings,
   type LucideIcon,
 } from "lucide-react";
+
 
 export type NavItem = {
   label: string;
