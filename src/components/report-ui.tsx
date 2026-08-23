@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 /** Shared page header for every report generator. */
 export function ReportHeader({
   title,
+  description,
+  format,
   icon: Icon = FileText,
 }: {
   title: string;
@@ -18,6 +20,7 @@ export function ReportHeader({
   format?: "BBCode" | "HTML" | "MDC";
   icon?: LucideIcon;
 }) {
+  const hint = description?.trim();
   return (
     <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-6 shadow-sm">
       <div
