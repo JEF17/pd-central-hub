@@ -55,6 +55,14 @@ export const navItems: NavItem[] = [
     position: "main",
   },
   {
+    label: "Kartvizit Oluştur",
+    to: "/kartvizit",
+    icon: IdCard,
+    description: "Divizyon şablonlarıyla kişiye özel kartvizit hazırlayın.",
+    position: "main",
+  },
+  {
+
     label: "Ayarlar",
     to: "/ayarlar",
     icon: Settings,
