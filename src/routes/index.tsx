@@ -67,11 +67,42 @@ function Dashboard() {
     ? [profile.rank, profile.name].filter(Boolean).join(" ")
     : "Memur profili tanımlı değil";
 
+  const typeCount = (t: "F" | "M" | "I") =>
+    chargeCatalog.filter((c) => c.variants.some((v) => v.type === t)).length;
+
   const stats = [
-    { label: "Rapor şablonu", value: paperworkTypes.length, icon: Files },
-    { label: "Ceza maddesi", value: chargeCatalog.length, icon: BookOpen },
-    { label: "Emsal karar", value: caseEntries.length, icon: Gavel },
-    { label: "Açık taslak", value: recent.length, icon: Clock },
+    {
+      label: "Ceza maddesi",
+      value: chargeCatalog.length,
+      detail: `${typeCount("F")} F · ${typeCount("M")} M · ${typeCount("I")} I`,
+      icon: BookOpen,
+      to: "/penal-code" as const,
+      tone: "text-primary",
+    },
+    {
+      label: "Rapor şablonu",
+      value: paperworkTypes.length,
+      detail: "BBCode & HTML çıktısı",
+      icon: Files,
+      to: "/paperwork-generators" as const,
+      tone: "text-gold",
+    },
+    {
+      label: "Emsal karar",
+      value: caseEntries.length,
+      detail: "Kararlar & kaynaklar",
+      icon: Gavel,
+      to: "/caselaw" as const,
+      tone: "text-success",
+    },
+    {
+      label: "Kayıtlı taslak",
+      value: recent.length,
+      detail: recent[0] ? `Son: ${formatRelative(recent[0].savedAt)}` : "Henüz taslak yok",
+      icon: Clock,
+      to: "/paperwork-generators" as const,
+      tone: "text-warning",
+    },
   ];
 
   return (
@@ -111,16 +142,23 @@ function Dashboard() {
           {/* İstatistikler */}
           <div className="relative mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {stats.map((s) => (
-              <div
+              <Link
                 key={s.label}
-                className="rounded-xl border border-border/70 bg-background/40 px-4 py-3 backdrop-blur-sm"
+                to={s.to}
+                className="group rounded-xl border border-border/70 bg-background/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent/25"
               >
-                <s.icon className="size-4 text-primary/80" />
+                <span className="flex items-center justify-between">
+                  <s.icon className={`size-4 ${s.tone}`} />
+                  <ChevronRight className="size-3.5 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+                </span>
                 <p className="mt-2 text-2xl font-bold tabular-nums leading-none">{s.value}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">
                   {s.label}
                 </p>
-              </div>
+                <p className="mt-1.5 truncate text-[11px] font-medium text-foreground/70">
+                  {s.detail}
+                </p>
+              </Link>
             ))}
           </div>
         </section>
