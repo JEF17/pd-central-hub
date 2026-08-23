@@ -536,27 +536,36 @@ function ChargeRowCard({
   );
 }
 
-function CopyField({
+function SummaryStat({
   label,
   value,
+  copyValue,
   onCopy,
 }: {
   label: string;
-  value: string;
+  value: React.ReactNode;
+  copyValue: string;
   onCopy: (value: string, label: string) => void;
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
-      <Label className="text-xs">{label}</Label>
-      <div className="mt-2 flex items-center gap-2">
-        <Input readOnly value={value} className="font-mono" />
-        <Button variant="outline" size="icon" onClick={() => onCopy(value, label)} aria-label={`${label} kopyala`}>
-          <ClipboardCopy className="size-4" />
+    <div className="group relative rounded-xl border border-border bg-background/60 p-4 transition-colors hover:border-primary/40">
+      <div className="flex items-start justify-between gap-2">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</span>
+        <Button
+          variant="ghost"
+          size="icon"
+          className="size-7 opacity-60 transition-opacity hover:opacity-100"
+          onClick={() => onCopy(copyValue, label)}
+          aria-label={`${label} kopyala`}
+        >
+          <ClipboardCopy className="size-3.5" />
         </Button>
       </div>
+      <div className="mt-2 text-xl font-bold tracking-tight text-foreground">{value}</div>
     </div>
   );
 }
+
 
 function ParoleValue({ base, final, active }: { base: string; final: string; active: boolean }) {
   if (!active || base === final) return <span>{final}</span>;
