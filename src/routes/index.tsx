@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, ChevronRight, Clock, Files, Gavel, ShieldCheck } from "lucide-react";
+import { BookOpen, Calculator, ChevronRight, Clock, Files, Gavel, ShieldCheck, Zap } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { AppShell } from "@/components/AppShell";
 import { navItems } from "@/lib/nav-items";
-import { chargeCatalog } from "@/lib/charge-catalog";
-import { caseEntries } from "@/lib/caselaw-data";
-import { paperworkTypes } from "@/lib/paperwork-types";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
 import { formatRelative, loadRecentDrafts, type RecentDraft } from "@/lib/recent-drafts";
 
@@ -46,6 +43,37 @@ const draftPaths = {
   "e-posta": "/e-posta",
 } as const;
 
+const quickShortcuts = [
+  {
+    label: "Rapor Oluştur",
+    description: "Olay, ifade, tutuklama ve diğer raporlar",
+    to: "/paperwork-generators",
+    icon: Files,
+    tone: "from-primary/25 to-primary/5 text-primary ring-primary/30",
+  },
+  {
+    label: "Süre Hesapla",
+    description: "Suçlara göre hapis süresi hesapla",
+    to: "/arrest-calculator",
+    icon: Calculator,
+    tone: "from-gold/25 to-gold/5 text-gold ring-gold/30",
+  },
+  {
+    label: "Ceza Kanunları",
+    description: "San Andreas Ceza Kanunu",
+    to: "/penal-code",
+    icon: BookOpen,
+    tone: "from-success/25 to-success/5 text-success ring-success/30",
+  },
+  {
+    label: "Emsal Kararlar",
+    description: "Kaynaklar ve emsal kararlar",
+    to: "/caselaw",
+    icon: Gavel,
+    tone: "from-warning/25 to-warning/5 text-warning ring-warning/30",
+  },
+];
+
 function greeting() {
   const h = new Date().getHours();
   if (h < 6) return "İyi geceler";
@@ -66,44 +94,6 @@ function Dashboard() {
   const officerLine = profile?.name
     ? [profile.rank, profile.name].filter(Boolean).join(" ")
     : "Memur profili tanımlı değil";
-
-  const typeCount = (t: "F" | "M" | "I") =>
-    chargeCatalog.filter((c) => c.variants.some((v) => v.type === t)).length;
-
-  const stats = [
-    {
-      label: "Ceza maddesi",
-      value: chargeCatalog.length,
-      detail: `${typeCount("F")} F · ${typeCount("M")} M · ${typeCount("I")} I`,
-      icon: BookOpen,
-      to: "/penal-code" as const,
-      tone: "text-primary",
-    },
-    {
-      label: "Rapor şablonu",
-      value: paperworkTypes.length,
-      detail: "BBCode & HTML çıktısı",
-      icon: Files,
-      to: "/paperwork-generators" as const,
-      tone: "text-gold",
-    },
-    {
-      label: "Emsal karar",
-      value: caseEntries.length,
-      detail: "Kararlar & kaynaklar",
-      icon: Gavel,
-      to: "/caselaw" as const,
-      tone: "text-success",
-    },
-    {
-      label: "Kayıtlı taslak",
-      value: recent.length,
-      detail: recent[0] ? `Son: ${formatRelative(recent[0].savedAt)}` : "Henüz taslak yok",
-      icon: Clock,
-      to: "/paperwork-generators" as const,
-      tone: "text-warning",
-    },
-  ];
 
   return (
     <AppShell>
@@ -138,60 +128,78 @@ function Dashboard() {
               </p>
             </div>
           </div>
-
-          {/* İstatistikler */}
-          <div className="relative mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {stats.map((s) => (
-              <Link
-                key={s.label}
-                to={s.to}
-                className="group rounded-xl border border-border/70 bg-background/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent/25"
-              >
-                <span className="flex items-center justify-between">
-                  <s.icon className={`size-4 ${s.tone}`} />
-                  <ChevronRight className="size-3.5 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
-                </span>
-                <p className="mt-2 text-2xl font-bold tabular-nums leading-none">{s.value}</p>
-                <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">
-                  {s.label}
-                </p>
-                <p className="mt-1.5 truncate text-[11px] font-medium text-foreground/70">
-                  {s.detail}
-                </p>
-              </Link>
-            ))}
-          </div>
         </section>
 
-        {/* Kaldığın yerden devam et */}
-        {recent.length > 0 && (
-          <section className="mt-8">
+        {/* Hızlı erişim + Kaldığın yerden devam et */}
+        <div className="mt-8 grid gap-8 lg:grid-cols-2">
+          {/* Hızlı erişim */}
+          <section>
             <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              <Clock className="size-4 text-gold" />
-              Kaldığın yerden devam et
+              <Zap className="size-4 text-primary" />
+              Hızlı Erişim
             </h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {recent.map(({ type, savedAt }) => (
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
+              {quickShortcuts.map((shortcut) => (
                 <Link
-                  key={type.slug}
-                  to={draftPaths[type.slug as keyof typeof draftPaths]}
-                  className="group flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
+                  key={shortcut.to}
+                  to={shortcut.to}
+                  className="group relative flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent/30"
                 >
-                  <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
-                    <type.icon className="size-4" />
+                  <span
+                    className={`grid size-10 shrink-0 place-items-center rounded-lg bg-gradient-to-br ring-1 transition-transform duration-300 group-hover:scale-110 ${shortcut.tone}`}
+                  >
+                    <shortcut.icon className="size-4" />
                   </span>
                   <span className="min-w-0">
-                    <span className="block truncate text-sm font-medium">{type.label}</span>
-                    <span className="block text-[11px] text-muted-foreground">
-                      {formatRelative(savedAt)}
+                    <span className="flex items-center gap-1 text-sm font-semibold">
+                      {shortcut.label}
+                      <ChevronRight className="size-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
                     </span>
+                    <span className="block text-[11px] text-muted-foreground">{shortcut.description}</span>
                   </span>
-                  <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-gold" />
                 </Link>
               ))}
             </div>
           </section>
-        )}
+
+          {/* Kaldığın yerden devam et */}
+          <section>
+            <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              <Clock className="size-4 text-gold" />
+              Kaldığın yerden devam et
+            </h2>
+            {recent.length > 0 ? (
+              <div className="mt-3 grid gap-3">
+                {recent.map(({ type, savedAt }) => (
+                  <Link
+                    key={type.slug}
+                    to={draftPaths[type.slug as keyof typeof draftPaths]}
+                    className="group flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
+                  >
+                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
+                      <type.icon className="size-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-medium">{type.label}</span>
+                      <span className="block text-[11px] text-muted-foreground">
+                        {formatRelative(savedAt)}
+                      </span>
+                    </span>
+                    <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-gold" />
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-3 flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card/40 px-4 py-8 text-center">
+                <Clock className="size-8 text-muted-foreground/40" />
+                <p className="mt-2 text-sm font-medium text-foreground/80">Henüz kayıtlı taslak yok</p>
+                <p className="text-xs text-muted-foreground">
+                  Rapor jeneratörlerinde çalışmaya başladığında burada görünecek.
+                </p>
+              </div>
+            )}
+          </section>
+        </div>
 
         {/* Araçlar */}
         <section className="mt-10">
