@@ -2619,21 +2619,24 @@ const filterOptions: Array<{ value: CrimeType; label: string; description: strin
   { value: "I", label: "Infraction", description: "İhlaller" },
 ];
 
-const typeStyles: Record<CrimeType, { badge: string; label: string; accent: string }> = {
+const typeStyles: Record<CrimeType, { badge: string; label: string; accent: string; bar: string }> = {
   F: {
     badge: "border-destructive/30 bg-destructive/10 text-destructive",
     label: "Felony",
     accent: "border-l-destructive",
+    bar: "var(--destructive)",
   },
   M: {
     badge: "border-warning/30 bg-warning/10 text-warning",
     label: "Misdemeanor",
     accent: "border-l-warning",
+    bar: "var(--warning)",
   },
   I: {
     badge: "border-success/30 bg-success/10 text-success",
     label: "Infraction",
     accent: "border-l-success",
+    bar: "var(--success)",
   },
 };
 
