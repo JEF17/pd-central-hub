@@ -142,16 +142,23 @@ function Dashboard() {
           {/* İstatistikler */}
           <div className="relative mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {stats.map((s) => (
-              <div
+              <Link
                 key={s.label}
-                className="rounded-xl border border-border/70 bg-background/40 px-4 py-3 backdrop-blur-sm"
+                to={s.to}
+                className="group rounded-xl border border-border/70 bg-background/40 px-4 py-3 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent/25"
               >
-                <s.icon className="size-4 text-primary/80" />
+                <span className="flex items-center justify-between">
+                  <s.icon className={`size-4 ${s.tone}`} />
+                  <ChevronRight className="size-3.5 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+                </span>
                 <p className="mt-2 text-2xl font-bold tabular-nums leading-none">{s.value}</p>
                 <p className="mt-1 text-[11px] uppercase tracking-wider text-muted-foreground">
                   {s.label}
                 </p>
-              </div>
+                <p className="mt-1.5 truncate text-[11px] font-medium text-foreground/70">
+                  {s.detail}
+                </p>
+              </Link>
             ))}
           </div>
         </section>
