@@ -102,7 +102,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
-        <header className="flex h-16 items-center gap-3 px-6">
+        <header className="relative flex h-16 items-center gap-3 px-6 after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/40 after:to-transparent">
           <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain md:hidden" />
           <span className="font-bold md:hidden">LSPD Toolkit</span>
           <div className="ml-auto flex items-center gap-1">
