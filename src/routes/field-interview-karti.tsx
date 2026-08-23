@@ -71,7 +71,7 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <ReportHeader
           title="Field Interview Kartı"
-          description="Alanları doldur, alt kısımda foruma yapıştırabileceğin BBCode çıktısı oluşsun."
+          description="Alanları doldur, alt kısımda foruma yapıştırabileceğin çıktı oluşsun."
           format="BBCode"
           icon={IdCard}
         />
@@ -211,7 +211,7 @@ function Page() {
             <>
               <Button variant="outline" className="press" onClick={() => copy(output, "BBCode")}>
                 <ClipboardCopy className="size-4" />
-                BBCode kopyala
+                Kopyala
               </Button>
               <Button variant="outline" className="press" onClick={() => copy(title, "Konu başlığı")}>
                 <ClipboardCopy className="size-4" />
@@ -224,7 +224,7 @@ function Page() {
 
         {output ? (
           <section className="mt-6 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-semibold">BBCode Çıktısı</h2>
+            <h2 className="text-lg font-semibold">Çıktı</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               Konu başlığı: <span className="font-mono">{title}</span>
             </p>

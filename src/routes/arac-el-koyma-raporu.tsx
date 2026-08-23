@@ -269,14 +269,14 @@ function Page() {
           {output ? (
             <Button variant="outline" className="press" onClick={() => copy(output, "HTML")}>
               <ClipboardCopy className="size-4" />
-              HTML kopyala
+              Kopyala
             </Button>
           ) : null}
         </div>
 
         {output ? (
           <section className="mt-6 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-semibold">HTML Çıktısı</h2>
+            <h2 className="text-lg font-semibold">Çıktı</h2>
             <Textarea readOnly value={output} rows={22} className="mt-4 font-mono text-xs" />
           </section>
         ) : null}
