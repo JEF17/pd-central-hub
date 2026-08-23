@@ -13,7 +13,6 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
-import { Route as ArrestReportRouteImport } from './routes/arrest-report'
 import { Route as AyarlarRouteImport } from './routes/ayarlar'
 import { Route as CaselawRouteImport } from './routes/caselaw'
 import { Route as EPostaRouteImport } from './routes/e-posta'
@@ -44,11 +43,6 @@ const AracElKoymaRaporuRoute = AracElKoymaRaporuRouteImport.update({
 const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
   id: '/arrest-calculator',
   path: '/arrest-calculator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ArrestReportRoute = ArrestReportRouteImport.update({
-  id: '/arrest-report',
-  path: '/arrest-report',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AyarlarRoute = AyarlarRouteImport.update({
@@ -112,7 +106,6 @@ export interface FileRoutesByFullPath {
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
-  '/arrest-report': typeof ArrestReportRoute
   '/ayarlar': typeof AyarlarRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
@@ -130,7 +123,6 @@ export interface FileRoutesByTo {
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
-  '/arrest-report': typeof ArrestReportRoute
   '/ayarlar': typeof AyarlarRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
@@ -149,7 +141,6 @@ export interface FileRoutesById {
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
-  '/arrest-report': typeof ArrestReportRoute
   '/ayarlar': typeof AyarlarRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
@@ -169,7 +160,6 @@ export interface FileRouteTypes {
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
-    | '/arrest-report'
     | '/ayarlar'
     | '/caselaw'
     | '/e-posta'
@@ -187,7 +177,6 @@ export interface FileRouteTypes {
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
-    | '/arrest-report'
     | '/ayarlar'
     | '/caselaw'
     | '/e-posta'
@@ -205,7 +194,6 @@ export interface FileRouteTypes {
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
-    | '/arrest-report'
     | '/ayarlar'
     | '/caselaw'
     | '/e-posta'
@@ -224,7 +212,6 @@ export interface RootRouteChildren {
   ApbSablonuRoute: typeof ApbSablonuRoute
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
-  ArrestReportRoute: typeof ArrestReportRoute
   AyarlarRoute: typeof AyarlarRoute
   CaselawRoute: typeof CaselawRoute
   EPostaRoute: typeof EPostaRoute
@@ -266,13 +253,6 @@ declare module '@tanstack/react-router' {
       path: '/arrest-calculator'
       fullPath: '/arrest-calculator'
       preLoaderRoute: typeof ArrestCalculatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/arrest-report': {
-      id: '/arrest-report'
-      path: '/arrest-report'
-      fullPath: '/arrest-report'
-      preLoaderRoute: typeof ArrestReportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ayarlar': {
@@ -360,7 +340,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApbSablonuRoute: ApbSablonuRoute,
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
-  ArrestReportRoute: ArrestReportRoute,
   AyarlarRoute: AyarlarRoute,
   CaselawRoute: CaselawRoute,
   EPostaRoute: EPostaRoute,
