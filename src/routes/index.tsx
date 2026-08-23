@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, Calculator, ChevronRight, Clock, Files, Gavel, ShieldCheck, Zap } from "lucide-react";
+import { ChevronRight, Clock, ShieldCheck } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { AppShell } from "@/components/AppShell";
@@ -42,37 +42,6 @@ const draftPaths = {
   "gozalti-kayit-formu": "/gozalti-kayit-formu",
   "e-posta": "/e-posta",
 } as const;
-
-const quickShortcuts = [
-  {
-    label: "Rapor Oluştur",
-    description: "Olay, ifade, tutuklama ve diğer raporlar",
-    to: "/paperwork-generators",
-    icon: Files,
-    tone: "from-primary/25 to-primary/5 text-primary ring-primary/30",
-  },
-  {
-    label: "Süre Hesapla",
-    description: "Suçlara göre hapis süresi hesapla",
-    to: "/arrest-calculator",
-    icon: Calculator,
-    tone: "from-gold/25 to-gold/5 text-gold ring-gold/30",
-  },
-  {
-    label: "Ceza Kanunları",
-    description: "San Andreas Ceza Kanunu",
-    to: "/penal-code",
-    icon: BookOpen,
-    tone: "from-success/25 to-success/5 text-success ring-success/30",
-  },
-  {
-    label: "Emsal Kararlar",
-    description: "Kaynaklar ve emsal kararlar",
-    to: "/caselaw",
-    icon: Gavel,
-    tone: "from-warning/25 to-warning/5 text-warning ring-warning/30",
-  },
-];
 
 function greeting() {
   const h = new Date().getHours();
@@ -130,76 +99,43 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* Hızlı erişim + Kaldığın yerden devam et */}
-        <div className="mt-8 grid gap-8 lg:grid-cols-2">
-          {/* Hızlı erişim */}
-          <section>
-            <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              <Zap className="size-4 text-primary" />
-              Hızlı Erişim
-            </h2>
-            <div className="mt-3 grid gap-3 sm:grid-cols-2">
-              {quickShortcuts.map((shortcut) => (
+        {/* Kaldığın yerden devam et */}
+        <section className="mt-8">
+          <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            <Clock className="size-4 text-gold" />
+            Kaldığın yerden devam et
+          </h2>
+          {recent.length > 0 ? (
+            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {recent.map(({ type, savedAt }) => (
                 <Link
-                  key={shortcut.to}
-                  to={shortcut.to}
-                  className="group relative flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3.5 transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:bg-accent/30"
+                  key={type.slug}
+                  to={draftPaths[type.slug as keyof typeof draftPaths]}
+                  className="group flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
                 >
-                  <span
-                    className={`grid size-10 shrink-0 place-items-center rounded-lg bg-gradient-to-br ring-1 transition-transform duration-300 group-hover:scale-110 ${shortcut.tone}`}
-                  >
-                    <shortcut.icon className="size-4" />
+                  <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
+                    <type.icon className="size-4" />
                   </span>
                   <span className="min-w-0">
-                    <span className="flex items-center gap-1 text-sm font-semibold">
-                      {shortcut.label}
-                      <ChevronRight className="size-3.5 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+                    <span className="block truncate text-sm font-medium">{type.label}</span>
+                    <span className="block text-[11px] text-muted-foreground">
+                      {formatRelative(savedAt)}
                     </span>
-                    <span className="block text-[11px] text-muted-foreground">{shortcut.description}</span>
                   </span>
+                  <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-gold" />
                 </Link>
               ))}
             </div>
-          </section>
-
-          {/* Kaldığın yerden devam et */}
-          <section>
-            <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-              <Clock className="size-4 text-gold" />
-              Kaldığın yerden devam et
-            </h2>
-            {recent.length > 0 ? (
-              <div className="mt-3 grid gap-3">
-                {recent.map(({ type, savedAt }) => (
-                  <Link
-                    key={type.slug}
-                    to={draftPaths[type.slug as keyof typeof draftPaths]}
-                    className="group flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
-                  >
-                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
-                      <type.icon className="size-4" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block truncate text-sm font-medium">{type.label}</span>
-                      <span className="block text-[11px] text-muted-foreground">
-                        {formatRelative(savedAt)}
-                      </span>
-                    </span>
-                    <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-gold" />
-                  </Link>
-                ))}
-              </div>
-            ) : (
-              <div className="mt-3 flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card/40 px-4 py-8 text-center">
-                <Clock className="size-8 text-muted-foreground/40" />
-                <p className="mt-2 text-sm font-medium text-foreground/80">Henüz kayıtlı taslak yok</p>
-                <p className="text-xs text-muted-foreground">
-                  Rapor jeneratörlerinde çalışmaya başladığında burada görünecek.
-                </p>
-              </div>
-            )}
-          </section>
-        </div>
+          ) : (
+            <div className="mt-3 flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card/40 px-4 py-10 text-center">
+              <Clock className="size-8 text-muted-foreground/40" />
+              <p className="mt-2 text-sm font-medium text-foreground/80">Henüz kayıtlı taslak yok</p>
+              <p className="max-w-xs text-xs text-muted-foreground">
+                Rapor jeneratörlerinde çalışmaya başladığında son kaydettiklerin burada listelenecek.
+              </p>
+            </div>
+          )}
+        </section>
 
         {/* Araçlar */}
         <section className="mt-10">
