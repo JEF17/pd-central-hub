@@ -363,10 +363,12 @@ function Page() {
 }
 
 function ChargeRowCard({
+  index,
   row,
   onChange,
   onRemove,
 }: {
+  index: number;
   row: ChargeRow;
   onChange: (patch: Partial<ChargeRow>) => void;
   onRemove: () => void;
@@ -376,7 +378,10 @@ function ChargeRowCard({
   const classOptions = definition?.variants ?? [];
 
   return (
-    <div className="rounded-xl border border-border bg-card p-4">
+    <div className="relative rounded-xl border border-border bg-background/50 p-4 pt-8 transition-colors hover:border-primary/30 md:pt-4 md:pl-12">
+      <span className="absolute left-4 top-4 grid size-6 place-items-center rounded-md bg-primary/10 text-xs font-bold text-primary ring-1 ring-primary/20">
+        {index}
+      </span>
       <div
         className={cn(
           "grid gap-4 md:items-end",
