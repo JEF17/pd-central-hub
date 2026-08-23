@@ -41,7 +41,7 @@ function Page() {
 
   const copy = (value: string) => {
     void navigator.clipboard.writeText(value);
-    notify.success("BBCode kopyalandı");
+    notify.success("Kopyalandı");
   };
 
 
@@ -50,7 +50,7 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <ReportHeader
           title="E-Posta"
-          description="Alanları doldur, alt kısımda foruma yapıştırabileceğin BBCode çıktısı oluşsun."
+          description="Alanları doldur, alt kısımda foruma yapıştırabileceğin çıktı oluşsun."
           format="BBCode"
           icon={Mail}
         />
@@ -153,7 +153,7 @@ function Page() {
           {output ? (
             <Button variant="outline" className="press" onClick={() => copy(output)}>
               <ClipboardCopy className="size-4" />
-              BBCode kopyala
+              Kopyala
             </Button>
           ) : null}
 
@@ -161,7 +161,7 @@ function Page() {
 
         {output ? (
           <section className="mt-6 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-semibold">BBCode Çıktısı</h2>
+            <h2 className="text-lg font-semibold">Çıktı</h2>
             <Textarea readOnly value={output} rows={18} className="mt-4 font-mono text-xs" />
           </section>
         ) : null}

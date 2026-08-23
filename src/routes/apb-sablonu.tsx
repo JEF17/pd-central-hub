@@ -52,7 +52,7 @@ function Page() {
       <div className="mx-auto max-w-7xl px-6 py-10">
         <ReportHeader
           title="APB Şablonu"
-          description="Alanları doldur, alt kısımda foruma yapıştırabileceğin BBCode çıktısı oluşsun."
+          description="Alanları doldur, alt kısımda foruma yapıştırabileceğin çıktı oluşsun."
           format="BBCode"
           icon={Megaphone}
         />
@@ -154,7 +154,7 @@ function Page() {
           {output ? (
             <Button variant="outline" className="press" onClick={() => copy(output, "BBCode")}>
               <ClipboardCopy className="size-4" />
-              BBCode kopyala
+              Kopyala
             </Button>
           ) : null}
 
@@ -162,7 +162,7 @@ function Page() {
 
         {output ? (
           <section className="mt-6 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-semibold">BBCode Çıktısı</h2>
+            <h2 className="text-lg font-semibold">Çıktı</h2>
             <Textarea readOnly value={output} rows={22} className="mt-4 font-mono text-xs" />
           </section>
         ) : null}
