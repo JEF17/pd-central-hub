@@ -16,6 +16,9 @@ export const Route = createFileRoute("/auth/giris")({
       { name: "twitter:card", content: "summary" },
     ],
   }),
+  validateSearch: (search: Record<string, unknown>) => ({
+    error: typeof search.error === "string" ? search.error : undefined,
+  }),
   beforeLoad: async ({ location }) => {
     await redirectIfAuthenticated(location.href);
   },
