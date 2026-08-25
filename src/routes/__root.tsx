@@ -7,7 +7,6 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { requirePortalAuth } from "@/lib/portal-auth";
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
