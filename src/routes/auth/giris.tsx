@@ -33,7 +33,7 @@ function LoginPage() {
     window.location.href = url;
   };
 
-  const error = Route.useSearch<{ error?: string }>().error;
+  const error = Route.useSearch().error;
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background px-4">
