@@ -1,4 +1,4 @@
-import { createServerFn } from "@tanstack/react-start";
+import { createServerFn, createMiddleware } from "@tanstack/react-start";
 import { getRequest, getRequestHeader } from "@tanstack/react-start/server";
 import type { PortalUser } from "./portal-auth.server";
 
@@ -29,6 +29,66 @@ export type PortalSessionDto = {
   characters: Array<{ id: number; firstname: string; lastname: string; memberid: number }>;
   selectedCharacter: { id: number; firstname: string; lastname: string; memberid: number } | null;
 };
+
+async function toUserDto(
+  user: PortalUser,
+  checkUserIsAdmin?: (userId: string) => Promise<boolean>,
+): Promise<PortalUserDto> {
+  const isAdmin = checkUserIsAdmin ? await checkUserIsAdmin(user.id) : false;
+  return {
+    id: user.id,
+    ucpUserId: user.ucp_user_id,
+    username: user.username,
+    status: user.status as "pending" | "approved" | "rejected",
+    ucpRole: user.ucp_role,
+    isAdmin,
+    characters: (user.characters ?? []) as Array<{ id: number; firstname: string; lastname: string; memberid: number }>,
+    selectedCharacter: (user.selected_character ?? null) as {
+      id: number;
+      firstname: string;
+      lastname: string;
+      memberid: number;
+    } | null,
+    lastLoginAt: user.last_login_at,
+    createdAt: user.created_at,
+  };
+}
+
+async function validatePortalSession(required: true): Promise<PortalUser>;
+async function validatePortalSession(required: false): Promise<PortalUser | null>;
+async function validatePortalSession(required: boolean): Promise<PortalUser | null> {
+  const { readSessionCookie, hashToken, findSessionByTokenHash } = await import("./portal-auth.server");
+  const token = readSessionCookie();
+  if (!token) {
+    if (required) throw new Error("Unauthorized");
+    return null;
+  }
+  const result = await findSessionByTokenHash(hashToken(token));
+  if (!result) {
+    if (required) throw new Error("Unauthorized");
+    return null;
+  }
+  return result.user;
+}
+
+export const requirePortalAuthMiddleware = createMiddleware({ type: "function" }).server(async ({ next }) => {
+  const user = await validatePortalSession(true);
+  if (user.status !== "approved") {
+    throw new Error("Account is pending approval");
+  }
+  return next({ context: { userId: user.id, user } });
+});
+
+export const requirePortalAdminMiddleware = createMiddleware({ type: "function" }).server(async ({ next }) => {
+  const user = await validatePortalSession(true);
+  if (user.status !== "approved") {
+    throw new Error("Account is pending approval");
+  }
+  const { checkUserIsAdmin } = await import("./portal-auth.server");
+  const isAdmin = await checkUserIsAdmin(user.id);
+  if (!isAdmin) throw new Error("Forbidden");
+  return next({ context: { userId: user.id, user, isAdmin } });
+});
 
 export const startUcpAuth = createServerFn({ method: "POST" }).handler(async () => {
   const clientId = process.env["UCP_CLIENT_ID"];
@@ -155,68 +215,3 @@ export const setSelectedCharacter = createServerFn({ method: "POST" })
     await doSet(context.userId, data.character);
     return { ok: true };
   });
-
-// Middleware helpers — must be defined below their usage because of function hoisting in TS.
-// These are function-only middlewares that validate the portal session cookie.
-
-import { createMiddleware } from "@tanstack/react-start";
-
-function validatePortalSession(required: boolean) {
-  return async () => {
-    const { readSessionCookie, hashToken, findSessionByTokenHash } = await import("./portal-auth.server");
-    const token = readSessionCookie();
-    if (!token) {
-      if (required) throw new Error("Unauthorized");
-      return null;
-    }
-    const result = await findSessionByTokenHash(hashToken(token));
-    if (!result) {
-      if (required) throw new Error("Unauthorized");
-      return null;
-    }
-    return result.user;
-  };
-}
-
-export const requirePortalAuthMiddleware = createMiddleware({ type: "function" }).server(async ({ next }) => {
-  const user = await validatePortalSession(true)();
-  if (user.status !== "approved") {
-    throw new Error("Account is pending approval");
-  }
-  return next({ context: { userId: user.id, user } });
-});
-
-export const requirePortalAdminMiddleware = createMiddleware({ type: "function" }).server(async ({ next }) => {
-  const user = await validatePortalSession(true)();
-  if (user.status !== "approved") {
-    throw new Error("Account is pending approval");
-  }
-  const { checkUserIsAdmin } = await import("./portal-auth.server");
-  const isAdmin = await checkUserIsAdmin(user.id);
-  if (!isAdmin) throw new Error("Forbidden");
-  return next({ context: { userId: user.id, user, isAdmin } });
-});
-
-async function toUserDto(
-  user: PortalUser,
-  checkUserIsAdmin?: (userId: string) => Promise<boolean>,
-): Promise<PortalUserDto> {
-  const isAdmin = checkUserIsAdmin ? await checkUserIsAdmin(user.id) : false;
-  return {
-    id: user.id,
-    ucpUserId: user.ucp_user_id,
-    username: user.username,
-    status: user.status as "pending" | "approved" | "rejected",
-    ucpRole: user.ucp_role,
-    isAdmin,
-    characters: (user.characters ?? []) as Array<{ id: number; firstname: string; lastname: string; memberid: number }>,
-    selectedCharacter: (user.selected_character ?? null) as {
-      id: number;
-      firstname: string;
-      lastname: string;
-      memberid: number;
-    } | null,
-    lastLoginAt: user.last_login_at,
-    createdAt: user.created_at,
-  };
-}
