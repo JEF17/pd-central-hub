@@ -263,8 +263,8 @@ export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Pro
       username: info.username,
       ucp_role: info.ucpRole,
       status: isAdmin ? "approved" : "pending",
-      characters: info.characters as Json,
-      selected_character: selectedCharacter as Json,
+      characters: info.characters as unknown as Json,
+      selected_character: selectedCharacter as unknown as Json,
       last_login_at: now,
     })
     .select("*")
@@ -292,8 +292,8 @@ export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): 
     .update({
       username: info.username,
       ucp_role: info.ucpRole,
-      characters: info.characters as Json,
-      selected_character: selectedCharacter as Json,
+      characters: info.characters as unknown as Json,
+      selected_character: selectedCharacter as unknown as Json,
       last_login_at: now,
       updated_at: now,
     })
@@ -421,7 +421,7 @@ export async function removeRole(userId: string, role: "user" | "admin"): Promis
 export async function setSelectedCharacter(userId: string, character: UcpCharacter | null): Promise<void> {
   const { error } = await supabaseAdmin
     .from("portal_users")
-    .update({ selected_character: character as Json, updated_at: new Date().toISOString() })
+    .update({ selected_character: character as unknown as Json, updated_at: new Date().toISOString() })
     .eq("id", userId);
   if (error) throw error;
 }
