@@ -6,6 +6,7 @@ import {
   IdCard,
   LayoutGrid,
   Settings,
+  Shield,
   type LucideIcon,
 } from "lucide-react";
 
@@ -16,6 +17,7 @@ export type NavItem = {
   icon: LucideIcon;
   description: string;
   position?: "main" | "bottom";
+  adminOnly?: boolean;
 };
 
 export const navItems: NavItem[] = [
@@ -68,5 +70,13 @@ export const navItems: NavItem[] = [
     icon: Settings,
     description: "Personel profili ve tema tercihleri.",
     position: "bottom",
+  },
+  {
+    label: "Yönetim Paneli",
+    to: "/admin",
+    icon: Shield,
+    description: "Kullanıcı onayları ve rol yönetimi.",
+    position: "bottom",
+    adminOnly: true,
   },
 ];

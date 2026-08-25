@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ClipboardCopy, Lock } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
@@ -29,6 +30,8 @@ import {
 } from "@/lib/custody-form";
 
 export const Route = createFileRoute("/gozalti-kayit-formu")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Gözaltı Kayıt Formu Oluşturucu — LSPD - Toolkit" },

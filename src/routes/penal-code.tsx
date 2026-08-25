@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { Search, X, Scale, Shield, Gavel, AlertTriangle } from "lucide-react";
 import { useMemo, useState } from "react";
 
@@ -2641,6 +2642,8 @@ const typeStyles: Record<CrimeType, { badge: string; label: string; accent: stri
 };
 
 export const Route = createFileRoute("/penal-code")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Ceza Kanunları — LSPD - Toolkit" },

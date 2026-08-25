@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
@@ -22,13 +23,21 @@ import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
 import { Route as KartvizitRouteImport } from './routes/kartvizit'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
+import { Route as OnayBekliyorRouteImport } from './routes/onay-bekliyor'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
 import { Route as TutuklamaRaporuRouteImport } from './routes/tutuklama-raporu'
+import { Route as AuthGirisRouteImport } from './routes/auth/giris'
+import { Route as AuthUcpCallbackRouteImport } from './routes/auth/ucp/callback'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApbSablonuRoute = ApbSablonuRouteImport.update({
@@ -91,6 +100,11 @@ const OlayRaporuRoute = OlayRaporuRouteImport.update({
   path: '/olay-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnayBekliyorRoute = OnayBekliyorRouteImport.update({
+  id: '/onay-bekliyor',
+  path: '/onay-bekliyor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PaperworkGeneratorsRoute = PaperworkGeneratorsRouteImport.update({
   id: '/paperwork-generators',
   path: '/paperwork-generators',
@@ -106,9 +120,20 @@ const TutuklamaRaporuRoute = TutuklamaRaporuRouteImport.update({
   path: '/tutuklama-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthGirisRoute = AuthGirisRouteImport.update({
+  id: '/auth/giris',
+  path: '/auth/giris',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
+  id: '/auth/ucp/callback',
+  path: '/auth/ucp/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
@@ -121,12 +146,16 @@ export interface FileRoutesByFullPath {
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
+  '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
+  '/auth/giris': typeof AuthGirisRoute
+  '/auth/ucp/callback': typeof AuthUcpCallbackRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
@@ -139,13 +168,17 @@ export interface FileRoutesByTo {
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
+  '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
+  '/auth/giris': typeof AuthGirisRoute
+  '/auth/ucp/callback': typeof AuthUcpCallbackRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
@@ -158,14 +191,18 @@ export interface FileRoutesById {
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
+  '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
+  '/auth/giris': typeof AuthGirisRoute
+  '/auth/ucp/callback': typeof AuthUcpCallbackRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
@@ -178,12 +215,16 @@ export interface FileRouteTypes {
     | '/ihlal-raporu'
     | '/kartvizit'
     | '/olay-raporu'
+    | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
     | '/tutuklama-raporu'
+    | '/auth/giris'
+    | '/auth/ucp/callback'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
@@ -196,12 +237,16 @@ export interface FileRouteTypes {
     | '/ihlal-raporu'
     | '/kartvizit'
     | '/olay-raporu'
+    | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
     | '/tutuklama-raporu'
+    | '/auth/giris'
+    | '/auth/ucp/callback'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
@@ -214,13 +259,17 @@ export interface FileRouteTypes {
     | '/ihlal-raporu'
     | '/kartvizit'
     | '/olay-raporu'
+    | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
     | '/tutuklama-raporu'
+    | '/auth/giris'
+    | '/auth/ucp/callback'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
@@ -233,9 +282,12 @@ export interface RootRouteChildren {
   IhlalRaporuRoute: typeof IhlalRaporuRoute
   KartvizitRoute: typeof KartvizitRoute
   OlayRaporuRoute: typeof OlayRaporuRoute
+  OnayBekliyorRoute: typeof OnayBekliyorRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
   TutuklamaRaporuRoute: typeof TutuklamaRaporuRoute
+  AuthGirisRoute: typeof AuthGirisRoute
+  AuthUcpCallbackRoute: typeof AuthUcpCallbackRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -245,6 +297,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/apb-sablonu': {
@@ -331,6 +390,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OlayRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onay-bekliyor': {
+      id: '/onay-bekliyor'
+      path: '/onay-bekliyor'
+      fullPath: '/onay-bekliyor'
+      preLoaderRoute: typeof OnayBekliyorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/paperwork-generators': {
       id: '/paperwork-generators'
       path: '/paperwork-generators'
@@ -352,11 +418,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TutuklamaRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/giris': {
+      id: '/auth/giris'
+      path: '/auth/giris'
+      fullPath: '/auth/giris'
+      preLoaderRoute: typeof AuthGirisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/ucp/callback': {
+      id: '/auth/ucp/callback'
+      path: '/auth/ucp/callback'
+      fullPath: '/auth/ucp/callback'
+      preLoaderRoute: typeof AuthUcpCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   ApbSablonuRoute: ApbSablonuRoute,
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
@@ -369,9 +450,12 @@ const rootRouteChildren: RootRouteChildren = {
   IhlalRaporuRoute: IhlalRaporuRoute,
   KartvizitRoute: KartvizitRoute,
   OlayRaporuRoute: OlayRaporuRoute,
+  OnayBekliyorRoute: OnayBekliyorRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
   TutuklamaRaporuRoute: TutuklamaRaporuRoute,
+  AuthGirisRoute: AuthGirisRoute,
+  AuthUcpCallbackRoute: AuthUcpCallbackRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

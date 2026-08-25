@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ArrowRight, FileStack, Search } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
@@ -8,6 +9,8 @@ import { paperworkTypes } from "@/lib/paperwork-types";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/paperwork-generators")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Rapor Oluştur — LSPD - Toolkit" },

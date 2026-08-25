@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ArrowLeft, ClipboardCopy, Plus, Trash2, MessageSquareQuote, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
@@ -31,6 +32,8 @@ import {
 } from "@/lib/statement-report";
 
 export const Route = createFileRoute("/ifade-raporu")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "İfade Raporu Oluşturucu — LSPD - Toolkit" },

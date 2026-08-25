@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ArrowLeft, ClipboardCopy, IdCard, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
@@ -30,6 +31,8 @@ import {
 } from "@/lib/fi-card";
 
 export const Route = createFileRoute("/field-interview-karti")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Field Interview Kartı Oluşturucu — LSPD - Toolkit" },

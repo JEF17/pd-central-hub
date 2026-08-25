@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   BookOpen,
   Copy,
@@ -36,6 +37,8 @@ const filterOptions: Array<{ value: Filter; label: string }> = [
 ];
 
 export const Route = createFileRoute("/caselaw")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Emsal Kararlar & Kaynaklar — LSPD - Toolkit" },

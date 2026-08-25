@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { Download, IdCard, Loader2 } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
@@ -19,6 +20,8 @@ import { useOfficerProfile } from "@/hooks/use-officer-profile";
 import { FormSection } from "@/components/report-ui";
 
 export const Route = createFileRoute("/kartvizit")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Kartvizit Oluştur — LSPD Toolkit" },

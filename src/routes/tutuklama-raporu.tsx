@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ArrowLeft, ClipboardCopy, Info, Plus, Trash2, ShieldAlert, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
@@ -34,6 +35,8 @@ import {
 } from "@/lib/arrest-report-html";
 
 export const Route = createFileRoute("/tutuklama-raporu")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Tutuklama Raporu Oluşturucu — LSPD - Toolkit" },

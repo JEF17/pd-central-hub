@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone, TriangleAlert } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
@@ -25,6 +26,8 @@ import {
 } from "@/lib/violation-report";
 
 export const Route = createFileRoute("/ihlal-raporu")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "İhlal Raporu Oluşturucu — LSPD - Toolkit" },
