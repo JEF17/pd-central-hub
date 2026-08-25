@@ -40,15 +40,29 @@ async function toUserDto(
     ucpUserId: user.ucp_user_id,
     username: user.username ?? "",
     status: user.status as "pending" | "approved" | "rejected",
-    ucpRole: user.ucp_role,
+    ucpRole: user.ucp_role ?? "",
     isAdmin,
     characters: (user.characters ?? []) as Array<{ id: number; firstname: string; lastname: string; memberid: number }>,
-    selectedCharacter: (user.selected_character ?? null) as {
-      id: number;
-      firstname: string;
-      lastname: string;
-      memberid: number;
-    } | null,
+    selectedCharacter: (() => {
+      if (!user.selected_character) return null;
+      try {
+        return typeof user.selected_character === "string"
+          ? (JSON.parse(user.selected_character) as {
+              id: number;
+              firstname: string;
+              lastname: string;
+              memberid: number;
+            })
+          : (user.selected_character as {
+              id: number;
+              firstname: string;
+              lastname: string;
+              memberid: number;
+            });
+      } catch {
+        return null;
+      }
+    })(),
     lastLoginAt: user.last_login_at,
     createdAt: user.created_at,
   };
