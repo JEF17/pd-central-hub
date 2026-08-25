@@ -132,7 +132,7 @@ export async function exchangeUcpCode(
   clientId: string,
   clientSecret: string,
   redirectUri: string,
-): Promise<{ accessToken: string; refreshToken?: string }> {
+): Promise<{ accessToken: string; refreshToken?: string | undefined }> {
   const body = new URLSearchParams({
     grant_type: "authorization_code",
     client_id: clientId,
