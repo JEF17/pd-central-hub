@@ -17,7 +17,8 @@ export const Route = createFileRoute("/auth/giris")({
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
-    error: typeof search.error === "string" ? search.error : undefined,
+    error: typeof search['error'] === "string" ? search['error'] : undefined,
+    redirect: typeof search['redirect'] === "string" ? search['redirect'] : undefined,
   }),
   beforeLoad: async ({ location }) => {
     await redirectIfAuthenticated(location.href);
