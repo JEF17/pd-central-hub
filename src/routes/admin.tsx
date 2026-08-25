@@ -78,7 +78,7 @@ function AdminPage() {
   };
 
   const handleToggleAdmin = async (user: UserDto) => {
-    await toggleAdminFn({ data: { userId: user.id, makeAdmin: !isAdmin(user) } });
+    await toggleAdminFn({ data: { userId: user.id, makeAdmin: !user.isAdmin } });
     await refresh();
   };
 
