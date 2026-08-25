@@ -6,7 +6,7 @@ export async function requirePortalAuth(locationHref?: string, opts?: { admin?: 
   if (!session) {
     throw redirect({
       to: "/auth/giris",
-      search: locationHref ? { redirect: locationHref } : undefined,
+      search: { redirect: locationHref || "" },
     });
   }
 
