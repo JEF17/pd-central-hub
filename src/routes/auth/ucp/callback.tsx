@@ -5,7 +5,6 @@ export const Route = createFileRoute("/auth/ucp/callback")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
         const helpers = await import("@/lib/portal-auth.server");
         const {
           readOAuthStateCookie,
