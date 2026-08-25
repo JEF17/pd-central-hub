@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ArrowLeft, BadgeAlert, CircleAlert, ClipboardCopy, ShieldAlert, Car } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
@@ -26,6 +27,8 @@ import {
 } from "@/lib/impound-report";
 
 export const Route = createFileRoute("/arac-el-koyma-raporu")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Araç El Koyma Raporu Oluşturucu — LSPD - Toolkit" },

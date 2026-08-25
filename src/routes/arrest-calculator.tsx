@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   AlertTriangle,
   Calculator,
@@ -50,6 +51,8 @@ import { notify } from "@/lib/notifications";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/arrest-calculator")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   validateSearch: (search: Record<string, unknown>) => ({
     c: typeof search['c'] === "string" ? (search['c'] as string) : undefined,
   }),

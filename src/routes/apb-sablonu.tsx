@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import { ArrowLeft, ClipboardCopy, Megaphone, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
@@ -21,6 +22,8 @@ import { buildApbBBCode, emptyApb, rankTitle, type ApbData } from "@/lib/apb-tem
 import { rankOptions } from "@/lib/officer-profile";
 
 export const Route = createFileRoute("/apb-sablonu")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "APB Şablonu Oluşturucu — LSPD - Toolkit" },

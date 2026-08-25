@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   ArrowLeft,
   BadgeCheck,
@@ -63,6 +64,8 @@ import {
 } from "@/lib/incident-report";
 
 export const Route = createFileRoute("/olay-raporu")({
+  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
+  
   head: () => ({
     meta: [
       { title: "Olay Raporu Oluşturucu — LSPD - Toolkit" },

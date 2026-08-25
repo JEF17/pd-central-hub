@@ -1,17 +1,29 @@
 // Geliştirici: Muptazelle
 import { useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { MessageSquare, PanelLeft, Users } from "lucide-react";
+import { LogOut, MessageSquare, PanelLeft, Shield, User, Users } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { NotificationBell } from "@/components/NotificationBell";
 import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
+import { usePortalSession } from "@/hooks/use-portal-session";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function AppShell({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
+  const { session, signOut } = usePortalSession();
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const visibleNavItems = navItems.filter((item) => !item.adminOnly || session?.isAdmin);
 
   return (
     <div className="relative flex min-h-screen bg-background">
@@ -55,7 +67,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-2">
-          {navItems
+          {visibleNavItems
             .filter((item) => item.position !== "bottom")
             .map((item) => {
               const active = pathname === item.to;
@@ -80,7 +92,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
 
         <nav className="flex min-h-16 shrink-0 flex-col justify-center gap-1 px-3 py-2">
-          {navItems
+          {visibleNavItems
             .filter((item) => item.position === "bottom")
             .map((item, index, arr) => {
               const active = pathname === item.to;
@@ -113,6 +125,41 @@ export function AppShell({ children }: { children: ReactNode }) {
           <span className="font-bold md:hidden">LSPD Toolkit</span>
           <div className="ml-auto flex items-center gap-1">
             <NotificationBell />
+            {session ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="gap-2 pl-2 pr-3">
+                    <span className="bg-primary/10 text-primary flex size-7 items-center justify-center rounded-full">
+                      <User className="size-4" />
+                    </span>
+                    <span className="hidden max-w-[120px] truncate sm:inline">{session.username}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <div className="px-2 py-1.5 text-sm">
+                    <p className="font-medium">{session.username}</p>
+                    <p className="text-muted-foreground text-xs">
+                      {session.selectedCharacter
+                        ? `${session.selectedCharacter.firstname} ${session.selectedCharacter.lastname}`
+                        : "Karakter seçilmemiş"}
+                    </p>
+                  </div>
+                  <DropdownMenuSeparator />
+                  {session.isAdmin && (
+                    <DropdownMenuItem asChild>
+                      <Link to="/admin" className="flex items-center gap-2 cursor-pointer">
+                        <Shield className="size-4" />
+                        Yönetim Paneli
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem onClick={signOut} className="flex items-center gap-2 text-destructive focus:text-destructive cursor-pointer">
+                    <LogOut className="size-4" />
+                    Çıkış Yap
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : null}
           </div>
         </header>
         <main className="flex-1 fade-rise">{children}</main>

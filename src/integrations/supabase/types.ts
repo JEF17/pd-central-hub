@@ -84,6 +84,35 @@ export type Database = {
           },
         ]
       }
+      portal_user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["portal_user_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["portal_user_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["portal_user_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_user_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "portal_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portal_users: {
         Row: {
           characters: Json
@@ -91,7 +120,6 @@ export type Database = {
           decided_at: string | null
           decided_by: string | null
           id: string
-          is_admin: boolean
           last_login_at: string | null
           selected_character: string | null
           status: string
@@ -106,7 +134,6 @@ export type Database = {
           decided_at?: string | null
           decided_by?: string | null
           id?: string
-          is_admin?: boolean
           last_login_at?: string | null
           selected_character?: string | null
           status?: string
@@ -121,7 +148,6 @@ export type Database = {
           decided_at?: string | null
           decided_by?: string | null
           id?: string
-          is_admin?: boolean
           last_login_at?: string | null
           selected_character?: string | null
           status?: string
@@ -137,10 +163,16 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_portal_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["portal_user_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      portal_user_role: "user" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -267,6 +299,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      portal_user_role: ["user", "admin"],
+    },
   },
 } as const
