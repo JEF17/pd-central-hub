@@ -34,7 +34,7 @@ function PendingApproval() {
           Hesabınız başarıyla oluşturuldu. Panele erişmek için bir yöneticinin onayını
           beklemeniz gerekiyor.
         </p>
-        <Link to="/auth/giris">
+        <Link to="/auth/giris" search={{}}>
           <Button variant="outline" className="w-full">
             <Shield className="mr-2 size-4" />
             Giriş Sayfasına Dön
