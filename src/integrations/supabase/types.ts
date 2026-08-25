@@ -14,7 +14,124 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      portal_login_logs: {
+        Row: {
+          created_at: string
+          detail: string | null
+          event: string
+          id: string
+          user_id: string | null
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          detail?: string | null
+          event: string
+          id?: string
+          user_id?: string | null
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          detail?: string | null
+          event?: string
+          id?: string
+          user_id?: string | null
+          username?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_login_logs_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "portal_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      portal_sessions: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          token_hash: string
+          user_agent: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          token_hash: string
+          user_agent?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          token_hash?: string
+          user_agent?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_sessions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "portal_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      portal_users: {
+        Row: {
+          characters: Json
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          id: string
+          is_admin: boolean
+          last_login_at: string | null
+          selected_character: string | null
+          status: string
+          ucp_role: string | null
+          ucp_user_id: number
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          characters?: Json
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          is_admin?: boolean
+          last_login_at?: string | null
+          selected_character?: string | null
+          status?: string
+          ucp_role?: string | null
+          ucp_user_id: number
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          characters?: Json
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          is_admin?: boolean
+          last_login_at?: string | null
+          selected_character?: string | null
+          status?: string
+          ucp_role?: string | null
+          ucp_user_id?: number
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
