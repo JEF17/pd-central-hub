@@ -108,12 +108,12 @@ export function clearOAuthStateCookie(): string {
 }
 
 export function readSessionCookie(): string | undefined {
-  const cookies = parseCookies(getRequestHeader("cookie"));
+  const cookies = parseCookies(getRequestHeader("cookie") ?? null);
   return cookies[SESSION_COOKIE];
 }
 
 export function readOAuthStateCookie(): string | undefined {
-  const cookies = parseCookies(getRequestHeader("cookie"));
+  const cookies = parseCookies(getRequestHeader("cookie") ?? null);
   return cookies[STATE_COOKIE];
 }
 
@@ -159,12 +159,12 @@ export async function exchangeUcpCode(
     throw new Error("UCP token response was not valid JSON");
   }
 
-  const accessToken = data.access_token;
+  const accessToken = data['access_token'];
   if (typeof accessToken !== "string") {
     throw new Error("UCP token response missing access_token");
   }
 
-  return { accessToken, refreshToken: typeof data.refresh_token === "string" ? data.refresh_token : undefined };
+  return { accessToken, refreshToken: typeof data['refresh_token'] === "string" ? data['refresh_token'] : undefined };
 }
 
 export async function fetchUcpUserInfo(accessToken: string): Promise<UcpUserInfo> {
@@ -190,28 +190,28 @@ export async function fetchUcpUserInfo(accessToken: string): Promise<UcpUserInfo
   }
 
   const u = user as Record<string, unknown>;
-  const ucpUserId = Number(u.id);
+  const ucpUserId = Number(u['id']);
   if (!Number.isFinite(ucpUserId)) {
     throw new Error("UCP user response missing numeric id");
   }
 
-  const rawRole = u.role;
+  const rawRole = u['role'];
   const ucpRole =
     rawRole && typeof rawRole === "object" && "role_id" in rawRole
       ? String((rawRole as { role_id?: unknown }).role_id ?? "")
       : "";
 
-  const rawCharacters = u.character;
+  const rawCharacters = u['character'];
   const characters: UcpCharacter[] = Array.isArray(rawCharacters)
     ? rawCharacters
         .map((c: unknown) => {
           if (!c || typeof c !== "object") return null;
           const rc = c as Record<string, unknown>;
           return {
-            id: Number(rc.id),
-            firstname: String(rc.firstname ?? ""),
-            lastname: String(rc.lastname ?? ""),
-            memberid: Number(rc.memberid),
+            id: Number(rc['id']),
+            firstname: String(rc['firstname'] ?? ""),
+            lastname: String(rc['lastname'] ?? ""),
+            memberid: Number(rc['memberid']),
           };
         })
         .filter((c): c is UcpCharacter => !!c && Number.isFinite(c.id))
@@ -219,8 +219,8 @@ export async function fetchUcpUserInfo(accessToken: string): Promise<UcpUserInfo
 
   return {
     ucpUserId,
-    username: String(u.username ?? ""),
-    confirmed: Boolean(u.confirmed),
+    username: String(u['username'] ?? ""),
+    confirmed: Boolean(u['confirmed']),
     ucpRole,
     characters,
   };
@@ -263,8 +263,8 @@ export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Pro
       username: info.username,
       ucp_role: info.ucpRole,
       status: isAdmin ? "approved" : "pending",
-      characters: info.characters as unknown as Json,
-      selected_character: selectedCharacter as unknown as Json,
+      characters: info.characters as Json,
+      selected_character: selectedCharacter as Json,
       last_login_at: now,
     })
     .select("*")
@@ -292,8 +292,8 @@ export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): 
     .update({
       username: info.username,
       ucp_role: info.ucpRole,
-      characters: info.characters as unknown as Json,
-      selected_character: selectedCharacter as unknown as Json,
+      characters: info.characters as Json,
+      selected_character: selectedCharacter as Json,
       last_login_at: now,
       updated_at: now,
     })
@@ -421,7 +421,7 @@ export async function removeRole(userId: string, role: "user" | "admin"): Promis
 export async function setSelectedCharacter(userId: string, character: UcpCharacter | null): Promise<void> {
   const { error } = await supabaseAdmin
     .from("portal_users")
-    .update({ selected_character: character as unknown as Json, updated_at: new Date().toISOString() })
+    .update({ selected_character: character as Json, updated_at: new Date().toISOString() })
     .eq("id", userId);
   if (error) throw error;
 }
