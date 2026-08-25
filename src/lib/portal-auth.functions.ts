@@ -38,7 +38,7 @@ async function toUserDto(
   return {
     id: user.id,
     ucpUserId: user.ucp_user_id,
-    username: user.username,
+    username: user.username ?? "",
     status: user.status as "pending" | "approved" | "rejected",
     ucpRole: user.ucp_role,
     isAdmin,
