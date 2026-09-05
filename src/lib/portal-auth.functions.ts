@@ -20,6 +20,18 @@ export type PortalUserDto = {
   createdAt: string;
 };
 
+export type PortalCharacterDto = {
+  rowId: string;
+  id: number;
+  firstname: string;
+  lastname: string;
+  memberid: number;
+  faction: string | null;
+  isLspd: boolean;
+  status: "pending" | "approved" | "rejected";
+  requestedAt: string | null;
+};
+
 export type PortalSessionDto = {
   id: string;
   ucpUserId: number;
@@ -27,6 +39,7 @@ export type PortalSessionDto = {
   status: "pending" | "approved" | "rejected";
   isAdmin: boolean;
   characters: Array<{ id: number; firstname: string; lastname: string; memberid: number }>;
+  portalCharacters: PortalCharacterDto[];
   selectedCharacter: { id: number; firstname: string; lastname: string; memberid: number } | null;
 };
 
