@@ -497,6 +497,59 @@ export async function listUserCharacters(userId: string): Promise<PortalCharacte
   return (data ?? []) as PortalCharacter[];
 }
 
+/**
+ * Backfills character rows for accounts created before character-level approvals existed.
+ * An already-approved account keeps its previously selected character approved.
+ */
+export async function ensureUserCharacters(user: PortalUser): Promise<PortalCharacter[]> {
+  const existing = await listUserCharacters(user.id);
+  if (existing.length > 0) return existing;
+
+  const legacyCharacters = Array.isArray(user.characters)
+    ? (user.characters as Array<Record<string, unknown>>)
+        .map((character): UcpCharacter | null => {
+          const id = Number(character['id']);
+          if (!Number.isFinite(id)) return null;
+          return {
+            id,
+            firstname: String(character['firstname'] ?? ""),
+            lastname: String(character['lastname'] ?? ""),
+            memberid: Number(character['memberid']),
+            faction: null,
+            isLspd: false,
+            raw: character,
+          };
+        })
+        .filter((character): character is UcpCharacter => character !== null)
+    : [];
+
+  if (legacyCharacters.length === 0) return [];
+  const synced = await syncUserCharacters(user.id, legacyCharacters);
+
+  if (user.status !== "approved" || !user.selected_character) return synced;
+
+  let selected: unknown = user.selected_character;
+  if (typeof selected === "string") {
+    try {
+      selected = JSON.parse(selected);
+    } catch {
+      selected = null;
+    }
+  }
+  const selectedId = Number((selected as { id?: unknown } | null)?.id);
+  if (!Number.isFinite(selectedId)) return synced;
+
+  const now = new Date().toISOString();
+  const { error } = await supabaseAdmin
+    .from("portal_characters")
+    .update({ status: "approved", requested_at: now, decided_at: now, decided_by: user.id })
+    .eq("user_id", user.id)
+    .eq("character_id", selectedId);
+  if (error) throw error;
+
+  return listUserCharacters(user.id);
+}
+
 export async function listAllCharacters(): Promise<
   Array<PortalCharacter & { username: string | null }>
 > {

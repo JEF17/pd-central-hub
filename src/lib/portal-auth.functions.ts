@@ -147,7 +147,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     hashToken,
     findSessionByTokenHash,
     checkUserIsAdmin,
-    listUserCharacters,
+    ensureUserCharacters,
   } = await import("./portal-auth.server");
 
   const token = readSessionCookie();
@@ -158,7 +158,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
 
   const { user } = result;
   const isAdmin = await checkUserIsAdmin(user.id);
-  const rows = await listUserCharacters(user.id);
+  const rows = await ensureUserCharacters(user);
 
   const portalCharacters: PortalCharacterDto[] = rows.map((c) => ({
     rowId: c.id,
