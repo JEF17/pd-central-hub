@@ -84,7 +84,13 @@ export const Route = createFileRoute("/auth/ucp/callback")({
           const tokenHash = hashToken(sessionToken);
           await createSession(user.id, tokenHash, getRequestHeader("user-agent") ?? null);
 
-          const redirectTo = user.status === "approved" ? "/" : "/onay-bekliyor";
+          const hasSelectedCharacter = !!user.selected_character;
+          const redirectTo = !hasSelectedCharacter
+            ? "/karakter-sec"
+            : user.status === "approved"
+              ? "/"
+              : "/onay-bekliyor";
+
           return redirectResponse(redirectTo, [
             clearOAuthStateCookie(),
             helpers.serializeSessionCookie(sessionToken),
