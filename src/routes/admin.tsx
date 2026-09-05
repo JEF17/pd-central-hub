@@ -149,6 +149,8 @@ function AdminPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>UCP Kullanıcı Adı</TableHead>
+                    <TableHead>Personel Ad Soyad</TableHead>
+                    <TableHead>Rütbe</TableHead>
                     <TableHead>UCP Rolü</TableHead>
                     <TableHead>Karakterler</TableHead>
                     <TableHead className="text-right">İşlem</TableHead>
@@ -158,6 +160,8 @@ function AdminPage() {
                   {pendingUsers.map((user) => (
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.username}</TableCell>
+                      <TableCell>{user.profile?.name || "—"}</TableCell>
+                      <TableCell>{user.profile?.rank || "—"}</TableCell>
                       <TableCell>{user.ucpRole || "—"}</TableCell>
                       <TableCell className="max-w-[280px] truncate">
                         {user.characters.length > 0
@@ -166,8 +170,6 @@ function AdminPage() {
                               .join(", ")
                           : "—"}
                       </TableCell>
-
-
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button
