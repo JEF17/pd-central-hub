@@ -84,8 +84,10 @@ async function fileToResizedDataUrl(file: File): Promise<string> {
 
 function Page() {
   const [data, setData] = useState<OfficerProfile>(emptyOfficerProfile);
+  const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const { session } = usePortalSession();
+  const saveProfileFn = useServerFn(saveOfficerProfileServer);
 
   useEffect(() => {
     const saved = loadOfficerProfile();
