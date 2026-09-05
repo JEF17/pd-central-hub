@@ -30,6 +30,8 @@ export type PortalUserDto = {
   } | null;
   lastLoginAt: string | null;
   createdAt: string;
+  profile: OfficerProfile | null;
+  profileCompleted: boolean;
 };
 
 export type PortalCharacterDto = {
