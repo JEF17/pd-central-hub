@@ -269,17 +269,22 @@ function Page() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Button
-                onClick={() => {
+                disabled={saving}
+                onClick={async () => {
+                  setSaving(true);
                   try {
-                    saveOfficerProfile(data);
+                    saveOfficerProfileLocal(data);
+                    await saveProfileFn({ data });
                     notify.success("Profil kaydedildi");
                   } catch {
                     notify.error("Profil kaydedilemedi");
+                  } finally {
+                    setSaving(false);
                   }
                 }}
               >
                 <Save className="size-4" />
-                Kaydet
+                {saving ? "Kaydediliyor…" : "Kaydet"}
               </Button>
               <Button
                 variant="outline"
