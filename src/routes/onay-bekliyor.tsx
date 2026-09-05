@@ -1,7 +1,8 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Clock, ShieldX, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getCurrentSession } from "@/lib/portal-auth.functions";
+import { getCurrentSession, signOut } from "@/lib/portal-auth.functions";
 
 export const Route = createFileRoute("/onay-bekliyor")({
   head: () => ({
@@ -30,6 +31,12 @@ export const Route = createFileRoute("/onay-bekliyor")({
 function PendingApproval() {
   const { status } = Route.useRouteContext();
   const rejected = status === "rejected";
+  const doSignOut = useServerFn(signOut);
+
+  const handleBackToLogin = async () => {
+    await doSignOut({});
+    window.location.href = "/auth/giris";
+  };
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background px-4">
@@ -57,12 +64,10 @@ function PendingApproval() {
             ? "Başvurunuz bir yönetici tarafından reddedildi. Panele erişiminiz bulunmuyor. İtiraz için LSPD yönetimiyle iletişime geçebilirsiniz."
             : "Hesabınız başarıyla oluşturuldu. Panele erişmek için bir yöneticinin onayını beklemeniz gerekiyor. "}
         </p>
-        <Link to="/auth/giris" search={{ error: undefined, redirect: undefined }}>
-          <Button variant="outline" className="w-full">
-            <Shield className="mr-2 size-4" />
-            Giriş Sayfasına Dön
-          </Button>
-        </Link>
+        <Button variant="outline" className="w-full" onClick={handleBackToLogin}>
+          <Shield className="mr-2 size-4" />
+          Giriş Sayfasına Dön
+        </Button>
       </div>
     </div>
   );
