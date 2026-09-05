@@ -14,7 +14,7 @@ export async function requirePortalAuth(locationHref?: string, opts?: { admin?: 
     throw redirect({ to: "/karakter-sec" });
   }
 
-  if (session.status === "pending") {
+  if (session.status !== "approved") {
     throw redirect({ to: "/onay-bekliyor" });
   }
 
@@ -30,7 +30,7 @@ export async function redirectIfAuthenticated(locationHref?: string) {
   const session = await getCurrentSession();
   if (!session) return null;
 
-  if (session.status === "pending") {
+  if (session.status !== "approved") {
     throw redirect({ to: "/onay-bekliyor" });
   }
 
