@@ -115,7 +115,7 @@ function AdminPage() {
                   <TableRow>
                     <TableHead>UCP Kullanıcı Adı</TableHead>
                     <TableHead>UCP Rolü</TableHead>
-                    <TableHead>Karakter Sayısı</TableHead>
+                    <TableHead>Seçilen Karakter</TableHead>
                     <TableHead className="text-right">İşlem</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -124,7 +124,12 @@ function AdminPage() {
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.username}</TableCell>
                       <TableCell>{user.ucpRole || "—"}</TableCell>
-                      <TableCell>{user.characters.length}</TableCell>
+                      <TableCell>
+                        {user.selectedCharacter
+                          ? `${user.selectedCharacter.firstname} ${user.selectedCharacter.lastname}`
+                          : "—"}
+                      </TableCell>
+
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button

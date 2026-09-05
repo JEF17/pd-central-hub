@@ -152,7 +152,16 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     status: user.status as PortalSessionDto["status"],
     isAdmin,
     characters: (user.characters ?? []) as PortalSessionDto["characters"],
-    selectedCharacter: (user.selected_character ?? null) as PortalSessionDto["selectedCharacter"],
+    selectedCharacter: (() => {
+      const raw = user.selected_character;
+      if (!raw) return null;
+      try {
+        return (typeof raw === "string" ? JSON.parse(raw) : raw) as PortalSessionDto["selectedCharacter"];
+      } catch {
+        return null;
+      }
+    })(),
+
   } satisfies PortalSessionDto;
 });
 
@@ -228,4 +237,23 @@ export const setSelectedCharacter = createServerFn({ method: "POST" })
     const { setSelectedCharacter: doSet } = await import("./portal-auth.server");
     await doSet(context.userId, data.character);
     return { ok: true };
+  });
+
+export const chooseCharacter = createServerFn({ method: "POST" })
+  .inputValidator((input: { characterId: number }) => input)
+  .handler(async ({ data }) => {
+    const user = await validatePortalSession(true);
+    const characters = (user.characters ?? []) as Array<{
+      id: number;
+      firstname: string;
+      lastname: string;
+      memberid: number;
+    }>;
+    const character = characters.find((c) => c.id === data.characterId);
+    if (!character) throw new Error("Karakter bulunamadı");
+
+    const { setSelectedCharacter: doSet } = await import("./portal-auth.server");
+    await doSet(user.id, character);
+
+    return { ok: true, status: user.status as PortalUserDto["status"] };
   });
