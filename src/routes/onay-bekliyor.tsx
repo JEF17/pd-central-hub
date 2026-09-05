@@ -70,6 +70,12 @@ function PendingApproval() {
             ? "Başvurunuz bir yönetici tarafından reddedildi. Panele erişiminiz bulunmuyor. İtiraz için LSPD yönetimiyle iletişime geçebilirsiniz."
             : "Hesabınız başarıyla oluşturuldu. Panele erişmek için bir yöneticinin onayını beklemeniz gerekiyor. "}
         </p>
+        {rejected && (
+          <Button className="mb-3 w-full" onClick={handleResubmit}>
+            <Clock className="mr-2 size-4" />
+            Tekrar Başvur
+          </Button>
+        )}
         <Button variant="outline" className="w-full" onClick={handleBackToLogin}>
           <Shield className="mr-2 size-4" />
           Giriş Sayfasına Dön
