@@ -14,6 +14,68 @@ export type Database = {
   }
   public: {
     Tables: {
+      portal_characters: {
+        Row: {
+          character_id: number
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          faction: string | null
+          firstname: string
+          id: string
+          is_lspd: boolean
+          lastname: string
+          memberid: number | null
+          raw: Json
+          requested_at: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          character_id: number
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          faction?: string | null
+          firstname?: string
+          id?: string
+          is_lspd?: boolean
+          lastname?: string
+          memberid?: number | null
+          raw?: Json
+          requested_at?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          character_id?: number
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          faction?: string | null
+          firstname?: string
+          id?: string
+          is_lspd?: boolean
+          lastname?: string
+          memberid?: number | null
+          raw?: Json
+          requested_at?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_characters_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "portal_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portal_login_logs: {
         Row: {
           created_at: string
