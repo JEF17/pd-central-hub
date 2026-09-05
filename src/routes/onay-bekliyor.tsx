@@ -1,5 +1,5 @@
 import { createFileRoute, Link, redirect } from "@tanstack/react-router";
-import { Clock, IdCard, ShieldX, Shield } from "lucide-react";
+import { Clock, ShieldX, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getCurrentSession } from "@/lib/portal-auth.functions";
 
@@ -28,7 +28,7 @@ export const Route = createFileRoute("/onay-bekliyor")({
 });
 
 function PendingApproval() {
-  const { status, selectableCharacters } = Route.useRouteContext();
+  const { status } = Route.useRouteContext();
   const rejected = status === "rejected";
 
   return (
@@ -55,16 +55,8 @@ function PendingApproval() {
         <p className="mb-6 text-sm text-muted-foreground">
           {rejected
             ? "Başvurunuz bir yönetici tarafından reddedildi. Panele erişiminiz bulunmuyor. İtiraz için LSPD yönetimiyle iletişime geçebilirsiniz."
-            : "Hesabınız başarıyla oluşturuldu. Panele erişmek için bir yöneticinin onayını beklemeniz gerekiyor. Dilersen başka bir karakterle de başvuru yapabilirsin."}
+            : "Hesabınız başarıyla oluşturuldu. Panele erişmek için bir yöneticinin onayını beklemeniz gerekiyor. "}
         </p>
-        {selectableCharacters > 0 ? (
-          <Link to="/karakter-sec">
-            <Button className="mb-3 w-full">
-              <IdCard className="mr-2 size-4" />
-              Karakter Seçimine Dön
-            </Button>
-          </Link>
-        ) : null}
         <Link to="/auth/giris" search={{ error: undefined, redirect: undefined }}>
           <Button variant="outline" className="w-full">
             <Shield className="mr-2 size-4" />
