@@ -343,7 +343,7 @@ export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Pro
 
   await supabaseAdmin.from("portal_user_roles").insert({
     user_id: user.id,
-    role: isAdmin ? "admin" : "user",
+    role: isAdmin ? "query" : "user",
   });
 
   return user;
@@ -484,7 +484,7 @@ export async function resubmitApplication(userId: string): Promise<PortalUser> {
   return data as PortalUser;
 }
 
-export async function assignRole(userId: string, role: "user" | "admin"): Promise<void> {
+export async function assignRole(userId: string, role: "user" | "admin" | AdminLevel): Promise<void> {
   const { error } = await supabaseAdmin.from("portal_user_roles").upsert(
     { user_id: userId, role },
     { onConflict: "user_id,role" },
@@ -492,7 +492,7 @@ export async function assignRole(userId: string, role: "user" | "admin"): Promis
   if (error) throw error;
 }
 
-export async function removeRole(userId: string, role: "user" | "admin"): Promise<void> {
+export async function removeRole(userId: string, role: "user" | "admin" | AdminLevel): Promise<void> {
   const { error } = await supabaseAdmin.from("portal_user_roles").delete().eq("user_id", userId).eq("role", role);
   if (error) throw error;
 }
