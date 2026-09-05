@@ -451,3 +451,141 @@ export async function setSelectedCharacter(userId: string, character: UcpCharact
 
 // JSON helper used for casting Supabase JSON columns.
 type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
+
+export type PortalCharacter = Database["public"]["Tables"]["portal_characters"]["Row"];
+
+/**
+ * Stores the account's UCP characters. Only LSPD characters are kept; if UCP returned no
+ * faction information at all, every character is kept so an admin can still decide manually.
+ */
+export async function syncUserCharacters(
+  userId: string,
+  characters: UcpCharacter[],
+): Promise<PortalCharacter[]> {
+  const anyLspd = characters.some((c) => c.isLspd);
+  const relevant = anyLspd ? characters.filter((c) => c.isLspd) : characters;
+
+  if (relevant.length > 0) {
+    const now = new Date().toISOString();
+    const { error } = await supabaseAdmin.from("portal_characters").upsert(
+      relevant.map((c) => ({
+        user_id: userId,
+        character_id: c.id,
+        firstname: c.firstname,
+        lastname: c.lastname,
+        memberid: Number.isFinite(c.memberid) ? c.memberid : null,
+        faction: c.faction ?? null,
+        is_lspd: !!c.isLspd,
+        raw: (c.raw ?? {}) as unknown as Json,
+        updated_at: now,
+      })),
+      { onConflict: "user_id,character_id", ignoreDuplicates: false },
+    );
+    if (error) throw error;
+  }
+
+  return listUserCharacters(userId);
+}
+
+export async function listUserCharacters(userId: string): Promise<PortalCharacter[]> {
+  const { data, error } = await supabaseAdmin
+    .from("portal_characters")
+    .select("*")
+    .eq("user_id", userId)
+    .order("firstname", { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as PortalCharacter[];
+}
+
+export async function listAllCharacters(): Promise<
+  Array<PortalCharacter & { username: string | null }>
+> {
+  const { data, error } = await supabaseAdmin
+    .from("portal_characters")
+    .select("*, portal_users!inner(username)")
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return ((data ?? []) as unknown as Array<Record<string, unknown>>).map((row) => {
+    const { portal_users: owner, ...rest } = row;
+    return {
+      ...(rest as unknown as PortalCharacter),
+      username: ((owner as { username?: string | null } | null)?.username ?? null) as string | null,
+    };
+  });
+}
+
+export async function requestCharacterApproval(userId: string, characterId: number): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("portal_characters")
+    .update({ requested_at: new Date().toISOString() })
+    .eq("user_id", userId)
+    .eq("character_id", characterId)
+    .eq("status", "pending");
+  if (error) throw error;
+}
+
+export async function decideCharacter(
+  characterRowId: string,
+  adminId: string,
+  status: "approved" | "rejected",
+): Promise<PortalCharacter> {
+  const now = new Date().toISOString();
+  const { data, error } = await supabaseAdmin
+    .from("portal_characters")
+    .update({ status, decided_at: now, decided_by: adminId })
+    .eq("id", characterRowId)
+    .select("*")
+    .single();
+  if (error) throw error;
+  if (!data) throw new Error("Karakter bulunamadı");
+
+  const character = data as PortalCharacter;
+  await syncUserStatusFromCharacters(character.user_id, adminId);
+  return character;
+}
+
+/** A portal user is approved as soon as at least one of their characters is approved. */
+export async function syncUserStatusFromCharacters(userId: string, adminId: string): Promise<void> {
+  const characters = await listUserCharacters(userId);
+  const approved = characters.filter((c) => c.status === "approved");
+  const now = new Date().toISOString();
+
+  const user = await findPortalUserById(userId);
+  if (!user) return;
+  if (user.status === "rejected" && approved.length === 0) return;
+
+  const nextStatus = approved.length > 0 ? "approved" : "pending";
+
+  let selected = user.selected_character as unknown;
+  if (typeof selected === "string") {
+    try {
+      selected = JSON.parse(selected);
+    } catch {
+      selected = null;
+    }
+  }
+  const selectedId = (selected as { id?: number } | null)?.id ?? null;
+  const selectedStillApproved =
+    selectedId !== null && approved.some((c) => Number(c.character_id) === Number(selectedId));
+
+  const update: Record<string, unknown> = {
+    status: nextStatus,
+    decided_at: now,
+    decided_by: adminId,
+    updated_at: now,
+  };
+  if (!selectedStillApproved) {
+    const fallback = approved[0];
+    update['selected_character'] = fallback
+      ? JSON.stringify({
+          id: Number(fallback.character_id),
+          firstname: fallback.firstname,
+          lastname: fallback.lastname,
+          memberid: Number(fallback.memberid ?? 0),
+        })
+      : null;
+  }
+
+  const { error } = await supabaseAdmin.from("portal_users").update(update).eq("id", userId);
+  if (error) throw error;
+}
