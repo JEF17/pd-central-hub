@@ -267,15 +267,57 @@ export async function findPortalUserById(id: string): Promise<PortalUser | null>
   return data as PortalUser | null;
 }
 
-export async function checkUserIsAdmin(userId: string): Promise<boolean> {
+export type AdminLevel = "query" | "faction_management" | "supervisor";
+
+const ADMIN_LEVEL_ORDER: AdminLevel[] = ["query", "faction_management", "supervisor"];
+
+export async function getAdminLevel(userId: string): Promise<AdminLevel | null> {
   const { data, error } = await supabaseAdmin
     .from("portal_user_roles")
     .select("role")
-    .eq("user_id", userId)
-    .eq("role", "admin");
+    .eq("user_id", userId);
   if (error) throw error;
-  return (data?.length ?? 0) > 0;
+  const roles = (data ?? []).map((r) => r.role as string);
+  // legacy "admin" role maps to faction_management
+  if (roles.includes("admin") && !roles.includes("faction_management")) roles.push("faction_management");
+  for (const level of ADMIN_LEVEL_ORDER) {
+    if (roles.includes(level)) return level;
+  }
+  return null;
 }
+
+export async function checkUserIsAdmin(userId: string): Promise<boolean> {
+  return (await getAdminLevel(userId)) !== null;
+}
+
+export async function setAdminLevel(userId: string, level: AdminLevel | null): Promise<void> {
+  const { error: delError } = await supabaseAdmin
+    .from("portal_user_roles")
+    .delete()
+    .eq("user_id", userId)
+    .in("role", ["admin", "supervisor", "faction_management", "query"]);
+  if (delError) throw delError;
+
+  if (level) {
+    const { error } = await supabaseAdmin
+      .from("portal_user_roles")
+      .upsert({ user_id: userId, role: level }, { onConflict: "user_id,role" });
+    if (error) throw error;
+  } else {
+    const { error } = await supabaseAdmin
+      .from("portal_user_roles")
+      .upsert({ user_id: userId, role: "user" }, { onConflict: "user_id,role" });
+    if (error) throw error;
+  }
+}
+
+export async function ensureQueryRole(userId: string): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("portal_user_roles")
+    .upsert({ user_id: userId, role: "query" }, { onConflict: "user_id,role" });
+  if (error) throw error;
+}
+
 
 export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Promise<PortalUser> {
   const now = new Date().toISOString();
@@ -301,7 +343,7 @@ export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Pro
 
   await supabaseAdmin.from("portal_user_roles").insert({
     user_id: user.id,
-    role: isAdmin ? "admin" : "user",
+    role: isAdmin ? "query" : "user",
   });
 
   return user;
@@ -442,7 +484,7 @@ export async function resubmitApplication(userId: string): Promise<PortalUser> {
   return data as PortalUser;
 }
 
-export async function assignRole(userId: string, role: "user" | "admin"): Promise<void> {
+export async function assignRole(userId: string, role: "user" | "admin" | AdminLevel): Promise<void> {
   const { error } = await supabaseAdmin.from("portal_user_roles").upsert(
     { user_id: userId, role },
     { onConflict: "user_id,role" },
@@ -450,7 +492,7 @@ export async function assignRole(userId: string, role: "user" | "admin"): Promis
   if (error) throw error;
 }
 
-export async function removeRole(userId: string, role: "user" | "admin"): Promise<void> {
+export async function removeRole(userId: string, role: "user" | "admin" | AdminLevel): Promise<void> {
   const { error } = await supabaseAdmin.from("portal_user_roles").delete().eq("user_id", userId).eq("role", role);
   if (error) throw error;
 }

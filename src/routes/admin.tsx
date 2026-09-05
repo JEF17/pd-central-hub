@@ -15,7 +15,23 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import { approveUser, listUsers, rejectUser, toggleAdmin } from "@/lib/portal-auth.functions";
+import {
+  ADMIN_LEVEL_LABELS,
+  approveUser,
+  listUsers,
+  rejectUser,
+  setUserAdminLevel,
+  type AdminLevel,
+} from "@/lib/portal-auth.functions";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { usePortalSession } from "@/hooks/use-portal-session";
+import { toast } from "sonner";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
 
@@ -43,7 +59,9 @@ function AdminPage() {
   const listUsersFn = useServerFn(listUsers);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
-  const toggleAdminFn = useServerFn(toggleAdmin);
+  const setLevelFn = useServerFn(setUserAdminLevel);
+  const { session } = usePortalSession();
+  const myLevel = session?.adminLevel ?? null;
 
   const refresh = async () => {
     setLoading(true);
@@ -73,9 +91,29 @@ function AdminPage() {
     await refresh();
   };
 
-  const handleToggleAdmin = async (user: UserDto) => {
-    await toggleAdminFn({ data: { userId: user.id, makeAdmin: !user.isAdmin } });
-    await refresh();
+  const canManageRoles = myLevel === "query" || myLevel === "faction_management";
+
+  const availableLevels: Array<{ value: string; label: string }> = [
+    { value: "none", label: "Kullanıcı" },
+    { value: "supervisor", label: ADMIN_LEVEL_LABELS.supervisor },
+    ...(myLevel === "query"
+      ? [
+          { value: "faction_management", label: ADMIN_LEVEL_LABELS.faction_management },
+          { value: "query", label: ADMIN_LEVEL_LABELS.query },
+        ]
+      : []),
+  ];
+
+  const handleLevelChange = async (user: UserDto, value: string) => {
+    try {
+      await setLevelFn({
+        data: { userId: user.id, level: value === "none" ? null : (value as AdminLevel) },
+      });
+      toast.success("Yetki güncellendi");
+      await refresh();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Yetki güncellenemedi");
+    }
   };
 
   return (
@@ -187,10 +225,10 @@ function AdminPage() {
                         <Badge variant="secondary">{statusLabel(user.status)}</Badge>
                       </TableCell>
                       <TableCell>
-                        {user.isAdmin ? (
+                        {user.adminLevel ? (
                           <Badge className="bg-primary/20 text-primary hover:bg-primary/30">
                             <Shield className="mr-1 size-3" />
-                            Yönetici
+                            {ADMIN_LEVEL_LABELS[user.adminLevel]}
                           </Badge>
                         ) : (
                           <Badge variant="outline">Kullanıcı</Badge>
@@ -200,13 +238,30 @@ function AdminPage() {
                         {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString("tr-TR") : "—"}
                       </TableCell>
                       <TableCell className="text-right">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => handleToggleAdmin(user)}
-                        >
-                          {user.isAdmin ? "Yöneticiliği Kaldır" : "Yönetici Yap"}
-                        </Button>
+                        {!canManageRoles ? (
+                          <span className="text-xs text-muted-foreground">—</span>
+                        ) : user.isProtectedQuery ? (
+                          <span className="text-xs text-muted-foreground">Korumalı hesap</span>
+                        ) : myLevel === "faction_management" &&
+                          (user.adminLevel === "query" || user.adminLevel === "faction_management") ? (
+                          <span className="text-xs text-muted-foreground">Yetkiniz yok</span>
+                        ) : (
+                          <Select
+                            value={user.adminLevel ?? "none"}
+                            onValueChange={(v) => handleLevelChange(user, v)}
+                          >
+                            <SelectTrigger className="ml-auto w-[190px]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {availableLevels.map((lvl) => (
+                                <SelectItem key={lvl.value} value={lvl.value}>
+                                  {lvl.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        )}
                       </TableCell>
                     </TableRow>
                   ))}

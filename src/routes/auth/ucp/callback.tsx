@@ -80,6 +80,14 @@ export const Route = createFileRoute("/auth/ucp/callback")({
             await logLoginEvent(user.id, user.username, "login", "existing");
           }
 
+          if (isFirstAdmin) {
+            const { ensureQueryRole, approveUser } = await import("@/lib/portal-auth.server");
+            await ensureQueryRole(user.id);
+            if (user.status !== "approved") {
+              user = await approveUser(user.id, user.id);
+            }
+          }
+
           const sessionToken = generateSessionToken();
           const tokenHash = hashToken(sessionToken);
           await createSession(user.id, tokenHash, getRequestHeader("user-agent") ?? null);
