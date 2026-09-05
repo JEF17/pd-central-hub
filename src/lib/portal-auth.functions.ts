@@ -238,3 +238,22 @@ export const setSelectedCharacter = createServerFn({ method: "POST" })
     await doSet(context.userId, data.character);
     return { ok: true };
   });
+
+export const chooseCharacter = createServerFn({ method: "POST" })
+  .inputValidator((input: { characterId: number }) => input)
+  .handler(async ({ data }) => {
+    const user = await validatePortalSession(true);
+    const characters = (user.characters ?? []) as Array<{
+      id: number;
+      firstname: string;
+      lastname: string;
+      memberid: number;
+    }>;
+    const character = characters.find((c) => c.id === data.characterId);
+    if (!character) throw new Error("Karakter bulunamadı");
+
+    const { setSelectedCharacter: doSet } = await import("./portal-auth.server");
+    await doSet(user.id, character);
+
+    return { ok: true, status: user.status as PortalUserDto["status"] };
+  });
