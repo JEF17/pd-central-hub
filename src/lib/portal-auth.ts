@@ -10,9 +10,14 @@ export async function requirePortalAuth(locationHref?: string, opts?: { admin?: 
     });
   }
 
+  if (!session.selectedCharacter) {
+    throw redirect({ to: "/karakter-sec" });
+  }
+
   if (session.status === "pending") {
     throw redirect({ to: "/onay-bekliyor" });
   }
+
 
   if (opts?.admin && !session.isAdmin) {
     throw redirect({ to: "/" });
