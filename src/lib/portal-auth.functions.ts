@@ -199,8 +199,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     status: user.status as PortalSessionDto["status"],
     isAdmin,
     adminLevel,
-    adminLevel,
-    isProtectedQuery: isProtectedQueryUsername(user.username),
+
     characters: (user.characters ?? []) as PortalSessionDto["characters"],
     portalCharacters,
     selectedCharacter: (() => {
