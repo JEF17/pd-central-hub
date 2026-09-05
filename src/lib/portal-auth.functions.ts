@@ -1,8 +1,10 @@
 import { createServerFn, createMiddleware } from "@tanstack/react-start";
 import { getRequest, getRequestHeader } from "@tanstack/react-start/server";
 import type { PortalUser, AdminLevel } from "./portal-auth.server";
+import type { OfficerProfile } from "./officer-profile";
 
 export type { AdminLevel };
+export type { OfficerProfile };
 
 export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
   query: "Query",
