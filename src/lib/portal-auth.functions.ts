@@ -258,6 +258,17 @@ export const toggleAdmin = createServerFn({ method: "POST" })
     return toUserDto(user);
   });
 
+export const resubmitApplication = createServerFn({ method: "POST" }).handler(async () => {
+  const user = await validatePortalSession(true);
+  if (user.status !== "rejected") {
+    throw new Error("Only rejected applications can be resubmitted");
+  }
+  const { resubmitApplication: doResubmit, logLoginEvent } = await import("./portal-auth.server");
+  const updated = await doResubmit(user.id);
+  await logLoginEvent(user.id, user.username, "resubmit", "application_resubmitted");
+  return { ok: true, status: updated.status };
+});
+
 export const setSelectedCharacter = createServerFn({ method: "POST" })
   .middleware([requirePortalAuthMiddleware])
   .inputValidator((input: { character: { id: number; firstname: string; lastname: string; memberid: number } | null }) => input)

@@ -2,7 +2,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Clock, ShieldX, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getCurrentSession, signOut } from "@/lib/portal-auth.functions";
+import { getCurrentSession, signOut, resubmitApplication } from "@/lib/portal-auth.functions";
 
 export const Route = createFileRoute("/onay-bekliyor")({
   head: () => ({
@@ -32,10 +32,16 @@ function PendingApproval() {
   const { status } = Route.useRouteContext();
   const rejected = status === "rejected";
   const doSignOut = useServerFn(signOut);
+  const doResubmit = useServerFn(resubmitApplication);
 
   const handleBackToLogin = async () => {
     await doSignOut({});
     window.location.href = "/auth/giris";
+  };
+
+  const handleResubmit = async () => {
+    await doResubmit({});
+    window.location.reload();
   };
 
   return (
@@ -64,6 +70,12 @@ function PendingApproval() {
             ? "Başvurunuz bir yönetici tarafından reddedildi. Panele erişiminiz bulunmuyor. İtiraz için LSPD yönetimiyle iletişime geçebilirsiniz."
             : "Hesabınız başarıyla oluşturuldu. Panele erişmek için bir yöneticinin onayını beklemeniz gerekiyor. "}
         </p>
+        {rejected && (
+          <Button className="mb-3 w-full" onClick={handleResubmit}>
+            <Clock className="mr-2 size-4" />
+            Tekrar Başvur
+          </Button>
+        )}
         <Button variant="outline" className="w-full" onClick={handleBackToLogin}>
           <Shield className="mr-2 size-4" />
           Giriş Sayfasına Dön
