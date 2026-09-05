@@ -64,12 +64,10 @@ function PendingApproval() {
             ? "Başvurunuz bir yönetici tarafından reddedildi. Panele erişiminiz bulunmuyor. İtiraz için LSPD yönetimiyle iletişime geçebilirsiniz."
             : "Hesabınız başarıyla oluşturuldu. Panele erişmek için bir yöneticinin onayını beklemeniz gerekiyor. "}
         </p>
-        <Link to="/auth/giris" search={{ error: undefined, redirect: undefined }}>
-          <Button variant="outline" className="w-full">
-            <Shield className="mr-2 size-4" />
-            Giriş Sayfasına Dön
-          </Button>
-        </Link>
+        <Button variant="outline" className="w-full" onClick={handleBackToLogin}>
+          <Shield className="mr-2 size-4" />
+          Giriş Sayfasına Dön
+        </Button>
       </div>
     </div>
   );
