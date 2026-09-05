@@ -27,6 +27,7 @@ import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as OnayBekliyorRouteImport } from './routes/onay-bekliyor'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
+import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as TutuklamaRaporuRouteImport } from './routes/tutuklama-raporu'
 import { Route as AuthGirisRouteImport } from './routes/auth/giris'
 import { Route as AuthUcpCallbackRouteImport } from './routes/auth/ucp/callback'
@@ -121,6 +122,11 @@ const PenalCodeRoute = PenalCodeRouteImport.update({
   path: '/penal-code',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TutuklamaRaporuRoute = TutuklamaRaporuRouteImport.update({
   id: '/tutuklama-raporu',
   path: '/tutuklama-raporu',
@@ -156,6 +162,7 @@ export interface FileRoutesByFullPath {
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
+  '/profil': typeof ProfilRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
@@ -179,6 +186,7 @@ export interface FileRoutesByTo {
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
+  '/profil': typeof ProfilRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
@@ -203,6 +211,7 @@ export interface FileRoutesById {
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
+  '/profil': typeof ProfilRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
@@ -228,6 +237,7 @@ export interface FileRouteTypes {
     | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
+    | '/profil'
     | '/tutuklama-raporu'
     | '/auth/giris'
     | '/auth/ucp/callback'
@@ -251,6 +261,7 @@ export interface FileRouteTypes {
     | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
+    | '/profil'
     | '/tutuklama-raporu'
     | '/auth/giris'
     | '/auth/ucp/callback'
@@ -274,6 +285,7 @@ export interface FileRouteTypes {
     | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
+    | '/profil'
     | '/tutuklama-raporu'
     | '/auth/giris'
     | '/auth/ucp/callback'
@@ -298,6 +310,7 @@ export interface RootRouteChildren {
   OnayBekliyorRoute: typeof OnayBekliyorRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
+  ProfilRoute: typeof ProfilRoute
   TutuklamaRaporuRoute: typeof TutuklamaRaporuRoute
   AuthGirisRoute: typeof AuthGirisRoute
   AuthUcpCallbackRoute: typeof AuthUcpCallbackRoute
@@ -431,6 +444,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PenalCodeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tutuklama-raporu': {
       id: '/tutuklama-raporu'
       path: '/tutuklama-raporu'
@@ -474,6 +494,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnayBekliyorRoute: OnayBekliyorRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
+  ProfilRoute: ProfilRoute,
   TutuklamaRaporuRoute: TutuklamaRaporuRoute,
   AuthGirisRoute: AuthGirisRoute,
   AuthUcpCallbackRoute: AuthUcpCallbackRoute,
