@@ -26,9 +26,6 @@ export const Route = createFileRoute("/karakter-sec")({
     if (!session) {
       throw redirect({ to: "/auth/giris", search: { redirect: "", error: undefined } });
     }
-    if (session.status === "rejected") {
-      throw redirect({ to: "/onay-bekliyor" });
-    }
   },
   loader: async () => {
     const session = await getCurrentSession();

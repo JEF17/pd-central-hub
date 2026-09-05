@@ -522,6 +522,14 @@ export async function requestCharacterApproval(userId: string, characterId: numb
     .eq("character_id", characterId)
     .eq("status", "pending");
   if (error) throw error;
+
+  // A rejected account can apply again with another character: reopen it as pending.
+  const { error: userError } = await supabaseAdmin
+    .from("portal_users")
+    .update({ status: "pending", decided_at: null, decided_by: null, updated_at: new Date().toISOString() })
+    .eq("id", userId)
+    .eq("status", "rejected");
+  if (userError) throw userError;
 }
 
 export async function decideCharacter(
