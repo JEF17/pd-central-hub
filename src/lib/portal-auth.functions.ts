@@ -344,3 +344,12 @@ export const setSelectedCharacter = createServerFn({ method: "POST" })
     await doSet(context.userId, data.character);
     return { ok: true };
   });
+
+export const saveOfficerProfile = createServerFn({ method: "POST" })
+  .middleware([requirePortalAuthMiddleware])
+  .inputValidator((input: OfficerProfile) => input)
+  .handler(async ({ data, context }) => {
+    const { updateOfficerProfile } = await import("./portal-auth.server");
+    await updateOfficerProfile(context.userId, data);
+    return { ok: true };
+  });
