@@ -145,7 +145,14 @@ export function AppShell({ children }: { children: ReactNode }) {
                     </p>
                   </div>
                   <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/profil" className="flex items-center gap-2 cursor-pointer">
+                      <User className="size-4" />
+                      Personel Profili
+                    </Link>
+                  </DropdownMenuItem>
                   {session.isAdmin && (
+
                     <DropdownMenuItem asChild>
                       <Link to="/admin" className="flex items-center gap-2 cursor-pointer">
                         <Shield className="size-4" />

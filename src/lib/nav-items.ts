@@ -6,6 +6,7 @@ import {
   IdCard,
   LayoutGrid,
   Settings,
+  UserRound,
   Shield,
   type LucideIcon,
 } from "lucide-react";
@@ -64,11 +65,17 @@ export const navItems: NavItem[] = [
     position: "main",
   },
   {
-
+    label: "Personel Profili",
+    to: "/profil",
+    icon: UserRound,
+    description: "Karakter fotoğrafı, iletişim ve rütbe bilgilerin.",
+    position: "bottom",
+  },
+  {
     label: "Ayarlar",
     to: "/ayarlar",
     icon: Settings,
-    description: "Personel profili ve tema tercihleri.",
+    description: "Tema ve görünüm tercihleri.",
     position: "bottom",
   },
   {

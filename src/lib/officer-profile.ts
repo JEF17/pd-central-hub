@@ -3,6 +3,12 @@ export type OfficerProfile = {
   serialNo: string;
   rank: string;
   division: string; // tam isim, örn: "Mission Row Area Patrol Division"
+  /** Karakter fotoğrafı (data URL) */
+  photo: string;
+  email: string;
+  phone: string;
+  discord: string;
+  note: string;
 };
 
 export const emptyOfficerProfile: OfficerProfile = {
@@ -10,6 +16,11 @@ export const emptyOfficerProfile: OfficerProfile = {
   serialNo: "",
   rank: "",
   division: "",
+  photo: "",
+  email: "",
+  phone: "",
+  discord: "",
+  note: "",
 };
 
 /** LAPD rütbe yapısı: Police Officer I -> Chief of Police */
