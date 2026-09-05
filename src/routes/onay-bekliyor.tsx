@@ -1,7 +1,8 @@
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Clock, ShieldX, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getCurrentSession } from "@/lib/portal-auth.functions";
+import { getCurrentSession, signOut } from "@/lib/portal-auth.functions";
 
 export const Route = createFileRoute("/onay-bekliyor")({
   head: () => ({
