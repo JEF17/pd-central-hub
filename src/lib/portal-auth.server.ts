@@ -428,6 +428,20 @@ export async function rejectUser(userId: string, rejectedById: string): Promise<
   return data as PortalUser;
 }
 
+export async function resubmitApplication(userId: string): Promise<PortalUser> {
+  const now = new Date().toISOString();
+  const { data, error } = await supabaseAdmin
+    .from("portal_users")
+    .update({ status: "pending", decided_at: null, decided_by: null, updated_at: now })
+    .eq("id", userId)
+    .eq("status", "rejected")
+    .select("*")
+    .single();
+  if (error) throw error;
+  if (!data) throw new Error("User not found or not rejected");
+  return data as PortalUser;
+}
+
 export async function assignRole(userId: string, role: "user" | "admin"): Promise<void> {
   const { error } = await supabaseAdmin.from("portal_user_roles").upsert(
     { user_id: userId, role },
