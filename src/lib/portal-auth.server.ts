@@ -225,7 +225,7 @@ export async function fetchUcpUserInfo(accessToken: string): Promise<UcpUserInfo
   const rawCharacters = u['character'];
   const characters: UcpCharacter[] = Array.isArray(rawCharacters)
     ? rawCharacters
-        .map((c: unknown) => {
+        .map((c: unknown): UcpCharacter | null => {
           if (!c || typeof c !== "object") return null;
           const rc = c as Record<string, unknown>;
           const faction = detectLspdFaction(rc);
@@ -568,15 +568,10 @@ export async function syncUserStatusFromCharacters(userId: string, adminId: stri
   const selectedStillApproved =
     selectedId !== null && approved.some((c) => Number(c.character_id) === Number(selectedId));
 
-  const update: Record<string, unknown> = {
-    status: nextStatus,
-    decided_at: now,
-    decided_by: adminId,
-    updated_at: now,
-  };
+  let selectedUpdate: string | null | undefined;
   if (!selectedStillApproved) {
     const fallback = approved[0];
-    update['selected_character'] = fallback
+    selectedUpdate = fallback
       ? JSON.stringify({
           id: Number(fallback.character_id),
           firstname: fallback.firstname,
@@ -586,6 +581,15 @@ export async function syncUserStatusFromCharacters(userId: string, adminId: stri
       : null;
   }
 
-  const { error } = await supabaseAdmin.from("portal_users").update(update).eq("id", userId);
+  const { error } = await supabaseAdmin
+    .from("portal_users")
+    .update({
+      status: nextStatus,
+      decided_at: now,
+      decided_by: adminId,
+      updated_at: now,
+      ...(selectedUpdate !== undefined ? { selected_character: selectedUpdate } : {}),
+    })
+    .eq("id", userId);
   if (error) throw error;
 }
