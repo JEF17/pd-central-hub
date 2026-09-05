@@ -183,6 +183,8 @@ export type Database = {
           decided_by: string | null
           id: string
           last_login_at: string | null
+          profile: Json
+          profile_completed: boolean
           selected_character: string | null
           status: string
           ucp_role: string | null
@@ -197,6 +199,8 @@ export type Database = {
           decided_by?: string | null
           id?: string
           last_login_at?: string | null
+          profile?: Json
+          profile_completed?: boolean
           selected_character?: string | null
           status?: string
           ucp_role?: string | null
@@ -211,6 +215,8 @@ export type Database = {
           decided_by?: string | null
           id?: string
           last_login_at?: string | null
+          profile?: Json
+          profile_completed?: boolean
           selected_character?: string | null
           status?: string
           ucp_role?: string | null
