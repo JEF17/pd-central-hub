@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, IdCard, Shield, ShieldCheck, UserX, X } from "lucide-react";
+import { Check, Shield, ShieldCheck, UserX, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -15,15 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import {
-  approveUser,
-  decideCharacterRequest,
-  listCharacterRequests,
-  listUsers,
-  rejectUser,
-  toggleAdmin,
-} from "@/lib/portal-auth.functions";
-import type { AdminCharacterDto } from "@/lib/portal-auth.functions";
+import { approveUser, listUsers, rejectUser, toggleAdmin } from "@/lib/portal-auth.functions";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
 
@@ -46,12 +38,9 @@ export const Route = createFileRoute("/admin")({
 
 function AdminPage() {
   const [users, setUsers] = useState<UserDto[]>([]);
-  const [characters, setCharacters] = useState<AdminCharacterDto[]>([]);
   const [loading, setLoading] = useState(true);
 
   const listUsersFn = useServerFn(listUsers);
-  const listCharactersFn = useServerFn(listCharacterRequests);
-  const decideCharacterFn = useServerFn(decideCharacterRequest);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const toggleAdminFn = useServerFn(toggleAdmin);
@@ -59,9 +48,8 @@ function AdminPage() {
   const refresh = async () => {
     setLoading(true);
     try {
-      const [all, chars] = await Promise.all([listUsersFn({}), listCharactersFn({})]);
+      const all = await listUsersFn({});
       setUsers(all);
-      setCharacters(chars);
     } finally {
       setLoading(false);
     }
@@ -74,10 +62,6 @@ function AdminPage() {
   const pendingUsers = users.filter((u) => u.status === "pending");
   const approvedUsers = users.filter((u) => u.status === "approved");
 
-  const handleCharacterDecision = async (rowId: string, status: "approved" | "rejected") => {
-    await decideCharacterFn({ data: { rowId, status } });
-    await refresh();
-  };
 
   const handleApprove = async (id: string) => {
     await approveFn({ data: { userId: id } });
@@ -109,76 +93,6 @@ function AdminPage() {
           </Link>
         </div>
 
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <IdCard className="size-4 text-primary" />
-              Karakter Onay Başvuruları
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <p className="text-sm text-muted-foreground">Yükleniyor…</p>
-            ) : characters.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Kayıtlı karakter başvurusu yok.</p>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>UCP Kullanıcı Adı</TableHead>
-                    <TableHead>Karakter</TableHead>
-                    <TableHead>Oluşum</TableHead>
-                    <TableHead>Durum</TableHead>
-                    <TableHead className="text-right">İşlem</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {characters.map((character) => (
-                    <TableRow key={character.rowId}>
-                      <TableCell className="font-medium">{character.username ?? "—"}</TableCell>
-                      <TableCell>{character.fullName}</TableCell>
-                      <TableCell>
-                        {character.isLspd ? (
-                          <Badge className="bg-primary/20 text-primary hover:bg-primary/30">
-                            {character.faction ?? "LSPD"}
-                          </Badge>
-                        ) : (
-                          <Badge variant="outline">Bilinmiyor</Badge>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="secondary">{statusLabel(character.status)}</Badge>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex justify-end gap-2">
-                          {character.status !== "approved" ? (
-                            <Button
-                              size="sm"
-                              onClick={() => handleCharacterDecision(character.rowId, "approved")}
-                            >
-                              <Check className="mr-1 size-3" />
-                              Onayla
-                            </Button>
-                          ) : null}
-                          {character.status !== "rejected" ? (
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleCharacterDecision(character.rowId, "rejected")}
-                            >
-                              <X className="mr-1 size-3" />
-                              Reddet
-                            </Button>
-                          ) : null}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
-        </Card>
 
         <Card className="mb-8">
           <CardHeader>
@@ -198,7 +112,7 @@ function AdminPage() {
                   <TableRow>
                     <TableHead>UCP Kullanıcı Adı</TableHead>
                     <TableHead>UCP Rolü</TableHead>
-                    <TableHead>Seçilen Karakter</TableHead>
+                    <TableHead>Karakterler</TableHead>
                     <TableHead className="text-right">İşlem</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -207,11 +121,14 @@ function AdminPage() {
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.username}</TableCell>
                       <TableCell>{user.ucpRole || "—"}</TableCell>
-                      <TableCell>
-                        {user.selectedCharacter
-                          ? `${user.selectedCharacter.firstname} ${user.selectedCharacter.lastname}`
+                      <TableCell className="max-w-[280px] truncate">
+                        {user.characters.length > 0
+                          ? user.characters
+                              .map((c) => `${c.firstname} ${c.lastname}`)
+                              .join(", ")
                           : "—"}
                       </TableCell>
+
 
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
