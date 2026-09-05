@@ -254,7 +254,6 @@ export async function checkUserIsAdmin(userId: string): Promise<boolean> {
 
 export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Promise<PortalUser> {
   const now = new Date().toISOString();
-  const selectedCharacter = info.characters[0] ?? null;
 
   const { data, error } = await supabaseAdmin
     .from("portal_users")
@@ -264,7 +263,7 @@ export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Pro
       ucp_role: info.ucpRole,
       status: isAdmin ? "approved" : "pending",
       characters: info.characters as unknown as Json,
-      selected_character: (selectedCharacter ? JSON.stringify(selectedCharacter) : null) as string | null,
+      selected_character: null,
       last_login_at: now,
     })
     .select("*")
@@ -285,7 +284,6 @@ export async function createPortalUser(info: UcpUserInfo, isAdmin: boolean): Pro
 
 export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): Promise<PortalUser> {
   const now = new Date().toISOString();
-  const selectedCharacter = info.characters[0] ?? null;
 
   const { data, error } = await supabaseAdmin
     .from("portal_users")
@@ -293,13 +291,13 @@ export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): 
       username: info.username,
       ucp_role: info.ucpRole,
       characters: info.characters as unknown as Json,
-      selected_character: (selectedCharacter ? JSON.stringify(selectedCharacter) : null) as string | null,
       last_login_at: now,
       updated_at: now,
     })
     .eq("id", userId)
     .select("*")
     .single();
+
 
   if (error) throw error;
   if (!data) throw new Error("Failed to update portal user");
