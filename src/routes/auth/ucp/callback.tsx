@@ -18,7 +18,6 @@ export const Route = createFileRoute("/auth/ucp/callback")({
           updatePortalUserLogin,
           createSession,
           logLoginEvent,
-          syncUserCharacters,
         } = helpers;
 
         const url = new URL(request.url);
