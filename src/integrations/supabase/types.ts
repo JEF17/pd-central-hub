@@ -240,7 +240,12 @@ export type Database = {
       }
     }
     Enums: {
-      portal_user_role: "user" | "admin"
+      portal_user_role:
+        | "user"
+        | "admin"
+        | "supervisor"
+        | "faction_management"
+        | "query"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -368,7 +373,13 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      portal_user_role: ["user", "admin"],
+      portal_user_role: [
+        "user",
+        "admin",
+        "supervisor",
+        "faction_management",
+        "query",
+      ],
     },
   },
 } as const
