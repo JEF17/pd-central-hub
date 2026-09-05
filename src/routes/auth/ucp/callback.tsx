@@ -18,6 +18,7 @@ export const Route = createFileRoute("/auth/ucp/callback")({
           updatePortalUserLogin,
           createSession,
           logLoginEvent,
+          syncUserCharacters,
         } = helpers;
 
         const url = new URL(request.url);
@@ -84,12 +85,16 @@ export const Route = createFileRoute("/auth/ucp/callback")({
           const tokenHash = hashToken(sessionToken);
           await createSession(user.id, tokenHash, getRequestHeader("user-agent") ?? null);
 
+          const characterRows = await syncUserCharacters(user.id, info.characters);
+          const hasApproved = characterRows.some((c) => c.status === "approved");
           const hasSelectedCharacter = !!user.selected_character;
-          const redirectTo = !hasSelectedCharacter
-            ? "/karakter-sec"
-            : user.status === "approved"
-              ? "/"
-              : "/onay-bekliyor";
+
+          const redirectTo =
+            user.status === "rejected"
+              ? "/onay-bekliyor"
+              : hasApproved && hasSelectedCharacter
+                ? "/"
+                : "/karakter-sec";
 
           return redirectResponse(redirectTo, [
             clearOAuthStateCookie(),
