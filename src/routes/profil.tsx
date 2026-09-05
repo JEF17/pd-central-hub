@@ -290,31 +290,6 @@ function Page() {
           </section>
         </div>
 
-        {session?.characters?.length ? (
-          <section className="mt-6 rounded-xl border border-border bg-card p-6">
-            <h2 className="text-lg font-semibold">UCP Karakterlerin</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              UCP hesabından çekilen karakterler. Seçili karakter işaretlidir.
-            </p>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-              {session.characters.map((c) => {
-                const active = session.selectedCharacter?.id === c.id;
-                return (
-                  <li
-                    key={c.id}
-                    className={
-                      "rounded-lg border px-3 py-2 text-sm " +
-                      (active ? "border-primary/50 bg-primary/10 text-primary" : "border-border")
-                    }
-                  >
-                    {c.firstname} {c.lastname}
-                    {active ? " • seçili" : ""}
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        ) : null}
       </div>
     </AppShell>
   );

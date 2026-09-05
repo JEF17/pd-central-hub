@@ -8,6 +8,7 @@ import { NotificationBell } from "@/components/NotificationBell";
 import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
 import { usePortalSession } from "@/hooks/use-portal-session";
+import { useOfficerProfile } from "@/hooks/use-officer-profile";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -20,10 +21,16 @@ import {
 export function AppShell({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const { session, signOut } = usePortalSession();
+  const profile = useOfficerProfile();
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   const visibleNavItems = navItems.filter((item) => !item.adminOnly || session?.isAdmin);
+  const characterName =
+    profile?.name.trim() ||
+    (session?.selectedCharacter
+      ? `${session.selectedCharacter.firstname} ${session.selectedCharacter.lastname}`
+      : session?.username ?? "");
 
   return (
     <div className="relative flex min-h-screen bg-background">
@@ -129,19 +136,21 @@ export function AppShell({ children }: { children: ReactNode }) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="gap-2 pl-2 pr-3">
-                    <span className="bg-primary/10 text-primary flex size-7 items-center justify-center rounded-full">
-                      <User className="size-4" />
+                    <span className="bg-primary/10 text-primary flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full">
+                      {profile?.photo ? (
+                        <img src={profile.photo} alt="" className="size-full object-cover" />
+                      ) : (
+                        <User className="size-4" />
+                      )}
                     </span>
-                    <span className="hidden max-w-[120px] truncate sm:inline">{session.username}</span>
+                    <span className="hidden max-w-[140px] truncate sm:inline">{characterName}</span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-56">
                   <div className="px-2 py-1.5 text-sm">
-                    <p className="font-medium">{session.username}</p>
+                    <p className="font-medium">{characterName}</p>
                     <p className="text-muted-foreground text-xs">
-                      {session.selectedCharacter
-                        ? `${session.selectedCharacter.firstname} ${session.selectedCharacter.lastname}`
-                        : "Karakter seçilmemiş"}
+                      {profile?.rank || "Personel profili"}
                     </p>
                   </div>
                   <DropdownMenuSeparator />
