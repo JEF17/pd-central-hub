@@ -85,16 +85,7 @@ export const Route = createFileRoute("/auth/ucp/callback")({
           const tokenHash = hashToken(sessionToken);
           await createSession(user.id, tokenHash, getRequestHeader("user-agent") ?? null);
 
-          const characterRows = await syncUserCharacters(user.id, info.characters);
-          const hasApproved = characterRows.some((c) => c.status === "approved");
-          const hasSelectedCharacter = !!user.selected_character;
-
-          const redirectTo =
-            user.status === "rejected"
-              ? "/onay-bekliyor"
-              : hasApproved && hasSelectedCharacter
-                ? "/"
-                : "/karakter-sec";
+          const redirectTo = user.status === "approved" ? "/" : "/onay-bekliyor";
 
           return redirectResponse(redirectTo, [
             clearOAuthStateCookie(),
