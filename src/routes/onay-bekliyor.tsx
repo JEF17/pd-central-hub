@@ -31,6 +31,12 @@ export const Route = createFileRoute("/onay-bekliyor")({
 function PendingApproval() {
   const { status } = Route.useRouteContext();
   const rejected = status === "rejected";
+  const doSignOut = useServerFn(signOut);
+
+  const handleBackToLogin = async () => {
+    await doSignOut({});
+    window.location.href = "/auth/giris";
+  };
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-background px-4">
