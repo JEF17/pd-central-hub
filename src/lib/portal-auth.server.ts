@@ -371,6 +371,19 @@ export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): 
   return data as PortalUser;
 }
 
+export async function updateOfficerProfile(userId: string, profile: OfficerProfile): Promise<void> {
+  const now = new Date().toISOString();
+  const { error } = await supabaseAdmin
+    .from("portal_users")
+    .update({
+      profile: profile as unknown as Json,
+      profile_completed: true,
+      updated_at: now,
+    })
+    .eq("id", userId);
+  if (error) throw error;
+}
+
 export async function createSession(userId: string, tokenHash: string, userAgent: string | null): Promise<void> {
   const expiresAt = new Date(Date.now() + SESSION_TTL_SECONDS * 1000).toISOString();
   const { error } = await supabaseAdmin.from("portal_sessions").insert({
