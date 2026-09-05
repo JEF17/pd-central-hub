@@ -63,6 +63,22 @@ function isProtectedQueryUsername(username: string | null | undefined): boolean 
   return !!admin && !!username && username.toLowerCase() === admin.toLowerCase();
 }
 
+function parseProfile(raw: unknown): OfficerProfile | null {
+  if (!raw || typeof raw !== "object") return null;
+  const p = raw as Partial<OfficerProfile>;
+  return {
+    name: p.name ?? "",
+    serialNo: p.serialNo ?? "",
+    rank: p.rank ?? "",
+    division: p.division ?? "",
+    photo: p.photo ?? "",
+    email: p.email ?? "",
+    phone: p.phone ?? "",
+    discord: p.discord ?? "",
+    note: p.note ?? "",
+  };
+}
+
 async function toUserDto(
   user: PortalUser,
   getLevel?: (userId: string) => Promise<AdminLevel | null>,
@@ -101,6 +117,8 @@ async function toUserDto(
     })(),
     lastLoginAt: user.last_login_at,
     createdAt: user.created_at,
+    profile: parseProfile(user.profile),
+    profileCompleted: user.profile_completed ?? false,
   };
 }
 
