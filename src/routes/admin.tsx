@@ -124,7 +124,12 @@ function AdminPage() {
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.username}</TableCell>
                       <TableCell>{user.ucpRole || "—"}</TableCell>
-                      <TableCell>{user.characters.length}</TableCell>
+                      <TableCell>
+                        {user.selectedCharacter
+                          ? `${user.selectedCharacter.firstname} ${user.selectedCharacter.lastname}`
+                          : "—"}
+                      </TableCell>
+
                       <TableCell className="text-right">
                         <div className="flex justify-end gap-2">
                           <Button
