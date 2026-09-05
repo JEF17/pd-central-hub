@@ -15,15 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import {
-  approveUser,
-  decideCharacterRequest,
-  listCharacterRequests,
-  listUsers,
-  rejectUser,
-  toggleAdmin,
-} from "@/lib/portal-auth.functions";
-import type { AdminCharacterDto } from "@/lib/portal-auth.functions";
+import { approveUser, listUsers, rejectUser, toggleAdmin } from "@/lib/portal-auth.functions";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
 
