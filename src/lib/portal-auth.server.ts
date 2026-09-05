@@ -19,6 +19,27 @@ export interface UcpCharacter {
   firstname: string;
   lastname: string;
   memberid: number;
+  faction?: string | null;
+  isLspd?: boolean;
+  raw?: Record<string, unknown>;
+}
+
+const LSPD_PATTERN = /(lspd|los santos police|police department|san andreas state police|\bpolice\b)/i;
+
+/** Walks a character object and returns the first faction-looking string that matches LSPD. */
+export function detectLspdFaction(raw: Record<string, unknown>): string | null {
+  const seen = new Set<unknown>();
+  const walk = (value: unknown): string | null => {
+    if (typeof value === "string") return LSPD_PATTERN.test(value) ? value : null;
+    if (!value || typeof value !== "object" || seen.has(value)) return null;
+    seen.add(value);
+    for (const v of Object.values(value as Record<string, unknown>)) {
+      const hit = walk(v);
+      if (hit) return hit;
+    }
+    return null;
+  };
+  return walk(raw);
 }
 
 export interface UcpUserInfo {
