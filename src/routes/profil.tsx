@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Camera, IdCard, Save, Trash2, UserRound } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
@@ -18,13 +19,16 @@ import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import {
+  saveOfficerProfile as saveOfficerProfileServer,
+} from "@/lib/portal-auth.functions";
+import {
   clearOfficerProfile,
   divisionCode,
   divisionProfileOptions,
   emptyOfficerProfile,
   loadOfficerProfile,
   rankOptions,
-  saveOfficerProfile,
+  saveOfficerProfile as saveOfficerProfileLocal,
   type OfficerProfile,
 } from "@/lib/officer-profile";
 
@@ -80,8 +84,10 @@ async function fileToResizedDataUrl(file: File): Promise<string> {
 
 function Page() {
   const [data, setData] = useState<OfficerProfile>(emptyOfficerProfile);
+  const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const { session } = usePortalSession();
+  const saveProfileFn = useServerFn(saveOfficerProfileServer);
 
   useEffect(() => {
     const saved = loadOfficerProfile();
@@ -263,17 +269,22 @@ function Page() {
 
             <div className="mt-6 flex flex-wrap gap-3">
               <Button
-                onClick={() => {
+                disabled={saving}
+                onClick={async () => {
+                  setSaving(true);
                   try {
-                    saveOfficerProfile(data);
+                    saveOfficerProfileLocal(data);
+                    await saveProfileFn({ data });
                     notify.success("Profil kaydedildi");
                   } catch {
                     notify.error("Profil kaydedilemedi");
+                  } finally {
+                    setSaving(false);
                   }
                 }}
               >
                 <Save className="size-4" />
-                Kaydet
+                {saving ? "Kaydediliyor…" : "Kaydet"}
               </Button>
               <Button
                 variant="outline"

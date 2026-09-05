@@ -2,6 +2,7 @@ import { createHash, randomBytes, timingSafeEqual } from "crypto";
 import { getRequestHeader, setResponseHeader, setResponseHeaders } from "@tanstack/react-start/server";
 import { supabaseAdmin } from "@/integrations/supabase/client.server";
 import type { Database } from "@/integrations/supabase/types";
+import type { OfficerProfile } from "./officer-profile";
 
 export type PortalUser = Database["public"]["Tables"]["portal_users"]["Row"];
 export type PortalSession = Database["public"]["Tables"]["portal_sessions"]["Row"];
@@ -369,6 +370,19 @@ export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): 
   if (error) throw error;
   if (!data) throw new Error("Failed to update portal user");
   return data as PortalUser;
+}
+
+export async function updateOfficerProfile(userId: string, profile: OfficerProfile): Promise<void> {
+  const now = new Date().toISOString();
+  const { error } = await supabaseAdmin
+    .from("portal_users")
+    .update({
+      profile: profile as unknown as Json,
+      profile_completed: true,
+      updated_at: now,
+    })
+    .eq("id", userId);
+  if (error) throw error;
 }
 
 export async function createSession(userId: string, tokenHash: string, userAgent: string | null): Promise<void> {

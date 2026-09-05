@@ -1,8 +1,10 @@
 import { createServerFn, createMiddleware } from "@tanstack/react-start";
 import { getRequest, getRequestHeader } from "@tanstack/react-start/server";
 import type { PortalUser, AdminLevel } from "./portal-auth.server";
+import type { OfficerProfile } from "./officer-profile";
 
 export type { AdminLevel };
+export type { OfficerProfile };
 
 export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
   query: "Query",
@@ -28,6 +30,8 @@ export type PortalUserDto = {
   } | null;
   lastLoginAt: string | null;
   createdAt: string;
+  profile: OfficerProfile | null;
+  profileCompleted: boolean;
 };
 
 export type PortalCharacterDto = {
@@ -57,6 +61,22 @@ export type PortalSessionDto = {
 function isProtectedQueryUsername(username: string | null | undefined): boolean {
   const admin = process.env["UCP_ADMIN_USERNAME"];
   return !!admin && !!username && username.toLowerCase() === admin.toLowerCase();
+}
+
+function parseProfile(raw: unknown): OfficerProfile | null {
+  if (!raw || typeof raw !== "object") return null;
+  const p = raw as Partial<OfficerProfile>;
+  return {
+    name: p.name ?? "",
+    serialNo: p.serialNo ?? "",
+    rank: p.rank ?? "",
+    division: p.division ?? "",
+    photo: p.photo ?? "",
+    email: p.email ?? "",
+    phone: p.phone ?? "",
+    discord: p.discord ?? "",
+    note: p.note ?? "",
+  };
 }
 
 async function toUserDto(
@@ -97,6 +117,8 @@ async function toUserDto(
     })(),
     lastLoginAt: user.last_login_at,
     createdAt: user.created_at,
+    profile: parseProfile(user.profile),
+    profileCompleted: user.profile_completed ?? false,
   };
 }
 
@@ -320,5 +342,14 @@ export const setSelectedCharacter = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { setSelectedCharacter: doSet } = await import("./portal-auth.server");
     await doSet(context.userId, data.character);
+    return { ok: true };
+  });
+
+export const saveOfficerProfile = createServerFn({ method: "POST" })
+  .middleware([requirePortalAuthMiddleware])
+  .inputValidator((input: OfficerProfile) => input)
+  .handler(async ({ data, context }) => {
+    const { updateOfficerProfile } = await import("./portal-auth.server");
+    await updateOfficerProfile(context.userId, data);
     return { ok: true };
   });
