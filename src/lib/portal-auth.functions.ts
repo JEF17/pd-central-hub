@@ -152,7 +152,16 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     status: user.status as PortalSessionDto["status"],
     isAdmin,
     characters: (user.characters ?? []) as PortalSessionDto["characters"],
-    selectedCharacter: (user.selected_character ?? null) as PortalSessionDto["selectedCharacter"],
+    selectedCharacter: (() => {
+      const raw = user.selected_character;
+      if (!raw) return null;
+      try {
+        return (typeof raw === "string" ? JSON.parse(raw) : raw) as PortalSessionDto["selectedCharacter"];
+      } catch {
+        return null;
+      }
+    })(),
+
   } satisfies PortalSessionDto;
 });
 
