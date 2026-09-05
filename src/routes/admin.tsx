@@ -213,6 +213,9 @@ function AdminPage() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>UCP Kullanıcı Adı</TableHead>
+                    <TableHead>Personel Ad Soyad</TableHead>
+                    <TableHead>Rütbe</TableHead>
+                    <TableHead>Division</TableHead>
                     <TableHead>Durum</TableHead>
                     <TableHead>Rol</TableHead>
                     <TableHead>Son Giriş</TableHead>
@@ -223,6 +226,9 @@ function AdminPage() {
                   {approvedUsers.map((user) => (
                     <TableRow key={user.id}>
                       <TableCell className="font-medium">{user.username}</TableCell>
+                      <TableCell>{user.profile?.name || "—"}</TableCell>
+                      <TableCell>{user.profile?.rank || "—"}</TableCell>
+                      <TableCell>{user.profile?.division || "—"}</TableCell>
                       <TableCell>
                         <Badge variant="secondary">{statusLabel(user.status)}</Badge>
                       </TableCell>
