@@ -228,11 +228,15 @@ export async function fetchUcpUserInfo(accessToken: string): Promise<UcpUserInfo
         .map((c: unknown) => {
           if (!c || typeof c !== "object") return null;
           const rc = c as Record<string, unknown>;
+          const faction = detectLspdFaction(rc);
           return {
             id: Number(rc['id']),
             firstname: String(rc['firstname'] ?? ""),
             lastname: String(rc['lastname'] ?? ""),
             memberid: Number(rc['memberid']),
+            faction,
+            isLspd: !!faction,
+            raw: rc,
           };
         })
         .filter((c): c is UcpCharacter => !!c && Number.isFinite(c.id))
