@@ -38,12 +38,9 @@ export const Route = createFileRoute("/admin")({
 
 function AdminPage() {
   const [users, setUsers] = useState<UserDto[]>([]);
-  const [characters, setCharacters] = useState<AdminCharacterDto[]>([]);
   const [loading, setLoading] = useState(true);
 
   const listUsersFn = useServerFn(listUsers);
-  const listCharactersFn = useServerFn(listCharacterRequests);
-  const decideCharacterFn = useServerFn(decideCharacterRequest);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const toggleAdminFn = useServerFn(toggleAdmin);
@@ -51,9 +48,8 @@ function AdminPage() {
   const refresh = async () => {
     setLoading(true);
     try {
-      const [all, chars] = await Promise.all([listUsersFn({}), listCharactersFn({})]);
+      const all = await listUsersFn({});
       setUsers(all);
-      setCharacters(chars);
     } finally {
       setLoading(false);
     }
@@ -66,10 +62,6 @@ function AdminPage() {
   const pendingUsers = users.filter((u) => u.status === "pending");
   const approvedUsers = users.filter((u) => u.status === "approved");
 
-  const handleCharacterDecision = async (rowId: string, status: "approved" | "rejected") => {
-    await decideCharacterFn({ data: { rowId, status } });
-    await refresh();
-  };
 
   const handleApprove = async (id: string) => {
     await approveFn({ data: { userId: id } });
