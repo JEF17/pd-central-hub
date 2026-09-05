@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useServerFn } from "@tanstack/react-start";
 import { startUcpAuth } from "@/lib/portal-auth.functions";
 import { redirectIfAuthenticated } from "@/lib/portal-auth";
+import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 
 export const Route = createFileRoute("/auth/giris")({
   head: () => ({
