@@ -10,7 +10,12 @@ export async function requirePortalAuth(locationHref?: string, opts?: { admin?: 
     });
   }
 
-  if (!session.selectedCharacter) {
+  if (session.status === "rejected") {
+    throw redirect({ to: "/onay-bekliyor" });
+  }
+
+  const hasApprovedCharacter = session.portalCharacters.some((c) => c.status === "approved");
+  if (!hasApprovedCharacter || !session.selectedCharacter) {
     throw redirect({ to: "/karakter-sec" });
   }
 
