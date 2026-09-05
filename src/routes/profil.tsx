@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { Camera, IdCard, Save, Trash2, UserRound } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
@@ -18,13 +19,16 @@ import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import {
+  saveOfficerProfile as saveOfficerProfileServer,
+} from "@/lib/portal-auth.functions";
+import {
   clearOfficerProfile,
   divisionCode,
   divisionProfileOptions,
   emptyOfficerProfile,
   loadOfficerProfile,
   rankOptions,
-  saveOfficerProfile,
+  saveOfficerProfile as saveOfficerProfileLocal,
   type OfficerProfile,
 } from "@/lib/officer-profile";
 
