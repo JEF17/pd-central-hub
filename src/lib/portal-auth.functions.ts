@@ -1,6 +1,14 @@
 import { createServerFn, createMiddleware } from "@tanstack/react-start";
 import { getRequest, getRequestHeader } from "@tanstack/react-start/server";
-import type { PortalUser } from "./portal-auth.server";
+import type { PortalUser, AdminLevel } from "./portal-auth.server";
+
+export type { AdminLevel };
+
+export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
+  query: "Query",
+  faction_management: "Faction Management",
+  supervisor: "Supervisor",
+};
 
 export type PortalUserDto = {
   id: string;
@@ -9,6 +17,8 @@ export type PortalUserDto = {
   status: "pending" | "approved" | "rejected";
   ucpRole: string;
   isAdmin: boolean;
+  adminLevel: AdminLevel | null;
+  isProtectedQuery: boolean;
   characters: Array<{ id: number; firstname: string; lastname: string; memberid: number }>;
   selectedCharacter: {
     id: number;
@@ -38,16 +48,23 @@ export type PortalSessionDto = {
   username: string;
   status: "pending" | "approved" | "rejected";
   isAdmin: boolean;
+  adminLevel: AdminLevel | null;
   characters: Array<{ id: number; firstname: string; lastname: string; memberid: number }>;
   portalCharacters: PortalCharacterDto[];
   selectedCharacter: { id: number; firstname: string; lastname: string; memberid: number } | null;
 };
 
+function isProtectedQueryUsername(username: string | null | undefined): boolean {
+  const admin = process.env["UCP_ADMIN_USERNAME"];
+  return !!admin && !!username && username.toLowerCase() === admin.toLowerCase();
+}
+
 async function toUserDto(
   user: PortalUser,
-  checkUserIsAdmin?: (userId: string) => Promise<boolean>,
+  getLevel?: (userId: string) => Promise<AdminLevel | null>,
 ): Promise<PortalUserDto> {
-  const isAdmin = checkUserIsAdmin ? await checkUserIsAdmin(user.id) : false;
+  const adminLevel = getLevel ? await getLevel(user.id) : null;
+  const isAdmin = adminLevel !== null;
   return {
     id: user.id,
     ucpUserId: user.ucp_user_id,
@@ -55,6 +72,8 @@ async function toUserDto(
     status: user.status as "pending" | "approved" | "rejected",
     ucpRole: user.ucp_role ?? "",
     isAdmin,
+    adminLevel,
+    isProtectedQuery: isProtectedQueryUsername(user.username),
     characters: (user.characters ?? []) as Array<{ id: number; firstname: string; lastname: string; memberid: number }>,
     selectedCharacter: (() => {
       if (!user.selected_character) return null;
@@ -111,10 +130,10 @@ export const requirePortalAdminMiddleware = createMiddleware({ type: "function" 
   if (user.status !== "approved") {
     throw new Error("Account is pending approval");
   }
-  const { checkUserIsAdmin } = await import("./portal-auth.server");
-  const isAdmin = await checkUserIsAdmin(user.id);
-  if (!isAdmin) throw new Error("Forbidden");
-  return next({ context: { userId: user.id, user, isAdmin } });
+  const { getAdminLevel } = await import("./portal-auth.server");
+  const adminLevel = await getAdminLevel(user.id);
+  if (!adminLevel) throw new Error("Forbidden");
+  return next({ context: { userId: user.id, user, isAdmin: true, adminLevel } });
 });
 
 export const startUcpAuth = createServerFn({ method: "POST" }).handler(async () => {
@@ -146,7 +165,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     readSessionCookie,
     hashToken,
     findSessionByTokenHash,
-    checkUserIsAdmin,
+    getAdminLevel,
     ensureUserCharacters,
   } = await import("./portal-auth.server");
 
@@ -157,7 +176,8 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
   if (!result) return null;
 
   const { user } = result;
-  const isAdmin = await checkUserIsAdmin(user.id);
+  const adminLevel = await getAdminLevel(user.id);
+  const isAdmin = adminLevel !== null;
   const rows = await ensureUserCharacters(user);
 
   const portalCharacters: PortalCharacterDto[] = rows.map((c) => ({
@@ -178,6 +198,9 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     username: user.username,
     status: user.status as PortalSessionDto["status"],
     isAdmin,
+    adminLevel,
+    adminLevel,
+    isProtectedQuery: isProtectedQueryUsername(user.username),
     characters: (user.characters ?? []) as PortalSessionDto["characters"],
     portalCharacters,
     selectedCharacter: (() => {
@@ -209,17 +232,17 @@ export const signOut = createServerFn({ method: "POST" }).handler(async () => {
 export const listPendingUsers = createServerFn({ method: "GET" })
   .middleware([requirePortalAdminMiddleware])
   .handler(async () => {
-    const { listPendingUsers: listPending, checkUserIsAdmin } = await import("./portal-auth.server");
+    const { listPendingUsers: listPending, getAdminLevel } = await import("./portal-auth.server");
     const users = await listPending();
-    return Promise.all(users.map((u) => toUserDto(u, checkUserIsAdmin)));
+    return Promise.all(users.map((u) => toUserDto(u, getAdminLevel)));
   });
 
 export const listUsers = createServerFn({ method: "GET" })
   .middleware([requirePortalAdminMiddleware])
   .handler(async () => {
-    const { listAllUsers, checkUserIsAdmin } = await import("./portal-auth.server");
+    const { listAllUsers, getAdminLevel } = await import("./portal-auth.server");
     const users = await listAllUsers();
-    return Promise.all(users.map((u) => toUserDto(u, checkUserIsAdmin)));
+    return Promise.all(users.map((u) => toUserDto(u, getAdminLevel)));
   });
 
 export const approveUser = createServerFn({ method: "POST" })
@@ -240,22 +263,45 @@ export const rejectUser = createServerFn({ method: "POST" })
     return toUserDto(user);
   });
 
-export const toggleAdmin = createServerFn({ method: "POST" })
+export const setUserAdminLevel = createServerFn({ method: "POST" })
   .middleware([requirePortalAdminMiddleware])
-  .inputValidator((input: { userId: string; makeAdmin: boolean }) => input)
+  .inputValidator((input: { userId: string; level: AdminLevel | null }) => input)
   .handler(async ({ data, context }) => {
-    const { assignRole, removeRole, findPortalUserById } = await import("./portal-auth.server");
-    if (data.userId === context.userId && !data.makeAdmin) {
-      throw new Error("You cannot remove your own admin role");
+    const { setAdminLevel, findPortalUserById, getAdminLevel } = await import("./portal-auth.server");
+
+    // Supervisors cannot manage roles at all.
+    if (context.adminLevel === "supervisor") {
+      throw new Error("Forbidden");
     }
-    if (data.makeAdmin) {
-      await assignRole(data.userId, "admin");
-    } else {
-      await removeRole(data.userId, "admin");
+
+    const target = await findPortalUserById(data.userId);
+    if (!target) throw new Error("User not found");
+
+    // The protected Query account can never lose or change its level.
+    if (isProtectedQueryUsername(target.username)) {
+      throw new Error("Bu hesabın yetkisi değiştirilemez");
     }
+
+    const targetLevel = await getAdminLevel(data.userId);
+
+    // Only Query can grant or revoke Query / Faction Management.
+    if (context.adminLevel !== "query") {
+      if (data.level === "query" || data.level === "faction_management") {
+        throw new Error("Bu yetkiyi tanımlama izniniz yok");
+      }
+      if (targetLevel === "query" || targetLevel === "faction_management") {
+        throw new Error("Bu kullanıcının yetkisini değiştirme izniniz yok");
+      }
+    }
+
+    if (data.userId === context.userId && data.level !== context.adminLevel) {
+      throw new Error("Kendi yetkinizi değiştiremezsiniz");
+    }
+
+    await setAdminLevel(data.userId, data.level);
     const user = await findPortalUserById(data.userId);
     if (!user) throw new Error("User not found");
-    return toUserDto(user);
+    return toUserDto(user, getAdminLevel);
   });
 
 export const resubmitApplication = createServerFn({ method: "POST" }).handler(async () => {
