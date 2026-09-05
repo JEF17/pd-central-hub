@@ -22,8 +22,7 @@ export const Route = createFileRoute("/onay-bekliyor")({
     if (session.status === "approved") {
       throw redirect({ to: "/" });
     }
-    const selectableCharacters = session.portalCharacters.filter((c) => c.status !== "rejected").length;
-    return { status: session.status, selectableCharacters };
+    return { status: session.status };
   },
   component: PendingApproval,
 });
