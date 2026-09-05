@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useServerFn } from "@tanstack/react-start";
 import { startUcpAuth } from "@/lib/portal-auth.functions";
 import { redirectIfAuthenticated } from "@/lib/portal-auth";
+import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 
 export const Route = createFileRoute("/auth/giris")({
   head: () => ({
@@ -51,7 +52,11 @@ function LoginPage() {
       <div className="relative z-10 w-full max-w-md rounded-2xl border border-border bg-card/80 p-8 shadow-xl backdrop-blur-sm">
         <div className="mb-6 flex justify-center">
           <div className="rounded-full bg-gradient-to-br from-primary/20 to-gold/20 p-3 ring-1 ring-primary/20">
-            <Shield className="size-8 text-primary" />
+            <img
+              src={lspdLogo.url}
+              alt="LSPD arması"
+              className="size-10 object-contain"
+            />
           </div>
         </div>
 
