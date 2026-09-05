@@ -115,7 +115,7 @@ function AdminPage() {
                   <TableRow>
                     <TableHead>UCP Kullanıcı Adı</TableHead>
                     <TableHead>UCP Rolü</TableHead>
-                    <TableHead>Karakter Sayısı</TableHead>
+                    <TableHead>Seçilen Karakter</TableHead>
                     <TableHead className="text-right">İşlem</TableHead>
                   </TableRow>
                 </TableHeader>
