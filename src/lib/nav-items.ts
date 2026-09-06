@@ -7,6 +7,7 @@ import {
   LayoutGrid,
   Settings,
   UserRound,
+  Users,
   Shield,
   type LucideIcon,
 } from "lucide-react";
