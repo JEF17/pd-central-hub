@@ -100,7 +100,7 @@ function RosterPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const groups = useMemo(() => {
+  const sortedEntries = useMemo(() => {
     const q = search.trim().toLowerCase();
     const filtered = q
       ? entries.filter((e) =>
@@ -110,25 +110,10 @@ function RosterPage() {
             .includes(q),
         )
       : entries;
-
-    const byDivision = new Map<string, RosterEntry[]>();
-    for (const entry of filtered) {
-      const key = entry.division.trim() || "Diğer";
-      const list = byDivision.get(key) ?? [];
-      list.push(entry);
-      byDivision.set(key, list);
-    }
-    return [...byDivision.entries()]
-      .sort(([a], [b]) => a.localeCompare(b, "tr"))
-      .map(
-        ([division, list]) =>
-          [
-            division,
-            [...list].sort(
-              (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
-            ),
-          ] as const,
-      );
+    // En yüksek rütbe en üstte
+    return [...filtered].sort(
+      (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
+    );
   }, [entries, search]);
 
   const openCreate = () => {
@@ -222,7 +207,7 @@ function RosterPage() {
 
         {loading ? (
           <p className="mt-12 text-center text-sm text-muted-foreground">Yükleniyor...</p>
-        ) : groups.length === 0 ? (
+        ) : sortedEntries.length === 0 ? (
           <div className="mt-12 flex flex-col items-center gap-3 rounded-xl border border-dashed py-16 text-center">
             <UserRound className="size-10 text-muted-foreground/50" />
             <p className="text-sm text-muted-foreground">
@@ -238,18 +223,19 @@ function RosterPage() {
             )}
           </div>
         ) : (
-          <div className="mt-8 space-y-10">
-            {groups.map(([division, list]) => (
-              <section key={division}>
-                <div className="mb-4 flex items-center gap-3">
-                  <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                    {division}
-                  </h2>
-                  <div className="h-px flex-1 bg-border" />
-                  <span className="text-xs text-muted-foreground">{list.length} personel</span>
-                </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {list.map((entry) => (
+          <div className="mt-8">
+            <section>
+              <div className="mb-4 flex items-center gap-3">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                  Mission Row Community Police Station
+                </h2>
+                <div className="h-px flex-1 bg-border" />
+                <span className="text-xs text-muted-foreground">
+                  {sortedEntries.length} personel
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-3">
+                {sortedEntries.map((entry) => (
                     <article
                       key={entry.id}
                       className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
@@ -320,9 +306,8 @@ function RosterPage() {
                       )}
                     </article>
                   ))}
-                </div>
-              </section>
-            ))}
+              </div>
+            </section>
           </div>
         )}
       </div>
