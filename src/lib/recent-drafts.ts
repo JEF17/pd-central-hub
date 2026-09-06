@@ -29,6 +29,12 @@ export function loadRecentDrafts(limit = 4): RecentDraft[] {
   return found.sort((a, b) => b.savedAt.getTime() - a.savedAt.getTime()).slice(0, limit);
 }
 
+/** Belirli bir taslak türünü localStorage'dan siler. */
+export function removeDraft(slug: string): void {
+  if (typeof window === "undefined") return;
+  localStorage.removeItem(PREFIX + slug);
+}
+
 /** "3 dakika önce" gibi kısa Türkçe zaman ifadesi. */
 export function formatRelative(date: Date): string {
   const diff = Date.now() - date.getTime();

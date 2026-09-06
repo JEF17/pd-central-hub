@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import { ChevronRight, Clock, ShieldCheck } from "lucide-react";
+import { ChevronRight, Clock, ShieldCheck, X } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { AppShell } from "@/components/AppShell";
 import { navItems } from "@/lib/nav-items";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
-import { formatRelative, loadRecentDrafts, type RecentDraft } from "@/lib/recent-drafts";
+import { formatRelative, loadRecentDrafts, removeDraft, type RecentDraft } from "@/lib/recent-drafts";
 
 export const Route = createFileRoute("/")({
   beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
@@ -63,6 +63,13 @@ function Dashboard() {
     setRecent(loadRecentDrafts(4));
   }, []);
 
+  const handleDismiss = (e: React.MouseEvent, slug: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    removeDraft(slug);
+    setRecent((prev) => prev.filter((d) => d.type.slug !== slug));
+  };
+
   const officerLine = profile?.name
     ? [profile.rank, profile.name].filter(Boolean).join(" ")
     : "Memur profili tanımlı değil";
@@ -114,8 +121,16 @@ function Dashboard() {
                 <Link
                   key={type.slug}
                   to={draftPaths[type.slug as keyof typeof draftPaths]}
-                  className="group flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
+                  className="group relative flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
                 >
+                  <button
+                    type="button"
+                    aria-label={`${type.label} taslağını kaldır`}
+                    onClick={(e) => handleDismiss(e, type.slug)}
+                    className="evidence-remove absolute right-2 top-2 grid size-6 place-items-center rounded-md text-muted-foreground hover:bg-destructive/15 hover:text-destructive"
+                  >
+                    <X className="size-3.5" />
+                  </button>
                   <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
                     <type.icon className="size-4" />
                   </span>
