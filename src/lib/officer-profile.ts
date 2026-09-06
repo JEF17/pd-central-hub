@@ -25,27 +25,27 @@ export const emptyOfficerProfile: OfficerProfile = {
   note: "",
 };
 
-/** LAPD rütbe yapısı: Police Officer I -> Chief of Police */
+/** LAPD rütbe yapısı: POLICE OFFICER I -> CHIEF OF POLICE */
 export const rankOptions: string[] = [
-  "Police Officer I",
-  "Police Officer II",
-  "Police Officer III",
-  "Police Officer III+1",
-  "Detective I",
-  "Detective II",
-  "Detective III",
-  "Sergeant I",
-  "Sergeant II",
-  "Lieutenant I",
-  "Lieutenant II",
-  "Captain I",
-  "Captain II",
-  "Captain III",
-  "Commander",
-  "Deputy Chief I",
-  "Deputy Chief II",
-  "Assistant Chief",
-  "Chief of Police",
+  "POLICE OFFICER I",
+  "POLICE OFFICER II",
+  "POLICE OFFICER III",
+  "POLICE OFFICER III+1",
+  "DETECTIVE I",
+  "DETECTIVE II",
+  "DETECTIVE III",
+  "SERGEANT I",
+  "SERGEANT II",
+  "LIEUTENANT I",
+  "LIEUTENANT II",
+  "CAPTAIN I",
+  "CAPTAIN II",
+  "CAPTAIN III",
+  "COMMANDER",
+  "DEPUTY CHIEF I",
+  "DEPUTY CHIEF II",
+  "ASSISTANT CHIEF",
+  "CHIEF OF POLICE",
 ];
 
 /** Division tam adı -> rapor kısaltması */
