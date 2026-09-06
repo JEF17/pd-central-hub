@@ -231,7 +231,7 @@ function Page() {
                       variant="ghost"
                       size="icon"
                       aria-label="Kanıtı sil"
-                      className="opacity-0 transition-opacity group-hover:opacity-100"
+                      className="evidence-remove"
                       onClick={() => setData((d) => ({ ...d, evidence: d.evidence.filter((x) => x.id !== e.id) }))}
                     >
                       <X className="size-4" />
