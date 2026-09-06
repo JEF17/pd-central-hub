@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useEffect, useState } from "react";
-import { Check, ChevronDown, ChevronRight, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, ScrollText, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -19,10 +19,12 @@ import {
   ADMIN_LEVEL_LABELS,
   approveUser,
   deleteUser,
+  listPortalLogs,
   listUsers,
   rejectUser,
   setUserAdminLevel,
   type AdminLevel,
+  type PortalLogDto,
 } from "@/lib/portal-auth.functions";
 import {
   Select,
@@ -101,19 +103,30 @@ function AdminPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
   const toggleExpanded = (id: string) => setExpanded((cur) => (cur === id ? null : id));
 
+  const [logs, setLogs] = useState<PortalLogDto[]>([]);
+
   const listUsersFn = useServerFn(listUsers);
+  const listLogsFn = useServerFn(listPortalLogs);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
   const deleteFn = useServerFn(deleteUser);
   const { session } = usePortalSession();
   const myLevel = session?.adminLevel ?? null;
+  const canViewLogs = myLevel === "query" || myLevel === "faction_management";
 
   const refresh = async () => {
     setLoading(true);
     try {
       const all = await listUsersFn({});
       setUsers(all);
+      if (myLevel === "query" || myLevel === "faction_management") {
+        try {
+          setLogs(await listLogsFn({}));
+        } catch {
+          setLogs([]);
+        }
+      }
     } finally {
       setLoading(false);
     }
@@ -123,8 +136,15 @@ function AdminPage() {
     refresh();
   }, []);
 
+  useEffect(() => {
+    if (!canViewLogs) return;
+    listLogsFn({})
+      .then(setLogs)
+      .catch(() => setLogs([]));
+  }, [canViewLogs]);
+
   const pendingUsers = users.filter((u) => u.status === "pending");
-  const approvedUsers = users.filter((u) => u.status !== "pending");
+  const approvedUsers = users.filter((u) => u.status === "approved");
 
 
   const handleApprove = async (id: string) => {
@@ -381,9 +401,66 @@ function AdminPage() {
             )}
           </CardContent>
         </Card>
+
+        {canViewLogs && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base">
+                <ScrollText className="size-4 text-primary" />
+                İşlem Kayıtları
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {logs.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
+              ) : (
+                <div className="max-h-[480px] overflow-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Tarih</TableHead>
+                        <TableHead>İşlem</TableHead>
+                        <TableHead>Yapan</TableHead>
+                        <TableHead>Detay</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {logs.map((log) => (
+                        <TableRow key={log.id}>
+                          <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
+                            {new Date(log.createdAt).toLocaleString("tr-TR")}
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="outline">{logEventLabel(log.event)}</Badge>
+                          </TableCell>
+                          <TableCell className="text-sm">{log.username || "—"}</TableCell>
+                          <TableCell className="text-sm text-muted-foreground">{log.detail || "—"}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </AppShell>
   );
+}
+
+function logEventLabel(event: string): string {
+  const labels: Record<string, string> = {
+    login: "Giriş",
+    register: "Kayıt / Başvuru",
+    resubmit: "Tekrar Başvuru",
+    callback_error: "Giriş Hatası",
+    admin_approve_user: "Kullanıcı Onaylandı",
+    admin_reject_user: "Kullanıcı Reddedildi",
+    admin_set_role: "Yetki Değişikliği",
+    admin_delete_user: "Kullanıcı Silindi",
+  };
+  return labels[event] || event;
 }
 
 function statusLabel(status: string): string {
