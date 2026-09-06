@@ -17,10 +17,6 @@ export async function requirePortalAuth(
     throw redirect({ to: "/onay-bekliyor" });
   }
 
-  if (!session.selectedCharacter) {
-    throw redirect({ to: "/karakter-sec" });
-  }
-
   if (!session.profileCompleted && !opts?.allowIncompleteProfile) {
     throw redirect({ to: "/profil" });
   }
@@ -38,10 +34,6 @@ export async function redirectIfAuthenticated(locationHref?: string) {
 
   if (session.status !== "approved") {
     throw redirect({ to: "/onay-bekliyor" });
-  }
-
-  if (!session.selectedCharacter) {
-    throw redirect({ to: "/karakter-sec" });
   }
 
   if (!session.profileCompleted) {

@@ -22,7 +22,6 @@ import { Route as FieldInterviewKartiRouteImport } from './routes/field-intervie
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
-import { Route as KarakterSecRouteImport } from './routes/karakter-sec'
 import { Route as KartvizitRouteImport } from './routes/kartvizit'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as OnayBekliyorRouteImport } from './routes/onay-bekliyor'
@@ -98,11 +97,6 @@ const IhlalRaporuRoute = IhlalRaporuRouteImport.update({
   path: '/ihlal-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const KarakterSecRoute = KarakterSecRouteImport.update({
-  id: '/karakter-sec',
-  path: '/karakter-sec',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const KartvizitRoute = KartvizitRouteImport.update({
   id: '/kartvizit',
   path: '/kartvizit',
@@ -163,7 +157,6 @@ export interface FileRoutesByFullPath {
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
-  '/karakter-sec': typeof KarakterSecRoute
   '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/onay-bekliyor': typeof OnayBekliyorRoute
@@ -188,7 +181,6 @@ export interface FileRoutesByTo {
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
-  '/karakter-sec': typeof KarakterSecRoute
   '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/onay-bekliyor': typeof OnayBekliyorRoute
@@ -214,7 +206,6 @@ export interface FileRoutesById {
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
-  '/karakter-sec': typeof KarakterSecRoute
   '/kartvizit': typeof KartvizitRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/onay-bekliyor': typeof OnayBekliyorRoute
@@ -241,7 +232,6 @@ export interface FileRouteTypes {
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
-    | '/karakter-sec'
     | '/kartvizit'
     | '/olay-raporu'
     | '/onay-bekliyor'
@@ -266,7 +256,6 @@ export interface FileRouteTypes {
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
-    | '/karakter-sec'
     | '/kartvizit'
     | '/olay-raporu'
     | '/onay-bekliyor'
@@ -291,7 +280,6 @@ export interface FileRouteTypes {
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
-    | '/karakter-sec'
     | '/kartvizit'
     | '/olay-raporu'
     | '/onay-bekliyor'
@@ -317,7 +305,6 @@ export interface RootRouteChildren {
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
-  KarakterSecRoute: typeof KarakterSecRoute
   KartvizitRoute: typeof KartvizitRoute
   OlayRaporuRoute: typeof OlayRaporuRoute
   OnayBekliyorRoute: typeof OnayBekliyorRoute
@@ -422,13 +409,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IhlalRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/karakter-sec': {
-      id: '/karakter-sec'
-      path: '/karakter-sec'
-      fullPath: '/karakter-sec'
-      preLoaderRoute: typeof KarakterSecRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/kartvizit': {
       id: '/kartvizit'
       path: '/kartvizit'
@@ -509,7 +489,6 @@ const rootRouteChildren: RootRouteChildren = {
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
-  KarakterSecRoute: KarakterSecRoute,
   KartvizitRoute: KartvizitRoute,
   OlayRaporuRoute: OlayRaporuRoute,
   OnayBekliyorRoute: OnayBekliyorRoute,

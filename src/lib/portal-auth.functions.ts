@@ -228,7 +228,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
         profileCompleted: true,
         characters: [],
         portalCharacters: [],
-        selectedCharacter: { id: 0, firstname: "Preview", lastname: "Officer", memberid: 0 },
+        selectedCharacter: null,
       } satisfies PortalSessionDto;
     }
   }
