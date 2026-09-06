@@ -96,7 +96,6 @@ function Page() {
   const set = <K extends keyof OfficerProfile>(key: K, value: OfficerProfile[K]) =>
     setData((d) => ({ ...d, [key]: value }));
 
-  const code = divisionCode(data.division);
   const displayName =
     data.name ||
     (session?.selectedCharacter
