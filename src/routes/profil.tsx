@@ -104,7 +104,7 @@ function Page() {
 
   const charPhoto = (() => {
     const list = session?.portalCharacters ?? [];
-    const approved = list.filter((c) => c.status === "approved" && c.photo);
+    const approved = list.filter((c) => !!c.photo);
     const selectedId = session?.selectedCharacter?.id;
     const match = approved.find((c) => c.id === selectedId) ?? approved[0];
     return match?.photo ?? "";
