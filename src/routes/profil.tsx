@@ -324,7 +324,8 @@ function Page() {
                     saveOfficerProfiles({ profiles, activeId });
                     const { id: _id, ...rest } = (active ??
                       { ...emptyOfficerProfile, id: "" }) as StoredOfficerProfile;
-                    await saveProfileFn({ data: rest });
+                    const all = profiles.map(({ id: _pid, ...p }) => p);
+                    await saveProfileFn({ data: { ...rest, profiles: all } });
                     notify.success("Profil kaydedildi");
                   } catch {
                     notify.error("Profil kaydedilemedi");
