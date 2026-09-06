@@ -37,9 +37,14 @@ export async function redirectIfAuthenticated(locationHref?: string) {
   const session = await getCurrentSession();
   if (!session) return null;
 
+  if (session.status === "pending") {
+    throw redirect({ to: "/karakter-sec" });
+  }
+
   if (session.status !== "approved") {
     throw redirect({ to: "/onay-bekliyor" });
   }
+
 
   if (!session.profileCompleted) {
     throw redirect({ to: "/profil" });
