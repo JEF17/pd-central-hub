@@ -223,18 +223,19 @@ function RosterPage() {
             )}
           </div>
         ) : (
-          <div className="mt-8 space-y-10">
-            {groups.map(([division, list]) => (
-              <section key={division}>
-                <div className="mb-4 flex items-center gap-3">
-                  <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                    {division}
-                  </h2>
-                  <div className="h-px flex-1 bg-border" />
-                  <span className="text-xs text-muted-foreground">{list.length} personel</span>
-                </div>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {list.map((entry) => (
+          <div className="mt-8">
+            <section>
+              <div className="mb-4 flex items-center gap-3">
+                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                  Mission Row Community Police Station
+                </h2>
+                <div className="h-px flex-1 bg-border" />
+                <span className="text-xs text-muted-foreground">
+                  {sortedEntries.length} personel
+                </span>
+              </div>
+              <div className="grid grid-cols-1 gap-3">
+                {sortedEntries.map((entry) => (
                     <article
                       key={entry.id}
                       className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
