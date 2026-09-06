@@ -239,6 +239,9 @@ function RosterPage() {
                       <div className="min-w-0 flex-1">
                         <h3 className="truncate font-semibold leading-tight">{entry.name}</h3>
                         {entry.rank && <p className="mt-0.5 truncate text-xs font-medium text-primary">{entry.rank}</p>}
+                        {entry.note && (
+                          <p className="mt-0.5 truncate text-xs text-muted-foreground">{entry.note}</p>
+                        )}
                         {entry.serialNo && (
                           <p className="mt-0.5 truncate text-xs text-muted-foreground">Seri No: {entry.serialNo}</p>
                         )}
