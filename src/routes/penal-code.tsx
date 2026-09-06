@@ -2824,7 +2824,7 @@ function PenalCodePage() {
                   {entry.paragraphs.map((paragraph, index) => (
                     <p
                       key={`${entry.number}-${index}`}
-                      className="whitespace-pre-line text-sm leading-7 text-muted-foreground"
+                      className="whitespace-pre-line text-sm leading-7 text-foreground/90"
                     >
                       {paragraph}
                     </p>
