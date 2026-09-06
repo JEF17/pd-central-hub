@@ -16,12 +16,14 @@ export const Route = createFileRoute("/")({
 
   head: () => ({
     meta: [
-      { title: "LSPD - Toolkit" },
-      { name: "description", content: "LSPD - Toolkit" },
-      { property: "og:title", content: "LSPD - Toolkit" },
-      { property: "og:description", content: "LSPD - Toolkit" },
+      { title: "LSPD Toolkit" },
+      { name: "description", content: "LSPD Toolkit" },
+      { property: "og:title", content: "LSPD Toolkit" },
+      { property: "og:description", content: "LSPD Toolkit" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/1e217497-8c1a-4478-afb2-2a8b0be274a1/og-image.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/1e217497-8c1a-4478-afb2-2a8b0be274a1/og-image.png" },
     ],
   }),
   component: Dashboard,
