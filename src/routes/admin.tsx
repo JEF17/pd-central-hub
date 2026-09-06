@@ -19,10 +19,12 @@ import {
   ADMIN_LEVEL_LABELS,
   approveUser,
   deleteUser,
+  listPortalLogs,
   listUsers,
   rejectUser,
   setUserAdminLevel,
   type AdminLevel,
+  type PortalLogDto,
 } from "@/lib/portal-auth.functions";
 import {
   Select,
