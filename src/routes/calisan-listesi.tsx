@@ -372,18 +372,21 @@ function RosterPage() {
             </div>
             <div>
               <Label htmlFor="roster-rank">Rütbe</Label>
-              <Input
-                id="roster-rank"
-                list="roster-ranks"
+              <Select
                 value={form.rank ?? ""}
-                onChange={(e) => setForm((f) => ({ ...f, rank: e.target.value }))}
-                placeholder="POLICE OFFICER III"
-              />
-              <datalist id="roster-ranks">
-                {rankOptions.map((r) => (
-                  <option key={r} value={r} />
-                ))}
-              </datalist>
+                onValueChange={(v) => setForm((f) => ({ ...f, rank: v }))}
+              >
+                <SelectTrigger id="roster-rank" className="mt-2">
+                  <SelectValue placeholder="Seçiniz" />
+                </SelectTrigger>
+                <SelectContent className="max-h-72">
+                  {rankOptions.map((r) => (
+                    <SelectItem key={r} value={r}>
+                      {r}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="col-span-2">
               <Label htmlFor="roster-division">Görevlendirme / İstasyon</Label>
