@@ -111,7 +111,7 @@ function Page() {
     data.name ||
     (session?.selectedCharacter
       ? `${session.selectedCharacter.firstname} ${session.selectedCharacter.lastname}`
-      : "İsimsiz Memur");
+      : "John Doe");
 
   return (
     <AppShell>
