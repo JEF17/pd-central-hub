@@ -1,7 +1,10 @@
 import { redirect } from "@tanstack/react-router";
 import { getCurrentSession } from "./portal-auth.functions";
 
-export async function requirePortalAuth(locationHref?: string, opts?: { admin?: boolean }) {
+export async function requirePortalAuth(
+  locationHref?: string,
+  opts?: { admin?: boolean; allowIncompleteProfile?: boolean },
+) {
   const session = await getCurrentSession();
   if (!session) {
     throw redirect({
@@ -14,7 +17,9 @@ export async function requirePortalAuth(locationHref?: string, opts?: { admin?: 
     throw redirect({ to: "/onay-bekliyor" });
   }
 
-
+  if (!session.profileCompleted && !opts?.allowIncompleteProfile) {
+    throw redirect({ to: "/profil" });
+  }
 
   if (opts?.admin && !session.isAdmin) {
     throw redirect({ to: "/" });
@@ -29,6 +34,10 @@ export async function redirectIfAuthenticated(locationHref?: string) {
 
   if (session.status !== "approved") {
     throw redirect({ to: "/onay-bekliyor" });
+  }
+
+  if (!session.profileCompleted) {
+    throw redirect({ to: "/profil" });
   }
 
   const target = locationHref && locationHref !== "/auth/giris" ? locationHref : "/";
