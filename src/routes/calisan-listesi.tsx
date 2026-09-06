@@ -100,7 +100,7 @@ function RosterPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const groups = useMemo(() => {
+  const sortedEntries = useMemo(() => {
     const q = search.trim().toLowerCase();
     const filtered = q
       ? entries.filter((e) =>
@@ -110,25 +110,10 @@ function RosterPage() {
             .includes(q),
         )
       : entries;
-
-    const byDivision = new Map<string, RosterEntry[]>();
-    for (const entry of filtered) {
-      const key = entry.division.trim() || "Diğer";
-      const list = byDivision.get(key) ?? [];
-      list.push(entry);
-      byDivision.set(key, list);
-    }
-    return [...byDivision.entries()]
-      .sort(([a], [b]) => a.localeCompare(b, "tr"))
-      .map(
-        ([division, list]) =>
-          [
-            division,
-            [...list].sort(
-              (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
-            ),
-          ] as const,
-      );
+    // En yüksek rütbe en üstte
+    return [...filtered].sort(
+      (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
+    );
   }, [entries, search]);
 
   const openCreate = () => {
