@@ -103,17 +103,10 @@ function RosterPage() {
   const sortedEntries = useMemo(() => {
     const q = search.trim().toLowerCase();
     const filtered = q
-      ? entries.filter((e) =>
-          [e.name, e.serialNo, e.rank, e.division, e.discord]
-            .join(" ")
-            .toLowerCase()
-            .includes(q),
-        )
+      ? entries.filter((e) => [e.name, e.serialNo, e.rank, e.division, e.discord].join(" ").toLowerCase().includes(q))
       : entries;
     // En yüksek rütbe en üstte
-    return [...filtered].sort(
-      (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
-    );
+    return [...filtered].sort((a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"));
   }, [entries, search]);
 
   const openCreate = () => {
@@ -182,9 +175,7 @@ function RosterPage() {
               <Users className="size-6 text-primary" />
               Personel Listesi
             </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Görevlendirme ve istasyonlara göre personel kadrosu.
-            </p>
+            <p className="mt-1 text-sm text-muted-foreground">Görevlendirme ve istasyonlara göre personel kadrosu.</p>
           </div>
           <div className="flex items-center gap-2">
             <div className="relative">
@@ -211,9 +202,7 @@ function RosterPage() {
           <div className="mt-12 flex flex-col items-center gap-3 rounded-xl border border-dashed py-16 text-center">
             <UserRound className="size-10 text-muted-foreground/50" />
             <p className="text-sm text-muted-foreground">
-              {entries.length === 0
-                ? "Henüz personel eklenmemiş."
-                : "Aramanızla eşleşen personel bulunamadı."}
+              {entries.length === 0 ? "Henüz personel eklenmemiş." : "Aramanızla eşleşen personel bulunamadı."}
             </p>
             {canManage && entries.length === 0 && (
               <Button variant="outline" size="sm" onClick={openCreate}>
@@ -230,82 +219,67 @@ function RosterPage() {
                   MISSION ROW COMMUNITY POLICE STATION
                 </h2>
                 <div className="h-px flex-1 bg-border" />
-                <span className="text-xs text-muted-foreground">
-                  {sortedEntries.length} personel
-                </span>
+                <span className="text-xs text-muted-foreground">{sortedEntries.length} personel</span>
               </div>
               <div className="grid grid-cols-1 gap-3">
                 {sortedEntries.map((entry) => (
-                    <article
-                      key={entry.id}
-                      className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
-                    >
-                      <div className="flex items-center gap-3.5 p-4">
-                        <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border bg-muted">
-                          {entry.photo ? (
-                            <img
-                              src={entry.photo}
-                              alt={entry.name}
-                              className="size-full object-cover"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <UserRound className="size-7 text-muted-foreground/40" />
-                          )}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <h3 className="truncate font-semibold leading-tight">{entry.name}</h3>
-                          {entry.rank && (
-                            <p className="mt-0.5 truncate text-xs font-medium text-primary">
-                              {entry.rank}
-                            </p>
-                          )}
-                          {entry.serialNo && (
-                            <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                              Seri No: {entry.serialNo}
-                            </p>
-                          )}
-                        </div>
+                  <article
+                    key={entry.id}
+                    className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
+                  >
+                    <div className="flex items-center gap-3.5 p-4">
+                      <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border bg-muted">
+                        {entry.photo ? (
+                          <img src={entry.photo} alt={entry.name} className="size-full object-cover" loading="lazy" />
+                        ) : (
+                          <UserRound className="size-7 text-muted-foreground/40" />
+                        )}
                       </div>
-                      {(entry.email || entry.phone || entry.discord) && (
-                        <div className="space-y-1 border-t px-4 py-2.5 text-xs text-muted-foreground">
-                          {entry.email && (
-                            <p className="flex items-center gap-1.5 truncate">
-                              <Mail className="size-3 shrink-0" /> {entry.email}
-                            </p>
-                          )}
-                          {entry.phone && (
-                            <p className="flex items-center gap-1.5 truncate">
-                              <Phone className="size-3 shrink-0" /> {entry.phone}
-                            </p>
-                          )}
-                          {entry.discord && (
-                            <p className="truncate">Discord: {entry.discord}</p>
-                          )}
-                        </div>
-                      )}
-                      {canManage && (
-                        <div className="absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
-                          <button
-                            type="button"
-                            onClick={() => openEdit(entry)}
-                            className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-foreground"
-                            title="Düzenle"
-                          >
-                            <Pencil className="size-3.5" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleDelete(entry)}
-                            className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-destructive"
-                            title="Sil"
-                          >
-                            <Trash2 className="size-3.5" />
-                          </button>
-                        </div>
-                      )}
-                    </article>
-                  ))}
+                      <div className="min-w-0 flex-1">
+                        <h3 className="truncate font-semibold leading-tight">{entry.name}</h3>
+                        {entry.rank && <p className="mt-0.5 truncate text-xs font-medium text-primary">{entry.rank}</p>}
+                        {entry.serialNo && (
+                          <p className="mt-0.5 truncate text-xs text-muted-foreground">Seri No: {entry.serialNo}</p>
+                        )}
+                      </div>
+                    </div>
+                    {(entry.email || entry.phone || entry.discord) && (
+                      <div className="space-y-1 border-t px-4 py-2.5 text-xs text-muted-foreground">
+                        {entry.email && (
+                          <p className="flex items-center gap-1.5 truncate">
+                            <Mail className="size-3 shrink-0" /> {entry.email}
+                          </p>
+                        )}
+                        {entry.phone && (
+                          <p className="flex items-center gap-1.5 truncate">
+                            <Phone className="size-3 shrink-0" /> {entry.phone}
+                          </p>
+                        )}
+                        {entry.discord && <p className="truncate">Discord: {entry.discord}</p>}
+                      </div>
+                    )}
+                    {canManage && (
+                      <div className="absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                        <button
+                          type="button"
+                          onClick={() => openEdit(entry)}
+                          className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-foreground"
+                          title="Düzenle"
+                        >
+                          <Pencil className="size-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(entry)}
+                          className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-destructive"
+                          title="Sil"
+                        >
+                          <Trash2 className="size-3.5" />
+                        </button>
+                      </div>
+                    )}
+                  </article>
+                ))}
               </div>
             </section>
           </div>
@@ -316,9 +290,7 @@ function RosterPage() {
         <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>{editing ? "Personeli Düzenle" : "Yeni Personel"}</DialogTitle>
-            <DialogDescription>
-              Personelin kadroda görünecek bilgilerini girin.
-            </DialogDescription>
+            <DialogDescription>Personelin kadroda görünecek bilgilerini girin.</DialogDescription>
           </DialogHeader>
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
@@ -327,7 +299,7 @@ function RosterPage() {
                 id="roster-name"
                 value={form.name ?? ""}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                placeholder="Alexandra Grasso"
+                placeholder="John Doe"
               />
             </div>
             <div>
@@ -336,7 +308,7 @@ function RosterPage() {
                 id="roster-serial"
                 value={form.serialNo ?? ""}
                 onChange={(e) => setForm((f) => ({ ...f, serialNo: e.target.value }))}
-                placeholder="4567"
+                placeholder="12345"
               />
             </div>
             <div>
