@@ -111,8 +111,11 @@ function newId() {
   return `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
 }
 
-export function profileLabel(p: OfficerProfile, index = 0): string {
-  return p.name?.trim() || `Personel ${index + 1}`;
+export function profileLabel(p: OfficerProfile, _index = 0): string {
+  const name = p.name?.trim();
+  if (name) return name;
+  const serial = p.serialNo?.trim();
+  return serial ? `#${serial}` : "İsimsiz Personel";
 }
 
 export type OfficerProfileStore = {
