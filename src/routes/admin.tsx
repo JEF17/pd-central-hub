@@ -401,9 +401,66 @@ function AdminPage() {
             )}
           </CardContent>
         </Card>
+
+        {canViewLogs && (
+          <Card className="mt-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base">
+                <ScrollText className="size-4 text-primary" />
+                İşlem Kayıtları
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {logs.length === 0 ? (
+                <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
+              ) : (
+                <div className="max-h-[480px] overflow-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Tarih</TableHead>
+                        <TableHead>İşlem</TableHead>
+                        <TableHead>Yapan</TableHead>
+                        <TableHead>Detay</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {logs.map((log) => (
+                        <TableRow key={log.id}>
+                          <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
+                            {new Date(log.createdAt).toLocaleString("tr-TR")}
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="outline">{logEventLabel(log.event)}</Badge>
+                          </TableCell>
+                          <TableCell className="text-sm">{log.username || "—"}</TableCell>
+                          <TableCell className="text-sm text-muted-foreground">{log.detail || "—"}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
     </AppShell>
   );
+}
+
+function logEventLabel(event: string): string {
+  const labels: Record<string, string> = {
+    login: "Giriş",
+    register: "Kayıt / Başvuru",
+    resubmit: "Tekrar Başvuru",
+    callback_error: "Giriş Hatası",
+    admin_approve_user: "Kullanıcı Onaylandı",
+    admin_reject_user: "Kullanıcı Reddedildi",
+    admin_set_role: "Yetki Değişikliği",
+    admin_delete_user: "Kullanıcı Silindi",
+  };
+  return labels[event] || event;
 }
 
 function statusLabel(status: string): string {
