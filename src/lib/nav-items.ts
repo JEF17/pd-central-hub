@@ -7,6 +7,7 @@ import {
   LayoutGrid,
   Settings,
   UserRound,
+  Users,
   Shield,
   type LucideIcon,
 } from "lucide-react";
@@ -55,6 +56,13 @@ export const navItems: NavItem[] = [
     to: "/caselaw",
     icon: Gavel,
     description: "Alınmış emsal kararları ve daha fazlasına ulaşabilirsiniz.",
+    position: "main",
+  },
+  {
+    label: "Personel Listesi",
+    to: "/calisan-listesi",
+    icon: Users,
+    description: "Görevlendirme ve istasyonlara göre personel kadrosu.",
     position: "main",
   },
   {
