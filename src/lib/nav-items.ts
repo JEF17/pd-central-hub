@@ -7,7 +7,6 @@ import {
   LayoutGrid,
   Settings,
   UserRound,
-  Users,
   Shield,
   type LucideIcon,
 } from "lucide-react";
@@ -63,13 +62,6 @@ export const navItems: NavItem[] = [
     to: "/kartvizit",
     icon: IdCard,
     description: "Divizyon şablonlarıyla kişiye özel kartvizit hazırlayın.",
-    position: "main",
-  },
-  {
-    label: "Çalışan Listesi",
-    to: "/calisan-listesi",
-    icon: Users,
-    description: "Departman kadrosu ve personel bilgileri.",
     position: "main",
   },
   {
