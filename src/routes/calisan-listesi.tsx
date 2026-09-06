@@ -24,15 +24,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
+
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { divisionProfileOptions, rankOptions } from "@/lib/officer-profile";
 import { loadOfficerProfiles } from "@/lib/officer-profile";
