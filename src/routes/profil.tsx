@@ -321,8 +321,10 @@ function Page() {
                 onClick={async () => {
                   setSaving(true);
                   try {
-                    saveOfficerProfileLocal(data);
-                    await saveProfileFn({ data });
+                    saveOfficerProfiles({ profiles, activeId });
+                    const { id: _id, ...rest } = (active ??
+                      { ...emptyOfficerProfile, id: "" }) as StoredOfficerProfile;
+                    await saveProfileFn({ data: rest });
                     notify.success("Profil kaydedildi");
                   } catch {
                     notify.error("Profil kaydedilemedi");
@@ -337,8 +339,10 @@ function Page() {
               <Button
                 variant="outline"
                 onClick={() => {
-                  clearOfficerProfile();
-                  setData(emptyOfficerProfile);
+                  persist(
+                    profiles.map((p) => (p.id === activeId ? { ...emptyOfficerProfile, id: p.id } : p)),
+                    activeId,
+                  );
                   notify.success("Profil temizlendi");
                 }}
               >
@@ -346,6 +350,7 @@ function Page() {
                 Temizle
               </Button>
             </div>
+
           </section>
         </div>
 
