@@ -23,7 +23,6 @@ import {
 } from "@/lib/portal-auth.functions";
 import {
   clearOfficerProfile,
-  divisionCode,
   divisionProfileOptions,
   emptyOfficerProfile,
   loadOfficerProfile,
@@ -97,7 +96,6 @@ function Page() {
   const set = <K extends keyof OfficerProfile>(key: K, value: OfficerProfile[K]) =>
     setData((d) => ({ ...d, [key]: value }));
 
-  const code = divisionCode(data.division);
   const displayName =
     data.name ||
     (session?.selectedCharacter
@@ -130,7 +128,7 @@ function Page() {
             </div>
             <p className="mt-4 truncate font-semibold">{displayName}</p>
             <p className="text-xs text-muted-foreground">
-              {[data.rank, code].filter(Boolean).join(" • ") || "Rütbe belirtilmedi"}
+              {data.rank || "Rütbe belirtilmedi"}
             </p>
 
             <input
