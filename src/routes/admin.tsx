@@ -222,8 +222,40 @@ function AdminPage() {
           </Link>
         </div>
 
+        <div className="mb-8 grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              label: "Onay Bekleyen",
+              value: pendingUsers.length,
+              icon: <UserX className="size-4 text-warning" />,
+            },
+            {
+              label: "Aktif Kullanıcı",
+              value: approvedUsers.length,
+              icon: <ShieldCheck className="size-4 text-primary" />,
+            },
+            {
+              label: "Reddedilen",
+              value: rejectedUsers.length,
+              icon: <X className="size-4 text-destructive" />,
+            },
+          ].map((stat) => (
+            <Card key={stat.label}>
+              <CardContent className="flex items-center justify-between py-5">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                    {stat.label}
+                  </p>
+                  <p className="mt-1 text-2xl font-bold tabular-nums">{stat.value}</p>
+                </div>
+                {stat.icon}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
         <Card className="mb-8">
+
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
               <UserX className="size-4 text-warning" />
