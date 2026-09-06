@@ -252,10 +252,10 @@ function Page() {
                 </Select>
               </div>
               <div>
-                <Label className="text-xs">Division</Label>
+                <Label className="text-xs">Görevlendirme</Label>
                 <Select value={data.division} onValueChange={(v) => set("division", v)}>
                   <SelectTrigger className="mt-2">
-                    <SelectValue placeholder="Seçiniz" />
+                    <SelectValue placeholder="Görevlendirme Tanımı" />
                   </SelectTrigger>
                   <SelectContent className="max-h-72">
                     {divisionProfileOptions.map((d) => (
