@@ -56,6 +56,24 @@ function rankWeight(rank: string): number {
   return idx === -1 ? -1 : idx;
 }
 
+/** Personel listesi bölümleri; gösterim sırası sabittir. */
+const ROSTER_SECTIONS: { title: string; divisions: string[] }[] = [
+  {
+    title: "MISSION ROW COMMUNITY POLICE STATION",
+    divisions: ["Mission Row Area Patrol Division", "Mission Row Area Detective Division"],
+  },
+  { title: "METROPOLITAN DIVISION", divisions: ["Metropolitan Division"] },
+  { title: "CENTRAL TRAFFIC DIVISION", divisions: ["Central Traffic Division"] },
+  { title: "CENTRAL BUREAU HOMICIDE", divisions: ["Central Bureau Homicide"] },
+  { title: "AIR SUPPORT DIVISION", divisions: ["Air Support Division"] },
+  { title: "DİĞER PERSONEL", divisions: [] },
+];
+
+function sectionFor(division: string): string {
+  const match = ROSTER_SECTIONS.find((s) => s.divisions.includes(division));
+  return match ? match.title : "DİĞER PERSONEL";
+}
+
 const emptyForm: RosterInput = {
   name: "",
   serialNo: "",
@@ -222,17 +240,18 @@ function RosterPage() {
             )}
           </div>
         ) : (
-          <div className="mt-8">
-            <section>
+          <div className="mt-8 space-y-10">
+            {sections.map((section) => (
+            <section key={section.title}>
               <div className="mb-4 flex items-center gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                  MISSION ROW COMMUNITY POLICE STATION
+                  {section.title}
                 </h2>
                 <div className="h-px flex-1 bg-border" />
-                <span className="text-xs text-muted-foreground">{sortedEntries.length} personel</span>
+                <span className="text-xs text-muted-foreground">{section.entries.length} personel</span>
               </div>
               <div className="grid grid-cols-1 gap-3">
-                {sortedEntries.map((entry) => (
+                {section.entries.map((entry) => (
                   <article
                     key={entry.id}
                     className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
