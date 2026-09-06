@@ -216,7 +216,7 @@ function Page() {
                       variant="ghost"
                       size="icon"
                       aria-label="Kanıtı kaldır"
-                      className="opacity-0 transition-opacity group-hover:opacity-100"
+                      className="evidence-remove"
                       onClick={() =>
                         set(
                           "evidence",

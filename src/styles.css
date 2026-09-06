@@ -287,6 +287,17 @@ html.theme-light .lspd-watermark {
   filter: grayscale(1);
 }
 
+/* Kanıt satırı silme butonu: Tailwind preflight'ın butonlara dayattığı
+   opacity: 1 kuralını ezmek için sınıf seçici kullanılır. */
+.evidence-remove {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+.group:hover .evidence-remove,
+.evidence-remove:focus-visible {
+  opacity: 1;
+}
+
 /* Kartvizit şablonlarında kullanılan imza yazı tipi. */
 @font-face {
   font-family: "Slimshoot";
