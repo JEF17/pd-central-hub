@@ -5,7 +5,7 @@ import { Pencil, Plus, Search, Trash2, Users } from "lucide-react";
 import { toast } from "sonner";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,15 +24,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
+
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { divisionProfileOptions, rankOptions } from "@/lib/officer-profile";
 import { loadOfficerProfiles } from "@/lib/officer-profile";
@@ -129,14 +122,27 @@ function RosterPage() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return entries;
-    return entries.filter((e) =>
-      [e.name, e.serialNo, e.rank, e.division, e.email, e.discord]
-        .join(" ")
-        .toLowerCase()
-        .includes(q),
-    );
+    const base = !q
+      ? entries
+      : entries.filter((e) =>
+          [e.name, e.serialNo, e.rank, e.division, e.email, e.discord]
+            .join(" ")
+            .toLowerCase()
+            .includes(q),
+        );
+    const rankIndex = (rank: string) => {
+      const i = rankOptions.indexOf(rank);
+      return i === -1 ? -1 : i;
+    };
+    return [...base].sort((a, b) => {
+      const diff = rankIndex(b.rank) - rankIndex(a.rank);
+      if (diff !== 0) return diff;
+      const order = (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
+      if (order !== 0) return order;
+      return a.name.localeCompare(b.name, "tr");
+    });
   }, [entries, query]);
+
 
   const openCreate = () => {
     setForm(emptyForm);
@@ -252,83 +258,77 @@ function RosterPage() {
           </div>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
+        <section>
+          <div className="mb-5 border-b border-border pb-3">
+            <h2 className="text-xl font-bold uppercase tracking-[0.2em] text-primary">
+              Mission Row Area
+            </h2>
+            <h3 className="mt-1 flex items-center gap-2 text-base font-semibold text-foreground/90">
               <Users className="size-4 text-primary" />
-              Kadro ({filtered.length})
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <p className="text-sm text-muted-foreground">Yükleniyor…</p>
-            ) : filtered.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                {entries.length === 0 ? "Henüz personel eklenmemiş." : "Aramanla eşleşen personel yok."}
-              </p>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Personel</TableHead>
-                    <TableHead>Rütbe</TableHead>
-                    <TableHead>Seri No</TableHead>
-                    <TableHead>Division</TableHead>
-                    <TableHead>İletişim</TableHead>
-                    <TableHead>Durum</TableHead>
-                    {isAdmin ? <TableHead className="text-right">İşlem</TableHead> : null}
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filtered.map((entry) => (
-                    <TableRow key={entry.id}>
-                      <TableCell>
-                        <div className="flex items-center gap-3">
-                          <div className="size-10 shrink-0 overflow-hidden rounded-md border border-border bg-muted/40">
-                            {entry.photo ? (
-                              <img
-                                src={entry.photo}
-                                alt={`${entry.name} fotoğrafı`}
-                                className="size-full object-cover"
-                              />
-                            ) : null}
-                          </div>
-                          <span className="font-medium">{entry.name}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>{entry.rank || "—"}</TableCell>
-                      <TableCell>{entry.serialNo ? `#${entry.serialNo}` : "—"}</TableCell>
-                      <TableCell className="max-w-[220px] truncate">{entry.division || "—"}</TableCell>
-                      <TableCell className="text-xs text-muted-foreground">
-                        {entry.email ? <div className="truncate">{entry.email}</div> : null}
-                        {entry.phone ? <div className="truncate">{entry.phone}</div> : null}
-                        {entry.discord ? <div className="truncate">Discord: {entry.discord}</div> : null}
-                        {!entry.email && !entry.phone && !entry.discord ? "—" : null}
-                      </TableCell>
-                      <TableCell>
+              Mission Row Community Police Station
+              <span className="text-sm font-normal text-muted-foreground">({filtered.length})</span>
+            </h3>
+          </div>
+
+          {loading ? (
+            <p className="text-sm text-muted-foreground">Yükleniyor…</p>
+          ) : filtered.length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              {entries.length === 0 ? "Henüz personel eklenmemiş." : "Aramanla eşleşen personel yok."}
+            </p>
+          ) : (
+            <div className="space-y-3">
+              {filtered.map((entry) => (
+                <Card key={entry.id} className="overflow-hidden">
+                  <CardContent className="flex flex-wrap items-center gap-4 p-4">
+                    <div className="size-16 shrink-0 overflow-hidden rounded-md border border-border bg-muted/40">
+                      {entry.photo ? (
+                        <img
+                          src={entry.photo}
+                          alt={`${entry.name} fotoğrafı`}
+                          className="size-full object-cover"
+                        />
+                      ) : null}
+                    </div>
+
+                    <div className="min-w-[200px] flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-base font-semibold">{entry.name}</span>
                         <Badge variant={entry.status === "active" ? "secondary" : "outline"}>
                           {STATUS_LABELS[entry.status] ?? entry.status}
                         </Badge>
-                      </TableCell>
-                      {isAdmin ? (
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button size="sm" variant="outline" onClick={() => openEdit(entry)}>
-                              <Pencil className="size-3" />
-                            </Button>
-                            <Button size="sm" variant="destructive" onClick={() => remove(entry)}>
-                              <Trash2 className="size-3" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      ) : null}
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
-        </Card>
+                      </div>
+                      <div className="mt-1 text-sm text-primary">{entry.rank || "—"}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {entry.serialNo ? `Seri No: #${entry.serialNo}` : "Seri No: —"}
+                        {entry.division ? ` • ${entry.division}` : ""}
+                      </div>
+                    </div>
+
+                    <div className="min-w-[180px] text-xs text-muted-foreground">
+                      {entry.email ? <div className="truncate">{entry.email}</div> : null}
+                      {entry.phone ? <div className="truncate">{entry.phone}</div> : null}
+                      {entry.discord ? <div className="truncate">Discord: {entry.discord}</div> : null}
+                      {!entry.email && !entry.phone && !entry.discord ? "—" : null}
+                    </div>
+
+                    {isAdmin ? (
+                      <div className="flex gap-2">
+                        <Button size="sm" variant="outline" onClick={() => openEdit(entry)}>
+                          <Pencil className="size-3" />
+                        </Button>
+                        <Button size="sm" variant="destructive" onClick={() => remove(entry)}>
+                          <Trash2 className="size-3" />
+                        </Button>
+                      </div>
+                    ) : null}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </section>
+
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
