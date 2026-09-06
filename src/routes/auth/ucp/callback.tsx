@@ -88,11 +88,21 @@ export const Route = createFileRoute("/auth/ucp/callback")({
             }
           }
 
+          // UCP token'ı sakla ve MDC'den karakter fotoğraflarını çekmeyi dene.
+          const { storeUcpAccessToken, fetchMdcCharacterPhotos, syncUserCharacters } = helpers;
+          await storeUcpAccessToken(user.id, accessToken);
+          const photos = await fetchMdcCharacterPhotos(accessToken);
+          await syncUserCharacters(
+            user.id,
+            info.characters.map((c) => ({ ...c, photo: photos[c.id] ?? null })),
+          );
+
           const sessionToken = generateSessionToken();
           const tokenHash = hashToken(sessionToken);
           await createSession(user.id, tokenHash, getRequestHeader("user-agent") ?? null);
 
-          const redirectTo = user.status === "approved" ? "/" : "/onay-bekliyor";
+          const redirectTo = user.status === "approved" ? "/" : "/karakter-sec";
+
 
           return redirectResponse(redirectTo, [
             clearOAuthStateCookie(),

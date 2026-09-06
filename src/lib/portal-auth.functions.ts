@@ -46,6 +46,7 @@ export type PortalCharacterDto = {
   memberid: number;
   faction: string | null;
   isLspd: boolean;
+  photo: string;
   status: "pending" | "approved" | "rejected";
   requestedAt: string | null;
 };
@@ -260,6 +261,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     memberid: Number(c.memberid ?? 0),
     faction: c.faction,
     isLspd: c.is_lspd,
+    photo: c.photo ?? "",
     status: c.status as PortalCharacterDto["status"],
     requestedAt: c.requested_at,
   }));
@@ -474,5 +476,84 @@ export const saveOfficerProfile = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { updateOfficerProfile } = await import("./portal-auth.server");
     await updateOfficerProfile(context.userId, data);
+    return { ok: true };
+  });
+
+
+/** Oyuncunun UCP karakterleri (onay durumlarıyla). */
+export const listMyCharacters = createServerFn({ method: "GET" }).handler(
+  async (): Promise<PortalCharacterDto[]> => {
+    const user = await validatePortalSession(true);
+    const { ensureUserCharacters } = await import("./portal-auth.server");
+    const rows = await ensureUserCharacters(user);
+    return rows.map((c) => ({
+      rowId: c.id,
+      id: Number(c.character_id),
+      firstname: c.firstname,
+      lastname: c.lastname,
+      memberid: Number(c.memberid ?? 0),
+      faction: c.faction,
+      isLspd: c.is_lspd,
+      photo: c.photo ?? "",
+      status: c.status as PortalCharacterDto["status"],
+      requestedAt: c.requested_at,
+    }));
+  },
+);
+
+/** Seçilen karakteri yönetici onayına gönderir. */
+export const requestCharacter = createServerFn({ method: "POST" })
+  .inputValidator((input: { characterId: number }) => input)
+  .handler(async ({ data }) => {
+    const user = await validatePortalSession(true);
+    const { requestCharacterApproval, logLoginEvent, listUserCharacters } = await import(
+      "./portal-auth.server"
+    );
+    await requestCharacterApproval(user.id, data.characterId);
+    const target = (await listUserCharacters(user.id)).find(
+      (c) => Number(c.character_id) === data.characterId,
+    );
+    await logLoginEvent(
+      user.id,
+      user.username,
+      "character_request",
+      target ? `${target.firstname} ${target.lastname}` : String(data.characterId),
+    );
+    return { ok: true };
+  });
+
+export const listCharacterRequests = createServerFn({ method: "GET" })
+  .middleware([requirePortalAdminMiddleware])
+  .handler(async () => {
+    const { listPendingCharacters } = await import("./portal-auth.server");
+    const rows = await listPendingCharacters();
+    return rows.map((c) => ({
+      rowId: c.id,
+      id: Number(c.character_id),
+      username: c.username,
+      firstname: c.firstname,
+      lastname: c.lastname,
+      memberid: Number(c.memberid ?? 0),
+      faction: c.faction,
+      isLspd: c.is_lspd,
+      photo: c.photo ?? "",
+      requestedAt: c.requested_at,
+    }));
+  });
+
+export type CharacterRequestDto = Awaited<ReturnType<typeof listCharacterRequests>>[number];
+
+export const decideCharacterRequest = createServerFn({ method: "POST" })
+  .middleware([requirePortalAdminMiddleware])
+  .inputValidator((input: { rowId: string; status: "approved" | "rejected" }) => input)
+  .handler(async ({ data, context }) => {
+    const { decideCharacter, logLoginEvent } = await import("./portal-auth.server");
+    const character = await decideCharacter(data.rowId, context.userId, data.status);
+    await logLoginEvent(
+      context.userId,
+      context.user.username,
+      data.status === "approved" ? "character_approve" : "character_reject",
+      `${character.firstname} ${character.lastname}`,
+    );
     return { ok: true };
   });

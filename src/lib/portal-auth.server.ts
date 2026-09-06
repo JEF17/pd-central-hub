@@ -22,8 +22,56 @@ export interface UcpCharacter {
   memberid: number;
   faction?: string | null;
   isLspd?: boolean;
+  photo?: string | null;
   raw?: Record<string, unknown>;
 }
+
+/** MDC (UCP ile entegre) — karakter fotoğrafları buradan gelir. */
+export const MDC_USER_URL = "https://mdc-tr.gta.world/api/user";
+
+function pickPhotoUrl(raw: Record<string, unknown>): string | null {
+  const keys = ["image", "img", "photo", "picture", "avatar", "mugshot", "character_image", "image_url"];
+  for (const key of keys) {
+    const value = raw[key];
+    if (typeof value === "string" && /^https?:\/\//i.test(value)) return value;
+  }
+  return null;
+}
+
+/**
+ * MDC, UCP oturumuyla çalıştığı için UCP access token'ı ile denenir.
+ * Erişilemezse boş sonuç döner; sistem fotoğrafsız çalışmaya devam eder.
+ */
+export async function fetchMdcCharacterPhotos(accessToken: string): Promise<Record<number, string>> {
+  const photos: Record<number, string> = {};
+  try {
+    const res = await fetch(MDC_USER_URL, {
+      headers: { Authorization: `Bearer ${accessToken}`, Accept: "application/json" },
+    });
+    if (!res.ok) return photos;
+    const data = (await res.json()) as unknown;
+
+    const seen = new Set<unknown>();
+    const walk = (value: unknown): void => {
+      if (!value || typeof value !== "object" || seen.has(value)) return;
+      seen.add(value);
+      if (Array.isArray(value)) {
+        for (const item of value) walk(item);
+        return;
+      }
+      const obj = value as Record<string, unknown>;
+      const id = Number(obj['id'] ?? obj['character_id']);
+      const photo = pickPhotoUrl(obj);
+      if (Number.isFinite(id) && photo) photos[id] = photo;
+      for (const v of Object.values(obj)) walk(v);
+    };
+    walk(data);
+  } catch {
+    /* MDC erişilemedi */
+  }
+  return photos;
+}
+
 
 const LSPD_PATTERN = /(lspd|los santos police|police department|san andreas state police|\bpolice\b)/i;
 
@@ -553,15 +601,14 @@ type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
 export type PortalCharacter = Database["public"]["Tables"]["portal_characters"]["Row"];
 
 /**
- * Stores the account's UCP characters. Only LSPD characters are kept; if UCP returned no
- * faction information at all, every character is kept so an admin can still decide manually.
+ * Hesabın tüm UCP karakterlerini saklar. LSPD karakterleri `is_lspd` ile işaretlenir;
+ * seçim ekranı LSPD karakterlerini önce gösterir, diğerleri sonradan onaya gönderilebilir.
  */
 export async function syncUserCharacters(
   userId: string,
   characters: UcpCharacter[],
 ): Promise<PortalCharacter[]> {
-  const anyLspd = characters.some((c) => c.isLspd);
-  const relevant = anyLspd ? characters.filter((c) => c.isLspd) : characters;
+  const relevant = characters;
 
   if (relevant.length > 0) {
     const now = new Date().toISOString();
@@ -574,6 +621,7 @@ export async function syncUserCharacters(
         memberid: Number.isFinite(c.memberid) ? c.memberid : null,
         faction: c.faction ?? null,
         is_lspd: !!c.isLspd,
+        ...(c.photo ? { photo: c.photo } : {}),
         raw: (c.raw ?? {}) as unknown as Json,
         updated_at: now,
       })),
@@ -584,6 +632,36 @@ export async function syncUserCharacters(
 
   return listUserCharacters(userId);
 }
+
+/** UCP access token'ı MDC çağrıları için saklar. */
+export async function storeUcpAccessToken(userId: string, accessToken: string): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("portal_users")
+    .update({ ucp_access_token: accessToken, updated_at: new Date().toISOString() })
+    .eq("id", userId);
+  if (error) throw error;
+}
+
+/** Onay bekleyen (istek gönderilmiş) karakterler. */
+export async function listPendingCharacters(): Promise<
+  Array<PortalCharacter & { username: string | null }>
+> {
+  const { data, error } = await supabaseAdmin
+    .from("portal_characters")
+    .select("*, portal_users!inner(username)")
+    .eq("status", "pending")
+    .not("requested_at", "is", null)
+    .order("requested_at", { ascending: false });
+  if (error) throw error;
+  return ((data ?? []) as unknown as Array<Record<string, unknown>>).map((row) => {
+    const { portal_users: owner, ...rest } = row;
+    return {
+      ...(rest as unknown as PortalCharacter),
+      username: ((owner as { username?: string | null } | null)?.username ?? null) as string | null,
+    };
+  });
+}
+
 
 export async function listUserCharacters(userId: string): Promise<PortalCharacter[]> {
   const { data, error } = await supabaseAdmin
