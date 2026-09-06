@@ -56,6 +56,24 @@ function rankWeight(rank: string): number {
   return idx === -1 ? -1 : idx;
 }
 
+/** Personel listesi bölümleri; gösterim sırası sabittir. */
+const ROSTER_SECTIONS: { title: string; divisions: string[] }[] = [
+  {
+    title: "MISSION ROW COMMUNITY POLICE STATION",
+    divisions: ["Mission Row Area Patrol Division", "Mission Row Area Detective Division"],
+  },
+  { title: "METROPOLITAN DIVISION", divisions: ["Metropolitan Division"] },
+  { title: "CENTRAL TRAFFIC DIVISION", divisions: ["Central Traffic Division"] },
+  { title: "CENTRAL BUREAU HOMICIDE", divisions: ["Central Bureau Homicide"] },
+  { title: "AIR SUPPORT DIVISION", divisions: ["Air Support Division"] },
+  { title: "DİĞER PERSONEL", divisions: [] },
+];
+
+function sectionFor(division: string): string {
+  const match = ROSTER_SECTIONS.find((s) => s.divisions.includes(division));
+  return match ? match.title : "DİĞER PERSONEL";
+}
+
 const emptyForm: RosterInput = {
   name: "",
   serialNo: "",
@@ -101,13 +119,22 @@ function RosterPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sortedEntries = useMemo(() => {
+  const sections = useMemo(() => {
     const q = search.trim().toLowerCase();
     const filtered = q
       ? entries.filter((e) => [e.name, e.serialNo, e.rank, e.division, e.discord].join(" ").toLowerCase().includes(q))
       : entries;
     // En yüksek rütbe en üstte
-    return [...filtered].sort((a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"));
+    const sorted = [...filtered].sort(
+      (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
+    );
+    const groups = new Map<string, RosterEntry[]>();
+    for (const section of ROSTER_SECTIONS) groups.set(section.title, []);
+    for (const entry of sorted) groups.get(sectionFor(entry.division))!.push(entry);
+    return ROSTER_SECTIONS.map((section) => ({
+      title: section.title,
+      entries: groups.get(section.title) ?? [],
+    })).filter((section) => section.entries.length > 0);
   }, [entries, search]);
 
   const openCreate = () => {
@@ -199,7 +226,7 @@ function RosterPage() {
 
         {loading ? (
           <p className="mt-12 text-center text-sm text-muted-foreground">Yükleniyor...</p>
-        ) : sortedEntries.length === 0 ? (
+        ) : sections.length === 0 ? (
           <div className="mt-12 flex flex-col items-center gap-3 rounded-xl border border-dashed py-16 text-center">
             <UserRound className="size-10 text-muted-foreground/50" />
             <p className="text-sm text-muted-foreground">
@@ -213,17 +240,18 @@ function RosterPage() {
             )}
           </div>
         ) : (
-          <div className="mt-8">
-            <section>
+          <div className="mt-8 space-y-10">
+            {sections.map((section) => (
+            <section key={section.title}>
               <div className="mb-4 flex items-center gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                  MISSION ROW COMMUNITY POLICE STATION
+                  {section.title}
                 </h2>
                 <div className="h-px flex-1 bg-border" />
-                <span className="text-xs text-muted-foreground">{sortedEntries.length} personel</span>
+                <span className="text-xs text-muted-foreground">{section.entries.length} personel</span>
               </div>
               <div className="grid grid-cols-1 gap-3">
-                {sortedEntries.map((entry) => (
+                {section.entries.map((entry) => (
                   <article
                     key={entry.id}
                     className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
@@ -286,6 +314,7 @@ function RosterPage() {
                 ))}
               </div>
             </section>
+            ))}
           </div>
         )}
       </div>

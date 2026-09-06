@@ -64,6 +64,7 @@ export const divisionProfileOptions: { label: string; value: string; code: strin
   { label: "Metropolitan Division", value: "Metropolitan Division", code: "METRO" },
   { label: "Air Support Division", value: "Air Support Division", code: "ASD" },
   { label: "Vespucci Area Patrol Division", value: "Vespucci Area Patrol Division", code: "VES" },
+  { label: "Central Bureau Homicide", value: "Central Bureau Homicide", code: "CENT W" },
 ];
 
 export function divisionCode(division: string): string {
