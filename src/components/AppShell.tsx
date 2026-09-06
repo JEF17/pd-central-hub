@@ -1,5 +1,5 @@
 // Geliştirici: Muptazelle
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { LogOut, MessageSquare, PanelLeft, Shield, User, Users } from "lucide-react";
 
@@ -19,11 +19,24 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.localStorage.getItem("lspd-sidebar-collapsed") === "true";
+    } catch {
+      return false;
+    }
+  });
   const { session, signOut } = usePortalSession();
   const profile = useOfficerProfile();
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("lspd-sidebar-collapsed", String(collapsed));
+    } catch {}
+  }, [collapsed]);
 
   const visibleNavItems = navItems.filter((item) => !item.adminOnly || session?.isAdmin);
   const characterName =
