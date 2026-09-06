@@ -98,6 +98,8 @@ export const Route = createFileRoute("/admin")({
 function AdminPage() {
   const [users, setUsers] = useState<UserDto[]>([]);
   const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = useState<string | null>(null);
+  const toggleExpanded = (id: string) => setExpanded((cur) => (cur === id ? null : id));
 
   const listUsersFn = useServerFn(listUsers);
   const approveFn = useServerFn(approveUser);
