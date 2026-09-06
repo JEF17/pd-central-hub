@@ -32,6 +32,12 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
+  useEffect(() => {
+    try {
+      window.localStorage.setItem("lspd-sidebar-collapsed", String(collapsed));
+    } catch {}
+  }, [collapsed]);
+
   const visibleNavItems = navItems.filter((item) => !item.adminOnly || session?.isAdmin);
   const characterName =
     profile?.name.trim() ||
