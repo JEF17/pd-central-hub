@@ -498,6 +498,19 @@ export async function resubmitApplication(userId: string): Promise<PortalUser> {
   return data as PortalUser;
 }
 
+export async function deletePortalUser(userId: string): Promise<void> {
+  const { error: sessionsError } = await supabaseAdmin.from("portal_sessions").delete().eq("user_id", userId);
+  if (sessionsError) throw sessionsError;
+  const { error: rolesError } = await supabaseAdmin.from("portal_user_roles").delete().eq("user_id", userId);
+  if (rolesError) throw rolesError;
+  const { error: charactersError } = await supabaseAdmin.from("portal_characters").delete().eq("user_id", userId);
+  if (charactersError) throw charactersError;
+  const { error: logsError } = await supabaseAdmin.from("portal_login_logs").delete().eq("user_id", userId);
+  if (logsError) throw logsError;
+  const { error } = await supabaseAdmin.from("portal_users").delete().eq("id", userId);
+  if (error) throw error;
+}
+
 export async function assignRole(userId: string, role: "user" | "admin" | AdminLevel): Promise<void> {
   const { error } = await supabaseAdmin.from("portal_user_roles").upsert(
     { user_id: userId, role },
