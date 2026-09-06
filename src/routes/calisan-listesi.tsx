@@ -227,7 +227,7 @@ function RosterPage() {
             <section>
               <div className="mb-4 flex items-center gap-3">
                 <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                  Mission Row Community Police Station
+                  MISSION ROW COMMUNITY POLICE STATION
                 </h2>
                 <div className="h-px flex-1 bg-border" />
                 <span className="text-xs text-muted-foreground">
