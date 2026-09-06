@@ -66,6 +66,7 @@ const emptyForm: RosterInput = {
   phone: "",
   discord: "",
   status: "active",
+  note: "",
 };
 
 function RosterPage() {
