@@ -9,12 +9,14 @@ import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 export const Route = createFileRoute("/auth/giris")({
   head: () => ({
     meta: [
-      { title: "Giriş | LSPD - Toolkit" },
-      { name: "description", content: "LSPD Toolkit UCP girişi" },
-      { property: "og:title", content: "Giriş | LSPD - Toolkit" },
-      { property: "og:description", content: "LSPD Toolkit UCP girişi" },
+      { title: "LSPD Toolkit" },
+      { name: "description", content: "LSPD Toolkit" },
+      { property: "og:title", content: "LSPD Toolkit" },
+      { property: "og:description", content: "LSPD Toolkit" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/2e760984-99ec-4d8d-a7f9-c61a0788676f/og-image.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/2e760984-99ec-4d8d-a7f9-c61a0788676f/og-image.png" },
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
