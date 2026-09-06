@@ -59,12 +59,11 @@ function rankWeight(rank: string): number {
 /** Personel listesi bölümleri; gösterim sırası sabittir. */
 const ROSTER_SECTIONS: { title: string; divisions: string[] }[] = [
   {
-    title: "MISSION ROW COMMUNITY POLICE STATION",
+    title: "MISSION ROW DIVISION",
     divisions: ["Mission Row Area Patrol Division", "Mission Row Area Detective Division"],
   },
+  { title: "CENTRAL DIVISION", divisions: ["Central Traffic Division", "Central Bureau Homicide"] },
   { title: "METROPOLITAN DIVISION", divisions: ["Metropolitan Division"] },
-  { title: "CENTRAL TRAFFIC DIVISION", divisions: ["Central Traffic Division"] },
-  { title: "CENTRAL BUREAU HOMICIDE", divisions: ["Central Bureau Homicide"] },
   { title: "AIR SUPPORT DIVISION", divisions: ["Air Support Division"] },
   { title: "DİĞER PERSONEL", divisions: [] },
 ];
