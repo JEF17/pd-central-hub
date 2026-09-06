@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Camera, IdCard, Save, Trash2, UserRound } from "lucide-react";
+import { Camera, IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -22,14 +22,17 @@ import {
   saveOfficerProfile as saveOfficerProfileServer,
 } from "@/lib/portal-auth.functions";
 import {
-  clearOfficerProfile,
+  createEmptyStoredProfile,
   divisionProfileOptions,
   emptyOfficerProfile,
-  loadOfficerProfile,
+  loadOfficerProfiles,
+  profileLabel,
   rankOptions,
-  saveOfficerProfile as saveOfficerProfileLocal,
+  saveOfficerProfiles,
   type OfficerProfile,
+  type StoredOfficerProfile,
 } from "@/lib/officer-profile";
+
 
 export const Route = createFileRoute("/profil")({
   beforeLoad: async ({ location }) => {
