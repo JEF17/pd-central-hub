@@ -250,7 +250,7 @@ function RosterPage() {
                 <div className="h-px flex-1 bg-border" />
                 <span className="text-xs text-muted-foreground">{section.entries.length} personel</span>
               </div>
-              <div className="grid grid-cols-1 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {section.entries.map((entry) => (
                   <article
                     key={entry.id}
