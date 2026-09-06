@@ -63,6 +63,13 @@ function Dashboard() {
     setRecent(loadRecentDrafts(4));
   }, []);
 
+  const handleDismiss = (e: React.MouseEvent, slug: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    removeDraft(slug);
+    setRecent((prev) => prev.filter((d) => d.type.slug !== slug));
+  };
+
   const officerLine = profile?.name
     ? [profile.rank, profile.name].filter(Boolean).join(" ")
     : "Memur profili tanımlı değil";
