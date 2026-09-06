@@ -7,7 +7,7 @@ import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+
 import {
   Select,
   SelectContent,
@@ -216,12 +216,6 @@ function Page() {
                     ))}
                   </SelectContent>
                 </Select>
-                {code ? (
-                  <p className="mt-2 text-xs text-muted-foreground">
-                    Raporlarda kullanılacak kısaltma:{" "}
-                    <span className="font-mono text-foreground">{code}</span>
-                  </p>
-                ) : null}
               </div>
             </div>
 
@@ -233,7 +227,7 @@ function Page() {
                   className="mt-2"
                   type="email"
                   value={data.email}
-                  placeholder="john.doe@lspd.gov"
+                  placeholder="serino@lspd.online"
                   onChange={(e) => set("email", e.target.value)}
                 />
               </div>
@@ -251,18 +245,8 @@ function Page() {
                 <Input
                   className="mt-2"
                   value={data.discord}
-                  placeholder="kullanici_adi"
+                  placeholder="Kullanıcı Adı"
                   onChange={(e) => set("discord", e.target.value)}
-                />
-              </div>
-              <div className="sm:col-span-2">
-                <Label className="text-xs">Not</Label>
-                <Textarea
-                  className="mt-2"
-                  rows={3}
-                  value={data.note}
-                  placeholder="Görev bölgesi, ekip bilgisi vb."
-                  onChange={(e) => set("note", e.target.value)}
                 />
               </div>
             </div>
