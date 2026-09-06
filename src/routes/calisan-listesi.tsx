@@ -101,13 +101,22 @@ function RosterPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const sortedEntries = useMemo(() => {
+  const sections = useMemo(() => {
     const q = search.trim().toLowerCase();
     const filtered = q
       ? entries.filter((e) => [e.name, e.serialNo, e.rank, e.division, e.discord].join(" ").toLowerCase().includes(q))
       : entries;
     // En yüksek rütbe en üstte
-    return [...filtered].sort((a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"));
+    const sorted = [...filtered].sort(
+      (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
+    );
+    const groups = new Map<string, RosterEntry[]>();
+    for (const section of ROSTER_SECTIONS) groups.set(section.title, []);
+    for (const entry of sorted) groups.get(sectionFor(entry.division))!.push(entry);
+    return ROSTER_SECTIONS.map((section) => ({
+      title: section.title,
+      entries: groups.get(section.title) ?? [],
+    })).filter((section) => section.entries.length > 0);
   }, [entries, search]);
 
   const openCreate = () => {
