@@ -227,7 +227,32 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
         adminLevel: "query" as AdminLevel,
         profileCompleted: true,
         characters: [],
-        portalCharacters: [],
+        portalCharacters: [
+          {
+            rowId: "preview-1",
+            id: 1,
+            firstname: "Alexandra",
+            lastname: "Grasso",
+            memberid: 0,
+            faction: null,
+            isLspd: true,
+            photo: "",
+            status: "approved",
+            requestedAt: null,
+          },
+          {
+            rowId: "preview-2",
+            id: 2,
+            firstname: "Jonathan",
+            lastname: "Spencer",
+            memberid: 0,
+            faction: null,
+            isLspd: false,
+            photo: "",
+            status: "approved",
+            requestedAt: null,
+          },
+        ],
         selectedCharacter: null,
       } satisfies PortalSessionDto;
     }
