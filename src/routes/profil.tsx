@@ -89,7 +89,7 @@ function Page() {
   const [activeId, setActiveId] = useState<string>("");
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-  const { session, refresh } = usePortalSession();
+  const { session } = usePortalSession();
   const router = useRouter();
   const mustCreateProfile = session ? !session.profileCompleted : false;
   const saveProfileFn = useServerFn(saveOfficerProfileServer);
@@ -341,7 +341,6 @@ function Page() {
                     await saveProfileFn({ data: { ...rest, profiles: all } });
                     notify.success("Profil kaydedildi");
                     if (mustCreateProfile) {
-                      await refresh?.();
                       await router.invalidate();
                       router.navigate({ to: "/" });
                     }
