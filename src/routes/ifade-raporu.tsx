@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import { ArrowLeft, ClipboardCopy, Plus, Trash2, MessageSquareQuote, } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, Plus, X, MessageSquareQuote, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
@@ -197,7 +197,7 @@ function Page() {
           <Section title="Kanıtlar" wide>
             <div className="sm:col-span-2 space-y-3">
               {data.evidence.map((e, i) => (
-                <div key={e.id} className="grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
+                <div key={e.id} className="group grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
                   <div>
                     <Label className="text-xs">Kanıt {i + 1}</Label>
                     <Input
@@ -226,14 +226,15 @@ function Page() {
                       }
                     />
                   </div>
-                  {data.evidence.length > 1 ? (
+                  {data.evidence.length > 5 ? (
                     <Button
                       variant="ghost"
                       size="icon"
                       aria-label="Kanıtı sil"
+                      className="opacity-0 transition-opacity group-hover:opacity-100"
                       onClick={() => setData((d) => ({ ...d, evidence: d.evidence.filter((x) => x.id !== e.id) }))}
                     >
-                      <Trash2 className="size-4" />
+                      <X className="size-4" />
                     </Button>
                   ) : (
                     <div />
