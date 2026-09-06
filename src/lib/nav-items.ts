@@ -65,6 +65,13 @@ export const navItems: NavItem[] = [
     position: "main",
   },
   {
+    label: "Çalışan Listesi",
+    to: "/calisan-listesi",
+    icon: Users,
+    description: "Departman kadrosu ve personel bilgileri.",
+    position: "main",
+  },
+  {
     label: "Personel Profili",
     to: "/profil",
     icon: UserRound,
