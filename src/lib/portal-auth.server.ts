@@ -285,6 +285,7 @@ export async function fetchUcpUserInfo(accessToken: string): Promise<UcpUserInfo
             memberid: Number(rc['memberid']),
             faction,
             isLspd: !!faction,
+            photo: pickPhotoUrl(rc),
             raw: rc,
           };
         })
