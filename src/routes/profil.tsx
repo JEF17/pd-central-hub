@@ -128,7 +128,7 @@ function Page() {
             </div>
             <p className="mt-4 truncate font-semibold">{displayName}</p>
             <p className="text-xs text-muted-foreground">
-              {[data.rank, code].filter(Boolean).join(" • ") || "Rütbe belirtilmedi"}
+              {data.rank || "Rütbe belirtilmedi"}
             </p>
 
             <input
