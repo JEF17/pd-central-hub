@@ -102,7 +102,11 @@ export function clearOfficerProfile() {
 
 /* ---------------- Çoklu personel profili ---------------- */
 
-export type StoredOfficerProfile = OfficerProfile & { id: string };
+export type StoredOfficerProfile = OfficerProfile & {
+  id: string;
+  /** Bu profilin bağlı olduğu UCP karakter kimliği (varsa) */
+  characterId?: number | null;
+};
 
 export const OFFICER_PROFILES_KEY = "lspd-officer-profiles";
 export const OFFICER_ACTIVE_PROFILE_KEY = "lspd-officer-active-profile";
