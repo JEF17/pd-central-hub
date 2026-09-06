@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Clock, Shield, ShieldCheck, UserRound } from "lucide-react";
+import { Shield, ShieldCheck, UserRound } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { notify } from "@/lib/notifications";
 import {
   getCurrentSession,
   listMyCharacters,
-  requestCharacter,
+  setSelectedCharacter,
   signOut,
   type PortalCharacterDto,
 } from "@/lib/portal-auth.functions";
@@ -20,12 +19,12 @@ export const Route = createFileRoute("/karakter-sec")({
       { title: "Karakter Seçimi | LSPD - Toolkit" },
       {
         name: "description",
-        content: "UCP hesabındaki LSPD karakterini seç ve yönetici onayına gönder.",
+        content: "LSPD karakterini seç ve personel profilini oluştur.",
       },
       { property: "og:title", content: "Karakter Seçimi | LSPD - Toolkit" },
       {
         property: "og:description",
-        content: "UCP hesabındaki LSPD karakterini seç ve yönetici onayına gönder.",
+        content: "LSPD karakterini seç ve personel profilini oluştur.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -36,10 +35,10 @@ export const Route = createFileRoute("/karakter-sec")({
     if (!session) {
       throw redirect({ to: "/auth/giris", search: { redirect: "", error: undefined } });
     }
-    if (session.status === "rejected") {
+    if (session.status !== "approved") {
       throw redirect({ to: "/onay-bekliyor" });
     }
-    if (session.status === "approved") {
+    if (session.selectedCharacter) {
       throw redirect({ to: session.profileCompleted ? "/" : "/profil" });
     }
     return {};
@@ -53,10 +52,9 @@ function CharacterCard({
   busy,
 }: {
   character: PortalCharacterDto;
-  onSelect: (id: number) => void;
+  onSelect: (character: PortalCharacterDto) => void;
   busy: boolean;
 }) {
-  const requested = !!character.requestedAt;
   return (
     <div className="flex items-center gap-4 rounded-xl border border-border bg-card/70 p-4">
       <div className="size-14 shrink-0 overflow-hidden rounded-lg border border-border bg-muted">
@@ -77,18 +75,12 @@ function CharacterCard({
           {character.firstname} {character.lastname}
         </p>
         <p className="truncate text-xs text-muted-foreground">
-          {character.isLspd ? character.faction || "Los Santos Police Department" : "Oluşum dışı"}
+          {character.faction || "Los Santos Police Department"}
         </p>
       </div>
-      {requested ? (
-        <Badge variant="outline" className="gap-1">
-          <Clock className="size-3" /> Onayda
-        </Badge>
-      ) : (
-        <Button size="sm" disabled={busy} onClick={() => onSelect(character.id)}>
-          Onaya Gönder
-        </Button>
-      )}
+      <Button size="sm" disabled={busy} onClick={() => onSelect(character)}>
+        Bu Karakteri Seç
+      </Button>
     </div>
   );
 }
@@ -97,34 +89,37 @@ function CharacterSelect() {
   const [characters, setCharacters] = useState<PortalCharacterDto[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
-  const [showOthers, setShowOthers] = useState(false);
 
   const fetchCharacters = useServerFn(listMyCharacters);
-  const sendRequest = useServerFn(requestCharacter);
+  const chooseCharacter = useServerFn(setSelectedCharacter);
   const doSignOut = useServerFn(signOut);
 
-  const load = () => {
+  useEffect(() => {
     setLoading(true);
     fetchCharacters({})
       .then((rows) => setCharacters(rows))
       .finally(() => setLoading(false));
-  };
-
-  useEffect(load, []);
+  }, []);
 
   const lspd = characters.filter((c) => c.isLspd);
-  const others = characters.filter((c) => !c.isLspd);
-  const hasRequest = characters.some((c) => c.requestedAt);
 
-  const handleSelect = async (characterId: number) => {
+  const handleSelect = async (character: PortalCharacterDto) => {
     setBusy(true);
     try {
-      await sendRequest({ data: { characterId } });
-      notify.success("Karakterin yönetici onayına gönderildi");
-      load();
+      await chooseCharacter({
+        data: {
+          character: {
+            id: character.id,
+            firstname: character.firstname,
+            lastname: character.lastname,
+            memberid: character.memberid,
+          },
+        },
+      });
+      notify.success("Karakter seçildi");
+      window.location.href = "/profil";
     } catch {
-      notify.error("İstek gönderilemedi");
-    } finally {
+      notify.error("Karakter seçilemedi");
       setBusy(false);
     }
   };
@@ -145,7 +140,8 @@ function CharacterSelect() {
           </div>
           <h1 className="text-xl font-bold">Karakter Seçimi</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Los Santos Police Department karakterini seç ve yönetici onayına gönder.
+            Los Santos Police Department karakterlerinden birini seç, ardından personel profilini
+            oluştur.
           </p>
         </div>
 
@@ -153,45 +149,16 @@ function CharacterSelect() {
           <p className="py-8 text-center text-sm text-muted-foreground">Karakterler yükleniyor…</p>
         ) : (
           <div className="space-y-3">
-            {lspd.length === 0 && (
+            {lspd.length === 0 ? (
               <p className="rounded-lg border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
                 UCP hesabında Los Santos Police Department karakteri bulunamadı.
               </p>
-            )}
-            {lspd.map((c) => (
-              <CharacterCard key={c.rowId} character={c} onSelect={handleSelect} busy={busy} />
-            ))}
-
-            {others.length > 0 && (
-              <div className="pt-2">
-                <button
-                  type="button"
-                  className="text-xs text-muted-foreground underline underline-offset-4"
-                  onClick={() => setShowOthers((v) => !v)}
-                >
-                  {showOthers ? "Diğer karakterleri gizle" : "Diğer karakterlerim"}
-                </button>
-                {showOthers && (
-                  <div className="mt-3 space-y-3">
-                    {others.map((c) => (
-                      <CharacterCard
-                        key={c.rowId}
-                        character={c}
-                        onSelect={handleSelect}
-                        busy={busy}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
+            ) : (
+              lspd.map((c) => (
+                <CharacterCard key={c.rowId} character={c} onSelect={handleSelect} busy={busy} />
+              ))
             )}
           </div>
-        )}
-
-        {hasRequest && (
-          <p className="mt-6 rounded-lg bg-warning/10 p-3 text-center text-sm text-warning">
-            Başvurun yönetici onayında. Onaylandığında panele erişebileceksin.
-          </p>
         )}
 
         <Button variant="outline" className="mt-6 w-full" onClick={handleSignOut}>
