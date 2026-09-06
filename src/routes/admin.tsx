@@ -436,6 +436,66 @@ function AdminPage() {
           </CardContent>
         </Card>
 
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <X className="size-4 text-destructive" />
+              Reddedilen Kullanıcılar
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <p className="text-sm text-muted-foreground">Yükleniyor…</p>
+            ) : rejectedUsers.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Reddedilen kullanıcı yok.</p>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>UCP Kullanıcı Adı</TableHead>
+                    <TableHead>Personel Ad Soyad</TableHead>
+                    <TableHead>Karakterler</TableHead>
+                    <TableHead className="text-right">İşlem</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {rejectedUsers.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.username}</TableCell>
+                      <TableCell>{user.profile?.name || "—"}</TableCell>
+                      <TableCell className="max-w-[280px] truncate">
+                        {user.characters.length > 0
+                          ? user.characters.map((c) => `${c.firstname} ${c.lastname}`).join(", ")
+                          : "—"}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button size="sm" variant="default" onClick={() => handleApprove(user.id)}>
+                            <Check className="mr-1 size-3" />
+                            Onayla
+                          </Button>
+                          {canDeleteUser(user) && (
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDelete(user)}
+                            >
+                              <Trash2 className="mr-1 size-3" />
+                              Sil
+                            </Button>
+                          )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+
+
+
         {canViewLogs && (
           <Card className="mt-8">
             <CardHeader>
