@@ -103,19 +103,30 @@ function AdminPage() {
   const [expanded, setExpanded] = useState<string | null>(null);
   const toggleExpanded = (id: string) => setExpanded((cur) => (cur === id ? null : id));
 
+  const [logs, setLogs] = useState<PortalLogDto[]>([]);
+
   const listUsersFn = useServerFn(listUsers);
+  const listLogsFn = useServerFn(listPortalLogs);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
   const deleteFn = useServerFn(deleteUser);
   const { session } = usePortalSession();
   const myLevel = session?.adminLevel ?? null;
+  const canViewLogs = myLevel === "query" || myLevel === "faction_management";
 
   const refresh = async () => {
     setLoading(true);
     try {
       const all = await listUsersFn({});
       setUsers(all);
+      if (myLevel === "query" || myLevel === "faction_management") {
+        try {
+          setLogs(await listLogsFn({}));
+        } catch {
+          setLogs([]);
+        }
+      }
     } finally {
       setLoading(false);
     }
