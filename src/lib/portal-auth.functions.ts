@@ -503,8 +503,11 @@ export const saveOfficerProfile = createServerFn({ method: "POST" })
   .handler(async ({ data, context }) => {
     const { updateOfficerProfile } = await import("./portal-auth.server");
     await updateOfficerProfile(context.userId, data);
+    const { syncRosterFromProfiles } = await import("./roster.server");
+    await syncRosterFromProfiles(context.userId, data);
     return { ok: true };
   });
+
 
 
 /** Oyuncunun UCP karakterleri (onay durumlarıyla). */
