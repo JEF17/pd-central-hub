@@ -9,19 +9,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import { usePortalSession } from "@/hooks/use-portal-session";
-import {
-  saveOfficerProfile as saveOfficerProfileServer,
-} from "@/lib/portal-auth.functions";
+import { saveOfficerProfile as saveOfficerProfileServer } from "@/lib/portal-auth.functions";
 import {
   createEmptyStoredProfile,
   divisionProfileOptions,
@@ -33,7 +25,6 @@ import {
   type OfficerProfile,
   type StoredOfficerProfile,
 } from "@/lib/officer-profile";
-
 
 export const Route = createFileRoute("/profil")({
   beforeLoad: async ({ location }) => {
@@ -130,8 +121,8 @@ function Page() {
 
         {mustCreateProfile ? (
           <div className="mt-6 rounded-xl border border-primary/40 bg-primary/10 p-4 text-sm">
-            Panele erişebilmek için önce personel profilini oluşturman gerekiyor. Adı Soyadı, Seri
-            Numarası ve Rütbe alanlarını doldurup <strong>Kaydet</strong>'e bas.
+            Panele erişebilmek için önce personel profilini oluşturman gerekiyor. Adı Soyadı, Seri Numarası ve Rütbe
+            alanlarını doldurup <strong>Kaydet</strong>'e bas.
           </div>
         ) : null}
 
@@ -141,10 +132,7 @@ function Page() {
               <Users className="size-3.5" />
               Aktif Personel
             </Label>
-            <Select
-              value={activeId}
-              onValueChange={(v) => persist(profiles, v)}
-            >
+            <Select value={activeId} onValueChange={(v) => persist(profiles, v)}>
               <SelectTrigger className="mt-2">
                 <SelectValue placeholder="Profil seç" />
               </SelectTrigger>
@@ -178,9 +166,7 @@ function Page() {
               )}
             </div>
             <p className="mt-4 truncate font-semibold">{displayName}</p>
-            <p className="text-xs text-muted-foreground">
-              {data.rank || "Rütbe belirtilmedi"}
-            </p>
+            <p className="text-xs text-muted-foreground">{data.rank || "Rütbe belirtilmedi"}</p>
             <div className="mt-4 flex flex-col gap-2">
               <Button
                 variant="outline"
@@ -212,7 +198,6 @@ function Page() {
               />
             </div>
           </section>
-
 
           <section className="rounded-xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold">Kimlik Bilgileri</h2>
@@ -271,7 +256,7 @@ function Page() {
                 <Input
                   className="mt-2"
                   value={data.assignmentDescription}
-                  placeholder="Görev tanımını buraya yazın"
+                  placeholder="Görevinizi tanımlayın"
                   onChange={(e) => set("assignmentDescription", e.target.value)}
                 />
               </div>
@@ -316,8 +301,7 @@ function Page() {
                   setSaving(true);
                   try {
                     saveOfficerProfiles({ profiles, activeId });
-                    const { id: _id, ...rest } = (active ??
-                      { ...emptyOfficerProfile, id: "" }) as StoredOfficerProfile;
+                    const { id: _id, ...rest } = (active ?? { ...emptyOfficerProfile, id: "" }) as StoredOfficerProfile;
                     const all = profiles.map(({ id: _pid, ...p }) => p);
                     if (!rest.name.trim() || !rest.rank.trim() || !rest.serialNo.trim()) {
                       notify.error("Adı Soyadı, Seri Numarası ve Rütbe zorunludur");
@@ -353,10 +337,8 @@ function Page() {
                 Temizle
               </Button>
             </div>
-
           </section>
         </div>
-
       </div>
       <PhotoEditor
         src={editorSource}
