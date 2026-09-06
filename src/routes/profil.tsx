@@ -4,6 +4,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { Camera, IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
+import { PhotoEditor } from "@/components/PhotoEditor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
