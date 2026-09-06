@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
+import { Camera, IdCard, ImageUp, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
+import { PhotoEditor } from "@/components/PhotoEditor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -102,19 +103,7 @@ function Page() {
     notify.success("Personel profili silindi");
   };
 
-  const charPhoto = (() => {
-    const list = session?.portalCharacters ?? [];
-    const approved = list.filter((c) => !!c.photo);
-    const selectedId = session?.selectedCharacter?.id;
-    const match = approved.find((c) => c.id === selectedId) ?? approved[0];
-    return match?.photo ?? "";
-  })();
-  const photo = charPhoto || data.photo;
-
-  useEffect(() => {
-    if (charPhoto && activeId && data.photo !== charPhoto) set("photo", charPhoto);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [charPhoto, activeId]);
+  const photo = data.photo;
 
   const displayName =
     data.name ||
@@ -191,9 +180,32 @@ function Page() {
             <p className="text-xs text-muted-foreground">
               {data.rank || "Rütbe belirtilmedi"}
             </p>
-            <p className="mt-4 text-xs text-muted-foreground">
-              Karakter fotoğrafı MDC üzerinden otomatik gelir.
-            </p>
+            <div className="mt-4 flex flex-col gap-2">
+              <Button variant="outline" size="sm" onClick={() => setEditorSource(photo || null)}>
+                {photo ? <Camera className="mr-2 size-4" /> : <ImageUp className="mr-2 size-4" />}
+                {photo ? "Fotoğrafı Düzenle" : "Fotoğraf Yükle"}
+              </Button>
+              {photo ? (
+                <Button variant="ghost" size="sm" onClick={() => set("photo", "")}>
+                  <Trash2 className="mr-2 size-4" />
+                  Fotoğrafı Kaldır
+                </Button>
+              ) : null}
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  const reader = new FileReader();
+                  reader.onload = () => setEditorSource(String(reader.result));
+                  reader.readAsDataURL(file);
+                  e.target.value = "";
+                }}
+              />
+            </div>
           </section>
 
 
