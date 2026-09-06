@@ -366,7 +366,7 @@ function RosterPage() {
             </div>
             <div className="space-y-2">
               <Label>Rütbe</Label>
-              <Select value={form.rank || undefined} onValueChange={(v) => setForm({ ...form, rank: v })}>
+              <Select value={form.rank} onValueChange={(v) => setForm({ ...form, rank: v })}>
                 <SelectTrigger>
                   <SelectValue placeholder="Rütbe seç" />
                 </SelectTrigger>
@@ -382,7 +382,7 @@ function RosterPage() {
             <div className="space-y-2">
               <Label>Division</Label>
               <Select
-                value={form.division || undefined}
+                value={form.division}
                 onValueChange={(v) => setForm({ ...form, division: v })}
               >
                 <SelectTrigger>
