@@ -220,7 +220,7 @@ function AdminPage() {
                     <TableHead>UCP Kullanıcı Adı</TableHead>
                     <TableHead>Personel Ad Soyad</TableHead>
                     <TableHead>Rütbe</TableHead>
-                    <TableHead>UCP Rolü</TableHead>
+                    <TableHead>Oluşum</TableHead>
                     <TableHead>Karakterler</TableHead>
                     <TableHead className="text-right">İşlem</TableHead>
                   </TableRow>
@@ -241,7 +241,13 @@ function AdminPage() {
                       </TableCell>
                       <TableCell>{user.profile?.name || "—"}</TableCell>
                       <TableCell>{user.profile?.rank || "—"}</TableCell>
-                      <TableCell>{user.ucpRole || "—"}</TableCell>
+                      <TableCell>
+                        {user.inLspd ? (
+                          <Badge className="bg-primary/20 text-primary hover:bg-primary/30">Oluşumda</Badge>
+                        ) : (
+                          <Badge variant="outline">Oluşumda Değil</Badge>
+                        )}
+                      </TableCell>
                       <TableCell className="max-w-[280px] truncate">
                         {user.characters.length > 0
                           ? user.characters
