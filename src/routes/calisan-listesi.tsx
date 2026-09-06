@@ -346,6 +346,15 @@ function RosterPage() {
               </datalist>
             </div>
             <div className="col-span-2">
+              <Label htmlFor="roster-note">Görev Tanımı</Label>
+              <Input
+                id="roster-note"
+                value={form.note ?? ""}
+                onChange={(e) => setForm((f) => ({ ...f, note: e.target.value }))}
+                placeholder="Örn: Patrol Supervisor, Field Training Officer"
+              />
+            </div>
+            <div className="col-span-2">
               <Label htmlFor="roster-photo">Fotoğraf URL</Label>
               <Input
                 id="roster-photo"
