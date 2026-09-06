@@ -601,15 +601,14 @@ type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
 export type PortalCharacter = Database["public"]["Tables"]["portal_characters"]["Row"];
 
 /**
- * Stores the account's UCP characters. Only LSPD characters are kept; if UCP returned no
- * faction information at all, every character is kept so an admin can still decide manually.
+ * Hesabın tüm UCP karakterlerini saklar. LSPD karakterleri `is_lspd` ile işaretlenir;
+ * seçim ekranı LSPD karakterlerini önce gösterir, diğerleri sonradan onaya gönderilebilir.
  */
 export async function syncUserCharacters(
   userId: string,
   characters: UcpCharacter[],
 ): Promise<PortalCharacter[]> {
-  const anyLspd = characters.some((c) => c.isLspd);
-  const relevant = anyLspd ? characters.filter((c) => c.isLspd) : characters;
+  const relevant = characters;
 
   if (relevant.length > 0) {
     const now = new Date().toISOString();
@@ -622,6 +621,7 @@ export async function syncUserCharacters(
         memberid: Number.isFinite(c.memberid) ? c.memberid : null,
         faction: c.faction ?? null,
         is_lspd: !!c.isLspd,
+        ...(c.photo ? { photo: c.photo } : {}),
         raw: (c.raw ?? {}) as unknown as Json,
         updated_at: now,
       })),
@@ -632,6 +632,36 @@ export async function syncUserCharacters(
 
   return listUserCharacters(userId);
 }
+
+/** UCP access token'ı MDC çağrıları için saklar. */
+export async function storeUcpAccessToken(userId: string, accessToken: string): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("portal_users")
+    .update({ ucp_access_token: accessToken, updated_at: new Date().toISOString() })
+    .eq("id", userId);
+  if (error) throw error;
+}
+
+/** Onay bekleyen (istek gönderilmiş) karakterler. */
+export async function listPendingCharacters(): Promise<
+  Array<PortalCharacter & { username: string | null }>
+> {
+  const { data, error } = await supabaseAdmin
+    .from("portal_characters")
+    .select("*, portal_users!inner(username)")
+    .eq("status", "pending")
+    .not("requested_at", "is", null)
+    .order("requested_at", { ascending: false });
+  if (error) throw error;
+  return ((data ?? []) as unknown as Array<Record<string, unknown>>).map((row) => {
+    const { portal_users: owner, ...rest } = row;
+    return {
+      ...(rest as unknown as PortalCharacter),
+      username: ((owner as { username?: string | null } | null)?.username ?? null) as string | null,
+    };
+  });
+}
+
 
 export async function listUserCharacters(userId: string): Promise<PortalCharacter[]> {
   const { data, error } = await supabaseAdmin
