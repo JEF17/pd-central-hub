@@ -346,6 +346,43 @@ export const setUserAdminLevel = createServerFn({ method: "POST" })
     return toUserDto(user, getAdminLevel);
   });
 
+export const deleteUser = createServerFn({ method: "POST" })
+  .middleware([requirePortalAdminMiddleware])
+  .inputValidator((input: { userId: string }) => input)
+  .handler(async ({ data, context }) => {
+    const { findPortalUserById, getAdminLevel, deletePortalUser, logLoginEvent } = await import("./portal-auth.server");
+
+    // Supervisors cannot delete users at all.
+    if (context.adminLevel === "supervisor") {
+      throw new Error("Forbidden");
+    }
+
+    const target = await findPortalUserById(data.userId);
+    if (!target) throw new Error("User not found");
+
+    // The protected Query account can never be deleted.
+    if (isProtectedQueryUsername(target.username)) {
+      throw new Error("Bu hesap silinemez");
+    }
+
+    if (data.userId === context.userId) {
+      throw new Error("Kendi hesabınızı silemezsiniz");
+    }
+
+    // Faction Management cannot delete Query or Faction Management users.
+    const targetLevel = await getAdminLevel(data.userId);
+    if (
+      context.adminLevel !== "query" &&
+      (targetLevel === "query" || targetLevel === "faction_management")
+    ) {
+      throw new Error("Bu kullanıcıyı silme izniniz yok");
+    }
+
+    await deletePortalUser(data.userId);
+    await logLoginEvent(context.userId, context.user.username, "admin_delete_user", target.username);
+    return { ok: true };
+  });
+
 export const resubmitApplication = createServerFn({ method: "POST" }).handler(async () => {
   const user = await validatePortalSession(true);
   if (user.status !== "rejected") {
