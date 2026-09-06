@@ -111,6 +111,68 @@ export type Database = {
           },
         ]
       }
+      portal_roster: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          discord: string
+          division: string
+          email: string
+          id: string
+          name: string
+          note: string
+          phone: string
+          photo: string
+          rank: string
+          serial_no: string
+          sort_order: number
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          discord?: string
+          division?: string
+          email?: string
+          id?: string
+          name: string
+          note?: string
+          phone?: string
+          photo?: string
+          rank?: string
+          serial_no?: string
+          sort_order?: number
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          discord?: string
+          division?: string
+          email?: string
+          id?: string
+          name?: string
+          note?: string
+          phone?: string
+          photo?: string
+          rank?: string
+          serial_no?: string
+          sort_order?: number
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_roster_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "portal_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portal_sessions: {
         Row: {
           created_at: string
