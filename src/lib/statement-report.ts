@@ -66,6 +66,8 @@ export const emptyStatementReport = (): StatementReportData => ({
     { id: "e1", label: "", url: "" },
     { id: "e2", label: "", url: "" },
     { id: "e3", label: "", url: "" },
+    { id: "e4", label: "", url: "" },
+    { id: "e5", label: "", url: "" },
   ],
   miranda: [],
 });

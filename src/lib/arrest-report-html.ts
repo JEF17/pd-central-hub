@@ -47,6 +47,9 @@ export const emptyArrestReport = (): ArrestReportData => ({
   evidence: [
     { label: "", url: "" },
     { label: "", url: "" },
+    { label: "", url: "" },
+    { label: "", url: "" },
+    { label: "", url: "" },
   ],
 });
 
