@@ -101,7 +101,7 @@ export const Route = createFileRoute("/auth/ucp/callback")({
           const tokenHash = hashToken(sessionToken);
           await createSession(user.id, tokenHash, getRequestHeader("user-agent") ?? null);
 
-          const redirectTo = user.status === "approved" ? "/" : "/karakter-sec";
+          const redirectTo = user.status === "approved" ? "/" : "/onay-bekliyor";
 
 
           return redirectResponse(redirectTo, [

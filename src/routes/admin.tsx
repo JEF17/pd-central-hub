@@ -21,13 +21,10 @@ import {
   deleteUser,
   listPortalLogs,
   listUsers,
-  listCharacterRequests,
-  decideCharacterRequest,
   rejectUser,
   setUserAdminLevel,
   type AdminLevel,
   type PortalLogDto,
-  type CharacterRequestDto,
 } from "@/lib/portal-auth.functions";
 import {
   Select,
@@ -107,12 +104,9 @@ function AdminPage() {
   const toggleExpanded = (id: string) => setExpanded((cur) => (cur === id ? null : id));
 
   const [logs, setLogs] = useState<PortalLogDto[]>([]);
-  const [charRequests, setCharRequests] = useState<CharacterRequestDto[]>([]);
 
   const listUsersFn = useServerFn(listUsers);
   const listLogsFn = useServerFn(listPortalLogs);
-  const listCharRequestsFn = useServerFn(listCharacterRequests);
-  const decideCharFn = useServerFn(decideCharacterRequest);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
@@ -126,11 +120,6 @@ function AdminPage() {
     try {
       const all = await listUsersFn({});
       setUsers(all);
-      try {
-        setCharRequests(await listCharRequestsFn({}));
-      } catch {
-        setCharRequests([]);
-      }
       if (myLevel === "query" || myLevel === "faction_management") {
         try {
           setLogs(await listLogsFn({}));
@@ -202,16 +191,6 @@ function AdminPage() {
     (myLevel === "query" ||
       (user.adminLevel !== "query" && user.adminLevel !== "faction_management"));
 
-  const handleCharDecision = async (rowId: string, status: "approved" | "rejected") => {
-    try {
-      await decideCharFn({ data: { rowId, status } });
-      toast.success(status === "approved" ? "Karakter onaylandı" : "Karakter reddedildi");
-      await refresh();
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "İşlem başarısız");
-    }
-  };
-
   const handleDelete = async (user: UserDto) => {
     const ok = window.confirm(
       `"${user.username}" kullanıcısını kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`,
@@ -241,61 +220,6 @@ function AdminPage() {
           </Link>
         </div>
 
-
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <ShieldCheck className="size-4 text-primary" />
-              Karakter Onay İstekleri
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {loading ? (
-              <p className="text-sm text-muted-foreground">Yükleniyor…</p>
-            ) : charRequests.length === 0 ? (
-              <p className="text-sm text-muted-foreground">Bekleyen karakter isteği yok.</p>
-            ) : (
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {charRequests.map((c) => (
-                  <div key={c.rowId} className="flex gap-3 rounded-lg border border-border bg-card p-3">
-                    <div className="size-14 shrink-0 overflow-hidden rounded-md border border-border bg-muted/40">
-                      {c.photo ? (
-                        <img
-                          src={c.photo}
-                          alt={`${c.firstname} ${c.lastname} fotoğrafı`}
-                          className="size-full object-cover"
-                        />
-                      ) : null}
-                    </div>
-                    <div className="min-w-0 flex-1 text-sm">
-                      <p className="truncate font-semibold">
-                        {c.firstname} {c.lastname}
-                      </p>
-                      <p className="truncate text-xs text-muted-foreground">UCP: {c.username ?? "—"}</p>
-                      <p className="truncate text-xs text-muted-foreground">
-                        {c.isLspd ? c.faction || "Los Santos Police Department" : "Oluşum dışı"}
-                      </p>
-                      <div className="mt-2 flex gap-2">
-                        <Button size="sm" onClick={() => handleCharDecision(c.rowId, "approved")}>
-                          <Check className="mr-1 size-3" />
-                          Onayla
-                        </Button>
-                        <Button
-                          size="sm"
-                          variant="destructive"
-                          onClick={() => handleCharDecision(c.rowId, "rejected")}
-                        >
-                          <X className="mr-1 size-3" />
-                          Reddet
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
 
         <Card className="mb-8">
           <CardHeader>
