@@ -121,8 +121,16 @@ function Dashboard() {
                 <Link
                   key={type.slug}
                   to={draftPaths[type.slug as keyof typeof draftPaths]}
-                  className="group flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
+                  className="group relative flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
                 >
+                  <button
+                    type="button"
+                    aria-label={`${type.label} taslağını kaldır`}
+                    onClick={(e) => handleDismiss(e, type.slug)}
+                    className="evidence-remove absolute right-2 top-2 grid size-6 place-items-center rounded-md text-muted-foreground hover:bg-destructive/15 hover:text-destructive"
+                  >
+                    <X className="size-3.5" />
+                  </button>
                   <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
                     <type.icon className="size-4" />
                   </span>
