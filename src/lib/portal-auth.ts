@@ -13,9 +13,14 @@ export async function requirePortalAuth(
     });
   }
 
+  if (session.status === "pending") {
+    throw redirect({ to: "/karakter-sec" });
+  }
+
   if (session.status !== "approved") {
     throw redirect({ to: "/onay-bekliyor" });
   }
+
 
   if (!session.profileCompleted && !opts?.allowIncompleteProfile) {
     throw redirect({ to: "/profil" });
