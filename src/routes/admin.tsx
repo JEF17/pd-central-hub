@@ -145,6 +145,8 @@ function AdminPage() {
 
   const pendingUsers = users.filter((u) => u.status === "pending");
   const approvedUsers = users.filter((u) => u.status === "approved");
+  const rejectedUsers = users.filter((u) => u.status === "rejected");
+
 
 
   const handleApprove = async (id: string) => {
@@ -220,8 +222,40 @@ function AdminPage() {
           </Link>
         </div>
 
+        <div className="mb-8 grid gap-4 sm:grid-cols-3">
+          {[
+            {
+              label: "Onay Bekleyen",
+              value: pendingUsers.length,
+              icon: <UserX className="size-4 text-warning" />,
+            },
+            {
+              label: "Aktif Kullanıcı",
+              value: approvedUsers.length,
+              icon: <ShieldCheck className="size-4 text-primary" />,
+            },
+            {
+              label: "Reddedilen",
+              value: rejectedUsers.length,
+              icon: <X className="size-4 text-destructive" />,
+            },
+          ].map((stat) => (
+            <Card key={stat.label}>
+              <CardContent className="flex items-center justify-between py-5">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                    {stat.label}
+                  </p>
+                  <p className="mt-1 text-2xl font-bold tabular-nums">{stat.value}</p>
+                </div>
+                {stat.icon}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
         <Card className="mb-8">
+
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-base">
               <UserX className="size-4 text-warning" />
@@ -401,6 +435,66 @@ function AdminPage() {
             )}
           </CardContent>
         </Card>
+
+        <Card className="mt-8">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <X className="size-4 text-destructive" />
+              Reddedilen Kullanıcılar
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <p className="text-sm text-muted-foreground">Yükleniyor…</p>
+            ) : rejectedUsers.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Reddedilen kullanıcı yok.</p>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>UCP Kullanıcı Adı</TableHead>
+                    <TableHead>Personel Ad Soyad</TableHead>
+                    <TableHead>Karakterler</TableHead>
+                    <TableHead className="text-right">İşlem</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {rejectedUsers.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell className="font-medium">{user.username}</TableCell>
+                      <TableCell>{user.profile?.name || "—"}</TableCell>
+                      <TableCell className="max-w-[280px] truncate">
+                        {user.characters.length > 0
+                          ? user.characters.map((c) => `${c.firstname} ${c.lastname}`).join(", ")
+                          : "—"}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex justify-end gap-2">
+                          <Button size="sm" variant="default" onClick={() => handleApprove(user.id)}>
+                            <Check className="mr-1 size-3" />
+                            Onayla
+                          </Button>
+                          {canDeleteUser(user) && (
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDelete(user)}
+                            >
+                              <Trash2 className="mr-1 size-3" />
+                              Sil
+                            </Button>
+                          )}
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
+          </CardContent>
+        </Card>
+
+
 
         {canViewLogs && (
           <Card className="mt-8">
