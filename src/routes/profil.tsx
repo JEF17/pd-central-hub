@@ -198,8 +198,8 @@ function Page() {
         <div className="mt-8 grid gap-6 md:grid-cols-[280px_1fr]">
           <section className="rounded-xl border border-border bg-card p-6 text-center">
             <div className="mx-auto flex size-36 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted/40">
-              {data.photo ? (
-                <img src={data.photo} alt={`${displayName} karakter fotoğrafı`} className="size-full object-cover" />
+              {photo ? (
+                <img src={photo} alt={`${displayName} karakter fotoğrafı`} className="size-full object-cover" />
               ) : (
                 <UserRound className="size-12 text-muted-foreground" />
               )}
@@ -208,62 +208,11 @@ function Page() {
             <p className="text-xs text-muted-foreground">
               {data.rank || "Rütbe belirtilmedi"}
             </p>
-
-            <input
-              ref={fileRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={async (e) => {
-                const file = e.target.files?.[0];
-                e.target.value = "";
-                if (!file) return;
-                try {
-                  setEditorSrc(await fileToResizedDataUrl(file));
-                  setEditorOpen(true);
-                } catch {
-                  notify.error("Fotoğraf yüklenemedi");
-                }
-              }}
-            />
-
-            <PhotoEditor
-              src={editorSrc}
-              open={editorOpen}
-              onOpenChange={setEditorOpen}
-              onApply={(url) => {
-                set("photo", url);
-                notify.success("Fotoğraf güncellendi, kaydetmeyi unutma");
-              }}
-            />
-
-            <div className="mt-4 flex flex-col gap-2">
-              <Button type="button" variant="outline" size="sm" onClick={() => fileRef.current?.click()}>
-                <Camera className="size-4" />
-                {data.photo ? "Fotoğrafı Değiştir" : "Fotoğraf Yükle"}
-              </Button>
-              {data.photo ? (
-                <>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setEditorSrc(data.photo);
-                      setEditorOpen(true);
-                    }}
-                  >
-                    <Crop className="size-4" />
-                    Fotoğrafı Düzenle
-                  </Button>
-                  <Button type="button" variant="ghost" size="sm" onClick={() => set("photo", "")}>
-                    <Trash2 className="size-4" />
-                    Fotoğrafı Kaldır
-                  </Button>
-                </>
-              ) : null}
-            </div>
+            <p className="mt-4 text-xs text-muted-foreground">
+              Karakter fotoğrafı MDC üzerinden otomatik gelir.
+            </p>
           </section>
+
 
           <section className="rounded-xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold">Kimlik Bilgileri</h2>
