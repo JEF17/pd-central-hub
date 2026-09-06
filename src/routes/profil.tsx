@@ -255,7 +255,7 @@ function Page() {
                 <Label className="text-xs">Görevlendirme</Label>
                 <Select value={data.division} onValueChange={(v) => set("division", v)}>
                   <SelectTrigger className="mt-2">
-                    <SelectValue placeholder="Görevlendirme Tanımı" />
+                    <SelectValue placeholder="Seçiniz" />
                   </SelectTrigger>
                   <SelectContent className="max-h-72">
                     {divisionProfileOptions.map((d) => (
@@ -265,6 +265,15 @@ function Page() {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="sm:col-span-2">
+                <Label className="text-xs">Görevlendirme Tanımı</Label>
+                <Input
+                  className="mt-2"
+                  value={data.assignmentDescription}
+                  placeholder="Görev tanımını buraya yazın"
+                  onChange={(e) => set("assignmentDescription", e.target.value)}
+                />
               </div>
             </div>
 
