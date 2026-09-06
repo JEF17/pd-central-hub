@@ -118,30 +118,31 @@ function Dashboard() {
           {recent.length > 0 ? (
             <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {recent.map(({ type, savedAt }) => (
-                <Link
-                  key={type.slug}
-                  to={draftPaths[type.slug as keyof typeof draftPaths]}
-                  className="group relative flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
-                >
+                <div key={type.slug} className="group relative">
+                  <Link
+                    to={draftPaths[type.slug as keyof typeof draftPaths]}
+                    className="flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 pr-10 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
+                  >
+                    <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
+                      <type.icon className="size-4" />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-sm font-medium">{type.label}</span>
+                      <span className="block text-[11px] text-muted-foreground">
+                        {formatRelative(savedAt)}
+                      </span>
+                    </span>
+                    <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-gold" />
+                  </Link>
                   <button
                     type="button"
                     aria-label={`${type.label} taslağını kaldır`}
                     onClick={(e) => handleDismiss(e, type.slug)}
-                    className="evidence-remove absolute right-2 top-2 grid size-6 place-items-center rounded-md text-muted-foreground hover:bg-destructive/15 hover:text-destructive"
+                    className="evidence-remove absolute right-2 top-1/2 -translate-y-1/2 grid size-7 place-items-center rounded-md text-muted-foreground hover:bg-destructive/15 hover:text-destructive"
                   >
                     <X className="size-3.5" />
                   </button>
-                  <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
-                    <type.icon className="size-4" />
-                  </span>
-                  <span className="min-w-0">
-                    <span className="block truncate text-sm font-medium">{type.label}</span>
-                    <span className="block text-[11px] text-muted-foreground">
-                      {formatRelative(savedAt)}
-                    </span>
-                  </span>
-                  <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-gold" />
-                </Link>
+                </div>
               ))}
             </div>
           ) : (
