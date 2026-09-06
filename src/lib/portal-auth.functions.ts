@@ -316,12 +316,38 @@ export const listUsers = createServerFn({ method: "GET" })
     return Promise.all(users.map((u) => toUserDto(u, getAdminLevel)));
   });
 
+export type PortalLogDto = {
+  id: string;
+  event: string;
+  username: string | null;
+  detail: string | null;
+  createdAt: string;
+};
+
+export const listPortalLogs = createServerFn({ method: "GET" })
+  .middleware([requirePortalAdminMiddleware])
+  .handler(async ({ context }): Promise<PortalLogDto[]> => {
+    if (context.adminLevel !== "query" && context.adminLevel !== "faction_management") {
+      throw new Error("Forbidden");
+    }
+    const { listPortalLogs: doList } = await import("./portal-auth.server");
+    const rows = await doList(200);
+    return rows.map((r) => ({
+      id: r.id,
+      event: r.event,
+      username: r.username,
+      detail: r.detail,
+      createdAt: r.created_at,
+    }));
+  });
+
 export const approveUser = createServerFn({ method: "POST" })
   .middleware([requirePortalAdminMiddleware])
   .inputValidator((input: { userId: string }) => input)
   .handler(async ({ data, context }) => {
-    const { approveUser: doApprove } = await import("./portal-auth.server");
+    const { approveUser: doApprove, logLoginEvent } = await import("./portal-auth.server");
     const user = await doApprove(data.userId, context.userId);
+    await logLoginEvent(context.userId, context.user.username, "admin_approve_user", user.username);
     return toUserDto(user);
   });
 
@@ -329,8 +355,9 @@ export const rejectUser = createServerFn({ method: "POST" })
   .middleware([requirePortalAdminMiddleware])
   .inputValidator((input: { userId: string }) => input)
   .handler(async ({ data, context }) => {
-    const { rejectUser: doReject } = await import("./portal-auth.server");
+    const { rejectUser: doReject, logLoginEvent } = await import("./portal-auth.server");
     const user = await doReject(data.userId, context.userId);
+    await logLoginEvent(context.userId, context.user.username, "admin_reject_user", user.username);
     return toUserDto(user);
   });
 
