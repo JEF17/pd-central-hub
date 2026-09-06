@@ -217,24 +217,48 @@ function Page() {
                 e.target.value = "";
                 if (!file) return;
                 try {
-                  set("photo", await fileToResizedDataUrl(file));
-                  notify.success("Fotoğraf eklendi, kaydetmeyi unutma");
+                  setEditorSrc(await fileToResizedDataUrl(file));
+                  setEditorOpen(true);
                 } catch {
                   notify.error("Fotoğraf yüklenemedi");
                 }
               }}
             />
 
+            <PhotoEditor
+              src={editorSrc}
+              open={editorOpen}
+              onOpenChange={setEditorOpen}
+              onApply={(url) => {
+                set("photo", url);
+                notify.success("Fotoğraf güncellendi, kaydetmeyi unutma");
+              }}
+            />
+
             <div className="mt-4 flex flex-col gap-2">
               <Button type="button" variant="outline" size="sm" onClick={() => fileRef.current?.click()}>
                 <Camera className="size-4" />
-                Fotoğraf Yükle
+                {data.photo ? "Fotoğrafı Değiştir" : "Fotoğraf Yükle"}
               </Button>
               {data.photo ? (
-                <Button type="button" variant="ghost" size="sm" onClick={() => set("photo", "")}>
-                  <Trash2 className="size-4" />
-                  Fotoğrafı Kaldır
-                </Button>
+                <>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setEditorSrc(data.photo);
+                      setEditorOpen(true);
+                    }}
+                  >
+                    <Crop className="size-4" />
+                    Fotoğrafı Düzenle
+                  </Button>
+                  <Button type="button" variant="ghost" size="sm" onClick={() => set("photo", "")}>
+                    <Trash2 className="size-4" />
+                    Fotoğrafı Kaldır
+                  </Button>
+                </>
               ) : null}
             </div>
           </section>
