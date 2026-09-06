@@ -3,6 +3,7 @@ export type OfficerProfile = {
   serialNo: string;
   rank: string;
   division: string; // tam isim, örn: "Mission Row Area Patrol Division"
+  assignmentDescription: string;
   /** Karakter fotoğrafı (data URL) */
   photo: string;
   email: string;
@@ -16,6 +17,7 @@ export const emptyOfficerProfile: OfficerProfile = {
   serialNo: "",
   rank: "",
   division: "",
+  assignmentDescription: "",
   photo: "",
   email: "",
   phone: "",
