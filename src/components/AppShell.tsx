@@ -1,5 +1,5 @@
 // Geliştirici: Muptazelle
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { LogOut, MessageSquare, PanelLeft, Shield, User, Users } from "lucide-react";
 
