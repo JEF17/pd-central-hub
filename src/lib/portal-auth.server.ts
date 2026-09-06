@@ -372,7 +372,10 @@ export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): 
   return data as PortalUser;
 }
 
-export async function updateOfficerProfile(userId: string, profile: OfficerProfile): Promise<void> {
+export async function updateOfficerProfile(
+  userId: string,
+  profile: OfficerProfile & { profiles?: OfficerProfile[] },
+): Promise<void> {
   const now = new Date().toISOString();
   const { error } = await supabaseAdmin
     .from("portal_users")

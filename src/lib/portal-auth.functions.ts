@@ -6,6 +6,9 @@ import type { OfficerProfile } from "./officer-profile";
 export type { AdminLevel };
 export type { OfficerProfile };
 
+/** Sunucuda saklanan profil: aktif profil alanları + kullanıcının tüm profilleri */
+export type StoredProfilePayload = OfficerProfile & { profiles?: OfficerProfile[] };
+
 export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
   query: "Query",
   faction_management: "Faction Management",
@@ -30,7 +33,7 @@ export type PortalUserDto = {
   } | null;
   lastLoginAt: string | null;
   createdAt: string;
-  profile: OfficerProfile | null;
+  profile: StoredProfilePayload | null;
   profileCompleted: boolean;
 };
 
@@ -63,7 +66,30 @@ function isProtectedQueryUsername(username: string | null | undefined): boolean 
   return !!admin && !!username && username.toLowerCase() === admin.toLowerCase();
 }
 
-function parseProfile(raw: unknown): OfficerProfile | null {
+function parseProfile(raw: unknown): StoredProfilePayload | null {
+  if (!raw || typeof raw !== "object") return null;
+  const p = raw as Partial<StoredProfilePayload>;
+  const profiles = Array.isArray(p.profiles)
+    ? p.profiles.map((x) => parseSingleProfile(x)).filter((x): x is OfficerProfile => x !== null)
+    : [];
+  return { ...(parseSingleProfile(p) ?? emptyProfile()), profiles };
+}
+
+function emptyProfile(): OfficerProfile {
+  return {
+    name: "",
+    serialNo: "",
+    rank: "",
+    division: "",
+    photo: "",
+    email: "",
+    phone: "",
+    discord: "",
+    note: "",
+  };
+}
+
+function parseSingleProfile(raw: unknown): OfficerProfile | null {
   if (!raw || typeof raw !== "object") return null;
   const p = raw as Partial<OfficerProfile>;
   return {
@@ -405,7 +431,7 @@ export const setSelectedCharacter = createServerFn({ method: "POST" })
 
 export const saveOfficerProfile = createServerFn({ method: "POST" })
   .middleware([requirePortalAuthMiddleware])
-  .inputValidator((input: OfficerProfile) => input)
+  .inputValidator((input: StoredProfilePayload) => input)
   .handler(async ({ data, context }) => {
     const { updateOfficerProfile } = await import("./portal-auth.server");
     await updateOfficerProfile(context.userId, data);
