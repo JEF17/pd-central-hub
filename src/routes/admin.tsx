@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Check, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
+import { Fragment, useEffect, useState } from "react";
+import { Check, ChevronDown, ChevronRight, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,48 @@ import { usePortalSession } from "@/hooks/use-portal-session";
 import { toast } from "sonner";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
+
+function userProfiles(user: UserDto) {
+  const list = user.profile?.profiles ?? [];
+  if (list.length > 0) return list;
+  return user.profile && (user.profile.name || user.profile.serialNo) ? [user.profile] : [];
+}
+
+function ProfileDetails({ user, colSpan }: { user: UserDto; colSpan: number }) {
+  const profiles = userProfiles(user);
+  return (
+    <TableRow className="bg-muted/30 hover:bg-muted/30">
+      <TableCell colSpan={colSpan} className="p-4">
+        {profiles.length === 0 ? (
+          <p className="text-sm text-muted-foreground">Bu kullanıcı henüz personel profili oluşturmamış.</p>
+        ) : (
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {profiles.map((p, i) => (
+              <div key={i} className="flex gap-3 rounded-lg border border-border bg-card p-3">
+                <div className="size-14 shrink-0 overflow-hidden rounded-md border border-border bg-muted/40">
+                  {p.photo ? (
+                    <img src={p.photo} alt={`${p.name || "Personel"} fotoğrafı`} className="size-full object-cover" />
+                  ) : null}
+                </div>
+                <div className="min-w-0 text-sm">
+                  <p className="truncate font-semibold">{p.name || "İsimsiz Personel"}</p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {p.rank || "Rütbe yok"}
+                    {p.serialNo ? ` • #${p.serialNo}` : ""}
+                  </p>
+                  <p className="truncate text-xs text-muted-foreground">{p.division || "Division yok"}</p>
+                  {p.email ? <p className="truncate text-xs text-muted-foreground">{p.email}</p> : null}
+                  {p.phone ? <p className="truncate text-xs text-muted-foreground">{p.phone}</p> : null}
+                  {p.discord ? <p className="truncate text-xs text-muted-foreground">Discord: {p.discord}</p> : null}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </TableCell>
+    </TableRow>
+  );
+}
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -183,8 +225,18 @@ function AdminPage() {
                 </TableHeader>
                 <TableBody>
                   {pendingUsers.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.username}</TableCell>
+                    <Fragment key={user.id}>
+                    <TableRow className="cursor-pointer" onClick={() => toggleExpanded(user.id)}>
+                      <TableCell className="font-medium">
+                        <span className="flex items-center gap-2">
+                          {expanded === user.id ? (
+                            <ChevronDown className="size-4 text-muted-foreground" />
+                          ) : (
+                            <ChevronRight className="size-4 text-muted-foreground" />
+                          )}
+                          {user.username}
+                        </span>
+                      </TableCell>
                       <TableCell>{user.profile?.name || "—"}</TableCell>
                       <TableCell>{user.profile?.rank || "—"}</TableCell>
                       <TableCell>{user.ucpRole || "—"}</TableCell>
@@ -195,7 +247,7 @@ function AdminPage() {
                               .join(", ")
                           : "—"}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
                         <div className="flex justify-end gap-2">
                           <Button
                             size="sm"
@@ -216,6 +268,8 @@ function AdminPage() {
                         </div>
                       </TableCell>
                     </TableRow>
+                    {expanded === user.id ? <ProfileDetails user={user} colSpan={6} /> : null}
+                    </Fragment>
                   ))}
                 </TableBody>
               </Table>
@@ -249,8 +303,18 @@ function AdminPage() {
                 </TableHeader>
                 <TableBody>
                   {approvedUsers.map((user) => (
-                    <TableRow key={user.id}>
-                      <TableCell className="font-medium">{user.username}</TableCell>
+                    <Fragment key={user.id}>
+                    <TableRow className="cursor-pointer" onClick={() => toggleExpanded(user.id)}>
+                      <TableCell className="font-medium">
+                        <span className="flex items-center gap-2">
+                          {expanded === user.id ? (
+                            <ChevronDown className="size-4 text-muted-foreground" />
+                          ) : (
+                            <ChevronRight className="size-4 text-muted-foreground" />
+                          )}
+                          {user.username}
+                        </span>
+                      </TableCell>
                       <TableCell>{user.profile?.name || "—"}</TableCell>
                       <TableCell>{user.profile?.rank || "—"}</TableCell>
                       <TableCell>{user.profile?.division || "—"}</TableCell>
@@ -270,7 +334,7 @@ function AdminPage() {
                       <TableCell>
                         {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString("tr-TR") : "—"}
                       </TableCell>
-                      <TableCell className="text-right">
+                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-center justify-end gap-2">
                           {!canManageRoles ? (
                             <span className="text-xs text-muted-foreground">—</span>
@@ -309,6 +373,8 @@ function AdminPage() {
                         </div>
                       </TableCell>
                     </TableRow>
+                    {expanded === user.id ? <ProfileDetails user={user} colSpan={8} /> : null}
+                    </Fragment>
                   ))}
                 </TableBody>
               </Table>
