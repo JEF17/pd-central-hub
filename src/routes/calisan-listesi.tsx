@@ -314,6 +314,7 @@ function RosterPage() {
                 ))}
               </div>
             </section>
+            ))}
           </div>
         )}
       </div>
