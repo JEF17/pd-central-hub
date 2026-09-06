@@ -45,10 +45,23 @@ export async function syncRosterFromProfiles(
       note: (p.assignmentDescription ?? "").trim(),
       created_by: userId,
     };
-    const { error } = await supabaseAdmin
+    const { data: found } = await supabaseAdmin
       .from("portal_roster")
-      .upsert(row as never, { onConflict: "user_id,profile_key" });
-    if (error) throw error;
+      .select("id")
+      .eq("user_id", userId)
+      .eq("profile_key", key)
+      .maybeSingle();
+    if (found) {
+      const { error } = await supabaseAdmin
+        .from("portal_roster")
+        .update(row as never)
+        .eq("id", (found as unknown as { id: string }).id);
+      if (error) throw error;
+    } else {
+      const { error } = await supabaseAdmin.from("portal_roster").insert(row as never);
+      if (error) throw error;
+    }
+
   }
 
   const { data: existing, error: listError } = await supabaseAdmin
