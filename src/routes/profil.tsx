@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Camera, IdCard, Save, Trash2, UserRound } from "lucide-react";
+import { Camera, IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -22,14 +22,17 @@ import {
   saveOfficerProfile as saveOfficerProfileServer,
 } from "@/lib/portal-auth.functions";
 import {
-  clearOfficerProfile,
+  createEmptyStoredProfile,
   divisionProfileOptions,
   emptyOfficerProfile,
-  loadOfficerProfile,
+  loadOfficerProfiles,
+  profileLabel,
   rankOptions,
-  saveOfficerProfile as saveOfficerProfileLocal,
+  saveOfficerProfiles,
   type OfficerProfile,
+  type StoredOfficerProfile,
 } from "@/lib/officer-profile";
+
 
 export const Route = createFileRoute("/profil")({
   beforeLoad: async ({ location }) => {
@@ -82,19 +85,48 @@ async function fileToResizedDataUrl(file: File): Promise<string> {
 }
 
 function Page() {
-  const [data, setData] = useState<OfficerProfile>(emptyOfficerProfile);
+  const [profiles, setProfiles] = useState<StoredOfficerProfile[]>([]);
+  const [activeId, setActiveId] = useState<string>("");
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const { session } = usePortalSession();
   const saveProfileFn = useServerFn(saveOfficerProfileServer);
 
   useEffect(() => {
-    const saved = loadOfficerProfile();
-    if (saved) setData(saved);
+    const store = loadOfficerProfiles();
+    setProfiles(store.profiles);
+    setActiveId(store.activeId);
   }, []);
 
+  const active = profiles.find((p) => p.id === activeId);
+  const data: OfficerProfile = active ?? emptyOfficerProfile;
+
   const set = <K extends keyof OfficerProfile>(key: K, value: OfficerProfile[K]) =>
-    setData((d) => ({ ...d, [key]: value }));
+    setProfiles((list) => list.map((p) => (p.id === activeId ? { ...p, [key]: value } : p)));
+
+  const persist = (list: StoredOfficerProfile[], id: string) => {
+    setProfiles(list);
+    setActiveId(id);
+    saveOfficerProfiles({ profiles: list, activeId: id });
+  };
+
+  const addProfile = () => {
+    const fresh = createEmptyStoredProfile();
+    persist([...profiles, fresh], fresh.id);
+    notify.success("Yeni personel profili eklendi");
+  };
+
+  const removeActiveProfile = () => {
+    if (profiles.length <= 1) {
+      const fresh = createEmptyStoredProfile();
+      persist([fresh], fresh.id);
+      notify.success("Profil temizlendi");
+      return;
+    }
+    const rest = profiles.filter((p) => p.id !== activeId);
+    persist(rest, rest[0]!.id);
+    notify.success("Personel profili silindi");
+  };
 
   const displayName =
     data.name ||
@@ -112,10 +144,44 @@ function Page() {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Personel Profili</h1>
             <p className="mt-1 text-muted-foreground">
-              Bilgilerini bir kez kaydet, rapor formlarında "Profilden Doldur" ile aktar.
+              Birden fazla personel kaydı oluştur, aralarında geçiş yap ve raporlarda kullan.
             </p>
           </div>
         </div>
+
+        <section className="mt-6 flex flex-wrap items-end gap-3 rounded-xl border border-border bg-card p-4">
+          <div className="min-w-56 flex-1">
+            <Label className="flex items-center gap-2 text-xs">
+              <Users className="size-3.5" />
+              Aktif Personel
+            </Label>
+            <Select
+              value={activeId}
+              onValueChange={(v) => persist(profiles, v)}
+            >
+              <SelectTrigger className="mt-2">
+                <SelectValue placeholder="Profil seç" />
+              </SelectTrigger>
+              <SelectContent className="max-h-72">
+                {profiles.map((p, i) => (
+                  <SelectItem key={p.id} value={p.id}>
+                    {profileLabel(p, i)}
+                    {p.rank ? ` — ${p.rank}` : ""}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <Button type="button" variant="outline" onClick={addProfile}>
+            <Plus className="size-4" />
+            Personel Ekle
+          </Button>
+          <Button type="button" variant="ghost" onClick={removeActiveProfile}>
+            <Trash2 className="size-4" />
+            Profili Sil
+          </Button>
+        </section>
+
 
         <div className="mt-8 grid gap-6 md:grid-cols-[280px_1fr]">
           <section className="rounded-xl border border-border bg-card p-6 text-center">
@@ -255,8 +321,10 @@ function Page() {
                 onClick={async () => {
                   setSaving(true);
                   try {
-                    saveOfficerProfileLocal(data);
-                    await saveProfileFn({ data });
+                    saveOfficerProfiles({ profiles, activeId });
+                    const { id: _id, ...rest } = (active ??
+                      { ...emptyOfficerProfile, id: "" }) as StoredOfficerProfile;
+                    await saveProfileFn({ data: rest });
                     notify.success("Profil kaydedildi");
                   } catch {
                     notify.error("Profil kaydedilemedi");
@@ -271,8 +339,10 @@ function Page() {
               <Button
                 variant="outline"
                 onClick={() => {
-                  clearOfficerProfile();
-                  setData(emptyOfficerProfile);
+                  persist(
+                    profiles.map((p) => (p.id === activeId ? { ...emptyOfficerProfile, id: p.id } : p)),
+                    activeId,
+                  );
                   notify.success("Profil temizlendi");
                 }}
               >
@@ -280,6 +350,7 @@ function Page() {
                 Temizle
               </Button>
             </div>
+
           </section>
         </div>
 

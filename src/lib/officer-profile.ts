@@ -99,3 +99,64 @@ export function clearOfficerProfile() {
     /* yok sayılır */
   }
 }
+
+/* ---------------- Çoklu personel profili ---------------- */
+
+export type StoredOfficerProfile = OfficerProfile & { id: string };
+
+export const OFFICER_PROFILES_KEY = "lspd-officer-profiles";
+export const OFFICER_ACTIVE_PROFILE_KEY = "lspd-officer-active-profile";
+
+function newId() {
+  return `p_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+}
+
+export function profileLabel(p: OfficerProfile, index = 0): string {
+  return p.name?.trim() || `Personel ${index + 1}`;
+}
+
+export type OfficerProfileStore = {
+  profiles: StoredOfficerProfile[];
+  activeId: string;
+};
+
+export function loadOfficerProfiles(): OfficerProfileStore {
+  try {
+    const raw = localStorage.getItem(OFFICER_PROFILES_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as StoredOfficerProfile[];
+      if (Array.isArray(parsed) && parsed.length) {
+        const profiles = parsed.map((p) => ({ ...emptyOfficerProfile, ...p, id: p.id || newId() }));
+        const stored = localStorage.getItem(OFFICER_ACTIVE_PROFILE_KEY) || "";
+        const activeId = profiles.some((p) => p.id === stored) ? stored : profiles[0]!.id;
+        return { profiles, activeId };
+      }
+    }
+  } catch {
+    /* bozuk veri */
+  }
+
+  // Eski tekil profili taşı
+  const legacy = loadOfficerProfile();
+  const first: StoredOfficerProfile = { ...(legacy ?? emptyOfficerProfile), id: newId() };
+  return { profiles: [first], activeId: first.id };
+}
+
+export function saveOfficerProfiles(store: OfficerProfileStore) {
+  try {
+    localStorage.setItem(OFFICER_PROFILES_KEY, JSON.stringify(store.profiles));
+    localStorage.setItem(OFFICER_ACTIVE_PROFILE_KEY, store.activeId);
+    const active = store.profiles.find((p) => p.id === store.activeId) ?? store.profiles[0];
+    if (active) {
+      const { id: _id, ...rest } = active;
+      localStorage.setItem(OFFICER_PROFILE_KEY, JSON.stringify(rest));
+    }
+    window.dispatchEvent(new CustomEvent("lspd-officer-profile-changed"));
+  } catch {
+    /* kota dolu olabilir */
+  }
+}
+
+export function createEmptyStoredProfile(): StoredOfficerProfile {
+  return { ...emptyOfficerProfile, id: newId() };
+}
