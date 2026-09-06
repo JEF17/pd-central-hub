@@ -126,11 +126,13 @@ export type Database = {
           note: string
           phone: string
           photo: string
+          profile_key: string | null
           rank: string
           serial_no: string
           sort_order: number
           status: string
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
@@ -143,11 +145,13 @@ export type Database = {
           note?: string
           phone?: string
           photo?: string
+          profile_key?: string | null
           rank?: string
           serial_no?: string
           sort_order?: number
           status?: string
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
@@ -160,16 +164,25 @@ export type Database = {
           note?: string
           phone?: string
           photo?: string
+          profile_key?: string | null
           rank?: string
           serial_no?: string
           sort_order?: number
           status?: string
           updated_at?: string
+          user_id?: string | null
         }
         Relationships: [
           {
             foreignKeyName: "portal_roster_created_by_fkey"
             columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "portal_users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "portal_roster_user_id_fkey"
+            columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "portal_users"
             referencedColumns: ["id"]
