@@ -128,13 +128,20 @@ function RosterPage() {
     const sorted = [...filtered].sort(
       (a, b) => rankWeight(b.rank) - rankWeight(a.rank) || a.name.localeCompare(b.name, "tr"),
     );
-    const groups = new Map<string, RosterEntry[]>();
-    for (const section of ROSTER_SECTIONS) groups.set(section.title, []);
-    for (const entry of sorted) groups.get(sectionFor(entry.division))!.push(entry);
+    const sectionGroups = new Map<string, Map<string, RosterEntry[]>>();
+    for (const section of ROSTER_SECTIONS) sectionGroups.set(section.title, new Map());
+    for (const entry of sorted) {
+      const sectionTitle = sectionFor(entry.division);
+      const rankMap = sectionGroups.get(sectionTitle)!;
+      if (!rankMap.has(entry.rank)) rankMap.set(entry.rank, []);
+      rankMap.get(entry.rank)!.push(entry);
+    }
     return ROSTER_SECTIONS.map((section) => ({
       title: section.title,
-      entries: groups.get(section.title) ?? [],
-    })).filter((section) => section.entries.length > 0);
+      rankGroups: Array.from(sectionGroups.get(section.title)!.entries())
+        .map(([rank, items]) => ({ rank, items }))
+        .filter((g) => g.items.length > 0),
+    })).filter((section) => section.rankGroups.length > 0);
   }, [entries, search]);
 
   const openCreate = () => {
