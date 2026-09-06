@@ -15,6 +15,7 @@ import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as AyarlarRouteImport } from './routes/ayarlar'
+import { Route as CalisanListesiRouteImport } from './routes/calisan-listesi'
 import { Route as CaselawRouteImport } from './routes/caselaw'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
@@ -59,6 +60,11 @@ const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
 const AyarlarRoute = AyarlarRouteImport.update({
   id: '/ayarlar',
   path: '/ayarlar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CalisanListesiRoute = CalisanListesiRouteImport.update({
+  id: '/calisan-listesi',
+  path: '/calisan-listesi',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaselawRoute = CaselawRouteImport.update({
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
+  '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
@@ -167,6 +174,7 @@ export interface FileRoutesByTo {
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
+  '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
@@ -191,6 +199,7 @@ export interface FileRoutesById {
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
+  '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
@@ -216,6 +225,7 @@ export interface FileRouteTypes {
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/ayarlar'
+    | '/calisan-listesi'
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
@@ -239,6 +249,7 @@ export interface FileRouteTypes {
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/ayarlar'
+    | '/calisan-listesi'
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
@@ -262,6 +273,7 @@ export interface FileRouteTypes {
     | '/arac-el-koyma-raporu'
     | '/arrest-calculator'
     | '/ayarlar'
+    | '/calisan-listesi'
     | '/caselaw'
     | '/e-posta'
     | '/field-interview-karti'
@@ -286,6 +298,7 @@ export interface RootRouteChildren {
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   AyarlarRoute: typeof AyarlarRoute
+  CalisanListesiRoute: typeof CalisanListesiRoute
   CaselawRoute: typeof CaselawRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
@@ -345,6 +358,13 @@ declare module '@tanstack/react-router' {
       path: '/ayarlar'
       fullPath: '/ayarlar'
       preLoaderRoute: typeof AyarlarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calisan-listesi': {
+      id: '/calisan-listesi'
+      path: '/calisan-listesi'
+      fullPath: '/calisan-listesi'
+      preLoaderRoute: typeof CalisanListesiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/caselaw': {
@@ -462,6 +482,7 @@ const rootRouteChildren: RootRouteChildren = {
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   AyarlarRoute: AyarlarRoute,
+  CalisanListesiRoute: CalisanListesiRoute,
   CaselawRoute: CaselawRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
