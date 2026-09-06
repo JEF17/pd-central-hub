@@ -124,7 +124,7 @@ function AdminPage() {
   }, []);
 
   const pendingUsers = users.filter((u) => u.status === "pending");
-  const approvedUsers = users.filter((u) => u.status !== "pending");
+  const approvedUsers = users.filter((u) => u.status === "approved");
 
 
   const handleApprove = async (id: string) => {
