@@ -12,6 +12,7 @@ import {
   Search,
   ShieldAlert,
   Trash2,
+  X,
   type LucideIcon, FileText, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
