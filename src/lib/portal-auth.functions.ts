@@ -35,7 +35,34 @@ export type PortalUserDto = {
   createdAt: string;
   profile: StoredProfilePayload | null;
   profileCompleted: boolean;
+  /** Oyuncunun LSPD oluşumunda (Faction ID: 1) karakteri var mı */
+  inLspd: boolean;
 };
+
+const LSPD_FACTION_ID = 1;
+
+/** Karakter raw verisinde faction id'si 1 (LSPD) olan bir kayıt arar. */
+export function hasLspdFactionCharacter(
+  characters: unknown,
+): boolean {
+  if (!Array.isArray(characters)) return false;
+  const isOne = (v: unknown) => v === LSPD_FACTION_ID || v === String(LSPD_FACTION_ID);
+  return characters.some((c) => {
+    if (!c || typeof c !== "object") return false;
+    const rc = c as Record<string, unknown>;
+    const raw =
+      rc["raw"] && typeof rc["raw"] === "object" ? (rc["raw"] as Record<string, unknown>) : rc;
+    for (const key of ["faction_id", "factionId", "factionid"]) {
+      if (isOne(raw[key])) return true;
+    }
+    const faction = raw["faction"];
+    if (faction && typeof faction === "object") {
+      const f = faction as Record<string, unknown>;
+      if (isOne(f["id"]) || isOne(f["faction_id"])) return true;
+    }
+    return false;
+  });
+}
 
 export type PortalCharacterDto = {
   rowId: string;
