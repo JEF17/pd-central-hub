@@ -22,8 +22,56 @@ export interface UcpCharacter {
   memberid: number;
   faction?: string | null;
   isLspd?: boolean;
+  photo?: string | null;
   raw?: Record<string, unknown>;
 }
+
+/** MDC (UCP ile entegre) — karakter fotoğrafları buradan gelir. */
+export const MDC_USER_URL = "https://mdc-tr.gta.world/api/user";
+
+function pickPhotoUrl(raw: Record<string, unknown>): string | null {
+  const keys = ["image", "img", "photo", "picture", "avatar", "mugshot", "character_image", "image_url"];
+  for (const key of keys) {
+    const value = raw[key];
+    if (typeof value === "string" && /^https?:\/\//i.test(value)) return value;
+  }
+  return null;
+}
+
+/**
+ * MDC, UCP oturumuyla çalıştığı için UCP access token'ı ile denenir.
+ * Erişilemezse boş sonuç döner; sistem fotoğrafsız çalışmaya devam eder.
+ */
+export async function fetchMdcCharacterPhotos(accessToken: string): Promise<Record<number, string>> {
+  const photos: Record<number, string> = {};
+  try {
+    const res = await fetch(MDC_USER_URL, {
+      headers: { Authorization: `Bearer ${accessToken}`, Accept: "application/json" },
+    });
+    if (!res.ok) return photos;
+    const data = (await res.json()) as unknown;
+
+    const seen = new Set<unknown>();
+    const walk = (value: unknown): void => {
+      if (!value || typeof value !== "object" || seen.has(value)) return;
+      seen.add(value);
+      if (Array.isArray(value)) {
+        for (const item of value) walk(item);
+        return;
+      }
+      const obj = value as Record<string, unknown>;
+      const id = Number(obj['id'] ?? obj['character_id']);
+      const photo = pickPhotoUrl(obj);
+      if (Number.isFinite(id) && photo) photos[id] = photo;
+      for (const v of Object.values(obj)) walk(v);
+    };
+    walk(data);
+  } catch {
+    /* MDC erişilemedi */
+  }
+  return photos;
+}
+
 
 const LSPD_PATTERN = /(lspd|los santos police|police department|san andreas state police|\bpolice\b)/i;
 
