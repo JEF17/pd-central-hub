@@ -19,7 +19,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 export function AppShell({ children }: { children: ReactNode }) {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      return window.localStorage.getItem("lspd-sidebar-collapsed") === "true";
+    } catch {
+      return false;
+    }
+  });
   const { session, signOut } = usePortalSession();
   const profile = useOfficerProfile();
 
