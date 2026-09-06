@@ -145,6 +145,8 @@ function AdminPage() {
 
   const pendingUsers = users.filter((u) => u.status === "pending");
   const approvedUsers = users.filter((u) => u.status === "approved");
+  const rejectedUsers = users.filter((u) => u.status === "rejected");
+
 
 
   const handleApprove = async (id: string) => {
