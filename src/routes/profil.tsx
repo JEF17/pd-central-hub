@@ -23,7 +23,6 @@ import {
 } from "@/lib/portal-auth.functions";
 import {
   clearOfficerProfile,
-  divisionCode,
   divisionProfileOptions,
   emptyOfficerProfile,
   loadOfficerProfile,
