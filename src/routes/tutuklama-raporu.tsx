@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import { ArrowLeft, ClipboardCopy, Info, Plus, Trash2, ShieldAlert, } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, Info, Plus, X, ShieldAlert, } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
