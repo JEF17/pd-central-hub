@@ -14,9 +14,9 @@ export const Route = createFileRoute("/auth/giris")({
       { property: "og:title", content: "LSPD Toolkit" },
       { property: "og:description", content: "LSPD Toolkit" },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/2e760984-99ec-4d8d-a7f9-c61a0788676f/og-image.png" },
+      { property: "og:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/0360ca9c-cbda-4ef2-b913-7b42f56ebf1e/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/2e760984-99ec-4d8d-a7f9-c61a0788676f/og-image.png" },
+      { name: "twitter:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/0360ca9c-cbda-4ef2-b913-7b42f56ebf1e/og-image.png" },
     ],
   }),
   validateSearch: (search: Record<string, unknown>) => ({
