@@ -442,6 +442,18 @@ export async function logLoginEvent(
   if (error) throw error;
 }
 
+export type PortalLoginLog = Database["public"]["Tables"]["portal_login_logs"]["Row"];
+
+export async function listPortalLogs(limit = 200): Promise<PortalLoginLog[]> {
+  const { data, error } = await supabaseAdmin
+    .from("portal_login_logs")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(limit);
+  if (error) throw error;
+  return (data ?? []) as PortalLoginLog[];
+}
+
 export async function listPendingUsers(): Promise<PortalUser[]> {
   const { data, error } = await supabaseAdmin
     .from("portal_users")
