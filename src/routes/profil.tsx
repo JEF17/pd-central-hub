@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Camera, IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
+import { Camera, Crop, IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
 import { PhotoEditor } from "@/components/PhotoEditor";
@@ -74,7 +74,7 @@ async function fileToResizedDataUrl(file: File): Promise<string> {
     el.src = dataUrl;
   });
 
-  const max = 512;
+  const max = 1024;
   const scale = Math.min(1, max / Math.max(img.width, img.height));
   const canvas = document.createElement("canvas");
   canvas.width = Math.round(img.width * scale);
@@ -90,6 +90,8 @@ function Page() {
   const [activeId, setActiveId] = useState<string>("");
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const [editorSrc, setEditorSrc] = useState<string | null>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
   const { session } = usePortalSession();
   const router = useRouter();
   const mustCreateProfile = session ? !session.profileCompleted : false;
