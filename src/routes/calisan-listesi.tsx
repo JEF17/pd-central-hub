@@ -62,7 +62,7 @@ const ROSTER_SECTIONS: { title: string; divisions: string[] }[] = [
     title: "MISSION ROW DIVISION",
     divisions: ["Mission Row Area Patrol Division", "Mission Row Area Detective Division"],
   },
-  { title: "CENTRAL DIVISION", divisions: ["Central Bureau Homicide"] },
+  { title: "CENTRAL BUREAU", divisions: ["Central Bureau Homicide"] },
   { title: "CENTRAL TRAFFIC DIVISION", divisions: ["Central Traffic Division"] },
   { title: "METROPOLITAN DIVISION", divisions: ["Metropolitan Division"] },
   { title: "AIR SUPPORT DIVISION", divisions: ["Air Support Division"] },
