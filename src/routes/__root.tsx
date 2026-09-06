@@ -86,9 +86,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "LSPD Toolkit" },
       { property: "og:description", content: "LSPD Toolkit" },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/3147e077-ac0e-4dbb-ba87-6bd77e1ed580/og-image.png" },
+      { property: "og:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/65daa519-caf4-4c24-b060-577c9d5f8ed4/og-image.png" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/3147e077-ac0e-4dbb-ba87-6bd77e1ed580/og-image.png" },
+      { name: "twitter:image", content: "https://lspdtoolkit.online/__l5e/assets-v1/65daa519-caf4-4c24-b060-577c9d5f8ed4/og-image.png" },
     ],
     links: [
       {
