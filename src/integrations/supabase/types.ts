@@ -26,6 +26,7 @@ export type Database = {
           is_lspd: boolean
           lastname: string
           memberid: number | null
+          photo: string
           raw: Json
           requested_at: string | null
           status: string
@@ -43,6 +44,7 @@ export type Database = {
           is_lspd?: boolean
           lastname?: string
           memberid?: number | null
+          photo?: string
           raw?: Json
           requested_at?: string | null
           status?: string
@@ -60,6 +62,7 @@ export type Database = {
           is_lspd?: boolean
           lastname?: string
           memberid?: number | null
+          photo?: string
           raw?: Json
           requested_at?: string | null
           status?: string
@@ -249,6 +252,7 @@ export type Database = {
           profile_completed: boolean
           selected_character: string | null
           status: string
+          ucp_access_token: string | null
           ucp_role: string | null
           ucp_user_id: number
           updated_at: string
@@ -265,6 +269,7 @@ export type Database = {
           profile_completed?: boolean
           selected_character?: string | null
           status?: string
+          ucp_access_token?: string | null
           ucp_role?: string | null
           ucp_user_id: number
           updated_at?: string
@@ -281,6 +286,7 @@ export type Database = {
           profile_completed?: boolean
           selected_character?: string | null
           status?: string
+          ucp_access_token?: string | null
           ucp_role?: string | null
           ucp_user_id?: number
           updated_at?: string
