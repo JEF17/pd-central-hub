@@ -149,6 +149,7 @@ async function toUserDto(
     adminLevel,
     isProtectedQuery: isProtectedQueryUsername(user.username),
     characters: (user.characters ?? []) as Array<{ id: number; firstname: string; lastname: string; memberid: number }>,
+    inLspd: hasLspdFactionCharacter(user.characters),
     selectedCharacter: (() => {
       if (!user.selected_character) return null;
       try {
