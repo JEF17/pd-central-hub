@@ -129,14 +129,27 @@ function RosterPage() {
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return entries;
-    return entries.filter((e) =>
-      [e.name, e.serialNo, e.rank, e.division, e.email, e.discord]
-        .join(" ")
-        .toLowerCase()
-        .includes(q),
-    );
+    const base = !q
+      ? entries
+      : entries.filter((e) =>
+          [e.name, e.serialNo, e.rank, e.division, e.email, e.discord]
+            .join(" ")
+            .toLowerCase()
+            .includes(q),
+        );
+    const rankIndex = (rank: string) => {
+      const i = rankOptions.indexOf(rank);
+      return i === -1 ? -1 : i;
+    };
+    return [...base].sort((a, b) => {
+      const diff = rankIndex(b.rank) - rankIndex(a.rank);
+      if (diff !== 0) return diff;
+      const order = (a.sortOrder ?? 0) - (b.sortOrder ?? 0);
+      if (order !== 0) return order;
+      return a.name.localeCompare(b.name, "tr");
+    });
   }, [entries, query]);
+
 
   const openCreate = () => {
     setForm(emptyForm);
