@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useEffect, useState } from "react";
-import { Check, ChevronDown, ChevronRight, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, ScrollText, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
