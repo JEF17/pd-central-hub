@@ -226,7 +226,7 @@ function RosterPage() {
 
         {loading ? (
           <p className="mt-12 text-center text-sm text-muted-foreground">Yükleniyor...</p>
-        ) : sortedEntries.length === 0 ? (
+        ) : sections.length === 0 ? (
           <div className="mt-12 flex flex-col items-center gap-3 rounded-xl border border-dashed py-16 text-center">
             <UserRound className="size-10 text-muted-foreground/50" />
             <p className="text-sm text-muted-foreground">
