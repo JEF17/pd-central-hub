@@ -216,14 +216,13 @@ function AdminPage() {
             ) : (
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>UCP Kullanıcı Adı</TableHead>
-                    <TableHead>Personel Ad Soyad</TableHead>
-                    <TableHead>Rütbe</TableHead>
-                    <TableHead>Oluşum</TableHead>
-                    <TableHead>Karakterler</TableHead>
-                    <TableHead className="text-right">İşlem</TableHead>
-                  </TableRow>
+                    <TableRow>
+                      <TableHead>UCP Kullanıcı Adı</TableHead>
+                      <TableHead>Personel Ad Soyad</TableHead>
+                      <TableHead>Rütbe</TableHead>
+                      <TableHead>Karakterler</TableHead>
+                      <TableHead className="text-right">İşlem</TableHead>
+                    </TableRow>
                 </TableHeader>
                 <TableBody>
                   {pendingUsers.map((user) => (
@@ -241,13 +240,6 @@ function AdminPage() {
                       </TableCell>
                       <TableCell>{user.profile?.name || "—"}</TableCell>
                       <TableCell>{user.profile?.rank || "—"}</TableCell>
-                      <TableCell>
-                        {user.inLspd ? (
-                          <Badge className="bg-primary/20 text-primary hover:bg-primary/30">Oluşumda</Badge>
-                        ) : (
-                          <Badge variant="outline">Oluşumda Değil</Badge>
-                        )}
-                      </TableCell>
                       <TableCell className="max-w-[280px] truncate">
                         {user.characters.length > 0
                           ? user.characters
@@ -276,7 +268,7 @@ function AdminPage() {
                         </div>
                       </TableCell>
                     </TableRow>
-                    {expanded === user.id ? <ProfileDetails user={user} colSpan={6} /> : null}
+                    {expanded === user.id ? <ProfileDetails user={user} colSpan={5} /> : null}
                     </Fragment>
                   ))}
                 </TableBody>
