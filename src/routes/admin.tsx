@@ -118,6 +118,29 @@ function AdminPage() {
     }
   };
 
+  const canDeleteUsers = myLevel === "query" || myLevel === "faction_management";
+
+  const canDeleteUser = (user: UserDto) =>
+    canDeleteUsers &&
+    !user.isProtectedQuery &&
+    user.id !== session?.id &&
+    (myLevel === "query" ||
+      (user.adminLevel !== "query" && user.adminLevel !== "faction_management"));
+
+  const handleDelete = async (user: UserDto) => {
+    const ok = window.confirm(
+      `"${user.username}" kullanıcısını kalıcı olarak silmek istediğinize emin misiniz? Bu işlem geri alınamaz.`,
+    );
+    if (!ok) return;
+    try {
+      await deleteFn({ data: { userId: user.id } });
+      toast.success("Kullanıcı silindi");
+      await refresh();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Kullanıcı silinemedi");
+    }
+  };
+
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl px-6 py-10">
@@ -248,30 +271,42 @@ function AdminPage() {
                         {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString("tr-TR") : "—"}
                       </TableCell>
                       <TableCell className="text-right">
-                        {!canManageRoles ? (
-                          <span className="text-xs text-muted-foreground">—</span>
-                        ) : user.isProtectedQuery ? (
-                          <span className="text-xs text-muted-foreground">Korumalı hesap</span>
-                        ) : myLevel === "faction_management" &&
-                          (user.adminLevel === "query" || user.adminLevel === "faction_management") ? (
-                          <span className="text-xs text-muted-foreground">Yetkiniz yok</span>
-                        ) : (
-                          <Select
-                            value={user.adminLevel ?? "none"}
-                            onValueChange={(v) => handleLevelChange(user, v)}
-                          >
-                            <SelectTrigger className="ml-auto w-[190px]">
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {availableLevels.map((lvl) => (
-                                <SelectItem key={lvl.value} value={lvl.value}>
-                                  {lvl.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        )}
+                        <div className="flex items-center justify-end gap-2">
+                          {!canManageRoles ? (
+                            <span className="text-xs text-muted-foreground">—</span>
+                          ) : user.isProtectedQuery ? (
+                            <span className="text-xs text-muted-foreground">Korumalı hesap</span>
+                          ) : myLevel === "faction_management" &&
+                            (user.adminLevel === "query" || user.adminLevel === "faction_management") ? (
+                            <span className="text-xs text-muted-foreground">Yetkiniz yok</span>
+                          ) : (
+                            <Select
+                              value={user.adminLevel ?? "none"}
+                              onValueChange={(v) => handleLevelChange(user, v)}
+                            >
+                              <SelectTrigger className="ml-auto w-[190px]">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {availableLevels.map((lvl) => (
+                                  <SelectItem key={lvl.value} value={lvl.value}>
+                                    {lvl.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          )}
+                          {canDeleteUser(user) && (
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDelete(user)}
+                            >
+                              <Trash2 className="mr-1 size-3" />
+                              Sil
+                            </Button>
+                          )}
+                        </div>
                       </TableCell>
                     </TableRow>
                   ))}
