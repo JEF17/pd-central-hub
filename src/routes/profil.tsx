@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Camera, Crop, IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
+import { IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
-import { PhotoEditor } from "@/components/PhotoEditor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -58,40 +57,10 @@ export const Route = createFileRoute("/profil")({
   component: Page,
 });
 
-/** Fotoğrafı 512px'e küçültüp data URL üretir (tarayıcı deposu sınırlı). */
-async function fileToResizedDataUrl(file: File): Promise<string> {
-  const dataUrl = await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(String(reader.result));
-    reader.onerror = () => reject(new Error("Dosya okunamadı"));
-    reader.readAsDataURL(file);
-  });
-
-  const img = await new Promise<HTMLImageElement>((resolve, reject) => {
-    const el = new Image();
-    el.onload = () => resolve(el);
-    el.onerror = () => reject(new Error("Görsel açılamadı"));
-    el.src = dataUrl;
-  });
-
-  const max = 1024;
-  const scale = Math.min(1, max / Math.max(img.width, img.height));
-  const canvas = document.createElement("canvas");
-  canvas.width = Math.round(img.width * scale);
-  canvas.height = Math.round(img.height * scale);
-  const ctx = canvas.getContext("2d");
-  if (!ctx) return dataUrl;
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-  return canvas.toDataURL("image/jpeg", 0.85);
-}
-
 function Page() {
   const [profiles, setProfiles] = useState<StoredOfficerProfile[]>([]);
   const [activeId, setActiveId] = useState<string>("");
   const [saving, setSaving] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [editorSrc, setEditorSrc] = useState<string | null>(null);
-  const [editorOpen, setEditorOpen] = useState(false);
   const { session } = usePortalSession();
   const router = useRouter();
   const mustCreateProfile = session ? !session.profileCompleted : false;
@@ -132,6 +101,20 @@ function Page() {
     persist(rest, rest[0]!.id);
     notify.success("Personel profili silindi");
   };
+
+  const charPhoto = (() => {
+    const list = session?.portalCharacters ?? [];
+    const approved = list.filter((c) => c.status === "approved" && c.photo);
+    const selectedId = session?.selectedCharacter?.id;
+    const match = approved.find((c) => c.id === selectedId) ?? approved[0];
+    return match?.photo ?? "";
+  })();
+  const photo = charPhoto || data.photo;
+
+  useEffect(() => {
+    if (charPhoto && activeId && data.photo !== charPhoto) set("photo", charPhoto);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [charPhoto, activeId]);
 
   const displayName =
     data.name ||
