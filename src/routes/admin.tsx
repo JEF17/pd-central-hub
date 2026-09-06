@@ -136,6 +136,13 @@ function AdminPage() {
     refresh();
   }, []);
 
+  useEffect(() => {
+    if (!canViewLogs) return;
+    listLogsFn({})
+      .then(setLogs)
+      .catch(() => setLogs([]));
+  }, [canViewLogs]);
+
   const pendingUsers = users.filter((u) => u.status === "pending");
   const approvedUsers = users.filter((u) => u.status === "approved");
 
