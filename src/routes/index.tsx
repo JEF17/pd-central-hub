@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import { ChevronRight, Clock, ShieldCheck } from "lucide-react";
+import { ChevronRight, Clock, ShieldCheck, X } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { AppShell } from "@/components/AppShell";
 import { navItems } from "@/lib/nav-items";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
-import { formatRelative, loadRecentDrafts, type RecentDraft } from "@/lib/recent-drafts";
+import { formatRelative, loadRecentDrafts, removeDraft, type RecentDraft } from "@/lib/recent-drafts";
 
 export const Route = createFileRoute("/")({
   beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
