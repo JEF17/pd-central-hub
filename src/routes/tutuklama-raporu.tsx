@@ -200,7 +200,7 @@ function Page() {
               </Alert>
 
               {data.evidence.map((e, i) => (
-                <div key={i} className="grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
+                <div key={i} className="group grid gap-3 sm:grid-cols-[1fr_1fr_auto]">
                   <Input
                     value={e.label}
                     placeholder="Başlık"
@@ -211,19 +211,24 @@ function Page() {
                     placeholder="https://..."
                     onChange={(ev) => updateEvidence(i, { url: ev.target.value })}
                   />
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label="Kanıtı kaldır"
-                    onClick={() =>
-                      set(
-                        "evidence",
-                        data.evidence.filter((_, idx) => idx !== i),
-                      )
-                    }
-                  >
-                    <Trash2 className="size-4" />
-                  </Button>
+                  {data.evidence.length > 5 ? (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label="Kanıtı kaldır"
+                      className="opacity-0 transition-opacity group-hover:opacity-100"
+                      onClick={() =>
+                        set(
+                          "evidence",
+                          data.evidence.filter((_, idx) => idx !== i),
+                        )
+                      }
+                    >
+                      <X className="size-4" />
+                    </Button>
+                  ) : (
+                    <div />
+                  )}
                 </div>
               ))}
               <Button
