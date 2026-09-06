@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, Shield, ShieldCheck, UserX, X } from "lucide-react";
+import { Check, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   ADMIN_LEVEL_LABELS,
   approveUser,
+  deleteUser,
   listUsers,
   rejectUser,
   setUserAdminLevel,
@@ -60,6 +61,7 @@ function AdminPage() {
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
+  const deleteFn = useServerFn(deleteUser);
   const { session } = usePortalSession();
   const myLevel = session?.adminLevel ?? null;
 
@@ -78,7 +80,7 @@ function AdminPage() {
   }, []);
 
   const pendingUsers = users.filter((u) => u.status === "pending");
-  const approvedUsers = users.filter((u) => u.status === "approved");
+  const approvedUsers = users.filter((u) => u.status !== "pending");
 
 
   const handleApprove = async (id: string) => {
