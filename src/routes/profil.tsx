@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { Camera, IdCard, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
 
@@ -36,7 +36,7 @@ import {
 
 export const Route = createFileRoute("/profil")({
   beforeLoad: async ({ location }) => {
-    await requirePortalAuth(location.href);
+    await requirePortalAuth(location.href, { allowIncompleteProfile: true });
   },
   head: () => ({
     meta: [
@@ -90,6 +90,8 @@ function Page() {
   const [saving, setSaving] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
   const { session } = usePortalSession();
+  const router = useRouter();
+  const mustCreateProfile = session ? !session.profileCompleted : false;
   const saveProfileFn = useServerFn(saveOfficerProfileServer);
 
   useEffect(() => {
@@ -148,6 +150,13 @@ function Page() {
             </p>
           </div>
         </div>
+
+        {mustCreateProfile ? (
+          <div className="mt-6 rounded-xl border border-primary/40 bg-primary/10 p-4 text-sm">
+            Panele erişebilmek için önce personel profilini oluşturman gerekiyor. Adı Soyadı, Seri
+            Numarası ve Rütbe alanlarını doldurup <strong>Kaydet</strong>'e bas.
+          </div>
+        ) : null}
 
         <section className="mt-6 flex flex-wrap items-end gap-3 rounded-xl border border-border bg-card p-4">
           <div className="min-w-56 flex-1">
@@ -325,8 +334,16 @@ function Page() {
                     const { id: _id, ...rest } = (active ??
                       { ...emptyOfficerProfile, id: "" }) as StoredOfficerProfile;
                     const all = profiles.map(({ id: _pid, ...p }) => p);
+                    if (!rest.name.trim() || !rest.rank.trim() || !rest.serialNo.trim()) {
+                      notify.error("Adı Soyadı, Seri Numarası ve Rütbe zorunludur");
+                      return;
+                    }
                     await saveProfileFn({ data: { ...rest, profiles: all } });
                     notify.success("Profil kaydedildi");
+                    if (mustCreateProfile) {
+                      await router.invalidate();
+                      router.navigate({ to: "/" });
+                    }
                   } catch {
                     notify.error("Profil kaydedilemedi");
                   } finally {

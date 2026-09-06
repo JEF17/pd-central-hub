@@ -56,6 +56,7 @@ export type PortalSessionDto = {
   status: "pending" | "approved" | "rejected";
   isAdmin: boolean;
   adminLevel: AdminLevel | null;
+  profileCompleted: boolean;
   characters: Array<{ id: number; firstname: string; lastname: string; memberid: number }>;
   portalCharacters: PortalCharacterDto[];
   selectedCharacter: { id: number; firstname: string; lastname: string; memberid: number } | null;
@@ -222,6 +223,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
         status: "approved",
         isAdmin: true,
         adminLevel: "query" as AdminLevel,
+        profileCompleted: true,
         characters: [],
         portalCharacters: [],
         selectedCharacter: null,
@@ -268,7 +270,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     status: user.status as PortalSessionDto["status"],
     isAdmin,
     adminLevel,
-
+    profileCompleted: user.profile_completed ?? false,
     characters: (user.characters ?? []) as PortalSessionDto["characters"],
     portalCharacters,
     selectedCharacter: (() => {
