@@ -248,80 +248,92 @@ function RosterPage() {
           </div>
         ) : (
           <div className="mt-8 space-y-10">
-            {sections.map((section) => (
-            <section key={section.title}>
-              <div className="mb-4 flex items-center gap-3">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
-                  {section.title}
-                </h2>
-                <div className="h-px flex-1 bg-border" />
-                <span className="text-xs text-muted-foreground">{section.entries.length} personel</span>
-              </div>
-              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {section.entries.map((entry) => (
-                  <article
-                    key={entry.id}
-                    className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
-                  >
-                    <div className="flex items-center gap-3.5 p-4">
-                      <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border bg-muted">
-                        {entry.photo ? (
-                          <img src={entry.photo} alt={entry.name} className="size-full object-cover" loading="lazy" />
-                        ) : (
-                          <UserRound className="size-7 text-muted-foreground/40" />
-                        )}
+            {sections.map((section) => {
+              const total = section.rankGroups.reduce((sum, g) => sum + g.items.length, 0);
+              return (
+                <section key={section.title}>
+                  <div className="mb-4 flex items-center gap-3">
+                    <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">
+                      {section.title}
+                    </h2>
+                    <div className="h-px flex-1 bg-border" />
+                    <span className="text-xs text-muted-foreground">{total} personel</span>
+                  </div>
+                  <div className="space-y-6">
+                    {section.rankGroups.map(({ rank, items }) => (
+                      <div key={rank}>
+                        <div className="mb-2 flex items-center gap-2">
+                          <span className="text-xs font-semibold uppercase tracking-wide text-primary/80">{rank}</span>
+                          <div className="h-px flex-1 bg-border/60" />
+                        </div>
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                          {items.map((entry) => (
+                            <article
+                              key={entry.id}
+                              className="group relative overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md"
+                            >
+                              <div className="flex items-center gap-3.5 p-4">
+                                <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-lg border bg-muted">
+                                  {entry.photo ? (
+                                    <img src={entry.photo} alt={entry.name} className="size-full object-cover" loading="lazy" />
+                                  ) : (
+                                    <UserRound className="size-7 text-muted-foreground/40" />
+                                  )}
+                                </div>
+                                <div className="min-w-0 flex-1">
+                                  <h3 className="truncate font-semibold leading-tight">{entry.name}</h3>
+                                  {entry.note && (
+                                    <p className="mt-0.5 truncate text-xs text-muted-foreground">{entry.note}</p>
+                                  )}
+                                  {entry.serialNo && (
+                                    <p className="mt-0.5 truncate text-xs text-muted-foreground">Seri No: {entry.serialNo}</p>
+                                  )}
+                                </div>
+                              </div>
+                              {(entry.email || entry.phone || entry.discord) && (
+                                <div className="space-y-1 border-t px-4 py-2.5 text-xs text-muted-foreground">
+                                  {entry.email && (
+                                    <p className="flex items-center gap-1.5 truncate">
+                                      <Mail className="size-3 shrink-0" /> {entry.email}
+                                    </p>
+                                  )}
+                                  {entry.phone && (
+                                    <p className="flex items-center gap-1.5 truncate">
+                                      <Phone className="size-3 shrink-0" /> {entry.phone}
+                                    </p>
+                                  )}
+                                  {entry.discord && <p className="truncate">Discord: {entry.discord}</p>}
+                                </div>
+                              )}
+                              {canManage && (
+                                <div className="absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                                  <button
+                                    type="button"
+                                    onClick={() => openEdit(entry)}
+                                    className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-foreground"
+                                    title="Düzenle"
+                                  >
+                                    <Pencil className="size-3.5" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDelete(entry)}
+                                    className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-destructive"
+                                    title="Sil"
+                                  >
+                                    <Trash2 className="size-3.5" />
+                                  </button>
+                                </div>
+                              )}
+                            </article>
+                          ))}
+                        </div>
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="truncate font-semibold leading-tight">{entry.name}</h3>
-                        {entry.rank && <p className="mt-0.5 truncate text-xs font-medium text-primary">{entry.rank}</p>}
-                        {entry.note && (
-                          <p className="mt-0.5 truncate text-xs text-muted-foreground">{entry.note}</p>
-                        )}
-                        {entry.serialNo && (
-                          <p className="mt-0.5 truncate text-xs text-muted-foreground">Seri No: {entry.serialNo}</p>
-                        )}
-                      </div>
-                    </div>
-                    {(entry.email || entry.phone || entry.discord) && (
-                      <div className="space-y-1 border-t px-4 py-2.5 text-xs text-muted-foreground">
-                        {entry.email && (
-                          <p className="flex items-center gap-1.5 truncate">
-                            <Mail className="size-3 shrink-0" /> {entry.email}
-                          </p>
-                        )}
-                        {entry.phone && (
-                          <p className="flex items-center gap-1.5 truncate">
-                            <Phone className="size-3 shrink-0" /> {entry.phone}
-                          </p>
-                        )}
-                        {entry.discord && <p className="truncate">Discord: {entry.discord}</p>}
-                      </div>
-                    )}
-                    {canManage && (
-                      <div className="absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
-                        <button
-                          type="button"
-                          onClick={() => openEdit(entry)}
-                          className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-foreground"
-                          title="Düzenle"
-                        >
-                          <Pencil className="size-3.5" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDelete(entry)}
-                          className="flex size-7 items-center justify-center rounded-md border bg-background/90 text-muted-foreground shadow-sm hover:text-destructive"
-                          title="Sil"
-                        >
-                          <Trash2 className="size-3.5" />
-                        </button>
-                      </div>
-                    )}
-                  </article>
-                ))}
-              </div>
-            </section>
-            ))}
+                    ))}
+                  </div>
+                </section>
+              );
+            })}
           </div>
         )}
       </div>
