@@ -66,6 +66,7 @@ const emptyForm: RosterInput = {
   phone: "",
   discord: "",
   status: "active",
+  note: "",
 };
 
 function RosterPage() {
@@ -238,6 +239,9 @@ function RosterPage() {
                       <div className="min-w-0 flex-1">
                         <h3 className="truncate font-semibold leading-tight">{entry.name}</h3>
                         {entry.rank && <p className="mt-0.5 truncate text-xs font-medium text-primary">{entry.rank}</p>}
+                        {entry.note && (
+                          <p className="mt-0.5 truncate text-xs text-muted-foreground">{entry.note}</p>
+                        )}
                         {entry.serialNo && (
                           <p className="mt-0.5 truncate text-xs text-muted-foreground">Seri No: {entry.serialNo}</p>
                         )}
@@ -340,6 +344,15 @@ function RosterPage() {
                   <option key={d.value} value={d.value} />
                 ))}
               </datalist>
+            </div>
+            <div className="col-span-2">
+              <Label htmlFor="roster-note">Görev Tanımı</Label>
+              <Input
+                id="roster-note"
+                value={form.note ?? ""}
+                onChange={(e) => setForm((f) => ({ ...f, note: e.target.value }))}
+                placeholder="Örn: Patrol Supervisor, Field Training Officer"
+              />
             </div>
             <div className="col-span-2">
               <Label htmlFor="roster-photo">Fotoğraf URL</Label>
