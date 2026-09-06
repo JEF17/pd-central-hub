@@ -397,6 +397,15 @@ export const setUserAdminLevel = createServerFn({ method: "POST" })
     }
 
     await setAdminLevel(data.userId, data.level);
+    {
+      const { logLoginEvent } = await import("./portal-auth.server");
+      await logLoginEvent(
+        context.userId,
+        context.user.username,
+        "admin_set_role",
+        `${target.username} → ${data.level ?? "kullanıcı"}`,
+      );
+    }
     const user = await findPortalUserById(data.userId);
     if (!user) throw new Error("User not found");
     return toUserDto(user, getAdminLevel);
