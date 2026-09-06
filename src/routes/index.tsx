@@ -10,8 +10,10 @@ import { useOfficerProfile } from "@/hooks/use-officer-profile";
 import { formatRelative, loadRecentDrafts, removeDraft, type RecentDraft } from "@/lib/recent-drafts";
 
 export const Route = createFileRoute("/")({
-  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
-  
+  beforeLoad: async ({ location }) => {
+    await requirePortalAuth(location.href);
+  },
+
   head: () => ({
     meta: [
       { title: "LSPD - Toolkit" },
@@ -86,12 +88,8 @@ function Dashboard() {
               <img src={lspdLogo.url} alt="LSPD rozeti" className="size-16 object-contain opacity-90" />
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold/90">
-                {greeting()}
-              </p>
-              <h1 className="text-gradient text-glow mt-1 text-4xl font-extrabold tracking-tight">
-                LSPD Toolkit
-              </h1>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-gold/90">{greeting()}</p>
+              <h1 className="text-gradient text-glow mt-1 text-4xl font-extrabold tracking-tight">LSPD Toolkit</h1>
               <p className="mt-2 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                 <ShieldCheck className="size-4 text-primary" />
                 <span className="font-medium text-foreground/90">{officerLine}</span>
@@ -128,9 +126,7 @@ function Dashboard() {
                     </span>
                     <span className="min-w-0">
                       <span className="block truncate text-sm font-medium">{type.label}</span>
-                      <span className="block text-[11px] text-muted-foreground">
-                        {formatRelative(savedAt)}
-                      </span>
+                      <span className="block text-[11px] text-muted-foreground">{formatRelative(savedAt)}</span>
                     </span>
                     <ChevronRight className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-gold" />
                   </Link>
@@ -150,7 +146,7 @@ function Dashboard() {
               <Clock className="size-8 text-muted-foreground/40" />
               <p className="mt-2 text-sm font-medium text-foreground/80">Henüz kayıtlı taslak yok</p>
               <p className="max-w-xs text-xs text-muted-foreground">
-                Rapor jeneratörlerinde çalışmaya başladığında son kaydettiklerin burada listelenecek.
+                Rapor hazırlamaya başladığınızda son kaydettikleriniz burada listelenecek.
               </p>
             </div>
           )}
@@ -158,9 +154,7 @@ function Dashboard() {
 
         {/* Araçlar */}
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-            Araçlar
-          </h2>
+          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">Araçlar</h2>
           <div className="mt-3 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {tools.map((tool, i) => {
               const accent = accents[i % accents.length];
