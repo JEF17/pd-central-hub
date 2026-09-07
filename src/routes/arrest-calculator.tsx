@@ -174,7 +174,13 @@ function Page() {
                 index={index + 1}
                 row={row}
                 onChange={(patch) => update(row.id, patch)}
-                onRemove={() => setRows((prev) => (prev.length > 1 ? prev.filter((r) => r.id !== row.id) : prev))}
+                onRemove={() => {
+                  setRows((prev) => {
+                    const next = prev.filter((r) => r.id !== row.id);
+                    return next.length ? next : [makeRow()];
+                  });
+                  setResult(null);
+                }}
               />
             ))}
           </div>
