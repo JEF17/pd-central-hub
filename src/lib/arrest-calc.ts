@@ -59,6 +59,54 @@ export interface CalculatedCharge {
   bailAmount: number;
   bailAuto: boolean;
   bailOptional: boolean;
+  /** Ehliyete el koyma, aracı çekme gibi ek işlemler */
+  extraActions: string[];
+}
+
+const EXTRA_ACTION_PATTERN =
+  /(el ?koy|el koyul|askıya al|askıya alın|bağlanacak|bağlanır|parçalat|iptal edil|çekilecek|çekilir|müsader|toplatıl)/i;
+
+/** Ceza metninden ehliyet/araç gibi ek işlemleri çıkarır (seçilen suç sayısına göre). */
+export function extractExtraActions(definition: ChargeDefinition, offense: number): string[] {
+  const text = definition.classification ?? "";
+  const out: string[] = [];
+
+  for (const rawLine of text.split("\n")) {
+    const line = rawLine.trim();
+    if (!line) continue;
+
+    const tierMatch = /^(\d+)\.\s*/.exec(line);
+    let body = line;
+    if (tierMatch) {
+      const n = Number(tierMatch[1]);
+      const maxTier = definition.tiers.length || 3;
+      const effective = Math.min(Math.max(offense, 1), maxTier);
+      if (n !== effective) continue;
+      body = line.slice(tierMatch[0].length);
+    }
+
+    const isNote = /^not\s*:/i.test(body);
+    if (isNote) body = body.replace(/^not\s*:\s*/i, "");
+
+    const segments = body
+      .split(/(?<=\.)\s+/)
+      .flatMap((s) => s.split(/\s+ve\s+(?=[^.]*(?:el ?koy|askıya|bağlan|çekil|parçalat|iptal))/i))
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    for (const segment of segments) {
+      if (!EXTRA_ACTION_PATTERN.test(segment)) continue;
+      if (/para cezası/i.test(segment) && !EXTRA_ACTION_PATTERN.test(segment.replace(/[^.]*para cezası/i, "")))
+        continue;
+      let value = segment.replace(/^[,;\s]+/, "").replace(/[,;]+$/, "");
+      if (!/[.!?]$/.test(value)) value += ".";
+      value = value.charAt(0).toLocaleUpperCase("tr-TR") + value.slice(1);
+      if (isNote) value = `Not: ${value}`;
+      if (!out.includes(value)) out.push(value);
+    }
+  }
+
+  return out;
 }
 
 export interface CalculationResult {
@@ -161,6 +209,7 @@ export function calculate(
       bailAmount: definition.bail.amount,
       bailAuto: definition.bail.auto,
       bailOptional: definition.bail.optional,
+      extraActions: extractExtraActions(definition, row.offense),
     });
   }
 
