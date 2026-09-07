@@ -402,7 +402,7 @@ function ChargeRowCard({
               <Button
                 variant="outline"
                 role="combobox"
-                className="w-full justify-between font-normal"
+                className="h-10 w-full min-w-0 justify-between font-normal"
               >
                 {definition ? (
                   <span className="flex min-w-0 items-center gap-2">
@@ -540,7 +540,7 @@ function ChargeRowCard({
             value={row.addition}
             onValueChange={(value) => onChange({ addition: value as ChargeRow["addition"] })}
           >
-            <SelectTrigger>
+            <SelectTrigger className="h-10 w-full min-w-0">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
