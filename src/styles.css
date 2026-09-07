@@ -103,13 +103,25 @@
     border-color: var(--color-border);
   }
 
+  /* Açılır menüler (Select/Popover) sayfayı kilitlerken kaydırma çubuğunun
+     kaybolup yeniden gelmesi sayfayı oynatıyordu; alan hep ayrılmış kalsın. */
+  html {
+    scrollbar-gutter: stable;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
+
+  body[data-scroll-locked] {
+    margin-right: 0 !important;
+    padding-right: 0 !important;
+  }
 }
+
 
 @utility card-shadow {
   box-shadow:
