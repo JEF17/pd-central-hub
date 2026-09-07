@@ -470,8 +470,10 @@ function ChargeRowCard({
             onValueChange={(value) => onChange({ levelKey: value })}
             disabled={!definition}
           >
-            <SelectTrigger className="h-auto min-h-10 py-2 text-left">
-              <SelectValue placeholder="Seviye" />
+            <SelectTrigger className="h-10 w-full min-w-0">
+              <SelectValue placeholder="Seviye">
+                <span className="block truncate text-left">{activeLevel?.label}</span>
+              </SelectValue>
             </SelectTrigger>
             <SelectContent className="max-w-[420px]">
               {levelOptions.map((level) => (
@@ -495,21 +497,26 @@ function ChargeRowCard({
           </Select>
         </div>
 
-        {definition?.categories?.length ? (
-          <div className="space-y-2">
-            <Label>Kategori</Label>
-            <Select
-              value={row.category ?? definition.categories[0]?.key ?? ""}
-              onValueChange={(value) => onChange({ category: value })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Kategori" />
-              </SelectTrigger>
-              <SelectContent>
-                {definition.categories.map((category) => (
-                  <SelectItem key={category.key} value={category.key}>
-                    {category.key} Kategorisi
-                  </SelectItem>
+        <div className="space-y-2">
+          <Label>Kategori</Label>
+          <Select
+            value={definition?.categories?.length ? row.category ?? definition.categories[0]?.key ?? "" : ""}
+            onValueChange={(value) => onChange({ category: value })}
+            disabled={!definition?.categories?.length}
+          >
+            <SelectTrigger className="h-10 w-full min-w-0">
+              <SelectValue placeholder="—" />
+            </SelectTrigger>
+            <SelectContent>
+              {(definition?.categories ?? []).map((category) => (
+                <SelectItem key={category.key} value={category.key}>
+                  {category.key} Kategorisi
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
                 ))}
               </SelectContent>
             </Select>
