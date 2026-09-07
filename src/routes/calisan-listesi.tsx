@@ -30,7 +30,7 @@ import {
   type RosterEntry,
   type RosterInput,
 } from "@/lib/roster.functions";
-import { divisionProfileOptions, rankOptions } from "@/lib/officer-profile";
+import { divisionProfileOptions, formatRank, rankOptions } from "@/lib/officer-profile";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { toast } from "sonner";
 
