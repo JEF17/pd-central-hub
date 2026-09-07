@@ -9,9 +9,9 @@ import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
+import { formatRank } from "@/lib/officer-profile";
 import { Button } from "@/components/ui/button";
 import {
-import { formatRank } from "@/lib/officer-profile";
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
