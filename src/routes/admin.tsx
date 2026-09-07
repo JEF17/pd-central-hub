@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/select";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { toast } from "sonner";
+import { formatRank } from "@/lib/officer-profile";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
 
@@ -63,7 +64,7 @@ function ProfileDetails({ user, colSpan }: { user: UserDto; colSpan: number }) {
                 <div className="min-w-0 text-sm">
                   <p className="truncate font-semibold">{p.name || "İsimsiz Personel"}</p>
                   <p className="truncate text-xs text-muted-foreground">
-                    {p.rank || "Rütbe yok"}
+                    {formatRank(p.rank) || "Rütbe yok"}
                     {p.serialNo ? ` • #${p.serialNo}` : ""}
                   </p>
                   <p className="truncate text-xs text-muted-foreground">{p.division || "Division yok"}</p>
@@ -293,7 +294,7 @@ function AdminPage() {
                         </span>
                       </TableCell>
                       <TableCell>{user.profile?.name || "—"}</TableCell>
-                      <TableCell>{user.profile?.rank || "—"}</TableCell>
+                      <TableCell>{formatRank(user.profile?.rank) || "—"}</TableCell>
                       <TableCell className="max-w-[280px] truncate">
                         {user.characters.length > 0
                           ? user.characters
@@ -370,7 +371,7 @@ function AdminPage() {
                         </span>
                       </TableCell>
                       <TableCell>{user.profile?.name || "—"}</TableCell>
-                      <TableCell>{user.profile?.rank || "—"}</TableCell>
+                      <TableCell>{formatRank(user.profile?.rank) || "—"}</TableCell>
                       <TableCell>{user.profile?.division || "—"}</TableCell>
                       <TableCell>
                         <Badge variant="secondary">{statusLabel(user.status)}</Badge>

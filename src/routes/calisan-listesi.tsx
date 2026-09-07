@@ -270,7 +270,7 @@ function RosterPage() {
                     {section.rankGroups.map(({ rank, items }) => (
                       <div key={rank}>
                         <div className="mb-2 flex items-center gap-2">
-                          <span className="text-xs font-semibold tracking-wide text-primary/80">{rank}</span>
+                          <span className="text-xs font-semibold tracking-wide text-primary/80">{formatRank(rank)}</span>
                           <div className="h-px flex-1 bg-border/60" />
                         </div>
                         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

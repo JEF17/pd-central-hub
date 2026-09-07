@@ -8,6 +8,7 @@ import { AppShell } from "@/components/AppShell";
 import { navItems } from "@/lib/nav-items";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
 import { formatRelative, loadRecentDrafts, removeDraft, type RecentDraft } from "@/lib/recent-drafts";
+import { formatRank } from "@/lib/officer-profile";
 
 export const Route = createFileRoute("/")({
   beforeLoad: async ({ location }) => {
@@ -75,7 +76,7 @@ function Dashboard() {
   };
 
   const officerLine = profile?.name
-    ? [profile.rank, profile.name].filter(Boolean).join(" ")
+    ? [formatRank(profile.rank), profile.name].filter(Boolean).join(" ")
     : "Memur profili tanımlı değil";
 
   return (
