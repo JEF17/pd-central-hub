@@ -398,6 +398,9 @@ function Page() {
                               {charge.definition.number}. {charge.definition.title}
                               <span className="ml-2 text-xs font-normal text-muted-foreground">
                                 {charge.row.offense}. suç
+                                {charge.tierRepeated && charge.appliedTier
+                                  ? ` — ${charge.appliedTier}. kademe tekrar uygulandı`
+                                  : ""}
                               </span>
                             </p>
                             <ul className="mt-1 list-disc space-y-1 pl-5 text-muted-foreground">
