@@ -393,14 +393,8 @@ function ChargeRowCard({
       <span className="absolute left-4 top-4 grid size-6 place-items-center rounded-md bg-primary/10 text-xs font-bold text-primary ring-1 ring-primary/20">
         {index}
       </span>
-      <div
-        className={cn(
-          "grid gap-4 md:items-end",
-          definition?.categories?.length
-            ? "md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,1.2fr)_auto]"
-            : "md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,1.2fr)_auto]",
-        )}
-      >
+      <div className="grid gap-4 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,0.8fr)_minmax(0,1.2fr)_auto] md:items-end">
+
         <div className="space-y-2">
           <Label>Suçlama</Label>
           <Popover open={open} onOpenChange={setOpen}>
@@ -408,7 +402,7 @@ function ChargeRowCard({
               <Button
                 variant="outline"
                 role="combobox"
-                className="w-full justify-between font-normal"
+                className="h-10 w-full min-w-0 justify-between font-normal"
               >
                 {definition ? (
                   <span className="flex min-w-0 items-center gap-2">
@@ -476,8 +470,10 @@ function ChargeRowCard({
             onValueChange={(value) => onChange({ levelKey: value })}
             disabled={!definition}
           >
-            <SelectTrigger className="h-auto min-h-10 py-2 text-left">
-              <SelectValue placeholder="Seviye" />
+            <SelectTrigger className="h-10 w-full min-w-0">
+              <SelectValue placeholder="Seviye">
+                <span className="block truncate text-left">{activeLevel?.label}</span>
+              </SelectValue>
             </SelectTrigger>
             <SelectContent className="max-w-[420px]">
               {levelOptions.map((level) => (
@@ -501,33 +497,33 @@ function ChargeRowCard({
           </Select>
         </div>
 
-        {definition?.categories?.length ? (
-          <div className="space-y-2">
-            <Label>Kategori</Label>
-            <Select
-              value={row.category ?? definition.categories[0]?.key ?? ""}
-              onValueChange={(value) => onChange({ category: value })}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Kategori" />
-              </SelectTrigger>
-              <SelectContent>
-                {definition.categories.map((category) => (
-                  <SelectItem key={category.key} value={category.key}>
-                    {category.key} Kategorisi
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        ) : null}
+        <div className="space-y-2">
+          <Label>Kategori</Label>
+          <Select
+            value={definition?.categories?.length ? row.category ?? definition.categories[0]?.key ?? "" : ""}
+            onValueChange={(value) => onChange({ category: value })}
+            disabled={!definition?.categories?.length}
+          >
+            <SelectTrigger className="h-10 w-full min-w-0">
+              <SelectValue placeholder="—" />
+            </SelectTrigger>
+            <SelectContent>
+              {(definition?.categories ?? []).map((category) => (
+                <SelectItem key={category.key} value={category.key}>
+                  {category.key} Kategorisi
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
         <div className="space-y-2">
           <Label>Suç Sayısı</Label>
           <Select value={String(row.offense)} onValueChange={(value) => onChange({ offense: Number(value) })}>
-            <SelectTrigger>
+            <SelectTrigger className="h-10 w-full min-w-0">
               <SelectValue />
             </SelectTrigger>
+
             <SelectContent>
               {Array.from({ length: offenseCount }, (_, i) => i + 1).map((n) => (
                 <SelectItem key={n} value={String(n)}>
@@ -544,7 +540,7 @@ function ChargeRowCard({
             value={row.addition}
             onValueChange={(value) => onChange({ addition: value as ChargeRow["addition"] })}
           >
-            <SelectTrigger>
+            <SelectTrigger className="h-10 w-full min-w-0">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
