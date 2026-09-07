@@ -334,7 +334,17 @@ function Page() {
                           <td className="py-4 pr-4 text-muted-foreground">
                             {additionMap[charge.row.addition]?.label}
                           </td>
-                          <td className="py-4 pr-4">{charge.row.offense}</td>
+                          <td className="py-4 pr-4">
+                            {charge.row.offense}
+                            {charge.tierRepeated && charge.appliedTier ? (
+                              <span
+                                className="ml-2 rounded bg-warning/15 px-1.5 py-0.5 text-xs font-semibold text-warning"
+                                title="Kanun metni gereği son kademe tekrar uygulanır."
+                              >
+                                {charge.appliedTier}. kademe tekrar
+                              </span>
+                            ) : null}
+                          </td>
                           <td className={cn("py-4 pr-4 font-semibold", typeClasses[charge.level.type])}>
                             {typeLabels[charge.level.type]}
                           </td>
