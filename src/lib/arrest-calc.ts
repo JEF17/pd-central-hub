@@ -1,9 +1,9 @@
 import {
   chargeCatalog,
   type ChargeCategory,
-  type ChargeClass,
   type ChargeDefinition,
-  type ChargeVariant,
+  type ChargeLevel,
+  type OffenseTier,
 } from "./charge-catalog";
 
 export type AdditionKey = "offender" | "attempt" | "accomplice" | "accessory" | "conspiracy" | "solicitation";
@@ -33,8 +33,9 @@ export interface ChargeRow {
   id: string;
   /** Ceza kanunu madde numarası */
   number: string;
-  cls: ChargeClass;
-  /** Kaçıncı kez işlendiği (1-3) */
+  /** Seçilen ceza seviyesi (madde bendi / sınıf / değer eşiği) */
+  levelKey: string;
+  /** Kaçıncı kez işlendiği */
   offense: number;
   addition: AdditionKey;
   /** Uyuşturucu suçlarında (C.K. 601-606) kontrollü madde kategorisi */
@@ -44,7 +45,8 @@ export interface ChargeRow {
 export interface CalculatedCharge {
   row: ChargeRow;
   definition: ChargeDefinition;
-  variant: ChargeVariant;
+  level: ChargeLevel;
+  tier?: OffenseTier | undefined;
   category?: ChargeCategory | undefined;
   minMinutes: number;
   maxMinutes: number;
@@ -80,9 +82,17 @@ export interface CalculationResult {
   zeroMinCharges: CalculatedCharge[];
 }
 
-
 export function getCharge(number: string): ChargeDefinition | undefined {
   return chargeCatalog.find((c) => c.number === number);
+}
+
+export function getLevel(definition: ChargeDefinition, levelKey: string): ChargeLevel | undefined {
+  return definition.levels.find((l) => l.key === levelKey) ?? definition.levels[0];
+}
+
+/** Bir maddede seçilebilecek maksimum suç sayısı (kademeli cezalar dahil). */
+export function maxOffenseCount(definition: ChargeDefinition | undefined) {
+  return Math.max(3, definition?.tiers.length ?? 0);
 }
 
 /** C.K. 807 — yuvarlama kuralı: sonuç bir tam sayı değilse en yakın değere yuvarlanır. */
@@ -102,35 +112,44 @@ export function calculate(
   for (const row of rows) {
     const definition = getCharge(row.number);
     if (!definition) continue;
-    const variant = definition.variants.find((v) => v.cls === row.cls) ?? definition.variants[0];
-    if (!variant) continue;
+    const level = getLevel(definition, row.levelKey);
+    if (!level) continue;
     const add = additionMap[row.addition] ?? additionMap.offender;
     const paroleFactor = paroleViolator ? 2 : 1;
 
     const category = definition.categories?.find((c) => c.key === row.category);
-    const baseMax = category ? category.maxMinutes : variant.maxMinutes;
-    const baseMin = category ? Math.min(variant.minMinutes, baseMax) : variant.minMinutes;
+    const offenseIndex = Math.min(Math.max(row.offense, 1), Math.max(definition.tiers.length, 1)) - 1;
+    const tier = definition.tiers.length
+      ? (definition.tiers[offenseIndex] ?? definition.tiers[definition.tiers.length - 1])
+      : undefined;
+
+    // Süre önceliği: kontrollü madde kategorisi → suç sayısı kademesi → seviye
+    let baseMin = level.minMinutes;
+    let baseMax = level.maxMinutes;
+    if (category) {
+      baseMax = category.maxMinutes;
+      baseMin = Math.min(level.minMinutes, baseMax);
+    } else if (tier && (tier.minMinutes || tier.maxMinutes)) {
+      baseMin = tier.minMinutes || level.minMinutes;
+      baseMax = tier.maxMinutes || level.maxMinutes || baseMin;
+    }
 
     const baseMinMinutes = roundMinutes(baseMin * add.timeFactor);
     const baseMaxMinutes = roundMinutes(baseMax * add.timeFactor);
-    const basePoints = Math.round(variant.points * add.pointFactor * 10) / 10;
+    const basePoints = Math.round(level.points * add.pointFactor * 10) / 10;
 
     const minMinutes = roundMinutes(baseMin * add.timeFactor * paroleFactor);
     const maxMinutes = roundMinutes(baseMax * add.timeFactor * paroleFactor);
-    const points = Math.round(variant.points * add.pointFactor * paroleFactor * 10) / 10;
+    const points = Math.round(level.points * add.pointFactor * paroleFactor * 10) / 10;
 
-    const offenseIndex = Math.min(Math.max(row.offense, 1), 3) - 1;
-    const baseFine = category
-      ? category.fine
-      : variant.offenseFines.length
-      ? (variant.offenseFines[offenseIndex] ?? variant.offenseFines[variant.offenseFines.length - 1] ?? 0)
-        : variant.fine;
+    const baseFine = category ? category.fine : (tier?.fine ?? level.fine);
     const fine = Math.round(baseFine * add.timeFactor);
 
     charges.push({
       row,
       definition,
-      variant,
+      level,
+      tier,
       category,
       minMinutes,
       maxMinutes,
@@ -154,8 +173,6 @@ export function calculate(
   const basePoints = Math.round(charges.reduce((sum, c) => sum + c.basePoints, 0) * 10) / 10;
 
   // Kefalet cetveli: birden fazla suçta tutarlar toplanmaz, en yüksek tutar esas alınır.
-  // Daha önce misdemeanor/felony hükümlüsü olan şüpheliler kefaletten yararlanamaz.
-  // Suç sayısı 2'yi geçen (3. kez ve üzeri) suçlamalarda kefalet uygulanmaz.
   const repeatOffense = charges.some((c) => c.row.offense > 2);
   const bailEligible =
     charges.length > 0 &&
@@ -164,7 +181,6 @@ export function calculate(
     prior !== "prior" &&
     !repeatOffense;
   const highestBail = bailEligible ? Math.max(0, ...charges.map((c) => c.bailAmount)) : 0;
-
 
   const zeroMinCharges = charges.filter((c) => c.minMinutes === 0);
 
@@ -221,7 +237,7 @@ export function encodeRows(
   prior: PriorRecord = "unknown",
 ) {
   const compact = rows
-    .map((r) => [r.number, r.cls, r.offense, r.addition, r.category ?? ""].join("~"))
+    .map((r) => [r.number, r.levelKey, r.offense, r.addition, r.category ?? ""].join("~"))
     .join("|");
   const priorFlag = prior === "prior" ? "2" : prior === "clean" ? "1" : "0";
   return `${paroleViolator ? "1" : "0"}${priorFlag}!${compact}`;
@@ -237,11 +253,12 @@ export function decodeRows(value: string): {
     .split("|")
     .filter(Boolean)
     .map((part, index) => {
-      const [number, cls, offense, addition, category] = part.split("~");
+      const [number, levelKey, offense, addition, category] = part.split("~");
+      const definition = number ? getCharge(number) : undefined;
       return {
         id: `${number ?? "?"}-${index}`,
         number: number ?? "",
-        cls: (cls as ChargeClass) ?? "C",
+        levelKey: levelKey || definition?.levels[0]?.key || "l1",
         offense: Number(offense) || 1,
         addition: (addition as AdditionKey) ?? "offender",
         category: category || undefined,

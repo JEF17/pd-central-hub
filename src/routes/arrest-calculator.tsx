@@ -34,13 +34,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { chargeCatalog, type ChargeClass } from "@/lib/charge-catalog";
+import { chargeCatalog } from "@/lib/charge-catalog";
 import {
   additions,
   additionMap,
   calculate as computeSentence,
   decodeRows,
   formatDuration,
+  maxOffenseCount,
   formatMoney,
   typeClasses,
   typeLabels,
@@ -72,7 +73,7 @@ export const Route = createFileRoute("/arrest-calculator")({
 let rowCounter = 0;
 function makeRow(): ChargeRow {
   rowCounter += 1;
-  return { id: `row-${rowCounter}`, number: "", cls: "C", offense: 1, addition: "offender" };
+  return { id: `row-${rowCounter}`, number: "", levelKey: "", offense: 1, addition: "offender" };
 }
 
 function Page() {
@@ -106,7 +107,7 @@ function Page() {
   const update = (id: string, patch: Partial<ChargeRow>) =>
     setRows((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r)));
 
-  const valid = rows.filter((r) => r.number);
+  const valid = rows.filter((r) => r.number && r.levelKey);
 
   const handleCalculate = () => {
     if (!valid.length) return;
@@ -310,8 +311,13 @@ function Page() {
                           className="border-b border-border/60 transition-colors hover:bg-muted/30"
                         >
                           <td className="py-4 pr-4 font-semibold">
-                            {charge.variant.cls}
-                            {charge.variant.type} {charge.definition.number}. {charge.definition.title}
+                            {charge.level.cls}
+                            {charge.level.type} {charge.definition.number}. {charge.definition.title}
+                            {charge.level.condition ? (
+                              <span className="ml-2 rounded bg-primary/10 px-1.5 py-0.5 text-xs font-semibold text-primary">
+                                {charge.level.condition}
+                              </span>
+                            ) : null}
                             {charge.category ? (
                               <span className="ml-2 rounded bg-muted px-1.5 py-0.5 text-xs font-bold text-muted-foreground">
                                 Kategori {charge.category.key}
@@ -322,8 +328,8 @@ function Page() {
                             {additionMap[charge.row.addition]?.label}
                           </td>
                           <td className="py-4 pr-4">{charge.row.offense}</td>
-                          <td className={cn("py-4 pr-4 font-semibold", typeClasses[charge.variant.type])}>
-                            {typeLabels[charge.variant.type]}
+                          <td className={cn("py-4 pr-4 font-semibold", typeClasses[charge.level.type])}>
+                            {typeLabels[charge.level.type]}
                           </td>
                           <td className="py-4 pr-4">
                             {charge.minMinutes === 0 ? (
@@ -378,7 +384,9 @@ function ChargeRowCard({
 }) {
   const [open, setOpen] = useState(false);
   const definition = chargeCatalog.find((c) => c.number === row.number);
-  const classOptions = definition?.variants ?? [];
+  const levelOptions = definition?.levels ?? [];
+  const activeLevel = levelOptions.find((l) => l.key === row.levelKey) ?? levelOptions[0];
+  const offenseCount = maxOffenseCount(definition);
 
   return (
     <div className="relative rounded-xl border border-border bg-background/50 p-4 pt-8 transition-colors hover:border-primary/30 md:pt-4 md:pl-12">
@@ -389,8 +397,8 @@ function ChargeRowCard({
         className={cn(
           "grid gap-4 md:items-end",
           definition?.categories?.length
-            ? "md:grid-cols-[minmax(0,2fr)_minmax(0,0.8fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.2fr)_auto]"
-            : "md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.2fr)_auto]",
+            ? "md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,1.2fr)_auto]"
+            : "md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,1.2fr)_auto]",
         )}
       >
         <div className="space-y-2">
@@ -407,9 +415,9 @@ function ChargeRowCard({
                     <span
                       className={cn(
                         "rounded px-1.5 py-0.5 text-xs font-bold",
-                        definition.variants[0]?.type === "F" && "bg-destructive/15 text-destructive",
-                        definition.variants[0]?.type === "M" && "bg-warning/15 text-warning",
-                        definition.variants[0]?.type === "I" && "bg-success/15 text-success",
+                        definition.levels[0]?.type === "F" && "bg-destructive/15 text-destructive",
+                        definition.levels[0]?.type === "M" && "bg-warning/15 text-warning",
+                        definition.levels[0]?.type === "I" && "bg-success/15 text-success",
                       )}
                     >
                       {definition.number}
@@ -437,7 +445,8 @@ function ChargeRowCard({
                         onSelect={() => {
                           onChange({
                             number: charge.number,
-                            cls: charge.variants[0]?.cls ?? "C",
+                            levelKey: charge.levels[0]?.key ?? "",
+                            offense: 1,
                             category: charge.categories?.[0]?.key,
                           });
                           setOpen(false);
@@ -448,8 +457,8 @@ function ChargeRowCard({
                         />
                         <span className="font-mono text-xs text-muted-foreground">{charge.number}</span>
                         <span className="truncate">{charge.title}</span>
-                        <span className={cn("ml-auto text-xs", typeClasses[charge.variants[0]?.type ?? "M"])}>
-                          {charge.variants[0]?.type}
+                        <span className={cn("ml-auto text-xs", typeClasses[charge.levels[0]?.type ?? "M"])}>
+                          {charge.levels[0]?.type}
                         </span>
                       </CommandItem>
                     ))}
@@ -461,19 +470,31 @@ function ChargeRowCard({
         </div>
 
         <div className="space-y-2">
-          <Label>Sınıf</Label>
+          <Label>Ceza Seviyesi</Label>
           <Select
-            value={row.cls}
-            onValueChange={(value) => onChange({ cls: value as ChargeClass })}
+            value={activeLevel?.key ?? ""}
+            onValueChange={(value) => onChange({ levelKey: value })}
             disabled={!definition}
           >
-            <SelectTrigger>
-              <SelectValue placeholder="Sınıf" />
+            <SelectTrigger className="h-auto min-h-10 py-2 text-left">
+              <SelectValue placeholder="Seviye" />
             </SelectTrigger>
-            <SelectContent>
-              {classOptions.map((variant) => (
-                <SelectItem key={variant.cls} value={variant.cls}>
-                  {variant.cls} Sınıfı
+            <SelectContent className="max-w-[420px]">
+              {levelOptions.map((level) => (
+                <SelectItem key={level.key} value={level.key}>
+                  <span className="flex flex-col gap-0.5">
+                    <span className="font-medium">{level.label}</span>
+                    <span className="text-xs text-muted-foreground">
+                      {level.maxMinutes
+                        ? `${formatDuration(level.minMinutes)} – ${formatDuration(level.maxMinutes)}`
+                        : level.minMinutes
+                        ? `En az ${formatDuration(level.minMinutes)}`
+                        : level.fine
+                        ? formatMoney(level.fine)
+                        : "Mahkeme takdiri"}
+                      {level.points ? ` · ${level.points} puan` : ""}
+                    </span>
+                  </span>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -508,7 +529,7 @@ function ChargeRowCard({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {[1, 2, 3].map((n) => (
+              {Array.from({ length: offenseCount }, (_, i) => i + 1).map((n) => (
                 <SelectItem key={n} value={String(n)}>
                   {n}. Suç
                 </SelectItem>
