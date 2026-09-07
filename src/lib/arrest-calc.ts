@@ -209,6 +209,7 @@ export function calculate(
       bailAmount: definition.bail.amount,
       bailAuto: definition.bail.auto,
       bailOptional: definition.bail.optional,
+      extraActions: extractExtraActions(definition, row.offense),
     });
   }
 
