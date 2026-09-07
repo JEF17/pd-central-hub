@@ -393,14 +393,8 @@ function ChargeRowCard({
       <span className="absolute left-4 top-4 grid size-6 place-items-center rounded-md bg-primary/10 text-xs font-bold text-primary ring-1 ring-primary/20">
         {index}
       </span>
-      <div
-        className={cn(
-          "grid gap-4 md:items-end",
-          definition?.categories?.length
-            ? "md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,1.2fr)_auto]"
-            : "md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,1.2fr)_auto]",
-        )}
-      >
+      <div className="grid gap-4 md:grid-cols-[minmax(0,1.6fr)_minmax(0,1.6fr)_minmax(0,0.9fr)_minmax(0,0.8fr)_minmax(0,1.2fr)_auto] md:items-end">
+
         <div className="space-y-2">
           <Label>Suçlama</Label>
           <Popover open={open} onOpenChange={setOpen}>
