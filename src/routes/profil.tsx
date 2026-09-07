@@ -20,6 +20,7 @@ import {
   emptyOfficerProfile,
   loadOfficerProfiles,
   profileLabel,
+  formatRank,
   rankOptions,
   saveOfficerProfiles,
   type OfficerProfile,
