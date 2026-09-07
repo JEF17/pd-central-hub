@@ -61,6 +61,10 @@ export interface CalculatedCharge {
   bailOptional: boolean;
   /** Ehliyete el koyma, aracı çekme gibi ek işlemler */
   extraActions: string[];
+  /** Uygulanan suç sayısı kademesi (kanun metnindeki sıra numarası) */
+  appliedTier?: number | undefined;
+  /** Seçilen suç sayısı son kademeyi aştı ve en yüksek kademe tekrar uygulandı */
+  tierRepeated: boolean;
 }
 
 const EXTRA_ACTION_PATTERN =
@@ -138,9 +142,19 @@ export function getLevel(definition: ChargeDefinition, levelKey: string): Charge
   return definition.levels.find((l) => l.key === levelKey) ?? definition.levels[0];
 }
 
+/**
+ * Kanun metninde "suçun devam etmesi halinde son cezaya dönülür" benzeri bir
+ * ibare varsa, son kademe sonraki tüm suçlarda tekrar uygulanır.
+ */
+export function repeatsLastTier(definition: ChargeDefinition | undefined) {
+  if (!definition || definition.tiers.length === 0) return false;
+  return /dönülür|tekrarlan|işlenmeye devam/i.test(definition.classification ?? "");
+}
+
 /** Bir maddede seçilebilecek maksimum suç sayısı (kademeli cezalar dahil). */
 export function maxOffenseCount(definition: ChargeDefinition | undefined) {
-  return Math.max(3, definition?.tiers.length ?? 0);
+  const base = Math.max(3, definition?.tiers.length ?? 0);
+  return repeatsLastTier(definition) ? base + 3 : base;
 }
 
 /** C.K. 807 — yuvarlama kuralı: sonuç bir tam sayı değilse en yakın değere yuvarlanır. */
@@ -210,6 +224,8 @@ export function calculate(
       bailAuto: definition.bail.auto,
       bailOptional: definition.bail.optional,
       extraActions: extractExtraActions(definition, row.offense),
+      appliedTier: tier?.n,
+      tierRepeated: definition.tiers.length > 0 && row.offense > definition.tiers.length,
     });
   }
 
