@@ -517,18 +517,13 @@ function ChargeRowCard({
           </Select>
         </div>
 
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        ) : null}
-
         <div className="space-y-2">
           <Label>Suç Sayısı</Label>
           <Select value={String(row.offense)} onValueChange={(value) => onChange({ offense: Number(value) })}>
-            <SelectTrigger>
+            <SelectTrigger className="h-10 w-full min-w-0">
               <SelectValue />
             </SelectTrigger>
+
             <SelectContent>
               {Array.from({ length: offenseCount }, (_, i) => i + 1).map((n) => (
                 <SelectItem key={n} value={String(n)}>
