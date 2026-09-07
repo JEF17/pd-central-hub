@@ -25,28 +25,46 @@ export const emptyOfficerProfile: OfficerProfile = {
   note: "",
 };
 
-/** LAPD rütbe yapısı: POLICE OFFICER I -> CHIEF OF POLICE */
+/** LAPD rütbe yapısı: Police Officer I -> Chief of Police */
 export const rankOptions: string[] = [
-  "POLICE OFFICER I",
-  "POLICE OFFICER II",
-  "POLICE OFFICER III",
-  "POLICE OFFICER III+1",
-  "DETECTIVE I",
-  "DETECTIVE II",
-  "DETECTIVE III",
-  "SERGEANT I",
-  "SERGEANT II",
-  "LIEUTENANT I",
-  "LIEUTENANT II",
-  "CAPTAIN I",
-  "CAPTAIN II",
-  "CAPTAIN III",
-  "COMMANDER",
-  "DEPUTY CHIEF I",
-  "DEPUTY CHIEF II",
-  "ASSISTANT CHIEF",
-  "CHIEF OF POLICE",
+  "Police Officer I",
+  "Police Officer II",
+  "Police Officer III",
+  "Police Officer III+1",
+  "Detective I",
+  "Detective II",
+  "Detective III",
+  "Sergeant I",
+  "Sergeant II",
+  "Lieutenant I",
+  "Lieutenant II",
+  "Captain I",
+  "Captain II",
+  "Captain III",
+  "Commander",
+  "Deputy Chief I",
+  "Deputy Chief II",
+  "Assistant Chief",
+  "Chief of Police",
 ];
+
+/** Kayıtlı (çoğunlukla büyük harfli) rütbeleri görüntü için baş harfleri büyük hale getirir. */
+export function formatRank(rank: string | null | undefined): string {
+  const raw = (rank ?? "").trim();
+  if (!raw) return "";
+  const known = rankOptions.find((r) => r.toLowerCase() === raw.toLowerCase());
+  if (known) return known;
+  return raw
+    .split(/\s+/)
+    .map((word) => {
+      const lower = word.toLowerCase();
+      if (lower === "of" || lower === "the") return lower;
+      if (/^(i{1,3})(\+\d+)?$/i.test(word)) return word.toUpperCase();
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(" ");
+}
+
 
 /** Division tam adı -> rapor kısaltması */
 export const divisionProfileOptions: { label: string; value: string; code: string }[] = [
