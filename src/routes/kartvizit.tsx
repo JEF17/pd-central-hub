@@ -18,6 +18,7 @@ import {
 import { toast } from "sonner";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
 import { FormSection } from "@/components/report-ui";
+import { formatRank } from "@/lib/officer-profile";
 
 export const Route = createFileRoute("/kartvizit")({
   beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
@@ -203,7 +204,7 @@ function BusinessCardPage() {
                   <button
                     type="button"
                     onClick={() =>
-                      setName([profile.rank, profile.name].filter(Boolean).join(" "))
+                      setName([formatRank(profile.rank), profile.name].filter(Boolean).join(" "))
                     }
                     className="text-[11px] text-primary underline-offset-4 hover:underline"
                   >

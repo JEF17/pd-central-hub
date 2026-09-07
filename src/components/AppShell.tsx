@@ -9,6 +9,7 @@ import { navItems } from "@/lib/nav-items";
 import { cn } from "@/lib/utils";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
+import { formatRank } from "@/lib/officer-profile";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -163,7 +164,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   <div className="px-2 py-1.5 text-sm">
                     <p className="font-medium">{characterName}</p>
                     <p className="text-muted-foreground text-xs">
-                      {profile?.rank || "Personel profili"}
+                      {formatRank(profile?.rank) || "Personel profili"}
                     </p>
                   </div>
                   <DropdownMenuSeparator />

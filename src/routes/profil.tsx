@@ -20,6 +20,7 @@ import {
   emptyOfficerProfile,
   loadOfficerProfiles,
   profileLabel,
+  formatRank,
   rankOptions,
   saveOfficerProfiles,
   type OfficerProfile,
@@ -140,7 +141,7 @@ function Page() {
                 {profiles.map((p, i) => (
                   <SelectItem key={p.id} value={p.id}>
                     {profileLabel(p, i)}
-                    {p.rank ? ` — ${p.rank}` : ""}
+                    {p.rank ? ` — ${formatRank(p.rank)}` : ""}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -166,7 +167,7 @@ function Page() {
               )}
             </div>
             <p className="mt-4 truncate font-semibold">{displayName}</p>
-            <p className="text-xs text-muted-foreground">{data.rank || "Rütbe belirtilmedi"}</p>
+            <p className="text-xs text-muted-foreground">{formatRank(data.rank) || "Rütbe belirtilmedi"}</p>
             <div className="mt-4 flex flex-col gap-2">
               <Button
                 variant="outline"
