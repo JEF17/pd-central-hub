@@ -369,6 +369,37 @@ function Page() {
                     </tbody>
                   </table>
                 </div>
+
+                {result.charges.some((c) => c.extraActions.length) ? (
+                  <div className="mt-6 rounded-xl border border-warning/40 bg-warning/5 p-4">
+                    <div className="flex items-center gap-2">
+                      <Wrench className="size-4 text-warning" />
+                      <h3 className="text-sm font-semibold tracking-tight">Ek İşlemler</h3>
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Seçilen suçlamalar hapis/para cezasının yanında aşağıdaki işlemleri de gerektirir.
+                    </p>
+                    <div className="mt-3 space-y-3">
+                      {result.charges
+                        .filter((c) => c.extraActions.length)
+                        .map((charge, index) => (
+                          <div key={`extra-${charge.definition.number}-${index}`} className="text-sm">
+                            <p className="font-semibold">
+                              {charge.definition.number}. {charge.definition.title}
+                              <span className="ml-2 text-xs font-normal text-muted-foreground">
+                                {charge.row.offense}. suç
+                              </span>
+                            </p>
+                            <ul className="mt-1 list-disc space-y-1 pl-5 text-muted-foreground">
+                              {charge.extraActions.map((action) => (
+                                <li key={action}>{action}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                ) : null}
               </section>
             </>
           )
