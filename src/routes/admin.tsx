@@ -410,23 +410,30 @@ function AdminPage() {
                         </div>
                       </TableCell>
                     </TableRow>
-                    {expanded === user.id ? <ProfileDetails user={user} colSpan={5} /> : null}
+                    {expanded === user.id ? (
+                      <ProfileDetails
+                        payload={details[user.id] ?? null}
+                        loading={detailLoading === user.id}
+                        colSpan={5}
+                      />
+                    ) : null}
                     </Fragment>
                   ))}
                 </TableBody>
               </Table>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </SectionCard>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <ShieldCheck className="size-4 text-primary" />
-              Tüm Kullanıcılar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <SectionCard
+          title="Tüm Kullanıcılar"
+          icon={<ShieldCheck className="size-4 text-primary" />}
+          count={approvedUsers.length}
+          open={!!openSections.approved}
+          onToggle={() => toggleSection("approved")}
+        >
+          <div>
+
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : (
