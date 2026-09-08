@@ -346,7 +346,7 @@ function AdminPage() {
           title="Onay Bekleyen Kullanıcılar"
           icon={<UserX className="size-4 text-warning" />}
           count={pendingUsers.length}
-          open={!!openSections.pending}
+          open={!!openSections['pending']}
           onToggle={() => toggleSection("pending")}
         >
           <div>
@@ -429,7 +429,7 @@ function AdminPage() {
           title="Tüm Kullanıcılar"
           icon={<ShieldCheck className="size-4 text-primary" />}
           count={approvedUsers.length}
-          open={!!openSections.approved}
+          open={!!openSections['approved']}
           onToggle={() => toggleSection("approved")}
         >
           <div>
@@ -542,7 +542,7 @@ function AdminPage() {
           title="Reddedilen Kullanıcılar"
           icon={<X className="size-4 text-destructive" />}
           count={rejectedUsers.length}
-          open={!!openSections.rejected}
+          open={!!openSections['rejected']}
           onToggle={() => toggleSection("rejected")}
         >
           <div>
@@ -603,7 +603,7 @@ function AdminPage() {
             title="İşlem Kayıtları"
             icon={<ScrollText className="size-4 text-primary" />}
             count={logs.length}
-            open={!!openSections.logs}
+            open={!!openSections['logs']}
             onToggle={() => toggleSection("logs")}
           >
               {logs.length === 0 ? (
