@@ -30,6 +30,7 @@ import { Route as PenalCodeRouteImport } from './routes/penal-code'
 import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as TutuklamaRaporuRouteImport } from './routes/tutuklama-raporu'
 import { Route as AuthGirisRouteImport } from './routes/auth/giris'
+import { Route as ProfilUserIdRouteImport } from './routes/profil.$userId'
 import { Route as AuthUcpCallbackRouteImport } from './routes/auth/ucp/callback'
 
 const IndexRoute = IndexRouteImport.update({
@@ -137,6 +138,11 @@ const AuthGirisRoute = AuthGirisRouteImport.update({
   path: '/auth/giris',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfilUserIdRoute = ProfilUserIdRouteImport.update({
+  id: '/$userId',
+  path: '/$userId',
+  getParentRoute: () => ProfilRoute,
+} as any)
 const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
   id: '/auth/ucp/callback',
   path: '/auth/ucp/callback',
@@ -162,9 +168,10 @@ export interface FileRoutesByFullPath {
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/profil': typeof ProfilRoute
+  '/profil': typeof ProfilRouteWithChildren
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
+  '/profil/$userId': typeof ProfilUserIdRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
 }
 export interface FileRoutesByTo {
@@ -186,9 +193,10 @@ export interface FileRoutesByTo {
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/profil': typeof ProfilRoute
+  '/profil': typeof ProfilRouteWithChildren
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
+  '/profil/$userId': typeof ProfilUserIdRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
 }
 export interface FileRoutesById {
@@ -211,9 +219,10 @@ export interface FileRoutesById {
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
-  '/profil': typeof ProfilRoute
+  '/profil': typeof ProfilRouteWithChildren
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
+  '/profil/$userId': typeof ProfilUserIdRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
 }
 export interface FileRouteTypes {
@@ -240,6 +249,7 @@ export interface FileRouteTypes {
     | '/profil'
     | '/tutuklama-raporu'
     | '/auth/giris'
+    | '/profil/$userId'
     | '/auth/ucp/callback'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -264,6 +274,7 @@ export interface FileRouteTypes {
     | '/profil'
     | '/tutuklama-raporu'
     | '/auth/giris'
+    | '/profil/$userId'
     | '/auth/ucp/callback'
   id:
     | '__root__'
@@ -288,6 +299,7 @@ export interface FileRouteTypes {
     | '/profil'
     | '/tutuklama-raporu'
     | '/auth/giris'
+    | '/profil/$userId'
     | '/auth/ucp/callback'
   fileRoutesById: FileRoutesById
 }
@@ -310,7 +322,7 @@ export interface RootRouteChildren {
   OnayBekliyorRoute: typeof OnayBekliyorRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
-  ProfilRoute: typeof ProfilRoute
+  ProfilRoute: typeof ProfilRouteWithChildren
   TutuklamaRaporuRoute: typeof TutuklamaRaporuRoute
   AuthGirisRoute: typeof AuthGirisRoute
   AuthUcpCallbackRoute: typeof AuthUcpCallbackRoute
@@ -465,6 +477,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthGirisRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profil/$userId': {
+      id: '/profil/$userId'
+      path: '/$userId'
+      fullPath: '/profil/$userId'
+      preLoaderRoute: typeof ProfilUserIdRouteImport
+      parentRoute: typeof ProfilRoute
+    }
     '/auth/ucp/callback': {
       id: '/auth/ucp/callback'
       path: '/auth/ucp/callback'
@@ -474,6 +493,17 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface ProfilRouteChildren {
+  ProfilUserIdRoute: typeof ProfilUserIdRoute
+}
+
+const ProfilRouteChildren: ProfilRouteChildren = {
+  ProfilUserIdRoute: ProfilUserIdRoute,
+}
+
+const ProfilRouteWithChildren =
+  ProfilRoute._addFileChildren(ProfilRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -494,7 +524,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnayBekliyorRoute: OnayBekliyorRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
-  ProfilRoute: ProfilRoute,
+  ProfilRoute: ProfilRouteWithChildren,
   TutuklamaRaporuRoute: TutuklamaRaporuRoute,
   AuthGirisRoute: AuthGirisRoute,
   AuthUcpCallbackRoute: AuthUcpCallbackRoute,
