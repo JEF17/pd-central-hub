@@ -522,23 +522,31 @@ function AdminPage() {
                         </div>
                       </TableCell>
                     </TableRow>
-                    {expanded === user.id ? <ProfileDetails user={user} colSpan={8} /> : null}
+                    {expanded === user.id ? (
+                      <ProfileDetails
+                        payload={details[user.id] ?? null}
+                        loading={detailLoading === user.id}
+                        colSpan={8}
+                      />
+                    ) : null}
                     </Fragment>
                   ))}
                 </TableBody>
               </Table>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </SectionCard>
 
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <X className="size-4 text-destructive" />
-              Reddedilen Kullanıcılar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <SectionCard
+          className="mt-6"
+          title="Reddedilen Kullanıcılar"
+          icon={<X className="size-4 text-destructive" />}
+          count={rejectedUsers.length}
+          open={!!openSections.rejected}
+          onToggle={() => toggleSection("rejected")}
+        >
+          <div>
+
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : rejectedUsers.length === 0 ? (
