@@ -594,20 +594,18 @@ function AdminPage() {
                 </TableBody>
               </Table>
             )}
-          </CardContent>
-        </Card>
-
-
+          </div>
+        </SectionCard>
 
         {canViewLogs && (
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <ScrollText className="size-4 text-primary" />
-                İşlem Kayıtları
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+          <SectionCard
+            className="mt-6"
+            title="İşlem Kayıtları"
+            icon={<ScrollText className="size-4 text-primary" />}
+            count={logs.length}
+            open={!!openSections.logs}
+            onToggle={() => toggleSection("logs")}
+          >
               {logs.length === 0 ? (
                 <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
               ) : (
@@ -638,9 +636,9 @@ function AdminPage() {
                   </Table>
                 </div>
               )}
-            </CardContent>
-          </Card>
+          </SectionCard>
         )}
+
       </div>
     </AppShell>
   );
