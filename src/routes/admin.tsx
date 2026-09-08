@@ -406,7 +406,6 @@ function AdminPage() {
                           loading={detailLoading === user.id}
                           colSpan={5}
                           canEdit={canEditProfiles}
-                          onEdit={() => openEditor(user)}
                         />
                       ) : null}
                     </Fragment>
@@ -516,7 +515,6 @@ function AdminPage() {
                           loading={detailLoading === user.id}
                           colSpan={8}
                           canEdit={canEditProfiles}
-                          onEdit={() => openEditor(user)}
                         />
                       ) : null}
                     </Fragment>
@@ -624,17 +622,6 @@ function AdminPage() {
           </SectionCard>
         )}
       </div>
-      <ProfileEditDialog
-        open={!!editUser}
-        onOpenChange={(o) => {
-          if (!o) setEditUser(null);
-        }}
-        user={editUser}
-        profiles={editProfiles}
-        saving={savingProfile}
-        onChange={changeEditProfile}
-        onSave={saveEditProfiles}
-      />
     </AppShell>
   );
 }
