@@ -1,15 +1,37 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useEffect, useState } from "react";
-import { Check, ChevronDown, ChevronRight, ScrollText, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  ChevronRight,
+  Pencil,
+  ScrollText,
+  Shield,
+  ShieldCheck,
+  Trash2,
+  UserX,
+  X,
+} from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   ADMIN_LEVEL_LABELS,
+  adminUpdateUserProfile,
   approveUser,
   deleteUser,
   getUserProfileDetail,
@@ -18,13 +40,14 @@ import {
   rejectUser,
   setUserAdminLevel,
   type AdminLevel,
+  type OfficerProfile,
   type PortalLogDto,
 } from "@/lib/portal-auth.functions";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { toast } from "sonner";
-import { formatRank } from "@/lib/officer-profile";
+import { divisionProfileOptions, formatRank, rankOptions } from "@/lib/officer-profile";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
 type ProfilePayload = Awaited<ReturnType<typeof getUserProfileDetail>>;
@@ -35,11 +58,36 @@ function userProfiles(payload: ProfilePayload) {
   return payload && (payload.name || payload.serialNo) ? [payload] : [];
 }
 
-function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload; loading: boolean; colSpan: number }) {
+
+function ProfileDetails({
+  user,
+  payload,
+  loading,
+  colSpan,
+  canEdit,
+  onEdit,
+}: {
+  user: UserDto;
+  payload: ProfilePayload;
+  loading: boolean;
+  colSpan: number;
+  canEdit: boolean;
+  onEdit: () => void;
+}) {
   const profiles = userProfiles(payload);
   return (
     <TableRow className="bg-muted/30 hover:bg-muted/30">
       <TableCell colSpan={colSpan} className="p-4">
+        <div className="mb-3 flex flex-wrap items-center gap-3">
+          <Badge variant="outline">GTA World: {user.username}</Badge>
+          <Badge variant="outline">User ID: {user.ucpUserId}</Badge>
+          {canEdit ? (
+            <Button size="sm" variant="outline" className="ml-auto" disabled={loading} onClick={onEdit}>
+              <Pencil className="mr-1 size-3" />
+              Profili Düzenle
+            </Button>
+          ) : null}
+        </div>
         {loading ? (
           <p className="text-sm text-muted-foreground">Profil yükleniyor…</p>
         ) : profiles.length === 0 ? (
@@ -60,6 +108,9 @@ function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload
                     {p.serialNo ? ` • #${p.serialNo}` : ""}
                   </p>
                   <p className="truncate text-xs text-muted-foreground">{p.division || "Division yok"}</p>
+                  {p.assignmentDescription ? (
+                    <p className="truncate text-xs text-muted-foreground">{p.assignmentDescription}</p>
+                  ) : null}
                   {p.email ? <p className="truncate text-xs text-muted-foreground">{p.email}</p> : null}
                   {p.phone ? <p className="truncate text-xs text-muted-foreground">{p.phone}</p> : null}
                   {p.discord ? <p className="truncate text-xs text-muted-foreground">Discord: {p.discord}</p> : null}
@@ -72,6 +123,126 @@ function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload
     </TableRow>
   );
 }
+
+/** Yöneticinin bir kullanıcının personel profillerini düzenlediği pencere. */
+function ProfileEditDialog({
+  open,
+  onOpenChange,
+  user,
+  profiles,
+  saving,
+  onChange,
+  onSave,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  user: UserDto | null;
+  profiles: OfficerProfile[];
+  saving: boolean;
+  onChange: (index: number, key: keyof OfficerProfile, value: string) => void;
+  onSave: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[85vh] max-w-3xl overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Personel Profilini Düzenle</DialogTitle>
+          <DialogDescription>
+            {user ? `${user.username} (User ID: ${user.ucpUserId})` : ""}
+          </DialogDescription>
+        </DialogHeader>
+        {profiles.length === 0 ? (
+          <p className="text-sm text-muted-foreground">Bu kullanıcının düzenlenebilir profili yok.</p>
+        ) : (
+          <div className="space-y-6">
+            {profiles.map((p, i) => (
+              <div key={i} className="rounded-lg border border-border p-4">
+                <p className="mb-3 text-sm font-semibold">{p.name || `Personel ${i + 1}`}</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <Label className="text-xs">Adı Soyadı</Label>
+                    <Input className="mt-1" value={p.name} onChange={(e) => onChange(i, "name", e.target.value)} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Seri Numarası</Label>
+                    <Input
+                      className="mt-1"
+                      value={p.serialNo}
+                      onChange={(e) => onChange(i, "serialNo", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Rütbe</Label>
+                    <Select value={p.rank} onValueChange={(v) => onChange(i, "rank", v)}>
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Seçiniz" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-72">
+                        {rankOptions.map((r) => (
+                          <SelectItem key={r} value={r}>
+                            {r}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="text-xs">Görevlendirme</Label>
+                    <Select value={p.division} onValueChange={(v) => onChange(i, "division", v)}>
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Seçiniz" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-72">
+                        {divisionProfileOptions.map((d) => (
+                          <SelectItem key={d.value} value={d.value}>
+                            {d.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <Label className="text-xs">Görevlendirme Tanımı</Label>
+                    <Input
+                      className="mt-1"
+                      value={p.assignmentDescription}
+                      onChange={(e) => onChange(i, "assignmentDescription", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs">E-Posta</Label>
+                    <Input className="mt-1" value={p.email} onChange={(e) => onChange(i, "email", e.target.value)} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Telefon</Label>
+                    <Input className="mt-1" value={p.phone} onChange={(e) => onChange(i, "phone", e.target.value)} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Discord</Label>
+                    <Input
+                      className="mt-1"
+                      value={p.discord}
+                      onChange={(e) => onChange(i, "discord", e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Vazgeç
+          </Button>
+          <Button disabled={saving || profiles.length === 0} onClick={onSave}>
+            {saving ? "Kaydediliyor…" : "Kaydet"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 
 /** Açılıp kapanabilen bölüm başlığı. */
 function SectionCard({
@@ -153,9 +324,44 @@ function AdminPage() {
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
   const deleteFn = useServerFn(deleteUser);
+  const updateProfileFn = useServerFn(adminUpdateUserProfile);
   const { session } = usePortalSession();
   const myLevel = session?.adminLevel ?? null;
   const canViewLogs = myLevel === "query" || myLevel === "faction_management";
+  const canEditProfiles = myLevel === "query" || myLevel === "faction_management";
+
+  const [editUser, setEditUser] = useState<UserDto | null>(null);
+  const [editProfiles, setEditProfiles] = useState<OfficerProfile[]>([]);
+  const [savingProfile, setSavingProfile] = useState(false);
+
+  const openEditor = (user: UserDto) => {
+    setEditUser(user);
+    setEditProfiles(userProfiles(details[user.id] ?? null).map((p) => ({ ...p })));
+  };
+
+  const changeEditProfile = (index: number, key: keyof OfficerProfile, value: string) =>
+    setEditProfiles((list) => list.map((p, i) => (i === index ? { ...p, [key]: value } : p)));
+
+  const saveEditProfiles = async () => {
+    if (!editUser) return;
+    const first = editProfiles[0];
+    if (!first) return;
+    setSavingProfile(true);
+    try {
+      const saved = await updateProfileFn({
+        data: { userId: editUser.id, profile: { ...first, profiles: editProfiles } },
+      });
+      setDetails((cur) => ({ ...cur, [editUser.id]: saved }));
+      toast.success("Personel profili güncellendi");
+      setEditUser(null);
+      await refresh();
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Profil güncellenemedi");
+    } finally {
+      setSavingProfile(false);
+    }
+  };
+
 
   const toggleExpanded = (id: string) => {
     setExpanded((cur) => (cur === id ? null : id));
@@ -370,9 +576,12 @@ function AdminPage() {
                       </TableRow>
                       {expanded === user.id ? (
                         <ProfileDetails
+                          user={user}
                           payload={details[user.id] ?? null}
                           loading={detailLoading === user.id}
                           colSpan={5}
+                          canEdit={canEditProfiles}
+                          onEdit={() => openEditor(user)}
                         />
                       ) : null}
                     </Fragment>
@@ -477,9 +686,12 @@ function AdminPage() {
                       </TableRow>
                       {expanded === user.id ? (
                         <ProfileDetails
+                          user={user}
                           payload={details[user.id] ?? null}
                           loading={detailLoading === user.id}
                           colSpan={8}
+                          canEdit={canEditProfiles}
+                          onEdit={() => openEditor(user)}
                         />
                       ) : null}
                     </Fragment>
@@ -587,6 +799,17 @@ function AdminPage() {
           </SectionCard>
         )}
       </div>
+      <ProfileEditDialog
+        open={!!editUser}
+        onOpenChange={(o) => {
+          if (!o) setEditUser(null);
+        }}
+        user={editUser}
+        profiles={editProfiles}
+        saving={savingProfile}
+        onChange={changeEditProfile}
+        onSave={saveEditProfiles}
+      />
     </AppShell>
   );
 }
@@ -601,6 +824,7 @@ function logEventLabel(event: string): string {
     admin_reject_user: "Kullanıcı Reddedildi",
     admin_set_role: "Yetki Değişikliği",
     admin_delete_user: "Kullanıcı Silindi",
+    admin_edit_profile: "Personel Profili Düzenlendi",
   };
   return labels[event] || event;
 }

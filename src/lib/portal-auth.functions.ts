@@ -373,6 +373,33 @@ export const getUserProfileDetail = createServerFn({ method: "GET" })
     return parseProfile(user.profile);
   });
 
+/** Faction Management ve üstü bir kullanıcının personel profillerini düzenleyebilir. */
+export const adminUpdateUserProfile = createServerFn({ method: "POST" })
+  .middleware([requirePortalAdminMiddleware])
+  .inputValidator((input: { userId: string; profile: StoredProfilePayload }) => input)
+  .handler(async ({ data, context }) => {
+    if (context.adminLevel !== "query" && context.adminLevel !== "faction_management") {
+      throw new Error("Bu işlem için yetkiniz yok");
+    }
+    const { findPortalUserById, updateOfficerProfile, logLoginEvent } = await import("./portal-auth.server");
+    const target = await findPortalUserById(data.userId);
+    if (!target) throw new Error("User not found");
+
+    const parsed = parseProfile(data.profile) ?? { ...emptyProfile(), profiles: [] };
+    await updateOfficerProfile(data.userId, parsed);
+    const { syncRosterFromProfiles } = await import("./roster.server");
+    await syncRosterFromProfiles(data.userId, parsed);
+    await logLoginEvent(
+      context.userId,
+      context.user.username,
+      "admin_edit_profile",
+      `${target.username} personel profili güncellendi`,
+    );
+    return parsed;
+  });
+
+
+
 
 export type PortalLogDto = {
   id: string;

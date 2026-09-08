@@ -340,7 +340,25 @@ function Page() {
             </div>
           </section>
         </div>
+
+        <section className="mt-6 rounded-xl border border-border bg-card p-6">
+          <h2 className="text-lg font-semibold">GTA World Hesap Bilgileri</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Bu bilgiler UCP girişinden gelir ve değiştirilemez.
+          </p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            <div>
+              <Label className="text-xs">GTA World Username</Label>
+              <Input className="mt-2" value={session?.username ?? "—"} readOnly disabled />
+            </div>
+            <div>
+              <Label className="text-xs">User ID</Label>
+              <Input className="mt-2" value={session ? String(session.ucpUserId) : "—"} readOnly disabled />
+            </div>
+          </div>
+        </section>
       </div>
+
       <PhotoEditor
         src={editorSource}
         open={!!editorSource}
