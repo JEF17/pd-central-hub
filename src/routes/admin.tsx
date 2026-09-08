@@ -19,6 +19,7 @@ import {
   ADMIN_LEVEL_LABELS,
   approveUser,
   deleteUser,
+  getUserProfileDetail,
   listPortalLogs,
   listUsers,
   rejectUser,
@@ -26,6 +27,7 @@ import {
   type AdminLevel,
   type PortalLogDto,
 } from "@/lib/portal-auth.functions";
+
 import {
   Select,
   SelectContent,
@@ -38,19 +40,30 @@ import { toast } from "sonner";
 import { formatRank } from "@/lib/officer-profile";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
+type ProfilePayload = Awaited<ReturnType<typeof getUserProfileDetail>>;
 
-function userProfiles(user: UserDto) {
-  const list = user.profile?.profiles ?? [];
+function userProfiles(payload: ProfilePayload) {
+  const list = payload?.profiles ?? [];
   if (list.length > 0) return list;
-  return user.profile && (user.profile.name || user.profile.serialNo) ? [user.profile] : [];
+  return payload && (payload.name || payload.serialNo) ? [payload] : [];
 }
 
-function ProfileDetails({ user, colSpan }: { user: UserDto; colSpan: number }) {
-  const profiles = userProfiles(user);
+function ProfileDetails({
+  payload,
+  loading,
+  colSpan,
+}: {
+  payload: ProfilePayload;
+  loading: boolean;
+  colSpan: number;
+}) {
+  const profiles = userProfiles(payload);
   return (
     <TableRow className="bg-muted/30 hover:bg-muted/30">
       <TableCell colSpan={colSpan} className="p-4">
-        {profiles.length === 0 ? (
+        {loading ? (
+          <p className="text-sm text-muted-foreground">Profil yükleniyor…</p>
+        ) : profiles.length === 0 ? (
           <p className="text-sm text-muted-foreground">Bu kullanıcı henüz personel profili oluşturmamış.</p>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -80,6 +93,46 @@ function ProfileDetails({ user, colSpan }: { user: UserDto; colSpan: number }) {
     </TableRow>
   );
 }
+
+/** Açılıp kapanabilen bölüm başlığı. */
+function SectionCard({
+  title,
+  icon,
+  count,
+  open,
+  onToggle,
+  className,
+  children,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  count: number;
+  open: boolean;
+  onToggle: () => void;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Card className={className}>
+      <CardHeader className="cursor-pointer select-none" onClick={onToggle}>
+        <CardTitle className="flex items-center gap-2 text-base">
+          {open ? (
+            <ChevronDown className="size-4 text-muted-foreground" />
+          ) : (
+            <ChevronRight className="size-4 text-muted-foreground" />
+          )}
+          {icon}
+          {title}
+          <Badge variant="secondary" className="ml-auto tabular-nums">
+            {count}
+          </Badge>
+        </CardTitle>
+      </CardHeader>
+      {open ? <CardContent>{children}</CardContent> : null}
+    </Card>
+  );
+}
+
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
