@@ -1,15 +1,37 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useEffect, useState } from "react";
-import { Check, ChevronDown, ChevronRight, ScrollText, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  ChevronRight,
+  Pencil,
+  ScrollText,
+  Shield,
+  ShieldCheck,
+  Trash2,
+  UserX,
+  X,
+} from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   ADMIN_LEVEL_LABELS,
+  adminUpdateUserProfile,
   approveUser,
   deleteUser,
   getUserProfileDetail,
@@ -18,13 +40,14 @@ import {
   rejectUser,
   setUserAdminLevel,
   type AdminLevel,
+  type OfficerProfile,
   type PortalLogDto,
 } from "@/lib/portal-auth.functions";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { toast } from "sonner";
-import { formatRank } from "@/lib/officer-profile";
+import { divisionProfileOptions, formatRank, rankOptions } from "@/lib/officer-profile";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
 type ProfilePayload = Awaited<ReturnType<typeof getUserProfileDetail>>;
@@ -34,6 +57,7 @@ function userProfiles(payload: ProfilePayload) {
   if (list.length > 0) return list;
   return payload && (payload.name || payload.serialNo) ? [payload] : [];
 }
+
 
 function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload; loading: boolean; colSpan: number }) {
   const profiles = userProfiles(payload);
