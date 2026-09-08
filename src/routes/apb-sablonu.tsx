@@ -119,7 +119,12 @@ function Page() {
             <div className="sm:col-span-2">
               <ProfileFillButton
                 onFill={(p) => {
-              setData((d) => ({ ...d, officerName: p.name, officerRank: p.rank }));
+              setData((d) => ({
+                ...d,
+                officerName: p.name,
+                officerRank: p.rank,
+                phone: p.profile.phone || d.phone,
+              }));
                 }}
               />
             </div>
