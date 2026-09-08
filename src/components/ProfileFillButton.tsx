@@ -28,7 +28,7 @@ export function ProfileFillButton({ onFill, label = "Profilden Doldur" }: Props)
       size="sm"
       onClick={() => {
         onFill({
-          name: profile.name,
+          name: profile.name.toUpperCase(),
           serialNo: profile.serialNo,
           rank: profile.rank,
           division: divisionCode(profile.division),
