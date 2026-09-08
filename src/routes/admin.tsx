@@ -42,14 +42,12 @@ function ProfileDetails({
   loading,
   colSpan,
   canEdit,
-  onEdit,
 }: {
   user: UserDto;
   payload: ProfilePayload;
   loading: boolean;
   colSpan: number;
   canEdit: boolean;
-  onEdit: () => void;
 }) {
   const profiles = userProfiles(payload);
   return (
@@ -59,9 +57,11 @@ function ProfileDetails({
           <Badge variant="outline">GTA World: {user.username}</Badge>
           <Badge variant="outline">User ID: {user.ucpUserId}</Badge>
           {canEdit ? (
-            <Button size="sm" variant="outline" className="ml-auto" disabled={loading} onClick={onEdit}>
-              <Pencil className="mr-1 size-3" />
-              Profili Düzenle
+            <Button asChild size="sm" variant="outline" className="ml-auto" disabled={loading}>
+              <Link to="/profil/$userId" params={{ userId: user.id }}>
+                <IdCard className="mr-1 size-3" />
+                Profil Sayfasına Git
+              </Link>
             </Button>
           ) : null}
         </div>
