@@ -59,11 +59,35 @@ function userProfiles(payload: ProfilePayload) {
 }
 
 
-function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload; loading: boolean; colSpan: number }) {
+function ProfileDetails({
+  user,
+  payload,
+  loading,
+  colSpan,
+  canEdit,
+  onEdit,
+}: {
+  user: UserDto;
+  payload: ProfilePayload;
+  loading: boolean;
+  colSpan: number;
+  canEdit: boolean;
+  onEdit: () => void;
+}) {
   const profiles = userProfiles(payload);
   return (
     <TableRow className="bg-muted/30 hover:bg-muted/30">
       <TableCell colSpan={colSpan} className="p-4">
+        <div className="mb-3 flex flex-wrap items-center gap-3">
+          <Badge variant="outline">GTA World: {user.username}</Badge>
+          <Badge variant="outline">User ID: {user.ucpUserId}</Badge>
+          {canEdit ? (
+            <Button size="sm" variant="outline" className="ml-auto" disabled={loading} onClick={onEdit}>
+              <Pencil className="mr-1 size-3" />
+              Profili Düzenle
+            </Button>
+          ) : null}
+        </div>
         {loading ? (
           <p className="text-sm text-muted-foreground">Profil yükleniyor…</p>
         ) : profiles.length === 0 ? (
@@ -84,6 +108,9 @@ function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload
                     {p.serialNo ? ` • #${p.serialNo}` : ""}
                   </p>
                   <p className="truncate text-xs text-muted-foreground">{p.division || "Division yok"}</p>
+                  {p.assignmentDescription ? (
+                    <p className="truncate text-xs text-muted-foreground">{p.assignmentDescription}</p>
+                  ) : null}
                   {p.email ? <p className="truncate text-xs text-muted-foreground">{p.email}</p> : null}
                   {p.phone ? <p className="truncate text-xs text-muted-foreground">{p.phone}</p> : null}
                   {p.discord ? <p className="truncate text-xs text-muted-foreground">Discord: {p.discord}</p> : null}
@@ -96,6 +123,126 @@ function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload
     </TableRow>
   );
 }
+
+/** Yöneticinin bir kullanıcının personel profillerini düzenlediği pencere. */
+function ProfileEditDialog({
+  open,
+  onOpenChange,
+  user,
+  profiles,
+  saving,
+  onChange,
+  onSave,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  user: UserDto | null;
+  profiles: OfficerProfile[];
+  saving: boolean;
+  onChange: (index: number, key: keyof OfficerProfile, value: string) => void;
+  onSave: () => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[85vh] max-w-3xl overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Personel Profilini Düzenle</DialogTitle>
+          <DialogDescription>
+            {user ? `${user.username} (User ID: ${user.ucpUserId})` : ""}
+          </DialogDescription>
+        </DialogHeader>
+        {profiles.length === 0 ? (
+          <p className="text-sm text-muted-foreground">Bu kullanıcının düzenlenebilir profili yok.</p>
+        ) : (
+          <div className="space-y-6">
+            {profiles.map((p, i) => (
+              <div key={i} className="rounded-lg border border-border p-4">
+                <p className="mb-3 text-sm font-semibold">{p.name || `Personel ${i + 1}`}</p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div>
+                    <Label className="text-xs">Adı Soyadı</Label>
+                    <Input className="mt-1" value={p.name} onChange={(e) => onChange(i, "name", e.target.value)} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Seri Numarası</Label>
+                    <Input
+                      className="mt-1"
+                      value={p.serialNo}
+                      onChange={(e) => onChange(i, "serialNo", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Rütbe</Label>
+                    <Select value={p.rank || undefined} onValueChange={(v) => onChange(i, "rank", v)}>
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Seçiniz" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-72">
+                        {rankOptions.map((r) => (
+                          <SelectItem key={r} value={r}>
+                            {r}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label className="text-xs">Görevlendirme</Label>
+                    <Select value={p.division || undefined} onValueChange={(v) => onChange(i, "division", v)}>
+                      <SelectTrigger className="mt-1">
+                        <SelectValue placeholder="Seçiniz" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-72">
+                        {divisionProfileOptions.map((d) => (
+                          <SelectItem key={d.value} value={d.value}>
+                            {d.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <Label className="text-xs">Görevlendirme Tanımı</Label>
+                    <Input
+                      className="mt-1"
+                      value={p.assignmentDescription}
+                      onChange={(e) => onChange(i, "assignmentDescription", e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-xs">E-Posta</Label>
+                    <Input className="mt-1" value={p.email} onChange={(e) => onChange(i, "email", e.target.value)} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Telefon</Label>
+                    <Input className="mt-1" value={p.phone} onChange={(e) => onChange(i, "phone", e.target.value)} />
+                  </div>
+                  <div>
+                    <Label className="text-xs">Discord</Label>
+                    <Input
+                      className="mt-1"
+                      value={p.discord}
+                      onChange={(e) => onChange(i, "discord", e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <DialogFooter>
+          <Button variant="outline" onClick={() => onOpenChange(false)}>
+            Vazgeç
+          </Button>
+          <Button disabled={saving || profiles.length === 0} onClick={onSave}>
+            {saving ? "Kaydediliyor…" : "Kaydet"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 
 /** Açılıp kapanabilen bölüm başlığı. */
 function SectionCard({
