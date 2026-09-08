@@ -6,14 +6,7 @@ import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   ADMIN_LEVEL_LABELS,
@@ -28,13 +21,7 @@ import {
   type PortalLogDto,
 } from "@/lib/portal-auth.functions";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { toast } from "sonner";
 import { formatRank } from "@/lib/officer-profile";
@@ -48,15 +35,7 @@ function userProfiles(payload: ProfilePayload) {
   return payload && (payload.name || payload.serialNo) ? [payload] : [];
 }
 
-function ProfileDetails({
-  payload,
-  loading,
-  colSpan,
-}: {
-  payload: ProfilePayload;
-  loading: boolean;
-  colSpan: number;
-}) {
+function ProfileDetails({ payload, loading, colSpan }: { payload: ProfilePayload; loading: boolean; colSpan: number }) {
   const profiles = userProfiles(payload);
   return (
     <TableRow className="bg-muted/30 hover:bg-muted/30">
@@ -133,7 +112,6 @@ function SectionCard({
   );
 }
 
-
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
@@ -164,8 +142,7 @@ function AdminPage() {
     rejected: false,
     logs: false,
   });
-  const toggleSection = (key: string) =>
-    setOpenSections((cur) => ({ ...cur, [key]: !cur[key] }));
+  const toggleSection = (key: string) => setOpenSections((cur) => ({ ...cur, [key]: !cur[key] }));
 
   const [logs, setLogs] = useState<PortalLogDto[]>([]);
 
@@ -224,9 +201,6 @@ function AdminPage() {
   const approvedUsers = users.filter((u) => u.status === "approved" && matches(u));
   const rejectedUsers = users.filter((u) => u.status === "rejected" && matches(u));
 
-
-
-
   const handleApprove = async (id: string) => {
     await approveFn({ data: { userId: id } });
     await refresh();
@@ -268,8 +242,7 @@ function AdminPage() {
     canDeleteUsers &&
     !user.isProtectedQuery &&
     user.id !== session?.id &&
-    (myLevel === "query" ||
-      (user.adminLevel !== "query" && user.adminLevel !== "faction_management"));
+    (myLevel === "query" || (user.adminLevel !== "query" && user.adminLevel !== "faction_management"));
 
   const handleDelete = async (user: UserDto) => {
     const ok = window.confirm(
@@ -291,9 +264,7 @@ function AdminPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Yönetim Paneli</h1>
-            <p className="text-sm text-muted-foreground">
-              Kullanıcı onayları ve yönetici rolü atamaları.
-            </p>
+            <p className="text-sm text-muted-foreground">Kullanıcı onayları ve yönetici rolü atamaları.</p>
           </div>
           <Link to="/">
             <Button variant="outline">Ana Sayfaya Dön</Button>
@@ -321,9 +292,7 @@ function AdminPage() {
             <Card key={stat.label}>
               <CardContent className="flex items-center justify-between py-5">
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                    {stat.label}
-                  </p>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">{stat.label}</p>
                   <p className="mt-1 text-2xl font-bold tabular-nums">{stat.value}</p>
                 </div>
                 {stat.icon}
@@ -336,7 +305,7 @@ function AdminPage() {
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Kullanıcı adı, personel adı, rütbe veya sicil ara…"
+            placeholder="Kullanıcı adı, personel adı, rütbe ara…"
             className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
           />
         </div>
@@ -346,11 +315,10 @@ function AdminPage() {
           title="Onay Bekleyen Kullanıcılar"
           icon={<UserX className="size-4 text-warning" />}
           count={pendingUsers.length}
-          open={!!openSections['pending']}
+          open={!!openSections["pending"]}
           onToggle={() => toggleSection("pending")}
         >
           <div>
-
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : pendingUsers.length === 0 ? (
@@ -358,65 +326,55 @@ function AdminPage() {
             ) : (
               <Table>
                 <TableHeader>
-                    <TableRow>
-                      <TableHead>UCP Kullanıcı Adı</TableHead>
-                      <TableHead>Personel Ad Soyad</TableHead>
-                      <TableHead>Rütbe</TableHead>
-                      <TableHead>Karakterler</TableHead>
-                      <TableHead className="text-right">İşlem</TableHead>
-                    </TableRow>
+                  <TableRow>
+                    <TableHead>UCP Kullanıcı Adı</TableHead>
+                    <TableHead>Personel Ad Soyad</TableHead>
+                    <TableHead>Rütbe</TableHead>
+                    <TableHead>Karakterler</TableHead>
+                    <TableHead className="text-right">İşlem</TableHead>
+                  </TableRow>
                 </TableHeader>
                 <TableBody>
                   {pendingUsers.map((user) => (
                     <Fragment key={user.id}>
-                    <TableRow className="cursor-pointer" onClick={() => toggleExpanded(user.id)}>
-                      <TableCell className="font-medium">
-                        <span className="flex items-center gap-2">
-                          {expanded === user.id ? (
-                            <ChevronDown className="size-4 text-muted-foreground" />
-                          ) : (
-                            <ChevronRight className="size-4 text-muted-foreground" />
-                          )}
-                          {user.username}
-                        </span>
-                      </TableCell>
-                      <TableCell>{user.profile?.name || "—"}</TableCell>
-                      <TableCell>{formatRank(user.profile?.rank) || "—"}</TableCell>
-                      <TableCell className="max-w-[280px] truncate">
-                        {user.characters.length > 0
-                          ? user.characters
-                              .map((c) => `${c.firstname} ${c.lastname}`)
-                              .join(", ")
-                          : "—"}
-                      </TableCell>
-                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex justify-end gap-2">
-                          <Button
-                            size="sm"
-                            variant="default"
-                            onClick={() => handleApprove(user.id)}
-                          >
-                            <Check className="mr-1 size-3" />
-                            Onayla
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleReject(user.id)}
-                          >
-                            <X className="mr-1 size-3" />
-                            Reddet
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {expanded === user.id ? (
-                      <ProfileDetails
-                        payload={details[user.id] ?? null}
-                        loading={detailLoading === user.id}
-                        colSpan={5}
-                      />
-                    ) : null}
+                      <TableRow className="cursor-pointer" onClick={() => toggleExpanded(user.id)}>
+                        <TableCell className="font-medium">
+                          <span className="flex items-center gap-2">
+                            {expanded === user.id ? (
+                              <ChevronDown className="size-4 text-muted-foreground" />
+                            ) : (
+                              <ChevronRight className="size-4 text-muted-foreground" />
+                            )}
+                            {user.username}
+                          </span>
+                        </TableCell>
+                        <TableCell>{user.profile?.name || "—"}</TableCell>
+                        <TableCell>{formatRank(user.profile?.rank) || "—"}</TableCell>
+                        <TableCell className="max-w-[280px] truncate">
+                          {user.characters.length > 0
+                            ? user.characters.map((c) => `${c.firstname} ${c.lastname}`).join(", ")
+                            : "—"}
+                        </TableCell>
+                        <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex justify-end gap-2">
+                            <Button size="sm" variant="default" onClick={() => handleApprove(user.id)}>
+                              <Check className="mr-1 size-3" />
+                              Onayla
+                            </Button>
+                            <Button size="sm" variant="destructive" onClick={() => handleReject(user.id)}>
+                              <X className="mr-1 size-3" />
+                              Reddet
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                      {expanded === user.id ? (
+                        <ProfileDetails
+                          payload={details[user.id] ?? null}
+                          loading={detailLoading === user.id}
+                          colSpan={5}
+                        />
+                      ) : null}
                     </Fragment>
                   ))}
                 </TableBody>
@@ -429,11 +387,10 @@ function AdminPage() {
           title="Tüm Kullanıcılar"
           icon={<ShieldCheck className="size-4 text-primary" />}
           count={approvedUsers.length}
-          open={!!openSections['approved']}
+          open={!!openSections["approved"]}
           onToggle={() => toggleSection("approved")}
         >
           <div>
-
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : (
@@ -453,82 +410,78 @@ function AdminPage() {
                 <TableBody>
                   {approvedUsers.map((user) => (
                     <Fragment key={user.id}>
-                    <TableRow className="cursor-pointer" onClick={() => toggleExpanded(user.id)}>
-                      <TableCell className="font-medium">
-                        <span className="flex items-center gap-2">
-                          {expanded === user.id ? (
-                            <ChevronDown className="size-4 text-muted-foreground" />
+                      <TableRow className="cursor-pointer" onClick={() => toggleExpanded(user.id)}>
+                        <TableCell className="font-medium">
+                          <span className="flex items-center gap-2">
+                            {expanded === user.id ? (
+                              <ChevronDown className="size-4 text-muted-foreground" />
+                            ) : (
+                              <ChevronRight className="size-4 text-muted-foreground" />
+                            )}
+                            {user.username}
+                          </span>
+                        </TableCell>
+                        <TableCell>{user.profile?.name || "—"}</TableCell>
+                        <TableCell>{formatRank(user.profile?.rank) || "—"}</TableCell>
+                        <TableCell>{user.profile?.division || "—"}</TableCell>
+                        <TableCell>
+                          <Badge variant="secondary">{statusLabel(user.status)}</Badge>
+                        </TableCell>
+                        <TableCell>
+                          {user.adminLevel ? (
+                            <Badge className="bg-primary/20 text-primary hover:bg-primary/30">
+                              <Shield className="mr-1 size-3" />
+                              {ADMIN_LEVEL_LABELS[user.adminLevel]}
+                            </Badge>
                           ) : (
-                            <ChevronRight className="size-4 text-muted-foreground" />
+                            <Badge variant="outline">Kullanıcı</Badge>
                           )}
-                          {user.username}
-                        </span>
-                      </TableCell>
-                      <TableCell>{user.profile?.name || "—"}</TableCell>
-                      <TableCell>{formatRank(user.profile?.rank) || "—"}</TableCell>
-                      <TableCell>{user.profile?.division || "—"}</TableCell>
-                      <TableCell>
-                        <Badge variant="secondary">{statusLabel(user.status)}</Badge>
-                      </TableCell>
-                      <TableCell>
-                        {user.adminLevel ? (
-                          <Badge className="bg-primary/20 text-primary hover:bg-primary/30">
-                            <Shield className="mr-1 size-3" />
-                            {ADMIN_LEVEL_LABELS[user.adminLevel]}
-                          </Badge>
-                        ) : (
-                          <Badge variant="outline">Kullanıcı</Badge>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString("tr-TR") : "—"}
-                      </TableCell>
-                      <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
-                        <div className="flex items-center justify-end gap-2">
-                          {!canManageRoles ? (
-                            <span className="text-xs text-muted-foreground">—</span>
-                          ) : user.isProtectedQuery ? (
-                            <span className="text-xs text-muted-foreground">Korumalı hesap</span>
-                          ) : myLevel === "faction_management" &&
-                            (user.adminLevel === "query" || user.adminLevel === "faction_management") ? (
-                            <span className="text-xs text-muted-foreground">Yetkiniz yok</span>
-                          ) : (
-                            <Select
-                              value={user.adminLevel ?? "none"}
-                              onValueChange={(v) => handleLevelChange(user, v)}
-                            >
-                              <SelectTrigger className="ml-auto w-[190px]">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                {availableLevels.map((lvl) => (
-                                  <SelectItem key={lvl.value} value={lvl.value}>
-                                    {lvl.label}
-                                  </SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                          )}
-                          {canDeleteUser(user) && (
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDelete(user)}
-                            >
-                              <Trash2 className="mr-1 size-3" />
-                              Sil
-                            </Button>
-                          )}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                    {expanded === user.id ? (
-                      <ProfileDetails
-                        payload={details[user.id] ?? null}
-                        loading={detailLoading === user.id}
-                        colSpan={8}
-                      />
-                    ) : null}
+                        </TableCell>
+                        <TableCell>
+                          {user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleString("tr-TR") : "—"}
+                        </TableCell>
+                        <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                          <div className="flex items-center justify-end gap-2">
+                            {!canManageRoles ? (
+                              <span className="text-xs text-muted-foreground">—</span>
+                            ) : user.isProtectedQuery ? (
+                              <span className="text-xs text-muted-foreground">Korumalı hesap</span>
+                            ) : myLevel === "faction_management" &&
+                              (user.adminLevel === "query" || user.adminLevel === "faction_management") ? (
+                              <span className="text-xs text-muted-foreground">Yetkiniz yok</span>
+                            ) : (
+                              <Select
+                                value={user.adminLevel ?? "none"}
+                                onValueChange={(v) => handleLevelChange(user, v)}
+                              >
+                                <SelectTrigger className="ml-auto w-[190px]">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {availableLevels.map((lvl) => (
+                                    <SelectItem key={lvl.value} value={lvl.value}>
+                                      {lvl.label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            )}
+                            {canDeleteUser(user) && (
+                              <Button size="sm" variant="destructive" onClick={() => handleDelete(user)}>
+                                <Trash2 className="mr-1 size-3" />
+                                Sil
+                              </Button>
+                            )}
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                      {expanded === user.id ? (
+                        <ProfileDetails
+                          payload={details[user.id] ?? null}
+                          loading={detailLoading === user.id}
+                          colSpan={8}
+                        />
+                      ) : null}
                     </Fragment>
                   ))}
                 </TableBody>
@@ -542,11 +495,10 @@ function AdminPage() {
           title="Reddedilen Kullanıcılar"
           icon={<X className="size-4 text-destructive" />}
           count={rejectedUsers.length}
-          open={!!openSections['rejected']}
+          open={!!openSections["rejected"]}
           onToggle={() => toggleSection("rejected")}
         >
           <div>
-
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : rejectedUsers.length === 0 ? (
@@ -578,11 +530,7 @@ function AdminPage() {
                             Onayla
                           </Button>
                           {canDeleteUser(user) && (
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDelete(user)}
-                            >
+                            <Button size="sm" variant="destructive" onClick={() => handleDelete(user)}>
                               <Trash2 className="mr-1 size-3" />
                               Sil
                             </Button>
@@ -603,42 +551,41 @@ function AdminPage() {
             title="İşlem Kayıtları"
             icon={<ScrollText className="size-4 text-primary" />}
             count={logs.length}
-            open={!!openSections['logs']}
+            open={!!openSections["logs"]}
             onToggle={() => toggleSection("logs")}
           >
-              {logs.length === 0 ? (
-                <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
-              ) : (
-                <div className="max-h-[480px] overflow-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Tarih</TableHead>
-                        <TableHead>İşlem</TableHead>
-                        <TableHead>Yapan</TableHead>
-                        <TableHead>Detay</TableHead>
+            {logs.length === 0 ? (
+              <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
+            ) : (
+              <div className="max-h-[480px] overflow-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Tarih</TableHead>
+                      <TableHead>İşlem</TableHead>
+                      <TableHead>Yapan</TableHead>
+                      <TableHead>Detay</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {logs.map((log) => (
+                      <TableRow key={log.id}>
+                        <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
+                          {new Date(log.createdAt).toLocaleString("tr-TR")}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">{logEventLabel(log.event)}</Badge>
+                        </TableCell>
+                        <TableCell className="text-sm">{log.username || "—"}</TableCell>
+                        <TableCell className="text-sm text-muted-foreground">{log.detail || "—"}</TableCell>
                       </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {logs.map((log) => (
-                        <TableRow key={log.id}>
-                          <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
-                            {new Date(log.createdAt).toLocaleString("tr-TR")}
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline">{logEventLabel(log.event)}</Badge>
-                          </TableCell>
-                          <TableCell className="text-sm">{log.username || "—"}</TableCell>
-                          <TableCell className="text-sm text-muted-foreground">{log.detail || "—"}</TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
-              )}
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
           </SectionCard>
         )}
-
       </div>
     </AppShell>
   );
