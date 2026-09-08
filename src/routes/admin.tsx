@@ -576,9 +576,12 @@ function AdminPage() {
                       </TableRow>
                       {expanded === user.id ? (
                         <ProfileDetails
+                          user={user}
                           payload={details[user.id] ?? null}
                           loading={detailLoading === user.id}
                           colSpan={5}
+                          canEdit={canEditProfiles}
+                          onEdit={() => openEditor(user)}
                         />
                       ) : null}
                     </Fragment>
@@ -683,9 +686,12 @@ function AdminPage() {
                       </TableRow>
                       {expanded === user.id ? (
                         <ProfileDetails
+                          user={user}
                           payload={details[user.id] ?? null}
                           loading={detailLoading === user.id}
                           colSpan={8}
+                          canEdit={canEditProfiles}
+                          onEdit={() => openEditor(user)}
                         />
                       ) : null}
                     </Fragment>
@@ -793,6 +799,17 @@ function AdminPage() {
           </SectionCard>
         )}
       </div>
+      <ProfileEditDialog
+        open={!!editUser}
+        onOpenChange={(o) => {
+          if (!o) setEditUser(null);
+        }}
+        user={editUser}
+        profiles={editProfiles}
+        saving={savingProfile}
+        onChange={changeEditProfile}
+        onSave={saveEditProfiles}
+      />
     </AppShell>
   );
 }
@@ -807,6 +824,7 @@ function logEventLabel(event: string): string {
     admin_reject_user: "Kullanıcı Reddedildi",
     admin_set_role: "Yetki Değişikliği",
     admin_delete_user: "Kullanıcı Silindi",
+    admin_edit_profile: "Personel Profili Düzenlendi",
   };
   return labels[event] || event;
 }
