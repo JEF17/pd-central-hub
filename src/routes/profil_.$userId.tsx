@@ -23,7 +23,7 @@ import { divisionProfileOptions, formatRank, rankOptions } from "@/lib/officer-p
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
 type ProfilePayload = Awaited<ReturnType<typeof getUserProfileDetail>>;
 
-export const Route = createFileRoute("/profil/$userId")({
+export const Route = createFileRoute("/profil_/$userId")({
   beforeLoad: async ({ location }) => {
     await requirePortalAuth(location.href, { admin: true });
   },
