@@ -336,9 +336,33 @@ export async function getAdminLevel(userId: string): Promise<AdminLevel | null> 
   return null;
 }
 
+/** Birden fazla kullanıcı için rolleri tek sorguda getirir (N+1 önlemek için). */
+export async function getAdminLevelsFor(userIds: string[]): Promise<Map<string, AdminLevel>> {
+  const map = new Map<string, AdminLevel>();
+  if (userIds.length === 0) return map;
+  const { data, error } = await supabaseAdmin
+    .from("portal_user_roles")
+    .select("user_id, role")
+    .in("user_id", userIds);
+  if (error) throw error;
+  const byUser = new Map<string, string[]>();
+  for (const row of (data ?? []) as { user_id: string; role: string }[]) {
+    const list = byUser.get(row.user_id) ?? [];
+    list.push(row.role);
+    byUser.set(row.user_id, list);
+  }
+  for (const [userId, roles] of byUser) {
+    if (roles.includes("admin") && !roles.includes("faction_management")) roles.push("faction_management");
+    const level = ADMIN_LEVEL_ORDER.find((l) => roles.includes(l));
+    if (level) map.set(userId, level);
+  }
+  return map;
+}
+
 export async function checkUserIsAdmin(userId: string): Promise<boolean> {
   return (await getAdminLevel(userId)) !== null;
 }
+
 
 export async function setAdminLevel(userId: string, level: AdminLevel | null): Promise<void> {
   const { error: delError } = await supabaseAdmin
