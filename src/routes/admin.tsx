@@ -173,7 +173,7 @@ function ProfileEditDialog({
                   </div>
                   <div>
                     <Label className="text-xs">Rütbe</Label>
-                    <Select value={p.rank || undefined} onValueChange={(v) => onChange(i, "rank", v)}>
+                    <Select value={p.rank} onValueChange={(v) => onChange(i, "rank", v)}>
                       <SelectTrigger className="mt-1">
                         <SelectValue placeholder="Seçiniz" />
                       </SelectTrigger>
@@ -188,7 +188,7 @@ function ProfileEditDialog({
                   </div>
                   <div>
                     <Label className="text-xs">Görevlendirme</Label>
-                    <Select value={p.division || undefined} onValueChange={(v) => onChange(i, "division", v)}>
+                    <Select value={p.division} onValueChange={(v) => onChange(i, "division", v)}>
                       <SelectTrigger className="mt-1">
                         <SelectValue placeholder="Seçiniz" />
                       </SelectTrigger>
