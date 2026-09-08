@@ -359,7 +359,6 @@ function Page() {
         </section>
       </div>
 
-      </div>
       <PhotoEditor
         src={editorSource}
         open={!!editorSource}
