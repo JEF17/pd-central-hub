@@ -181,43 +181,11 @@ function AdminPage() {
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
   const deleteFn = useServerFn(deleteUser);
-  const updateProfileFn = useServerFn(adminUpdateUserProfile);
   const { session } = usePortalSession();
   const myLevel = session?.adminLevel ?? null;
   const canViewLogs = myLevel === "query" || myLevel === "faction_management";
   const canEditProfiles = myLevel === "query" || myLevel === "faction_management";
 
-  const [editUser, setEditUser] = useState<UserDto | null>(null);
-  const [editProfiles, setEditProfiles] = useState<OfficerProfile[]>([]);
-  const [savingProfile, setSavingProfile] = useState(false);
-
-  const openEditor = (user: UserDto) => {
-    setEditUser(user);
-    setEditProfiles(userProfiles(details[user.id] ?? null).map((p) => ({ ...p })));
-  };
-
-  const changeEditProfile = (index: number, key: keyof OfficerProfile, value: string) =>
-    setEditProfiles((list) => list.map((p, i) => (i === index ? { ...p, [key]: value } : p)));
-
-  const saveEditProfiles = async () => {
-    if (!editUser) return;
-    const first = editProfiles[0];
-    if (!first) return;
-    setSavingProfile(true);
-    try {
-      const saved = await updateProfileFn({
-        data: { userId: editUser.id, profile: { ...first, profiles: editProfiles } },
-      });
-      setDetails((cur) => ({ ...cur, [editUser.id]: saved }));
-      toast.success("Personel profili güncellendi");
-      setEditUser(null);
-      await refresh();
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Profil güncellenemedi");
-    } finally {
-      setSavingProfile(false);
-    }
-  };
 
 
   const toggleExpanded = (id: string) => {
