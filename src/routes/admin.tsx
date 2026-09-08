@@ -332,15 +332,25 @@ function AdminPage() {
           ))}
         </div>
 
-        <Card className="mb-8">
+        <div className="mb-6">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Kullanıcı adı, personel adı, rütbe veya sicil ara…"
+            className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
+          />
+        </div>
 
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <UserX className="size-4 text-warning" />
-              Onay Bekleyen Kullanıcılar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <SectionCard
+          className="mb-6"
+          title="Onay Bekleyen Kullanıcılar"
+          icon={<UserX className="size-4 text-warning" />}
+          count={pendingUsers.length}
+          open={!!openSections.pending}
+          onToggle={() => toggleSection("pending")}
+        >
+          <div>
+
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : pendingUsers.length === 0 ? (
