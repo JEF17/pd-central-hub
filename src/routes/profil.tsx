@@ -343,9 +343,7 @@ function Page() {
 
         <section className="mt-6 rounded-xl border border-border bg-card p-6">
           <h2 className="text-lg font-semibold">GTA World Hesap Bilgileri</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Bu bilgiler UCP girişinden gelir ve değiştirilemez.
-          </p>
+          <p className="mt-1 text-sm text-muted-foreground">{"\n"}</p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
               <Label className="text-xs">GTA World Username</Label>
