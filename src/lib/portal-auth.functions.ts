@@ -329,21 +329,50 @@ export const signOut = createServerFn({ method: "POST" }).handler(async () => {
   return { ok: true };
 });
 
+/** Liste yanıtlarını hafifletmek için base64 fotoğrafları çıkarır. */
+function stripPhotos(dto: PortalUserDto): PortalUserDto {
+  if (!dto.profile) return dto;
+  const profile = {
+    ...dto.profile,
+    photo: "",
+    profiles: (dto.profile.profiles ?? []).map((p) => ({ ...p, photo: "" })),
+  };
+  return { ...dto, profile };
+}
+
 export const listPendingUsers = createServerFn({ method: "GET" })
   .middleware([requirePortalAdminMiddleware])
   .handler(async () => {
-    const { listPendingUsers: listPending, getAdminLevel } = await import("./portal-auth.server");
+    const { listPendingUsers: listPending, getAdminLevelsFor } = await import("./portal-auth.server");
     const users = await listPending();
-    return Promise.all(users.map((u) => toUserDto(u, getAdminLevel)));
+    const levels = await getAdminLevelsFor(users.map((u) => u.id));
+    return Promise.all(
+      users.map(async (u) => stripPhotos({ ...(await toUserDto(u)), adminLevel: levels.get(u.id) ?? null, isAdmin: levels.has(u.id) })),
+    );
   });
 
 export const listUsers = createServerFn({ method: "GET" })
   .middleware([requirePortalAdminMiddleware])
   .handler(async () => {
-    const { listAllUsers, getAdminLevel } = await import("./portal-auth.server");
+    const { listAllUsers, getAdminLevelsFor } = await import("./portal-auth.server");
     const users = await listAllUsers();
-    return Promise.all(users.map((u) => toUserDto(u, getAdminLevel)));
+    const levels = await getAdminLevelsFor(users.map((u) => u.id));
+    return Promise.all(
+      users.map(async (u) => stripPhotos({ ...(await toUserDto(u)), adminLevel: levels.get(u.id) ?? null, isAdmin: levels.has(u.id) })),
+    );
   });
+
+/** Satır açıldığında profil detayını (fotoğraflar dahil) getirir. */
+export const getUserProfileDetail = createServerFn({ method: "GET" })
+  .middleware([requirePortalAdminMiddleware])
+  .inputValidator((input: { userId: string }) => input)
+  .handler(async ({ data }): Promise<StoredProfilePayload | null> => {
+    const { findPortalUserById } = await import("./portal-auth.server");
+    const user = await findPortalUserById(data.userId);
+    if (!user) return null;
+    return parseProfile(user.profile);
+  });
+
 
 export type PortalLogDto = {
   id: string;

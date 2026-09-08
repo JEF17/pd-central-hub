@@ -19,6 +19,7 @@ import {
   ADMIN_LEVEL_LABELS,
   approveUser,
   deleteUser,
+  getUserProfileDetail,
   listPortalLogs,
   listUsers,
   rejectUser,
@@ -26,6 +27,7 @@ import {
   type AdminLevel,
   type PortalLogDto,
 } from "@/lib/portal-auth.functions";
+
 import {
   Select,
   SelectContent,
@@ -38,19 +40,30 @@ import { toast } from "sonner";
 import { formatRank } from "@/lib/officer-profile";
 
 type UserDto = Awaited<ReturnType<typeof listUsers>>[number];
+type ProfilePayload = Awaited<ReturnType<typeof getUserProfileDetail>>;
 
-function userProfiles(user: UserDto) {
-  const list = user.profile?.profiles ?? [];
+function userProfiles(payload: ProfilePayload) {
+  const list = payload?.profiles ?? [];
   if (list.length > 0) return list;
-  return user.profile && (user.profile.name || user.profile.serialNo) ? [user.profile] : [];
+  return payload && (payload.name || payload.serialNo) ? [payload] : [];
 }
 
-function ProfileDetails({ user, colSpan }: { user: UserDto; colSpan: number }) {
-  const profiles = userProfiles(user);
+function ProfileDetails({
+  payload,
+  loading,
+  colSpan,
+}: {
+  payload: ProfilePayload;
+  loading: boolean;
+  colSpan: number;
+}) {
+  const profiles = userProfiles(payload);
   return (
     <TableRow className="bg-muted/30 hover:bg-muted/30">
       <TableCell colSpan={colSpan} className="p-4">
-        {profiles.length === 0 ? (
+        {loading ? (
+          <p className="text-sm text-muted-foreground">Profil yükleniyor…</p>
+        ) : profiles.length === 0 ? (
           <p className="text-sm text-muted-foreground">Bu kullanıcı henüz personel profili oluşturmamış.</p>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -81,6 +94,46 @@ function ProfileDetails({ user, colSpan }: { user: UserDto; colSpan: number }) {
   );
 }
 
+/** Açılıp kapanabilen bölüm başlığı. */
+function SectionCard({
+  title,
+  icon,
+  count,
+  open,
+  onToggle,
+  className,
+  children,
+}: {
+  title: string;
+  icon: React.ReactNode;
+  count: number;
+  open: boolean;
+  onToggle: () => void;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Card className={className}>
+      <CardHeader className="cursor-pointer select-none" onClick={onToggle}>
+        <CardTitle className="flex items-center gap-2 text-base">
+          {open ? (
+            <ChevronDown className="size-4 text-muted-foreground" />
+          ) : (
+            <ChevronRight className="size-4 text-muted-foreground" />
+          )}
+          {icon}
+          {title}
+          <Badge variant="secondary" className="ml-auto tabular-nums">
+            {count}
+          </Badge>
+        </CardTitle>
+      </CardHeader>
+      {open ? <CardContent>{children}</CardContent> : null}
+    </Card>
+  );
+}
+
+
 export const Route = createFileRoute("/admin")({
   head: () => ({
     meta: [
@@ -102,12 +155,23 @@ function AdminPage() {
   const [users, setUsers] = useState<UserDto[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
-  const toggleExpanded = (id: string) => setExpanded((cur) => (cur === id ? null : id));
+  const [details, setDetails] = useState<Record<string, ProfilePayload>>({});
+  const [detailLoading, setDetailLoading] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    pending: true,
+    approved: false,
+    rejected: false,
+    logs: false,
+  });
+  const toggleSection = (key: string) =>
+    setOpenSections((cur) => ({ ...cur, [key]: !cur[key] }));
 
   const [logs, setLogs] = useState<PortalLogDto[]>([]);
 
   const listUsersFn = useServerFn(listUsers);
   const listLogsFn = useServerFn(listPortalLogs);
+  const detailFn = useServerFn(getUserProfileDetail);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
@@ -116,18 +180,22 @@ function AdminPage() {
   const myLevel = session?.adminLevel ?? null;
   const canViewLogs = myLevel === "query" || myLevel === "faction_management";
 
+  const toggleExpanded = (id: string) => {
+    setExpanded((cur) => (cur === id ? null : id));
+    if (expanded === id || details[id] !== undefined) return;
+    setDetailLoading(id);
+    detailFn({ data: { userId: id } })
+      .then((payload) => setDetails((cur) => ({ ...cur, [id]: payload })))
+      .catch(() => setDetails((cur) => ({ ...cur, [id]: null })))
+      .finally(() => setDetailLoading((cur) => (cur === id ? null : cur)));
+  };
+
   const refresh = async () => {
     setLoading(true);
     try {
       const all = await listUsersFn({});
       setUsers(all);
-      if (myLevel === "query" || myLevel === "faction_management") {
-        try {
-          setLogs(await listLogsFn({}));
-        } catch {
-          setLogs([]);
-        }
-      }
+      setDetails({});
     } finally {
       setLoading(false);
     }
@@ -144,9 +212,18 @@ function AdminPage() {
       .catch(() => setLogs([]));
   }, [canViewLogs]);
 
-  const pendingUsers = users.filter((u) => u.status === "pending");
-  const approvedUsers = users.filter((u) => u.status === "approved");
-  const rejectedUsers = users.filter((u) => u.status === "rejected");
+  const matches = (u: UserDto) => {
+    const q = query.trim().toLowerCase();
+    if (!q) return true;
+    return [u.username, u.profile?.name, u.profile?.rank, u.profile?.division, u.profile?.serialNo]
+      .filter(Boolean)
+      .some((v) => String(v).toLowerCase().includes(q));
+  };
+
+  const pendingUsers = users.filter((u) => u.status === "pending" && matches(u));
+  const approvedUsers = users.filter((u) => u.status === "approved" && matches(u));
+  const rejectedUsers = users.filter((u) => u.status === "rejected" && matches(u));
+
 
 
 
@@ -255,15 +332,25 @@ function AdminPage() {
           ))}
         </div>
 
-        <Card className="mb-8">
+        <div className="mb-6">
+          <input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Kullanıcı adı, personel adı, rütbe veya sicil ara…"
+            className="h-10 w-full rounded-md border border-border bg-card px-3 text-sm outline-none focus:ring-2 focus:ring-primary/40"
+          />
+        </div>
 
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <UserX className="size-4 text-warning" />
-              Onay Bekleyen Kullanıcılar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <SectionCard
+          className="mb-6"
+          title="Onay Bekleyen Kullanıcılar"
+          icon={<UserX className="size-4 text-warning" />}
+          count={pendingUsers.length}
+          open={!!openSections['pending']}
+          onToggle={() => toggleSection("pending")}
+        >
+          <div>
+
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : pendingUsers.length === 0 ? (
@@ -323,23 +410,30 @@ function AdminPage() {
                         </div>
                       </TableCell>
                     </TableRow>
-                    {expanded === user.id ? <ProfileDetails user={user} colSpan={5} /> : null}
+                    {expanded === user.id ? (
+                      <ProfileDetails
+                        payload={details[user.id] ?? null}
+                        loading={detailLoading === user.id}
+                        colSpan={5}
+                      />
+                    ) : null}
                     </Fragment>
                   ))}
                 </TableBody>
               </Table>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </SectionCard>
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <ShieldCheck className="size-4 text-primary" />
-              Tüm Kullanıcılar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <SectionCard
+          title="Tüm Kullanıcılar"
+          icon={<ShieldCheck className="size-4 text-primary" />}
+          count={approvedUsers.length}
+          open={!!openSections['approved']}
+          onToggle={() => toggleSection("approved")}
+        >
+          <div>
+
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : (
@@ -428,23 +522,31 @@ function AdminPage() {
                         </div>
                       </TableCell>
                     </TableRow>
-                    {expanded === user.id ? <ProfileDetails user={user} colSpan={8} /> : null}
+                    {expanded === user.id ? (
+                      <ProfileDetails
+                        payload={details[user.id] ?? null}
+                        loading={detailLoading === user.id}
+                        colSpan={8}
+                      />
+                    ) : null}
                     </Fragment>
                   ))}
                 </TableBody>
               </Table>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </SectionCard>
 
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <X className="size-4 text-destructive" />
-              Reddedilen Kullanıcılar
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+        <SectionCard
+          className="mt-6"
+          title="Reddedilen Kullanıcılar"
+          icon={<X className="size-4 text-destructive" />}
+          count={rejectedUsers.length}
+          open={!!openSections['rejected']}
+          onToggle={() => toggleSection("rejected")}
+        >
+          <div>
+
             {loading ? (
               <p className="text-sm text-muted-foreground">Yükleniyor…</p>
             ) : rejectedUsers.length === 0 ? (
@@ -492,20 +594,18 @@ function AdminPage() {
                 </TableBody>
               </Table>
             )}
-          </CardContent>
-        </Card>
-
-
+          </div>
+        </SectionCard>
 
         {canViewLogs && (
-          <Card className="mt-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-base">
-                <ScrollText className="size-4 text-primary" />
-                İşlem Kayıtları
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+          <SectionCard
+            className="mt-6"
+            title="İşlem Kayıtları"
+            icon={<ScrollText className="size-4 text-primary" />}
+            count={logs.length}
+            open={!!openSections['logs']}
+            onToggle={() => toggleSection("logs")}
+          >
               {logs.length === 0 ? (
                 <p className="text-sm text-muted-foreground">Henüz kayıt yok.</p>
               ) : (
@@ -536,9 +636,9 @@ function AdminPage() {
                   </Table>
                 </div>
               )}
-            </CardContent>
-          </Card>
+          </SectionCard>
         )}
+
       </div>
     </AppShell>
   );
