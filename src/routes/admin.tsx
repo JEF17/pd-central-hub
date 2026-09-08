@@ -155,12 +155,23 @@ function AdminPage() {
   const [users, setUsers] = useState<UserDto[]>([]);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
-  const toggleExpanded = (id: string) => setExpanded((cur) => (cur === id ? null : id));
+  const [details, setDetails] = useState<Record<string, ProfilePayload>>({});
+  const [detailLoading, setDetailLoading] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    pending: true,
+    approved: false,
+    rejected: false,
+    logs: false,
+  });
+  const toggleSection = (key: string) =>
+    setOpenSections((cur) => ({ ...cur, [key]: !cur[key] }));
 
   const [logs, setLogs] = useState<PortalLogDto[]>([]);
 
   const listUsersFn = useServerFn(listUsers);
   const listLogsFn = useServerFn(listPortalLogs);
+  const detailFn = useServerFn(getUserProfileDetail);
   const approveFn = useServerFn(approveUser);
   const rejectFn = useServerFn(rejectUser);
   const setLevelFn = useServerFn(setUserAdminLevel);
@@ -169,18 +180,22 @@ function AdminPage() {
   const myLevel = session?.adminLevel ?? null;
   const canViewLogs = myLevel === "query" || myLevel === "faction_management";
 
+  const toggleExpanded = (id: string) => {
+    setExpanded((cur) => (cur === id ? null : id));
+    if (expanded === id || details[id] !== undefined) return;
+    setDetailLoading(id);
+    detailFn({ data: { userId: id } })
+      .then((payload) => setDetails((cur) => ({ ...cur, [id]: payload })))
+      .catch(() => setDetails((cur) => ({ ...cur, [id]: null })))
+      .finally(() => setDetailLoading((cur) => (cur === id ? null : cur)));
+  };
+
   const refresh = async () => {
     setLoading(true);
     try {
       const all = await listUsersFn({});
       setUsers(all);
-      if (myLevel === "query" || myLevel === "faction_management") {
-        try {
-          setLogs(await listLogsFn({}));
-        } catch {
-          setLogs([]);
-        }
-      }
+      setDetails({});
     } finally {
       setLoading(false);
     }
@@ -197,9 +212,18 @@ function AdminPage() {
       .catch(() => setLogs([]));
   }, [canViewLogs]);
 
-  const pendingUsers = users.filter((u) => u.status === "pending");
-  const approvedUsers = users.filter((u) => u.status === "approved");
-  const rejectedUsers = users.filter((u) => u.status === "rejected");
+  const matches = (u: UserDto) => {
+    const q = query.trim().toLowerCase();
+    if (!q) return true;
+    return [u.username, u.profile?.name, u.profile?.rank, u.profile?.division, u.profile?.serialNo]
+      .filter(Boolean)
+      .some((v) => String(v).toLowerCase().includes(q));
+  };
+
+  const pendingUsers = users.filter((u) => u.status === "pending" && matches(u));
+  const approvedUsers = users.filter((u) => u.status === "approved" && matches(u));
+  const rejectedUsers = users.filter((u) => u.status === "rejected" && matches(u));
+
 
 
 
