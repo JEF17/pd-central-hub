@@ -196,6 +196,12 @@ export function calculate(
       baseMax = tier.maxMinutes || level.maxMinutes || baseMin;
     }
 
+    // Alt sınırı bulunmayan suçlamalarda minimum süre maksimumun yarısı olarak hesaplanır.
+    if (baseMin <= 0 && baseMax > 0) {
+      baseMin = baseMax / 2;
+    }
+
+
     const baseMinMinutes = roundMinutes(baseMin * add.timeFactor);
     const baseMaxMinutes = roundMinutes(baseMax * add.timeFactor);
     const basePoints = Math.round(level.points * add.pointFactor * 10) / 10;
