@@ -181,19 +181,19 @@ function victimBlock(vic: FollowupVictim): string {
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]AD SOYADI (ya da İŞLETME ADI)
-[color=#FFFFFF]${v(vic.name)}[/color][/indent][/size][/tdwidth]
+${cv(vic.name)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]CİNSİYET
-[color=#FFFFFF]${v(vic.gender)}[/color][/indent][/size][/tdwidth]
+${cv(vic.gender)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]ETNİK GRUP
-[color=#FFFFFF]${v(vic.ethnicity)}[/color][/indent][/size][/tdwidth]
+${cv(vic.ethnicity)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]YAŞ
-[color=#FFFFFF]${v(vic.age)}[/color][/indent][/size][/tdwidth][/table]
+${cv(vic.age)}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]ADRES
-[color=#FFFFFF]${v(vic.address)}[/color][/indent][/size][/tdwidth]
+${cv(vic.address)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]İLETİŞİM BİLGİSİ
-[color=#FFFFFF]${v(vic.contact)}[/color][/indent][/size][/tdwidth][/table][/tdwidth][/table]`;
+${cv(vic.contact)}[/indent][/size][/tdwidth][/table][/tdwidth][/table]`;
 }
 
 export function buildFollowup1BBCode(data: Followup1Data): string {
