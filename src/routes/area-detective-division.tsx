@@ -24,6 +24,7 @@ const templates: GroupTemplate[] = [
     slug: "sorgu-raporu",
     label: "Sorgu Raporu",
     description: "Şüpheli veya tanıkların sorgulanmasına ilişkin detayların raporlandığı form.",
+    to: "/add-sorgu-raporu",
   },
   {
     slug: "warrant-hizmetleri",
