@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, Check, ClipboardCopy, FileSearch } from "lucide-react";
+import { ArrowLeft, Check, ClipboardCopy, FileSearch, Plus, Trash2 } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
 import { FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
@@ -188,13 +188,73 @@ function Page() {
               values={data.fileStatuses}
               onToggle={(o) => toggle("fileStatuses", o)}
             />
-            <div className="sm:col-span-2">
-              <Textarea
-                rows={12}
-                value={data.details}
-                onChange={(e) => set("details", e.target.value)}
-                placeholder="Değiştirilen veya eklenen bilgileri burada açıklayın..."
-              />
+            <div className="sm:col-span-2 grid gap-5">
+              <div className="grid gap-2">
+                <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                  Olay Özeti
+                </Label>
+                <Textarea
+                  rows={4}
+                  value={data.summary}
+                  onChange={(e) => set("summary", e.target.value)}
+                  placeholder="Olayın kısa özeti..."
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                  Soruşturma
+                </Label>
+                <Textarea
+                  rows={6}
+                  value={data.investigation}
+                  onChange={(e) => set("investigation", e.target.value)}
+                  placeholder="Soruşturma süreci ve bulgular..."
+                />
+              </div>
+              <div className="grid gap-2">
+                <div className="flex items-center justify-between">
+                  <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                    Kanıtlar
+                  </Label>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setData((d) => ({ ...d, evidences: [...d.evidences, ""] }))}
+                  >
+                    <Plus className="mr-1 size-4" /> Kanıt Ekle
+                  </Button>
+                </div>
+                <div className="grid gap-2">
+                  {(data.evidences ?? [""]).map((ev, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <Textarea
+                        rows={2}
+                        value={ev}
+                        onChange={(e) =>
+                          setData((d) => ({
+                            ...d,
+                            evidences: d.evidences.map((x, j) => (j === i ? e.target.value : x)),
+                          }))
+                        }
+                        placeholder={`Kanıt ${i + 1}...`}
+                      />
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        aria-label="Kanıtı sil"
+                        disabled={(data.evidences ?? []).length <= 1}
+                        onClick={() =>
+                          setData((d) => ({ ...d, evidences: d.evidences.filter((_, j) => j !== i) }))
+                        }
+                      >
+                        <Trash2 className="size-4 text-destructive" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </Section>
 
