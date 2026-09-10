@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy, FileSearch } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, FileSearch, Plus, Trash2 } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
 import { FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
@@ -18,10 +18,12 @@ import {
   buildFollowup1Title,
   caseFactorOptions,
   emptyFollowup1,
+  emptyVictim,
   followupCaseTypes,
   incidentTypeOptions,
   otherFactorOptions,
   type Followup1Data,
+  type FollowupVictim,
 } from "@/lib/add-followup-1";
 
 const title = "Takip Soruşturma Formu 1";
@@ -99,6 +101,24 @@ function Page() {
       ...d,
       [key]: d[key].includes(option) ? d[key].filter((x) => x !== option) : [...d[key], option],
     }));
+
+  const victims = data.victims?.length ? data.victims : [emptyVictim()];
+
+  const updateVictim = (index: number, patch: Partial<FollowupVictim>) =>
+    setData((d) => {
+      const list = d.victims?.length ? [...d.victims] : [emptyVictim()];
+      list[index] = { ...(list[index] ?? emptyVictim()), ...patch };
+      return { ...d, victims: list };
+    });
+
+  const addVictim = () =>
+    setData((d) => ({ ...d, victims: [...(d.victims ?? []), emptyVictim()] }));
+
+  const removeVictim = (index: number) =>
+    setData((d) => {
+      const list = (d.victims ?? []).filter((_, i) => i !== index);
+      return { ...d, victims: list.length ? list : [emptyVictim()] };
+    });
 
   const copy = (value: string, label: string) => {
     void navigator.clipboard.writeText(value);
