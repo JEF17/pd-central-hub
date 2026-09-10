@@ -28,6 +28,8 @@ export interface WarrantData {
   operationPlan: string;
   other: string;
 
+  /** Detaylar bölümündeki görsel bağlantısı */
+  detailImage: string;
   riskType: string;
   /** Operasyon konumları (madde listesi) */
   locations: string[];
@@ -65,6 +67,7 @@ export const emptyWarrant = (): WarrantData => ({
   incidentSummary: "",
   operationPlan: "",
   other: "",
+  detailImage: "",
   riskType: "",
   locations: [""],
   propertyPhotoLink: "",
@@ -150,7 +153,7 @@ ${opTypes}[/tdwidth][/size]
 
 [table=#d0dade,white][tr]
 [tdwidth=#ffffff,#ffffff,top,left,2,1][size=85][indent=2]
-[center][img=https://i.imgur.com/vYEQQ2x.png][/img][/center][/indent][/size][/tdwidth][/table]
+[center][img=${v(data.detailImage, "https://i.imgur.com/vYEQQ2x.png")}][/img][/center][/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]
