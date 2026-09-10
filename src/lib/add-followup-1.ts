@@ -118,6 +118,7 @@ export const emptyFollowup1 = (): Followup1Data => ({
   propertyType: "",
   lossAmount: "",
   recoveredAmount: "",
+  description: "",
   summary: "",
   investigation: "",
   evidences: [emptyEvidence()],
