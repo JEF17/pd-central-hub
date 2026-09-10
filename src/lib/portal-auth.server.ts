@@ -855,3 +855,53 @@ export async function syncUserStatusFromCharacters(userId: string, adminId: stri
     .eq("id", userId);
   if (error) throw error;
 }
+
+/* ------------------------------------------------------------------ */
+/* Gruplar (özel alan izinleri)                                        */
+/* ------------------------------------------------------------------ */
+
+export async function getUserGroups(userId: string): Promise<string[]> {
+  const { data, error } = await supabaseAdmin
+    .from("portal_user_groups")
+    .select("group_key")
+    .eq("user_id", userId);
+  if (error) throw error;
+  return (data ?? []).map((r) => r.group_key as string);
+}
+
+export async function getUserGroupsFor(userIds: string[]): Promise<Map<string, string[]>> {
+  const map = new Map<string, string[]>();
+  if (userIds.length === 0) return map;
+  const { data, error } = await supabaseAdmin
+    .from("portal_user_groups")
+    .select("user_id, group_key")
+    .in("user_id", userIds);
+  if (error) throw error;
+  for (const row of (data ?? []) as { user_id: string; group_key: string }[]) {
+    const list = map.get(row.user_id) ?? [];
+    list.push(row.group_key);
+    map.set(row.user_id, list);
+  }
+  return map;
+}
+
+export async function setUserGroups(
+  userId: string,
+  groups: string[],
+  grantedBy: string,
+): Promise<string[]> {
+  const { error: delError } = await supabaseAdmin
+    .from("portal_user_groups")
+    .delete()
+    .eq("user_id", userId);
+  if (delError) throw delError;
+
+  const unique = Array.from(new Set(groups));
+  if (unique.length > 0) {
+    const { error } = await supabaseAdmin
+      .from("portal_user_groups")
+      .insert(unique.map((group_key) => ({ user_id: userId, group_key, granted_by: grantedBy })));
+    if (error) throw error;
+  }
+  return unique;
+}

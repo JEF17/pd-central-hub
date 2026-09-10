@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Camera, IdCard, ImageUp, Plus, Save, Trash2, UserRound, Users } from "lucide-react";
+import { Camera, IdCard, ImageUp, Plus, Save, ShieldCheck, Trash2, UserRound, Users } from "lucide-react";
+import { hasGroupAccess, portalGroups } from "@/lib/portal-groups";
 
 import { AppShell } from "@/components/AppShell";
 import { PhotoEditor } from "@/components/PhotoEditor";
@@ -340,6 +341,31 @@ function Page() {
             </div>
           </section>
         </div>
+
+        <section className="mt-6 rounded-xl border border-border bg-card p-6">
+          <h2 className="text-lg font-semibold">Gruplar</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Yönetim tarafından tanımlanan özel alan yetkilerin.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {portalGroups.filter((g) => hasGroupAccess(session?.groups, session?.adminLevel, g.key)).length ===
+            0 ? (
+              <p className="text-sm text-muted-foreground">Tanımlı bir grup yetkin bulunmuyor.</p>
+            ) : (
+              portalGroups
+                .filter((g) => hasGroupAccess(session?.groups, session?.adminLevel, g.key))
+                .map((g) => (
+                  <span
+                    key={g.key}
+                    className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary"
+                  >
+                    <ShieldCheck className="size-3.5" />
+                    {g.label}
+                  </span>
+                ))
+            )}
+          </div>
+        </section>
 
         <section className="mt-6 rounded-xl border border-border bg-card p-6">
           <h2 className="text-lg font-semibold">GTA World Hesap Bilgileri</h2>

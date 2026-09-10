@@ -5,12 +5,16 @@ import {
   Gavel,
   IdCard,
   LayoutGrid,
+  Search,
   Settings,
   UserRound,
   Users,
   Shield,
   type LucideIcon,
 } from "lucide-react";
+
+import type { PortalGroupKey } from "./portal-groups";
+
 
 
 export type NavItem = {
@@ -20,6 +24,8 @@ export type NavItem = {
   description: string;
   position?: "main" | "bottom";
   adminOnly?: boolean;
+  /** Sadece bu grup iznine (veya Faction Management/Query yetkisine) sahip olanlar görür. */
+  groupKey?: PortalGroupKey;
 };
 
 export const navItems: NavItem[] = [
@@ -43,6 +49,14 @@ export const navItems: NavItem[] = [
     icon: Files,
     description: "Gerekli tüm raporlara buradan ulaşabilir ve kolayca oluşturabilirsiniz.",
     position: "main",
+  },
+  {
+    label: "Area Detective Division",
+    to: "/area-detective-division",
+    icon: Search,
+    description: "Area Detective Division'a özel rapor şablonları.",
+    position: "main",
+    groupKey: "area_detective_division",
   },
   {
     label: "Ceza Kanunları",

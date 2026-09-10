@@ -36,6 +36,13 @@
       "when": 1788704226005,
       "tag": "0004_roster_link_user_profiles",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1789027916638,
+      "tag": "0005_create_portal_user_groups",
+      "breakpoints": true
     }
   ]
 }

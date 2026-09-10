@@ -6,6 +6,7 @@ import { LogOut, MessageSquare, PanelLeft, Shield, User, Users } from "lucide-re
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { NotificationBell } from "@/components/NotificationBell";
 import { navItems } from "@/lib/nav-items";
+import { hasGroupAccess } from "@/lib/portal-groups";
 import { cn } from "@/lib/utils";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
@@ -39,7 +40,11 @@ export function AppShell({ children }: { children: ReactNode }) {
     } catch {}
   }, [collapsed]);
 
-  const visibleNavItems = navItems.filter((item) => !item.adminOnly || session?.isAdmin);
+  const visibleNavItems = navItems.filter(
+    (item) =>
+      (!item.adminOnly || session?.isAdmin) &&
+      (!item.groupKey || hasGroupAccess(session?.groups, session?.adminLevel, item.groupKey)),
+  );
   const characterName =
     profile?.name.trim() ||
     (session?.selectedCharacter

@@ -2,6 +2,7 @@ import { createServerFn, createMiddleware } from "@tanstack/react-start";
 import { getRequest, getRequestHeader } from "@tanstack/react-start/server";
 import type { PortalUser, AdminLevel } from "./portal-auth.server";
 import type { OfficerProfile } from "./officer-profile";
+import { groupLabel, portalGroups } from "./portal-groups";
 
 export type { AdminLevel };
 export type { OfficerProfile };
@@ -35,6 +36,7 @@ export type PortalUserDto = {
   createdAt: string;
   profile: StoredProfilePayload | null;
   profileCompleted: boolean;
+  groups: string[];
 };
 
 
@@ -59,6 +61,7 @@ export type PortalSessionDto = {
   isAdmin: boolean;
   adminLevel: AdminLevel | null;
   profileCompleted: boolean;
+  groups: string[];
   characters: Array<{ id: number; firstname: string; lastname: string; memberid: number }>;
   portalCharacters: PortalCharacterDto[];
   selectedCharacter: { id: number; firstname: string; lastname: string; memberid: number } | null;
@@ -150,6 +153,7 @@ async function toUserDto(
     createdAt: user.created_at,
     profile: parseProfile(user.profile),
     profileCompleted: user.profile_completed ?? false,
+    groups: [],
   };
 }
 
@@ -228,6 +232,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
         isAdmin: true,
         adminLevel: "query" as AdminLevel,
         profileCompleted: true,
+        groups: portalGroups.map((g) => g.key),
         characters: [],
         portalCharacters: [
           {
@@ -266,6 +271,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     findSessionByTokenHash,
     getAdminLevel,
     ensureUserCharacters,
+    getUserGroups,
   } = await import("./portal-auth.server");
 
   const token = readSessionCookie();
@@ -301,6 +307,7 @@ export const getCurrentSession = createServerFn({ method: "GET" }).handler(async
     isAdmin,
     adminLevel,
     profileCompleted: user.profile_completed ?? false,
+    groups: await getUserGroups(user.id),
     characters: (user.characters ?? []) as PortalSessionDto["characters"],
     portalCharacters,
     selectedCharacter: (() => {
@@ -343,23 +350,64 @@ function stripPhotos(dto: PortalUserDto): PortalUserDto {
 export const listPendingUsers = createServerFn({ method: "GET" })
   .middleware([requirePortalAdminMiddleware])
   .handler(async () => {
-    const { listPendingUsers: listPending, getAdminLevelsFor } = await import("./portal-auth.server");
+    const { listPendingUsers: listPending, getAdminLevelsFor, getUserGroupsFor } = await import(
+      "./portal-auth.server"
+    );
     const users = await listPending();
     const levels = await getAdminLevelsFor(users.map((u) => u.id));
+    const groups = await getUserGroupsFor(users.map((u) => u.id));
     return Promise.all(
-      users.map(async (u) => stripPhotos({ ...(await toUserDto(u)), adminLevel: levels.get(u.id) ?? null, isAdmin: levels.has(u.id) })),
+      users.map(async (u) =>
+        stripPhotos({
+          ...(await toUserDto(u)),
+          adminLevel: levels.get(u.id) ?? null,
+          isAdmin: levels.has(u.id),
+          groups: groups.get(u.id) ?? [],
+        }),
+      ),
     );
   });
 
 export const listUsers = createServerFn({ method: "GET" })
   .middleware([requirePortalAdminMiddleware])
   .handler(async () => {
-    const { listAllUsers, getAdminLevelsFor } = await import("./portal-auth.server");
+    const { listAllUsers, getAdminLevelsFor, getUserGroupsFor } = await import("./portal-auth.server");
     const users = await listAllUsers();
     const levels = await getAdminLevelsFor(users.map((u) => u.id));
+    const groups = await getUserGroupsFor(users.map((u) => u.id));
     return Promise.all(
-      users.map(async (u) => stripPhotos({ ...(await toUserDto(u)), adminLevel: levels.get(u.id) ?? null, isAdmin: levels.has(u.id) })),
+      users.map(async (u) =>
+        stripPhotos({
+          ...(await toUserDto(u)),
+          adminLevel: levels.get(u.id) ?? null,
+          isAdmin: levels.has(u.id),
+          groups: groups.get(u.id) ?? [],
+        }),
+      ),
     );
+  });
+
+/** Faction Management ve Query bir kullanıcının grup izinlerini düzenleyebilir. */
+export const setUserGroupsFn = createServerFn({ method: "POST" })
+  .middleware([requirePortalAdminMiddleware])
+  .inputValidator((input: { userId: string; groups: string[] }) => input)
+  .handler(async ({ data, context }) => {
+    if (context.adminLevel !== "query" && context.adminLevel !== "faction_management") {
+      throw new Error("Bu işlem için yetkiniz yok");
+    }
+    const valid = new Set(portalGroups.map((g) => g.key as string));
+    const groups = data.groups.filter((g) => valid.has(g));
+    const { findPortalUserById, setUserGroups, logLoginEvent } = await import("./portal-auth.server");
+    const target = await findPortalUserById(data.userId);
+    if (!target) throw new Error("User not found");
+    const saved = await setUserGroups(data.userId, groups, context.userId);
+    await logLoginEvent(
+      context.userId,
+      context.user.username,
+      "admin_set_groups",
+      `${target.username} → ${saved.length ? saved.map(groupLabel).join(", ") : "grup yok"}`,
+    );
+    return { ok: true, groups: saved };
   });
 
 /** Satır açıldığında profil detayını (fotoğraflar dahil) getirir. */

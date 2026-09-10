@@ -1,9 +1,10 @@
 import { redirect } from "@tanstack/react-router";
 import { getCurrentSession } from "./portal-auth.functions";
+import { hasGroupAccess, type PortalGroupKey } from "./portal-groups";
 
 export async function requirePortalAuth(
   locationHref?: string,
-  opts?: { admin?: boolean; allowIncompleteProfile?: boolean },
+  opts?: { admin?: boolean; allowIncompleteProfile?: boolean; group?: PortalGroupKey },
 ) {
   const session = await getCurrentSession();
   if (!session) {
@@ -22,6 +23,10 @@ export async function requirePortalAuth(
   }
 
   if (opts?.admin && !session.isAdmin) {
+    throw redirect({ to: "/" });
+  }
+
+  if (opts?.group && !hasGroupAccess(session.groups, session.adminLevel, opts.group)) {
     throw redirect({ to: "/" });
   }
 
