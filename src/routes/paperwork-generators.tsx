@@ -34,6 +34,7 @@ const routes: Record<string, string> = {
   "field-interview-karti": "/field-interview-karti",
   "gozalti-kayit-formu": "/gozalti-kayit-formu",
   "e-posta": "/e-posta",
+  "guc-kullanim-raporlari": "/guc-kullanim-raporlari",
 };
 
 function Page() {

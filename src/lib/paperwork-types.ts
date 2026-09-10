@@ -8,6 +8,7 @@ import {
   Lock,
   Mail,
   MessageSquareText,
+  ShieldAlert,
   type LucideIcon,
 } from "lucide-react";
 
@@ -84,5 +85,12 @@ export const paperworkTypes: PaperworkType[] = [
     description: "Departman içi resmi e-posta şablonu.",
     icon: Mail,
     format: "BBCode",
+  },
+  {
+    slug: "guc-kullanim-raporlari",
+    label: "Güç Kullanım Raporları",
+    description:
+      "Kategorik Güç Kullanımı Raporu (Form 06.11.33) ve Kategorik Güç Kullanımı Tamamlayıcı Raporu (Form 06.11.34) şablonlarının bulunduğu alan.",
+    icon: ShieldAlert,
   },
 ];

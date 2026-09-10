@@ -12,6 +12,10 @@ export type GroupTemplate = {
   description: string;
   /** Hazır şablon sayfası varsa hedef yol. */
   to?: string;
+  /** Harici bağlantı (yönerge vb.). */
+  href?: string;
+  /** Bağlantı/aksiyon metni. */
+  actionLabel?: string;
 };
 
 export function GroupAreaPage({
@@ -79,9 +83,9 @@ export function GroupAreaPage({
                 <>
                   <h2 className="text-base font-semibold tracking-tight">{t.label}</h2>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.description}</p>
-                  {t.to ? (
+                  {t.to || t.href ? (
                     <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary opacity-70 transition-all group-hover:gap-2.5 group-hover:opacity-100">
-                      Şablonu aç
+                      {t.actionLabel ?? "Şablonu aç"}
                       <ArrowRight className="size-3.5" />
                     </span>
                   ) : null}
@@ -90,6 +94,23 @@ export function GroupAreaPage({
 
               const cls =
                 "group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/80 p-5 text-left shadow-sm";
+
+              const hoverCls =
+                "transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md";
+
+              if (t.href) {
+                return (
+                  <a
+                    key={t.slug}
+                    href={t.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${cls} ${hoverCls}`}
+                  >
+                    {inner}
+                  </a>
+                );
+              }
 
               if (!t.to) {
                 return (
