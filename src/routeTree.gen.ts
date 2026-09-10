@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
+import { Route as AddTakipSorusturmaFormu2RouteImport } from './routes/add-takip-sorusturma-formu-2'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
@@ -48,6 +49,12 @@ const AddTakipSorusturmaFormu1Route =
   AddTakipSorusturmaFormu1RouteImport.update({
     id: '/add-takip-sorusturma-formu-1',
     path: '/add-takip-sorusturma-formu-1',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AddTakipSorusturmaFormu2Route =
+  AddTakipSorusturmaFormu2RouteImport.update({
+    id: '/add-takip-sorusturma-formu-2',
+    path: '/add-takip-sorusturma-formu-2',
     getParentRoute: () => rootRouteImport,
   } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -189,6 +196,7 @@ const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
+  '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -220,6 +228,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
+  '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -252,6 +261,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
+  '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -285,6 +295,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/add-takip-sorusturma-formu-1'
+    | '/add-takip-sorusturma-formu-2'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/add-takip-sorusturma-formu-1'
+    | '/add-takip-sorusturma-formu-2'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -347,6 +359,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/add-takip-sorusturma-formu-1'
+    | '/add-takip-sorusturma-formu-2'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -379,6 +392,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
+  AddTakipSorusturmaFormu2Route: typeof AddTakipSorusturmaFormu2Route
   AdminRoute: typeof AdminRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
@@ -422,6 +436,13 @@ declare module '@tanstack/react-router' {
       path: '/add-takip-sorusturma-formu-1'
       fullPath: '/add-takip-sorusturma-formu-1'
       preLoaderRoute: typeof AddTakipSorusturmaFormu1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-takip-sorusturma-formu-2': {
+      id: '/add-takip-sorusturma-formu-2'
+      path: '/add-takip-sorusturma-formu-2'
+      fullPath: '/add-takip-sorusturma-formu-2'
+      preLoaderRoute: typeof AddTakipSorusturmaFormu2RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -619,6 +640,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
+  AddTakipSorusturmaFormu2Route: AddTakipSorusturmaFormu2Route,
   AdminRoute: AdminRoute,
   ApbSablonuRoute: ApbSablonuRoute,
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
