@@ -112,6 +112,17 @@ function Page() {
           </div>
         </header>
 
+        <a
+          href="https://lspd-tr.gta.world/viewtopic.php?t=1831#p3972"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 block rounded-xl border border-border bg-card/60 px-4 py-3 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+        >
+          <span className="font-semibold text-foreground">Not:</span> (( Güç Kullanımı Soruşturması
+          Yönergeleri )) — yönergeyi okumak için tıklayın.
+        </a>
+
+
         <DraftBar
           savedAt={savedAt}
           onClear={() => {
