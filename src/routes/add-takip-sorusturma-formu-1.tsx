@@ -32,7 +32,7 @@ import {
   type FollowupVictim,
 } from "@/lib/add-followup-1";
 
-const title = "Takip Soruşturma Formu 1";
+const title = "Takip Soruşturma Formu Birinci Sayfa";
 const description = "Area Detective Division takip soruşturma raporu (BBCode).";
 
 export const Route = createFileRoute("/add-takip-sorusturma-formu-1")({
