@@ -269,6 +269,7 @@ function Page() {
                         baseMinutes={result.baseMaxMinutes}
                         finalMinutes={result.maxMinutes}
                         active={result.paroleViolator}
+                        openEnded={result.openEnded}
                       />
                     }
                     copyValue={String(result.maxMinutes)}
