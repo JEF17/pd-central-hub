@@ -20,12 +20,10 @@ import { Route as AddWarrantHizmetleriRouteImport } from './routes/add-warrant-h
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
-import { Route as AreaDetectiveDivisionRouteImport } from './routes/detective-portal'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as AyarlarRouteImport } from './routes/ayarlar'
 import { Route as CalisanListesiRouteImport } from './routes/calisan-listesi'
 import { Route as CaselawRouteImport } from './routes/caselaw'
-import { Route as CentralHomicideBureauRouteImport } from './routes/central-homicide-bureau'
 import { Route as CentralTrafficDivisionRouteImport } from './routes/central-traffic-division'
 import { Route as DetectivePortalRouteImport } from './routes/detective-portal'
 import { Route as EPostaRouteImport } from './routes/e-posta'
@@ -105,11 +103,6 @@ const AracElKoymaRaporuRoute = AracElKoymaRaporuRouteImport.update({
   path: '/arac-el-koyma-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AreaDetectiveDivisionRoute = AreaDetectiveDivisionRouteImport.update({
-  id: '/detective-portal',
-  path: '/detective-portal',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
   id: '/arrest-calculator',
   path: '/arrest-calculator',
@@ -128,11 +121,6 @@ const CalisanListesiRoute = CalisanListesiRouteImport.update({
 const CaselawRoute = CaselawRouteImport.update({
   id: '/caselaw',
   path: '/caselaw',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CentralHomicideBureauRoute = CentralHomicideBureauRouteImport.update({
-  id: '/central-homicide-bureau',
-  path: '/central-homicide-bureau',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CentralTrafficDivisionRoute = CentralTrafficDivisionRouteImport.update({
@@ -243,12 +231,10 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
-  '/detective-portal': typeof AreaDetectiveDivisionRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
-  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
   '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
@@ -281,12 +267,10 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
-  '/detective-portal': typeof AreaDetectiveDivisionRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
-  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
   '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
@@ -320,12 +304,10 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
-  '/detective-portal': typeof AreaDetectiveDivisionRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
-  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
   '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
@@ -360,12 +342,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
-    | '/detective-portal'
     | '/arrest-calculator'
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
-    | '/central-homicide-bureau'
     | '/central-traffic-division'
     | '/detective-portal'
     | '/e-posta'
@@ -398,12 +378,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
-    | '/detective-portal'
     | '/arrest-calculator'
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
-    | '/central-homicide-bureau'
     | '/central-traffic-division'
     | '/detective-portal'
     | '/e-posta'
@@ -436,12 +414,10 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
-    | '/detective-portal'
     | '/arrest-calculator'
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
-    | '/central-homicide-bureau'
     | '/central-traffic-division'
     | '/detective-portal'
     | '/e-posta'
@@ -475,12 +451,10 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
-  AreaDetectiveDivisionRoute: typeof AreaDetectiveDivisionRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   AyarlarRoute: typeof AyarlarRoute
   CalisanListesiRoute: typeof CalisanListesiRoute
   CaselawRoute: typeof CaselawRoute
-  CentralHomicideBureauRoute: typeof CentralHomicideBureauRoute
   CentralTrafficDivisionRoute: typeof CentralTrafficDivisionRoute
   DetectivePortalRoute: typeof DetectivePortalRoute
   EPostaRoute: typeof EPostaRoute
@@ -581,13 +555,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AracElKoymaRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/detective-portal': {
-      id: '/detective-portal'
-      path: '/detective-portal'
-      fullPath: '/detective-portal'
-      preLoaderRoute: typeof AreaDetectiveDivisionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/arrest-calculator': {
       id: '/arrest-calculator'
       path: '/arrest-calculator'
@@ -614,13 +581,6 @@ declare module '@tanstack/react-router' {
       path: '/caselaw'
       fullPath: '/caselaw'
       preLoaderRoute: typeof CaselawRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/central-homicide-bureau': {
-      id: '/central-homicide-bureau'
-      path: '/central-homicide-bureau'
-      fullPath: '/central-homicide-bureau'
-      preLoaderRoute: typeof CentralHomicideBureauRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/central-traffic-division': {
@@ -772,12 +732,10 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   ApbSablonuRoute: ApbSablonuRoute,
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
-  AreaDetectiveDivisionRoute: AreaDetectiveDivisionRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   AyarlarRoute: AyarlarRoute,
   CalisanListesiRoute: CalisanListesiRoute,
   CaselawRoute: CaselawRoute,
-  CentralHomicideBureauRoute: CentralHomicideBureauRoute,
   CentralTrafficDivisionRoute: CentralTrafficDivisionRoute,
   DetectivePortalRoute: DetectivePortalRoute,
   EPostaRoute: EPostaRoute,
