@@ -12,6 +12,7 @@ const templates: GroupTemplate[] = [
     slug: "takip-sorusturma-formu-1",
     label: "Takip Soruşturma Formu 1",
     description: "Devam eden soruşturmalarda ilk takip ve gelişme kayıtlarının raporlandığı form.",
+    to: "/add-takip-sorusturma-formu-1",
   },
   {
     slug: "takip-sorusturma-formu-2",

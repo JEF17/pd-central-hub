@@ -1,11 +1,18 @@
 import { useMemo, useState } from "react";
-import { Search, ShieldCheck } from "lucide-react";
+import { ArrowRight, Search, ShieldCheck } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 import { AppShell } from "@/components/AppShell";
 import { Input } from "@/components/ui/input";
 
 /** Gruba özel rapor şablonu tanımı. */
-export type GroupTemplate = { slug: string; label: string; description: string };
+export type GroupTemplate = {
+  slug: string;
+  label: string;
+  description: string;
+  /** Hazır şablon sayfası varsa hedef yol. */
+  to?: string;
+};
 
 export function GroupAreaPage({
   title,
@@ -67,15 +74,41 @@ export function GroupAreaPage({
           </p>
         ) : (
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {items.map((t) => (
-              <div
-                key={t.slug}
-                className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/80 p-5 text-left shadow-sm"
-              >
-                <h2 className="text-base font-semibold tracking-tight">{t.label}</h2>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.description}</p>
-              </div>
-            ))}
+            {items.map((t) => {
+              const inner = (
+                <>
+                  <h2 className="text-base font-semibold tracking-tight">{t.label}</h2>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.description}</p>
+                  {t.to ? (
+                    <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary opacity-70 transition-all group-hover:gap-2.5 group-hover:opacity-100">
+                      Şablonu aç
+                      <ArrowRight className="size-3.5" />
+                    </span>
+                  ) : null}
+                </>
+              );
+
+              const cls =
+                "group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/80 p-5 text-left shadow-sm";
+
+              if (!t.to) {
+                return (
+                  <div key={t.slug} className={cls}>
+                    {inner}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={t.slug}
+                  to={t.to as never}
+                  className={`${cls} transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md`}
+                >
+                  {inner}
+                </Link>
+              );
+            })}
           </div>
         )}
       </div>
