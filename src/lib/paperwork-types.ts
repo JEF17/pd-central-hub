@@ -87,10 +87,12 @@ export const paperworkTypes: PaperworkType[] = [
     format: "BBCode",
   },
   {
-    slug: "guc-kullanim-raporlari",
-    label: "Güç Kullanım Raporları",
+    slug: "guc-kullanim-raporu",
+    label: "Güç Kullanım Raporu",
     description:
-      "Kategorik Güç Kullanımı Raporu (Form 06.11.33) ve Kategorik Güç Kullanımı Tamamlayıcı Raporu (Form 06.11.34) şablonlarının bulunduğu alan.",
+      "Görev sırasında uygulanan güç kullanımının raporlandığı form (Form 06.11.34).",
     icon: ShieldAlert,
+    format: "BBCode",
   },
+
 ];
