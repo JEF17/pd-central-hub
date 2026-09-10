@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy, FileSearch, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, Check, ClipboardCopy, FileSearch, Plus, Trash2 } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
 import { FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
@@ -62,22 +62,33 @@ function CheckGroup({
       <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
         {label}
       </Label>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {options.map((o) => {
           const active = values.includes(o);
           return (
             <button
               key={o}
               type="button"
+              aria-pressed={active}
               onClick={() => onToggle(o)}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-xs transition-colors",
+                "group flex items-center gap-2.5 rounded-lg border px-3 py-2.5 text-left text-xs transition-all",
                 active
-                  ? "border-primary/50 bg-primary/15 text-foreground"
-                  : "border-border bg-background/60 text-muted-foreground hover:border-primary/30",
+                  ? "border-primary/60 bg-primary/10 text-foreground shadow-sm"
+                  : "border-border bg-background/50 text-muted-foreground hover:border-primary/40 hover:bg-background",
               )}
             >
-              {o}
+              <span
+                className={cn(
+                  "grid size-4 shrink-0 place-items-center rounded-[5px] border transition-colors",
+                  active
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-input bg-background group-hover:border-primary/50",
+                )}
+              >
+                {active ? <Check className="size-3" strokeWidth={3} /> : null}
+              </span>
+              <span className="leading-snug">{o}</span>
             </button>
           );
         })}
@@ -300,12 +311,29 @@ function Page() {
               onChange={(v) => set("reportedAt", v)}
               withTime
             />
-            <div className="sm:col-span-2">
-              <Field
-                label="Çalıntı/Kayıp/Hasarlı Mülk Türü"
+            <div className="sm:col-span-2 grid gap-2">
+              <Label
+                htmlFor="property-type"
+                className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground"
+              >
+                Mülk Türü
+              </Label>
+              <select
+                id="property-type"
                 value={data.propertyType}
-                onChange={(v) => set("propertyType", v)}
-              />
+                onChange={(e) => set("propertyType", e.target.value)}
+                className={cn(
+                  "h-10 w-full rounded-md border border-input bg-background px-3 text-sm",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                )}
+              >
+                <option value="">Seçiniz</option>
+                {propertyTypeOptions.map((o) => (
+                  <option key={o} value={o}>
+                    {o}
+                  </option>
+                ))}
+              </select>
             </div>
             <Field label="Çalıntı/Kayıp ($)" value={data.lossAmount} onChange={(v) => set("lossAmount", v)} />
             <Field label="Geri Alınan ($)" value={data.recoveredAmount} onChange={(v) => set("recoveredAmount", v)} />
