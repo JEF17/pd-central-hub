@@ -26,6 +26,13 @@ const templates: GroupTemplate[] = [
     description: "AÇIKLAMA/TAMAMLAYICI — SAHP 556 (Rev. 2-25) OPI 042",
     to: "/add-kaza-sorusturma-raporu-3",
   },
+  {
+    slug: "ctd-rapor-yonergeleri",
+    label: "Rapor Yönergelerini İncelemeyi Unutmayın",
+    description: "Central Traffic Division raporlama yönergeleri ve şablon açıklamaları için forum konusu.",
+    href: "https://lspd-tr.gta.world/viewtopic.php?t=7488",
+    actionLabel: "Yönergeyi incele",
+  },
 ];
 
 export const Route = createFileRoute("/central-traffic-division")({
