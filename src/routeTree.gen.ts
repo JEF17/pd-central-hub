@@ -20,17 +20,15 @@ import { Route as AddWarrantHizmetleriRouteImport } from './routes/add-warrant-h
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
-import { Route as AreaDetectiveDivisionRouteImport } from './routes/area-detective-division'
 import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator'
 import { Route as AyarlarRouteImport } from './routes/ayarlar'
 import { Route as CalisanListesiRouteImport } from './routes/calisan-listesi'
 import { Route as CaselawRouteImport } from './routes/caselaw'
-import { Route as CentralHomicideBureauRouteImport } from './routes/central-homicide-bureau'
 import { Route as CentralTrafficDivisionRouteImport } from './routes/central-traffic-division'
+import { Route as DetectivePortalRouteImport } from './routes/detective-portal'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
-import { Route as GucKullanimRaporlariRouteImport } from './routes/guc-kullanim-raporlari'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
 import { Route as KartvizitRouteImport } from './routes/kartvizit'
@@ -105,11 +103,6 @@ const AracElKoymaRaporuRoute = AracElKoymaRaporuRouteImport.update({
   path: '/arac-el-koyma-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AreaDetectiveDivisionRoute = AreaDetectiveDivisionRouteImport.update({
-  id: '/area-detective-division',
-  path: '/area-detective-division',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ArrestCalculatorRoute = ArrestCalculatorRouteImport.update({
   id: '/arrest-calculator',
   path: '/arrest-calculator',
@@ -130,14 +123,14 @@ const CaselawRoute = CaselawRouteImport.update({
   path: '/caselaw',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CentralHomicideBureauRoute = CentralHomicideBureauRouteImport.update({
-  id: '/central-homicide-bureau',
-  path: '/central-homicide-bureau',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CentralTrafficDivisionRoute = CentralTrafficDivisionRouteImport.update({
   id: '/central-traffic-division',
   path: '/central-traffic-division',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DetectivePortalRoute = DetectivePortalRouteImport.update({
+  id: '/detective-portal',
+  path: '/detective-portal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EPostaRoute = EPostaRouteImport.update({
@@ -153,11 +146,6 @@ const FieldInterviewKartiRoute = FieldInterviewKartiRouteImport.update({
 const GozaltiKayitFormuRoute = GozaltiKayitFormuRouteImport.update({
   id: '/gozalti-kayit-formu',
   path: '/gozalti-kayit-formu',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GucKullanimRaporlariRoute = GucKullanimRaporlariRouteImport.update({
-  id: '/guc-kullanim-raporlari',
-  path: '/guc-kullanim-raporlari',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IfadeRaporuRoute = IfadeRaporuRouteImport.update({
@@ -243,17 +231,15 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
-  '/area-detective-division': typeof AreaDetectiveDivisionRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
-  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
+  '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
-  '/guc-kullanim-raporlari': typeof GucKullanimRaporlariRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
@@ -281,17 +267,15 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
-  '/area-detective-division': typeof AreaDetectiveDivisionRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
-  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
+  '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
-  '/guc-kullanim-raporlari': typeof GucKullanimRaporlariRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
@@ -320,17 +304,15 @@ export interface FileRoutesById {
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
-  '/area-detective-division': typeof AreaDetectiveDivisionRoute
   '/arrest-calculator': typeof ArrestCalculatorRoute
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
-  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
+  '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
-  '/guc-kullanim-raporlari': typeof GucKullanimRaporlariRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
@@ -360,17 +342,15 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
-    | '/area-detective-division'
     | '/arrest-calculator'
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
-    | '/central-homicide-bureau'
     | '/central-traffic-division'
+    | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
-    | '/guc-kullanim-raporlari'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
@@ -398,17 +378,15 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
-    | '/area-detective-division'
     | '/arrest-calculator'
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
-    | '/central-homicide-bureau'
     | '/central-traffic-division'
+    | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
-    | '/guc-kullanim-raporlari'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
@@ -436,17 +414,15 @@ export interface FileRouteTypes {
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
-    | '/area-detective-division'
     | '/arrest-calculator'
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
-    | '/central-homicide-bureau'
     | '/central-traffic-division'
+    | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
-    | '/guc-kullanim-raporlari'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
@@ -475,17 +451,15 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
-  AreaDetectiveDivisionRoute: typeof AreaDetectiveDivisionRoute
   ArrestCalculatorRoute: typeof ArrestCalculatorRoute
   AyarlarRoute: typeof AyarlarRoute
   CalisanListesiRoute: typeof CalisanListesiRoute
   CaselawRoute: typeof CaselawRoute
-  CentralHomicideBureauRoute: typeof CentralHomicideBureauRoute
   CentralTrafficDivisionRoute: typeof CentralTrafficDivisionRoute
+  DetectivePortalRoute: typeof DetectivePortalRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
-  GucKullanimRaporlariRoute: typeof GucKullanimRaporlariRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
   KartvizitRoute: typeof KartvizitRoute
@@ -581,13 +555,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AracElKoymaRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/area-detective-division': {
-      id: '/area-detective-division'
-      path: '/area-detective-division'
-      fullPath: '/area-detective-division'
-      preLoaderRoute: typeof AreaDetectiveDivisionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/arrest-calculator': {
       id: '/arrest-calculator'
       path: '/arrest-calculator'
@@ -616,18 +583,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaselawRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/central-homicide-bureau': {
-      id: '/central-homicide-bureau'
-      path: '/central-homicide-bureau'
-      fullPath: '/central-homicide-bureau'
-      preLoaderRoute: typeof CentralHomicideBureauRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/central-traffic-division': {
       id: '/central-traffic-division'
       path: '/central-traffic-division'
       fullPath: '/central-traffic-division'
       preLoaderRoute: typeof CentralTrafficDivisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/detective-portal': {
+      id: '/detective-portal'
+      path: '/detective-portal'
+      fullPath: '/detective-portal'
+      preLoaderRoute: typeof DetectivePortalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/e-posta': {
@@ -649,13 +616,6 @@ declare module '@tanstack/react-router' {
       path: '/gozalti-kayit-formu'
       fullPath: '/gozalti-kayit-formu'
       preLoaderRoute: typeof GozaltiKayitFormuRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/guc-kullanim-raporlari': {
-      id: '/guc-kullanim-raporlari'
-      path: '/guc-kullanim-raporlari'
-      fullPath: '/guc-kullanim-raporlari'
-      preLoaderRoute: typeof GucKullanimRaporlariRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ifade-raporu': {
@@ -772,17 +732,15 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRoute,
   ApbSablonuRoute: ApbSablonuRoute,
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
-  AreaDetectiveDivisionRoute: AreaDetectiveDivisionRoute,
   ArrestCalculatorRoute: ArrestCalculatorRoute,
   AyarlarRoute: AyarlarRoute,
   CalisanListesiRoute: CalisanListesiRoute,
   CaselawRoute: CaselawRoute,
-  CentralHomicideBureauRoute: CentralHomicideBureauRoute,
   CentralTrafficDivisionRoute: CentralTrafficDivisionRoute,
+  DetectivePortalRoute: DetectivePortalRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
-  GucKullanimRaporlariRoute: GucKullanimRaporlariRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
   KartvizitRoute: KartvizitRoute,

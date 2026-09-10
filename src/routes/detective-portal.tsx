@@ -3,10 +3,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GroupAreaPage, type GroupTemplate } from "@/components/GroupAreaPage";
 import { requirePortalAuth } from "@/lib/portal-auth";
 
-const title = "Area Detective Division";
-const description = "Area Detective Division personeline özel rapor şablonları ve araçlar.";
+const title = "Detective Portal";
+const description = "Dedektif birimlerine özel rapor şablonları ve araçlar.";
 
-/** ADD'a özel şablonlar. */
+/** Detective Portal şablonları. */
 const templates: GroupTemplate[] = [
   {
     slug: "takip-sorusturma-formu-1",
@@ -40,7 +40,7 @@ const templates: GroupTemplate[] = [
   },
 ];
 
-export const Route = createFileRoute("/area-detective-division")({
+export const Route = createFileRoute("/detective-portal")({
   beforeLoad: async ({ location }) => {
     await requirePortalAuth(location.href, { group: "area_detective_division" });
   },
@@ -57,7 +57,7 @@ export const Route = createFileRoute("/area-detective-division")({
   component: () => (
     <GroupAreaPage
       title={title}
-      subtitle="Bu alan yalnızca Area Detective Division yetkisi bulunan personele açıktır."
+      subtitle="Bu alan yalnızca Detective Portal yetkisi bulunan personele açıktır."
       templates={templates}
     />
   ),

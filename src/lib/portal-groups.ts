@@ -3,7 +3,6 @@ export type PortalGroupKey =
   | "area_detective_division"
   | "metropolitan_division"
   | "central_traffic_division"
-  | "central_homicide_bureau"
   | "supervisory_staff";
 
 export type PortalGroup = {
@@ -17,10 +16,10 @@ export type PortalGroup = {
 export const portalGroups: PortalGroup[] = [
   {
     key: "area_detective_division",
-    label: "Area Detective Division",
-    shortLabel: "ADD",
-    description: "Area Detective Division'a özel rapor ve şablon alanı.",
-    to: "/area-detective-division",
+    label: "Detective Portal",
+    shortLabel: "DP",
+    description: "Dedektif birimlerine özel rapor ve şablon alanı.",
+    to: "/detective-portal",
   },
   {
     key: "metropolitan_division",
@@ -36,13 +35,7 @@ export const portalGroups: PortalGroup[] = [
     description: "Central Traffic Division'a özel rapor ve şablon alanı.",
     to: "/central-traffic-division",
   },
-  {
-    key: "central_homicide_bureau",
-    label: "Central Homicide Bureau",
-    shortLabel: "CHB",
-    description: "Central Homicide Bureau'ya özel rapor ve şablon alanı.",
-    to: "/central-homicide-bureau",
-  },
+
   {
     key: "supervisory_staff",
     label: "Supervisory Staff",

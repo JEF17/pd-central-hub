@@ -95,10 +95,11 @@ function Page() {
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-6 shadow-sm">
           <Button variant="ghost" size="sm" asChild className="-ml-2 mb-4 h-7 px-2 text-xs">
-            <Link to="/guc-kullanim-raporlari">
+            <Link to="/paperwork-generators">
               <ArrowLeft className="size-3.5" />
-              Güç Kullanım Raporları
+              Rapor Oluştur
             </Link>
+
           </Button>
           <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
             <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/25 to-gold/15 text-primary ring-1 ring-primary/25">
@@ -110,6 +111,17 @@ function Page() {
             </div>
           </div>
         </header>
+
+        <a
+          href="https://lspd-tr.gta.world/viewtopic.php?t=1831#p3972"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 block rounded-xl border border-border bg-card/60 px-4 py-3 text-sm text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground"
+        >
+          <span className="font-semibold text-foreground">Not:</span> (( Güç Kullanımı Soruşturması
+          Yönergeleri )) — yönergeyi okumak için tıklayın.
+        </a>
+
 
         <DraftBar
           savedAt={savedAt}

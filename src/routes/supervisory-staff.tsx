@@ -6,8 +6,16 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 const title = "Supervisory Staff";
 const description = "Supervisory Staff personeline özel rapor şablonları ve araçlar.";
 
-/** Supervisory Staff'a özel şablonlar buraya eklenecek. */
-const templates: GroupTemplate[] = [];
+/** Supervisory Staff'a özel şablonlar. */
+const templates: GroupTemplate[] = [
+  {
+    slug: "kategorik-guc-kullanimi-raporu",
+    label: "Kategorik Güç Kullanımı Raporu (Form 06.11.33)",
+    description: "Görev sırasında uygulanan güç kullanımının kategorik olarak raporlandığı form.",
+    to: "/add-kategorik-guc-kullanimi-raporu",
+  },
+];
+
 
 export const Route = createFileRoute("/supervisory-staff")({
   beforeLoad: async ({ location }) => {
