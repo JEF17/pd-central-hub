@@ -136,14 +136,16 @@ export const emptyFollowup1 = (): Followup1Data => ({
 
 const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 
-/** Olay özeti + soruşturma + kanıtlar tek detay bloğu olarak birleşir. */
+/** Açıklama + olay özeti + soruşturma + kanıtlar tek detay bloğu olarak birleşir. */
 export function buildDetailsBlock(
+  description: string,
   summary: string,
   investigation: string,
   evidences: (Evidence | string)[],
   emptyFallback = "BURAYA",
 ): string {
   const parts: string[] = [];
+  if (description.trim()) parts.push(`[b]AÇIKLAMA[/b]\n${description.trim()}`);
   if (summary.trim()) parts.push(`[b]OLAY ÖZETİ[/b]\n${summary.trim()}`);
   if (investigation.trim()) parts.push(`[b]SORUŞTURMA[/b]\n${investigation.trim()}`);
   const ev = evidences
