@@ -19,6 +19,13 @@ const templates: GroupTemplate[] = [
     description:
       "Kategorik güç kullanımı raporuna ek olarak düzenlenen tamamlayıcı bilgi formu.",
   },
+  {
+    slug: "guc-kullanimi-sorusturmasi-yonergeleri",
+    label: "(( Güç Kullanımı Soruşturması Yönergeleri ))",
+    description: "Güç kullanımı soruşturmalarına ilişkin resmi yönergeye git.",
+    href: "https://lspd-tr.gta.world/viewtopic.php?t=1831#p19643",
+    actionLabel: "Yönergeyi aç",
+  },
 ];
 
 export const Route = createFileRoute("/guc-kullanim-raporlari")({
