@@ -286,47 +286,6 @@ function Page() {
             />
           </Section>
 
-          <Section title="Field Supervisor İmzası" wide>
-            <Field
-              label="Personel Adı Soyadı"
-              value={data.supervisorName}
-              onChange={(v) => set("supervisorName", v)}
-              placeholder="A. SOYADI"
-            />
-            <Field
-              label="Seri No."
-              value={data.supervisorSerialNo}
-              onChange={(v) => set("supervisorSerialNo", v)}
-              placeholder="00000"
-            />
-            <Field
-              label="Division"
-              value={data.supervisorDivision}
-              onChange={(v) => set("supervisorDivision", v)}
-              placeholder="CTD"
-            />
-          </Section>
-
-          <Section title="Watch Commander İmzası" wide>
-            <Field
-              label="Personel Adı Soyadı"
-              value={data.watchCommanderName}
-              onChange={(v) => set("watchCommanderName", v)}
-              placeholder="A. SOYADI"
-            />
-            <Field
-              label="Seri No."
-              value={data.watchCommanderSerialNo}
-              onChange={(v) => set("watchCommanderSerialNo", v)}
-              placeholder="00000"
-            />
-            <Field
-              label="Division"
-              value={data.watchCommanderDivision}
-              onChange={(v) => set("watchCommanderDivision", v)}
-              placeholder="CTD"
-            />
-          </Section>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
