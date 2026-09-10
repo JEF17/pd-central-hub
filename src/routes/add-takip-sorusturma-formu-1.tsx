@@ -7,6 +7,8 @@ import { FormSection as Section, TextField as Field, DateField } from "@/compone
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
+import { useOfficerProfile } from "@/hooks/use-officer-profile";
+import { divisionCode } from "@/lib/officer-profile";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -104,6 +106,21 @@ function Page() {
     emptyFollowup1,
   );
   const [output, setOutput] = useState("");
+  const profile = useOfficerProfile();
+  const autoFilled = useRef(false);
+
+  useEffect(() => {
+    if (autoFilled.current || !profile) return;
+    if (!profile.name && !profile.serialNo && !profile.division) return;
+    autoFilled.current = true;
+    setData((d) => ({
+      ...d,
+      officerName: d.officerName || profile.name.toUpperCase(),
+      officerSerial: d.officerSerial || profile.serialNo,
+      officerDivision: d.officerDivision || divisionCode(profile.division),
+    }));
+  }, [profile, setData]);
+
 
   const set = <K extends keyof Followup1Data>(key: K, value: Followup1Data[K]) =>
     setData((d) => ({ ...d, [key]: value }));
