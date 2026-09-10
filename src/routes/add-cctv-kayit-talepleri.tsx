@@ -17,8 +17,7 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 import { buildCctvBBCode, emptyCctv, type CctvData } from "@/lib/add-cctv";
 
 const title = "CCTV Kayıt Talepleri";
-const description =
-  "Kamera kayıtlarına erişim talebi formu — BBCode çıktısı otomatik oluşur.";
+const description = "Kamera kayıtlarına erişim talebi formu — BBCode çıktısı otomatik oluşur.";
 
 export const Route = createFileRoute("/add-cctv-kayit-talepleri")({
   beforeLoad: async ({ location }) => {
@@ -38,10 +37,7 @@ export const Route = createFileRoute("/add-cctv-kayit-talepleri")({
 });
 
 function Page() {
-  const [data, setData, clearDraft, savedAt] = useFormDraft<CctvData>(
-    "add-cctv-kayit-talepleri",
-    emptyCctv,
-  );
+  const [data, setData, clearDraft, savedAt] = useFormDraft<CctvData>("add-cctv-kayit-talepleri", emptyCctv);
   const [output, setOutput] = useState("");
   const profile = useOfficerProfile();
   const autoFilled = useRef(false);
@@ -57,8 +53,7 @@ function Page() {
     }));
   }, [profile, setData]);
 
-  const set = <K extends keyof CctvData>(key: K, value: CctvData[K]) =>
-    setData((d) => ({ ...d, [key]: value }));
+  const set = <K extends keyof CctvData>(key: K, value: CctvData[K]) => setData((d) => ({ ...d, [key]: value }));
 
   const copy = (value: string, label: string) => {
     void navigator.clipboard.writeText(value);
@@ -112,7 +107,7 @@ function Page() {
               label="Pozisyon Adı Soyadı"
               value={data.officerName}
               onChange={(v) => set("officerName", v)}
-              placeholder="POZİSYON ADI SOYADI"
+              placeholder="POLICE DETECTIVE I JOHN DOE, 12345"
             />
             <Field
               label="Seri No."
@@ -122,11 +117,7 @@ function Page() {
             />
           </Section>
 
-          <Section
-            title="Rapor Bağlantıları"
-            wide
-            hint="Talebin dayandığı raporların forum bağlantıları"
-          >
+          <Section title="Rapor Bağlantıları" wide hint="Talebin dayandığı raporların forum bağlantıları">
             <Field
               label="Olay Raporu"
               value={data.incidentReportLink}
@@ -148,11 +139,7 @@ function Page() {
           </Section>
 
           <Section title="CCTV Talep Bilgileri" wide>
-            <DateField
-              label="Tarih"
-              value={data.requestDate}
-              onChange={(v) => set("requestDate", v)}
-            />
+            <DateField label="Tarih" value={data.requestDate} onChange={(v) => set("requestDate", v)} />
             <Field
               label="Saat Aralığı"
               value={data.timeRange}
