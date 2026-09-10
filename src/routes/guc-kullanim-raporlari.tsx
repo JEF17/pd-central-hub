@@ -17,6 +17,7 @@ const templates: GroupTemplate[] = [
     slug: "kategorik-guc-kullanimi-tamamlayici-raporu",
     label: "Kategorik Güç Kullanımı Tamamlayıcı Raporu (Form 06.11.34)",
     description: "Kategorik güç kullanımı raporuna ek olarak düzenlenen tamamlayıcı bilgi formu.",
+    to: "/add-kategorik-guc-kullanimi-tamamlayici-raporu",
   },
   {
     slug: "guc-kullanimi-sorusturmasi-yonergeleri",
