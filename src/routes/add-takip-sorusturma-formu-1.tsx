@@ -215,7 +215,7 @@ function Page() {
               label="Rapor No."
               value={data.titleNo}
               onChange={(v) => set("titleNo", v)}
-              placeholder="0000 veya 26-0000"
+              placeholder="0000"
             />
             <DateField
               label="Tarih"

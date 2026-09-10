@@ -118,12 +118,11 @@ export const emptyFollowup1 = (): Followup1Data => ({
 
 const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 
-/** Örn: 02-HI 26-0000 - GG/AA/YYYY */
+/** Örn: 02-HI 0000 - GG/AA/YYYY */
 export function buildFollowup1Title(data: Followup1Data): string {
   const type = followupCaseTypes.find((t) => t.key === data.caseType);
   const code = type?.code ?? "XX";
-  const raw = data.titleNo.trim();
-  const no = raw ? (raw.includes("-") ? raw : `26-${raw}`) : "26-0000";
+  const no = data.titleNo.trim() || "0000";
   return `02-${code} ${no} - ${v(data.titleDate, "GG/AA/YYYY")}`;
 }
 
