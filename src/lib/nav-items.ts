@@ -55,13 +55,14 @@ export const navItems: NavItem[] = [
     position: "main",
   },
   {
-    label: "Area Detective Division",
-    to: "/area-detective-division",
+    label: "Detective Portal",
+    to: "/detective-portal",
     icon: Search,
-    description: "Area Detective Division'a özel rapor şablonları.",
+    description: "Dedektif birimlerine özel rapor şablonları.",
     position: "main",
     groupKey: "area_detective_division",
   },
+
   {
     label: "Metropolitan Division",
     to: "/metropolitan-division",
@@ -77,14 +78,6 @@ export const navItems: NavItem[] = [
     description: "Central Traffic Division'a özel rapor şablonları.",
     position: "main",
     groupKey: "central_traffic_division",
-  },
-  {
-    label: "Central Homicide Bureau",
-    to: "/central-homicide-bureau",
-    icon: Fingerprint,
-    description: "Central Homicide Bureau'ya özel rapor şablonları.",
-    position: "main",
-    groupKey: "central_homicide_bureau",
   },
   {
     label: "Supervisory Staff",

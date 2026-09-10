@@ -3,7 +3,6 @@ export type PortalGroupKey =
   | "area_detective_division"
   | "metropolitan_division"
   | "central_traffic_division"
-  | "central_homicide_bureau"
   | "supervisory_staff";
 
 export type PortalGroup = {

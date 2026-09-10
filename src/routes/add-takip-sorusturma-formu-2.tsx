@@ -26,7 +26,7 @@ import {
 import { asEvidence, emptyEvidence } from "@/lib/add-followup-1";
 
 const title = "Takip Soruşturma Formu İkinci Sayfa";
-const description = "Area Detective Division takip soruşturması ikinci sayfa raporu (BBCode).";
+const description = "Detective Portal takip soruşturması ikinci sayfa raporu (BBCode).";
 
 export const Route = createFileRoute("/add-takip-sorusturma-formu-2")({
   beforeLoad: async ({ location }) => {
@@ -136,9 +136,9 @@ function Page() {
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-6 shadow-sm">
           <Button variant="ghost" size="sm" asChild className="-ml-2 mb-4 h-7 px-2 text-xs">
-            <Link to="/area-detective-division">
+            <Link to="/detective-portal">
               <ArrowLeft className="size-3.5" />
-              Area Detective Division
+              Detective Portal
             </Link>
           </Button>
           <div className="relative grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4">
