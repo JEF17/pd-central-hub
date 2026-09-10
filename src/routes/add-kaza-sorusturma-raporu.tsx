@@ -86,6 +86,57 @@ function OptionGroup<T extends string>({
   );
 }
 
+/** Alt alta madde eklenip çıkarılabilen liste alanı. */
+function ListField({
+  label,
+  addLabel,
+  placeholder,
+  items,
+  onChange,
+}: {
+  label: string;
+  addLabel: string;
+  placeholder: string;
+  items: string[];
+  onChange: (items: string[]) => void;
+}) {
+  return (
+    <div className="sm:col-span-2 space-y-2">
+      <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+        {label}
+      </Label>
+      <div className="space-y-2">
+        {items.map((item, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <Input
+              className="h-10 flex-1 bg-background/60"
+              value={item}
+              placeholder={placeholder}
+              onChange={(e) => onChange(items.map((x, xi) => (xi === i ? e.target.value : x)))}
+            />
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              aria-label={`${label} maddesini sil`}
+              onClick={() => {
+                const next = items.filter((_, xi) => xi !== i);
+                onChange(next.length ? next : [""]);
+              }}
+            >
+              <Trash2 className="size-4" />
+            </Button>
+          </div>
+        ))}
+        <Button type="button" variant="outline" size="sm" onClick={() => onChange([...items, ""])}>
+          <Plus className="size-4" />
+          {addLabel}
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function Page() {
   const [data, setData, clearDraft, savedAt] = useFormDraft<TrafficCollisionData>(
     "add-kaza-sorusturma-raporu",
