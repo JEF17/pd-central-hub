@@ -24,7 +24,7 @@ import {
   type TrafficCollisionData,
 } from "@/lib/add-traffic-collision";
 
-const title = "Kaza Soruşturma Raporu";
+const title = "Kaza Soruşturma Raporu Birinci Sayfa";
 const description = "TRAFFIC COLLISION REPORT — SAHP 555 Page 1 (Rev. 2-25) OPI 060";
 
 export const Route = createFileRoute("/add-kaza-sorusturma-raporu")({
