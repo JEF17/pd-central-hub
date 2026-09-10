@@ -18,17 +18,21 @@ import { Route as ArrestCalculatorRouteImport } from './routes/arrest-calculator
 import { Route as AyarlarRouteImport } from './routes/ayarlar'
 import { Route as CalisanListesiRouteImport } from './routes/calisan-listesi'
 import { Route as CaselawRouteImport } from './routes/caselaw'
+import { Route as CentralHomicideBureauRouteImport } from './routes/central-homicide-bureau'
+import { Route as CentralTrafficDivisionRouteImport } from './routes/central-traffic-division'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
 import { Route as KartvizitRouteImport } from './routes/kartvizit'
+import { Route as MetropolitanDivisionRouteImport } from './routes/metropolitan-division'
 import { Route as OlayRaporuRouteImport } from './routes/olay-raporu'
 import { Route as OnayBekliyorRouteImport } from './routes/onay-bekliyor'
 import { Route as PaperworkGeneratorsRouteImport } from './routes/paperwork-generators'
 import { Route as PenalCodeRouteImport } from './routes/penal-code'
 import { Route as ProfilRouteImport } from './routes/profil'
+import { Route as SupervisoryStaffRouteImport } from './routes/supervisory-staff'
 import { Route as TutuklamaRaporuRouteImport } from './routes/tutuklama-raporu'
 import { Route as AuthGirisRouteImport } from './routes/auth/giris'
 import { Route as ProfilUserIdRouteImport } from './routes/profil_.$userId'
@@ -79,6 +83,16 @@ const CaselawRoute = CaselawRouteImport.update({
   path: '/caselaw',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CentralHomicideBureauRoute = CentralHomicideBureauRouteImport.update({
+  id: '/central-homicide-bureau',
+  path: '/central-homicide-bureau',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CentralTrafficDivisionRoute = CentralTrafficDivisionRouteImport.update({
+  id: '/central-traffic-division',
+  path: '/central-traffic-division',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EPostaRoute = EPostaRouteImport.update({
   id: '/e-posta',
   path: '/e-posta',
@@ -109,6 +123,11 @@ const KartvizitRoute = KartvizitRouteImport.update({
   path: '/kartvizit',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MetropolitanDivisionRoute = MetropolitanDivisionRouteImport.update({
+  id: '/metropolitan-division',
+  path: '/metropolitan-division',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OlayRaporuRoute = OlayRaporuRouteImport.update({
   id: '/olay-raporu',
   path: '/olay-raporu',
@@ -132,6 +151,11 @@ const PenalCodeRoute = PenalCodeRouteImport.update({
 const ProfilRoute = ProfilRouteImport.update({
   id: '/profil',
   path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupervisoryStaffRoute = SupervisoryStaffRouteImport.update({
+  id: '/supervisory-staff',
+  path: '/supervisory-staff',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TutuklamaRaporuRoute = TutuklamaRaporuRouteImport.update({
@@ -165,17 +189,21 @@ export interface FileRoutesByFullPath {
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
+  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
+  '/central-traffic-division': typeof CentralTrafficDivisionRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
+  '/metropolitan-division': typeof MetropolitanDivisionRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
   '/profil': typeof ProfilRoute
+  '/supervisory-staff': typeof SupervisoryStaffRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
   '/profil/$userId': typeof ProfilUserIdRoute
@@ -191,17 +219,21 @@ export interface FileRoutesByTo {
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
+  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
+  '/central-traffic-division': typeof CentralTrafficDivisionRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
+  '/metropolitan-division': typeof MetropolitanDivisionRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
   '/profil': typeof ProfilRoute
+  '/supervisory-staff': typeof SupervisoryStaffRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
   '/profil/$userId': typeof ProfilUserIdRoute
@@ -218,17 +250,21 @@ export interface FileRoutesById {
   '/ayarlar': typeof AyarlarRoute
   '/calisan-listesi': typeof CalisanListesiRoute
   '/caselaw': typeof CaselawRoute
+  '/central-homicide-bureau': typeof CentralHomicideBureauRoute
+  '/central-traffic-division': typeof CentralTrafficDivisionRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
+  '/metropolitan-division': typeof MetropolitanDivisionRoute
   '/olay-raporu': typeof OlayRaporuRoute
   '/onay-bekliyor': typeof OnayBekliyorRoute
   '/paperwork-generators': typeof PaperworkGeneratorsRoute
   '/penal-code': typeof PenalCodeRoute
   '/profil': typeof ProfilRoute
+  '/supervisory-staff': typeof SupervisoryStaffRoute
   '/tutuklama-raporu': typeof TutuklamaRaporuRoute
   '/auth/giris': typeof AuthGirisRoute
   '/profil_/$userId': typeof ProfilUserIdRoute
@@ -246,17 +282,21 @@ export interface FileRouteTypes {
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
+    | '/central-homicide-bureau'
+    | '/central-traffic-division'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
+    | '/metropolitan-division'
     | '/olay-raporu'
     | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
     | '/profil'
+    | '/supervisory-staff'
     | '/tutuklama-raporu'
     | '/auth/giris'
     | '/profil/$userId'
@@ -272,17 +312,21 @@ export interface FileRouteTypes {
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
+    | '/central-homicide-bureau'
+    | '/central-traffic-division'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
+    | '/metropolitan-division'
     | '/olay-raporu'
     | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
     | '/profil'
+    | '/supervisory-staff'
     | '/tutuklama-raporu'
     | '/auth/giris'
     | '/profil/$userId'
@@ -298,17 +342,21 @@ export interface FileRouteTypes {
     | '/ayarlar'
     | '/calisan-listesi'
     | '/caselaw'
+    | '/central-homicide-bureau'
+    | '/central-traffic-division'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
+    | '/metropolitan-division'
     | '/olay-raporu'
     | '/onay-bekliyor'
     | '/paperwork-generators'
     | '/penal-code'
     | '/profil'
+    | '/supervisory-staff'
     | '/tutuklama-raporu'
     | '/auth/giris'
     | '/profil_/$userId'
@@ -325,17 +373,21 @@ export interface RootRouteChildren {
   AyarlarRoute: typeof AyarlarRoute
   CalisanListesiRoute: typeof CalisanListesiRoute
   CaselawRoute: typeof CaselawRoute
+  CentralHomicideBureauRoute: typeof CentralHomicideBureauRoute
+  CentralTrafficDivisionRoute: typeof CentralTrafficDivisionRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
   KartvizitRoute: typeof KartvizitRoute
+  MetropolitanDivisionRoute: typeof MetropolitanDivisionRoute
   OlayRaporuRoute: typeof OlayRaporuRoute
   OnayBekliyorRoute: typeof OnayBekliyorRoute
   PaperworkGeneratorsRoute: typeof PaperworkGeneratorsRoute
   PenalCodeRoute: typeof PenalCodeRoute
   ProfilRoute: typeof ProfilRoute
+  SupervisoryStaffRoute: typeof SupervisoryStaffRoute
   TutuklamaRaporuRoute: typeof TutuklamaRaporuRoute
   AuthGirisRoute: typeof AuthGirisRoute
   ProfilUserIdRoute: typeof ProfilUserIdRoute
@@ -407,6 +459,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaselawRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/central-homicide-bureau': {
+      id: '/central-homicide-bureau'
+      path: '/central-homicide-bureau'
+      fullPath: '/central-homicide-bureau'
+      preLoaderRoute: typeof CentralHomicideBureauRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/central-traffic-division': {
+      id: '/central-traffic-division'
+      path: '/central-traffic-division'
+      fullPath: '/central-traffic-division'
+      preLoaderRoute: typeof CentralTrafficDivisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/e-posta': {
       id: '/e-posta'
       path: '/e-posta'
@@ -449,6 +515,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KartvizitRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/metropolitan-division': {
+      id: '/metropolitan-division'
+      path: '/metropolitan-division'
+      fullPath: '/metropolitan-division'
+      preLoaderRoute: typeof MetropolitanDivisionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/olay-raporu': {
       id: '/olay-raporu'
       path: '/olay-raporu'
@@ -482,6 +555,13 @@ declare module '@tanstack/react-router' {
       path: '/profil'
       fullPath: '/profil'
       preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supervisory-staff': {
+      id: '/supervisory-staff'
+      path: '/supervisory-staff'
+      fullPath: '/supervisory-staff'
+      preLoaderRoute: typeof SupervisoryStaffRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tutuklama-raporu': {
@@ -525,17 +605,21 @@ const rootRouteChildren: RootRouteChildren = {
   AyarlarRoute: AyarlarRoute,
   CalisanListesiRoute: CalisanListesiRoute,
   CaselawRoute: CaselawRoute,
+  CentralHomicideBureauRoute: CentralHomicideBureauRoute,
+  CentralTrafficDivisionRoute: CentralTrafficDivisionRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
   KartvizitRoute: KartvizitRoute,
+  MetropolitanDivisionRoute: MetropolitanDivisionRoute,
   OlayRaporuRoute: OlayRaporuRoute,
   OnayBekliyorRoute: OnayBekliyorRoute,
   PaperworkGeneratorsRoute: PaperworkGeneratorsRoute,
   PenalCodeRoute: PenalCodeRoute,
   ProfilRoute: ProfilRoute,
+  SupervisoryStaffRoute: SupervisoryStaffRoute,
   TutuklamaRaporuRoute: TutuklamaRaporuRoute,
   AuthGirisRoute: AuthGirisRoute,
   ProfilUserIdRoute: ProfilUserIdRoute,
