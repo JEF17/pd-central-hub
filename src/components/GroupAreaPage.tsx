@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { ArrowRight, Search, ShieldCheck } from "lucide-react";
 import { Link } from "@tanstack/react-router";
@@ -21,10 +22,12 @@ export type GroupTemplate = {
 export function GroupAreaPage({
   title,
   subtitle,
+  note,
   templates,
 }: {
   title: string;
   subtitle: string;
+  note?: ReactNode;
   templates: GroupTemplate[];
 }) {
   const [query, setQuery] = useState("");
@@ -69,6 +72,11 @@ export function GroupAreaPage({
               className="h-11 bg-background/60 pl-9 transition-colors focus-visible:bg-background"
             />
           </div>
+          {note ? (
+            <div className="relative mt-5 rounded-lg border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-primary">
+              {note}
+            </div>
+          ) : null}
         </header>
 
         {items.length === 0 ? (
