@@ -77,8 +77,7 @@ function Page() {
       return { ...d, evidences: list };
     });
 
-  const addEvidence = () =>
-    setData((d) => ({ ...d, evidences: [...(d.evidences ?? []), emptyUofsEvidence()] }));
+  const addEvidence = () => setData((d) => ({ ...d, evidences: [...(d.evidences ?? []), emptyUofsEvidence()] }));
 
   const removeEvidence = (index: number) =>
     setData((d) => {
@@ -136,16 +135,8 @@ function Page() {
                 }
               />
             </div>
-            <Field
-              label="Adı Soyadı"
-              value={data.officerName}
-              onChange={(v) => set("officerName", v)}
-            />
-            <Field
-              label="Seri No."
-              value={data.officerSerial}
-              onChange={(v) => set("officerSerial", v)}
-            />
+            <Field label="Adı Soyadı" value={data.officerName} onChange={(v) => set("officerName", v)} />
+            <Field label="Seri No." value={data.officerSerial} onChange={(v) => set("officerSerial", v)} />
             <Field
               label="Pozisyon"
               value={data.officerPosition}
@@ -164,11 +155,7 @@ function Page() {
               onChange={(v) => set("officerAssignment", v)}
               placeholder="A"
             />
-            <DateField
-              label="Tarih"
-              value={data.reportDate}
-              onChange={(v) => set("reportDate", v)}
-            />
+            <DateField label="Tarih" value={data.reportDate} onChange={(v) => set("reportDate", v)} />
           </Section>
 
           <Section title="Açıklama" wide>
@@ -198,10 +185,7 @@ function Page() {
           <Section title="Kanıtlar" wide hint={`${evidences.length} kanıt`}>
             <div className="sm:col-span-2 space-y-4">
               {evidences.map((evidence, i) => (
-                <div
-                  key={i}
-                  className="rounded-xl border border-border bg-background/40 p-4 shadow-sm"
-                >
+                <div key={i} className="rounded-xl border border-border bg-background/40 p-4 shadow-sm">
                   <div className="mb-3 flex items-center gap-2">
                     <span className="rounded-full bg-primary/15 px-2.5 py-1 text-xs font-semibold text-primary">
                       Kanıt {i + 1}
@@ -224,7 +208,7 @@ function Page() {
                       label="Görünecek Ad"
                       value={evidence.label}
                       onChange={(v) => updateEvidence(i, { label: v })}
-                      placeholder="Bodycam görüntüsü"
+                      placeholder="BWV A. Soyadı #00000 - GG/AA/YYYY"
                     />
                     <Field
                       label="Bağlantı (URL)"
