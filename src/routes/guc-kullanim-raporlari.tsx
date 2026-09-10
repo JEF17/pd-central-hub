@@ -45,7 +45,7 @@ export const Route = createFileRoute("/guc-kullanim-raporlari")({
   component: () => (
     <GroupAreaPage
       title={title}
-      subtitle="Güç kullanımına ilişkin iki resmi rapor şablonu bu alanda toplanır."
+      subtitle="Güç kullanımına ilişkin raporlar"
       templates={templates}
     />
   ),
