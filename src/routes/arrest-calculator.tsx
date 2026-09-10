@@ -365,6 +365,7 @@ function Page() {
                               baseMinutes={charge.baseMaxMinutes}
                               finalMinutes={charge.maxMinutes}
                               active={result.paroleViolator}
+                              openEnded={charge.openEnded}
                             />
                           </td>
                           <td className="py-4 pr-4">
