@@ -30,7 +30,7 @@ export function ProfileFillButton({ onFill, label = "Profilden Doldur" }: Props)
         onFill({
           name: profile.name.toUpperCase(),
           serialNo: profile.serialNo,
-          rank: profile.rank,
+          rank: profile.rank.toUpperCase(),
           division: divisionCode(profile.division),
           profile,
         });
