@@ -258,7 +258,6 @@ ${victimBlocks}
 [tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]DETAYLAR[/b][/size]
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]
-[b]DETAYLAR[/b] 
 ${buildDetailsBlock(data.description, data.summary, data.investigation, data.evidences, "BURAYA")}
 
 
