@@ -201,6 +201,17 @@ export function calculate(
       baseMin = baseMax / 2;
     }
 
+    // Üst sınırı bulunmayan suçlamalarda ("… günden az olmayacaktır") maksimum,
+    // en az minimum kadar olmalıdır; aksi halde toplam maks. süre min.'in altında kalır.
+    let openEnded = false;
+    if (baseMax <= 0 && baseMin > 0) {
+      openEnded = true;
+      baseMax = baseMin;
+    } else if (baseMax > 0 && baseMin > baseMax) {
+      baseMax = baseMin;
+    }
+
+
 
     const baseMinMinutes = roundMinutes(baseMin * add.timeFactor);
     const baseMaxMinutes = roundMinutes(baseMax * add.timeFactor);
