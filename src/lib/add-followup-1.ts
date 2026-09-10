@@ -119,7 +119,7 @@ export const emptyFollowup1 = (): Followup1Data => ({
   recoveredAmount: "",
   summary: "",
   investigation: "",
-  evidences: [""],
+  evidences: [emptyEvidence()],
   caseFactors: [],
   otherFactors: [],
   officerName: "",
@@ -138,13 +138,21 @@ const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 export function buildDetailsBlock(
   summary: string,
   investigation: string,
-  evidences: string[],
+  evidences: (Evidence | string)[],
   emptyFallback = "BURAYA",
 ): string {
   const parts: string[] = [];
   if (summary.trim()) parts.push(`[b]OLAY ÖZETİ[/b]\n${summary.trim()}`);
   if (investigation.trim()) parts.push(`[b]SORUŞTURMA[/b]\n${investigation.trim()}`);
-  const ev = evidences.map((e) => e.trim()).filter(Boolean);
+  const ev = evidences
+    .map(asEvidence)
+    .map((e) => {
+      const label = e.label.trim();
+      const url = e.url.trim();
+      if (label && url) return `[url=${url}]${label}[/url]`;
+      return label || url;
+    })
+    .filter(Boolean);
   if (ev.length) parts.push(`[b]KANITLAR[/b]\n${ev.map((e) => `- ${e}`).join("\n")}`);
   return parts.length ? parts.join("\n\n") : emptyFallback;
 }
