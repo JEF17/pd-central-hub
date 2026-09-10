@@ -40,9 +40,9 @@ export interface TrafficCollisionData {
   parties: CollisionParty[];
 
   summary: string;
-  summaryParties: string;
-  summaryDamages: string;
-  summaryInjuries: string;
+  summaryParties: string[];
+  summaryDamages: string[];
+  summaryInjuries: string[];
   evidence: CollisionEvidence[];
 }
 
@@ -72,9 +72,9 @@ export const emptyTrafficCollision = (): TrafficCollisionData => ({
   reportNo: "",
   parties: [emptyCollisionParty(), emptyCollisionParty()],
   summary: "",
-  summaryParties: "",
-  summaryDamages: "",
-  summaryInjuries: "",
+  summaryParties: [""],
+  summaryDamages: [""],
+  summaryInjuries: [""],
   evidence: [{ label: "", url: "" }],
 });
 
@@ -87,6 +87,21 @@ const v = (s: string, fallback = "—") => (s.trim() ? s.trim() : fallback);
 const cb = (on: boolean) => (on ? "[cbC]" : "[cb]");
 
 const ordinal = (i: number) => `${i + 1}.`;
+
+/** Eski taslaklarla uyumluluk: metin veya dizi kabul eder. */
+export const toList = (value: string[] | string | undefined): string[] => {
+  if (Array.isArray(value)) return value;
+  if (typeof value === "string" && value.trim()) return value.split("\n");
+  return [""];
+};
+
+function bulletList(value: string[] | string | undefined): string {
+  const items = toList(value)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (!items.length) return "[list]\n[*]\n[/list]";
+  return `[list]\n${items.map((s) => `[*]${s}`).join("\n")}\n[/list]`;
+}
 
 function partyBlock(p: CollisionParty, index: number): string {
   return `[table=#d0dade,white][tr]
@@ -174,13 +189,13 @@ ${parties}[/tdwidth][/table]
 ${v(d.summary)}
 
 [b]PARTİ:[/b]
-${v(d.summaryParties)}
+${bulletList(d.summaryParties)}
 
 [b]HASARLAR:[/b]
-${v(d.summaryDamages)}
+${bulletList(d.summaryDamages)}
 
 [b]YARALANMALAR:[/b]
-${v(d.summaryInjuries)}
+${bulletList(d.summaryInjuries)}
 [/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]KANITLAR
 [list]${evidence ? `\n${evidence}` : "[*][url=][/url]"}[/list]
