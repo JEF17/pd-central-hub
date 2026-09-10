@@ -65,7 +65,7 @@ export const emptyTrafficCollision = (): TrafficCollisionData => ({
   incidentReportNo: "",
   photographer: "",
   photographerSerial: "",
-  division: "Central Traffic Division",
+  division: "CTD",
   reportNo: "",
   parties: [emptyCollisionParty(), emptyCollisionParty()],
   summary: "",
