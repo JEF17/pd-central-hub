@@ -19,6 +19,7 @@ import { Route as AddKazaSorusturmaRaporu3RouteImport } from './routes/add-kaza-
 import { Route as AddSorguRaporuRouteImport } from './routes/add-sorgu-raporu'
 import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
 import { Route as AddTakipSorusturmaFormu2RouteImport } from './routes/add-takip-sorusturma-formu-2'
+import { Route as AddTrafikOzelGorevlendirmeRaporuRouteImport } from './routes/add-trafik-ozel-gorevlendirme-raporu'
 import { Route as AddWarrantHizmetleriRouteImport } from './routes/add-warrant-hizmetleri'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
@@ -101,6 +102,12 @@ const AddTakipSorusturmaFormu2Route =
   AddTakipSorusturmaFormu2RouteImport.update({
     id: '/add-takip-sorusturma-formu-2',
     path: '/add-takip-sorusturma-formu-2',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AddTrafikOzelGorevlendirmeRaporuRoute =
+  AddTrafikOzelGorevlendirmeRaporuRouteImport.update({
+    id: '/add-trafik-ozel-gorevlendirme-raporu',
+    path: '/add-trafik-ozel-gorevlendirme-raporu',
     getParentRoute: () => rootRouteImport,
   } as any)
 const AddWarrantHizmetleriRoute = AddWarrantHizmetleriRouteImport.update({
@@ -250,6 +257,7 @@ export interface FileRoutesByFullPath {
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
+  '/add-trafik-ozel-gorevlendirme-raporu': typeof AddTrafikOzelGorevlendirmeRaporuRoute
   '/add-warrant-hizmetleri': typeof AddWarrantHizmetleriRoute
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
@@ -289,6 +297,7 @@ export interface FileRoutesByTo {
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
+  '/add-trafik-ozel-gorevlendirme-raporu': typeof AddTrafikOzelGorevlendirmeRaporuRoute
   '/add-warrant-hizmetleri': typeof AddWarrantHizmetleriRoute
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
@@ -329,6 +338,7 @@ export interface FileRoutesById {
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
+  '/add-trafik-ozel-gorevlendirme-raporu': typeof AddTrafikOzelGorevlendirmeRaporuRoute
   '/add-warrant-hizmetleri': typeof AddWarrantHizmetleriRoute
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
@@ -370,6 +380,7 @@ export interface FileRouteTypes {
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
+    | '/add-trafik-ozel-gorevlendirme-raporu'
     | '/add-warrant-hizmetleri'
     | '/admin'
     | '/apb-sablonu'
@@ -409,6 +420,7 @@ export interface FileRouteTypes {
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
+    | '/add-trafik-ozel-gorevlendirme-raporu'
     | '/add-warrant-hizmetleri'
     | '/admin'
     | '/apb-sablonu'
@@ -448,6 +460,7 @@ export interface FileRouteTypes {
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
+    | '/add-trafik-ozel-gorevlendirme-raporu'
     | '/add-warrant-hizmetleri'
     | '/admin'
     | '/apb-sablonu'
@@ -488,6 +501,7 @@ export interface RootRouteChildren {
   AddSorguRaporuRoute: typeof AddSorguRaporuRoute
   AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
   AddTakipSorusturmaFormu2Route: typeof AddTakipSorusturmaFormu2Route
+  AddTrafikOzelGorevlendirmeRaporuRoute: typeof AddTrafikOzelGorevlendirmeRaporuRoute
   AddWarrantHizmetleriRoute: typeof AddWarrantHizmetleriRoute
   AdminRoute: typeof AdminRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
@@ -587,6 +601,13 @@ declare module '@tanstack/react-router' {
       path: '/add-takip-sorusturma-formu-2'
       fullPath: '/add-takip-sorusturma-formu-2'
       preLoaderRoute: typeof AddTakipSorusturmaFormu2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-trafik-ozel-gorevlendirme-raporu': {
+      id: '/add-trafik-ozel-gorevlendirme-raporu'
+      path: '/add-trafik-ozel-gorevlendirme-raporu'
+      fullPath: '/add-trafik-ozel-gorevlendirme-raporu'
+      preLoaderRoute: typeof AddTrafikOzelGorevlendirmeRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-warrant-hizmetleri': {
@@ -793,6 +814,7 @@ const rootRouteChildren: RootRouteChildren = {
   AddSorguRaporuRoute: AddSorguRaporuRoute,
   AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
   AddTakipSorusturmaFormu2Route: AddTakipSorusturmaFormu2Route,
+  AddTrafikOzelGorevlendirmeRaporuRoute: AddTrafikOzelGorevlendirmeRaporuRoute,
   AddWarrantHizmetleriRoute: AddWarrantHizmetleriRoute,
   AdminRoute: AdminRoute,
   ApbSablonuRoute: ApbSablonuRoute,
