@@ -135,25 +135,5 @@ ${v(d.adminDivision, "CTD")}[/indent][/size][/tdwidth]
 [tdwidth=#ffffff,#ffffff,top,left,1,1][/tdwidth]
 [/table]
 
-[table=#d0dade,white][tr]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2][b]FIELD SUPERVISOR İMZASI[/b]
-${v(d.supervisorName, "A. SOYADI")}[/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2][b]SERİ NO.[/b]
-${v(d.supervisorSerialNo, "00000")}[/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2][b]DIVISION[/b]
-${v(d.supervisorDivision, "CTD")}[/indent][/size][/tdwidth]
-[tdwidth=#ffffff,#ffffff,top,left,1,1][/tdwidth]
-[/table]
-
-[table=#d0dade,white][tr]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2][b]WATCH COMMANDER İMZASI[/b]
-${v(d.watchCommanderName, "A. SOYADI")}[/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2][b]SERİ NO.[/b]
-${v(d.watchCommanderSerialNo, "00000")}[/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2][b]DIVISION[/b]
-${v(d.watchCommanderDivision, "CTD")}[/indent][/size][/tdwidth]
-[tdwidth=#ffffff,#ffffff,top,left,1,1][/tdwidth]
-[/table]
-
 [/tdwidth][/table][/tr]`;
 }
