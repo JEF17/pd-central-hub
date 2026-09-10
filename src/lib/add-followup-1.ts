@@ -75,6 +75,7 @@ export interface Followup1Data {
   lossAmount: string;
   recoveredAmount: string;
 
+  description: string;
   summary: string;
   investigation: string;
   evidences: Evidence[];
@@ -117,6 +118,7 @@ export const emptyFollowup1 = (): Followup1Data => ({
   propertyType: "",
   lossAmount: "",
   recoveredAmount: "",
+  description: "",
   summary: "",
   investigation: "",
   evidences: [emptyEvidence()],
@@ -134,14 +136,16 @@ export const emptyFollowup1 = (): Followup1Data => ({
 
 const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 
-/** Olay özeti + soruşturma + kanıtlar tek detay bloğu olarak birleşir. */
+/** Açıklama + olay özeti + soruşturma + kanıtlar tek detay bloğu olarak birleşir. */
 export function buildDetailsBlock(
+  description: string,
   summary: string,
   investigation: string,
   evidences: (Evidence | string)[],
   emptyFallback = "BURAYA",
 ): string {
   const parts: string[] = [];
+  if (description.trim()) parts.push(`[b]AÇIKLAMA[/b]\n${description.trim()}`);
   if (summary.trim()) parts.push(`[b]OLAY ÖZETİ[/b]\n${summary.trim()}`);
   if (investigation.trim()) parts.push(`[b]SORUŞTURMA[/b]\n${investigation.trim()}`);
   const ev = evidences
@@ -250,8 +254,8 @@ ${victimBlocks}
 [tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]DETAYLAR[/b][/size]
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]
-[b]AÇIKLAMA[/b] 
-${buildDetailsBlock(data.summary, data.investigation, data.evidences, "BURAYA")}
+[b]DETAYLAR[/b] 
+${buildDetailsBlock(data.description, data.summary, data.investigation, data.evidences, "BURAYA")}
 
 
 
