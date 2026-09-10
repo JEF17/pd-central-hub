@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ClipboardCopy, FileSearch } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
-import { FormSection as Section, TextField as Field } from "@/components/report-ui";
+import { FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
@@ -168,11 +168,10 @@ function Page() {
               onChange={(v) => set("titleNo", v)}
               placeholder="0000 veya 26-0000"
             />
-            <Field
+            <DateField
               label="Tarih"
               value={data.titleDate}
               onChange={(v) => set("titleDate", v)}
-              placeholder="GG/AA/YYYY"
             />
             <div className="sm:col-span-2 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background/60 px-4 py-3">
               <span className="font-mono text-sm">{formTitle}</span>
@@ -229,17 +228,17 @@ function Page() {
             <div className="sm:col-span-2">
               <Field label="Konum Bilgisi" value={data.location} onChange={(v) => set("location", v)} />
             </div>
-            <Field
+            <DateField
               label="Meydana Gelme Tarihi"
               value={data.occurredAt}
               onChange={(v) => set("occurredAt", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
-            <Field
+            <DateField
               label="Bildirilme Tarihi"
               value={data.reportedAt}
               onChange={(v) => set("reportedAt", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
             <div className="sm:col-span-2">
               <Field
@@ -291,11 +290,11 @@ function Page() {
             <Field label="Personel Bilgisi" value={data.officerName} onChange={(v) => set("officerName", v)} />
             <Field label="Seri No." value={data.officerSerial} onChange={(v) => set("officerSerial", v)} />
             <Field label="Division" value={data.officerDivision} onChange={(v) => set("officerDivision", v)} />
-            <Field
+            <DateField
               label="Tarih ve Saat"
               value={data.officerDateTime}
               onChange={(v) => set("officerDateTime", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
             <Field label="Supervisor Bilgisi" value={data.supervisorName} onChange={(v) => set("supervisorName", v)} />
             <Field label="Supervisor Seri No." value={data.supervisorSerial} onChange={(v) => set("supervisorSerial", v)} />
@@ -304,11 +303,11 @@ function Page() {
               value={data.supervisorDivision}
               onChange={(v) => set("supervisorDivision", v)}
             />
-            <Field
+            <DateField
               label="Supervisor Tarih ve Saat"
               value={data.supervisorDateTime}
               onChange={(v) => set("supervisorDateTime", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
           </Section>
         </div>

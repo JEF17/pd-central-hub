@@ -9,6 +9,7 @@ import {
   ReportHeader,
   FormSection as Section,
   TextField as Field,
+  DateField,
 } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
@@ -107,7 +108,7 @@ function Page() {
                 placeholder="204. Ölümcül Silahla Saldırı"
               />
             </div>
-            <Field label="Tarih" value={data.date} onChange={(v) => set("date", v)} placeholder="GG/AA/YYYY" />
+            <DateField label="Tarih" value={data.date} onChange={(v) => set("date", v)} />
             <Field label="Saat" value={data.time} onChange={(v) => set("time", v)} placeholder="00:00" />
           </Section>
 
@@ -148,11 +149,10 @@ function Page() {
                       onChange={(v) => updateOfficer(i, { assignment: v })}
                       options={assignmentOptions}
                     />
-                    <Field
+                    <DateField
                       label="Tarih"
                       value={o.date}
                       onChange={(v) => updateOfficer(i, { date: v })}
-                      placeholder="GG/AA/YYYY"
                     />
                   </div>
                 </div>
