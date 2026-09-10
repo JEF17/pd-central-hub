@@ -10,7 +10,7 @@ const description = "Central Traffic Division personeline özel rapor şablonlar
 const templates: GroupTemplate[] = [
   {
     slug: "kaza-sorusturma-raporu",
-    label: "Kaza Soruşturma Raporu",
+    label: "Kaza Soruşturma Raporu Birinci Sayfa",
     description: "TRAFFIC COLLISION REPORT — SAHP 555 Page 1 (Rev. 2-25) OPI 060",
     to: "/add-kaza-sorusturma-raporu",
   },
