@@ -75,6 +75,7 @@ export interface Followup1Data {
   lossAmount: string;
   recoveredAmount: string;
 
+  description: string;
   summary: string;
   investigation: string;
   evidences: Evidence[];
