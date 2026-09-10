@@ -188,8 +188,7 @@ export function DateField({
           <PopoverContent className="w-auto p-0" align="start">
             <Calendar
               mode="single"
-              selected={date}
-              defaultMonth={date}
+              {...(date ? { selected: date, defaultMonth: date } : {})}
               onSelect={(d) => onChange(compose(d ?? undefined, time))}
               initialFocus
               className={cn("p-3 pointer-events-auto")}
