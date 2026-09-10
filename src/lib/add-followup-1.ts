@@ -193,9 +193,9 @@ ${victimBlocks}
 [tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]KONUM BİLGİSİ
 [color=#FFFFFF]${v(data.location)}[/color][/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]MEYDANA GELME TARİHİ
-[color=#FFFFFF]${v(data.occurredAt, "GG/AA/YYYY — 1200")}[/color][/indent][/size][/tdwidth]
+[color=#FFFFFF]${v(data.occurredAt, "GG/AA/YYYY")}[/color][/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]BİLDİRİLME TARİHİ
-[color=#FFFFFF]${v(data.reportedAt, "GG/AA/YYYY — 1200")}[/color][/indent][/size][/tdwidth]
+[color=#FFFFFF]${v(data.reportedAt, "GG/AA/YYYY")}[/color][/indent][/size][/tdwidth]
 [/table]
 
 [table=#d0dade,white][tr]

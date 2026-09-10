@@ -321,13 +321,11 @@ function Page() {
               label="Meydana Gelme Tarihi"
               value={data.occurredAt}
               onChange={(v) => set("occurredAt", v)}
-              withTime
             />
             <DateField
               label="Bildirilme Tarihi"
               value={data.reportedAt}
               onChange={(v) => set("reportedAt", v)}
-              withTime
             />
             <div className="sm:col-span-2 grid gap-2">
               <Label
