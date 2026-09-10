@@ -24,7 +24,6 @@ export interface Followup2Data {
 
   fileStatuses: string[];
   description: string;
-  investigation: string;
   evidences: Evidence[];
 
   officerName: string;
@@ -43,7 +42,6 @@ export const emptyFollowup2 = (): Followup2Data => ({
   incidentTypes: [],
   fileStatuses: [],
   description: "",
-  investigation: "",
   evidences: [emptyEvidence()],
   officerName: "",
   officerSerial: "",
@@ -73,6 +71,21 @@ export function buildFollowup2BBCode(data: Followup2Data): string {
   const statuses = fileStatusOptions
     .map((o) => `${cb(data.fileStatuses.includes(o))} ${o}`)
     .join("[color=#FFFFFF]___[/color]");
+
+  const detailsParts: string[] = [];
+  if (data.description.trim()) detailsParts.push(`DETAYLAR\n${data.description.trim()}`);
+  const ev = data.evidences
+    .map((e) => {
+      const label = e.label.trim();
+      const url = e.url.trim();
+      if (label && url) return `[url=${url}]${label}[/url]`;
+      return label || url;
+    })
+    .filter(Boolean);
+  if (ev.length) detailsParts.push(`[b]KANITLAR[/b]\n${ev.map((e) => `- ${e}`).join("\n")}`);
+  const detailsBlock = detailsParts.length
+    ? detailsParts.join("\n\n")
+    : "Değiştirilen veya eklenen bilgileri burada açıklayın.";
 
   return `[size=95]LOS SANTOS POLICE DEPARTMENT[/size]
 [b][size=125]TAKİP SORUŞTURMASI[/size][/b]
@@ -108,7 +121,7 @@ ${cv(data.incidentReportNo)}[/indent][/size][/tdwidth]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]
-${buildDetailsBlock(data.description, "", data.investigation, data.evidences, "Değiştirilen veya eklenen bilgileri burada açıklayın.")}
+${detailsBlock}
 
 
 
