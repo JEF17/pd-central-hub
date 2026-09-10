@@ -10,21 +10,19 @@ const templates: GroupTemplate[] = [
   {
     slug: "kategorik-guc-kullanimi-raporu",
     label: "Kategorik Güç Kullanımı Raporu (Form 06.11.33)",
-    description:
-      "Görev sırasında uygulanan güç kullanımının kategorik olarak raporlandığı form.",
+    description: "Görev sırasında uygulanan güç kullanımının kategorik olarak raporlandığı form.",
     to: "/add-kategorik-guc-kullanimi-raporu",
   },
   {
     slug: "kategorik-guc-kullanimi-tamamlayici-raporu",
     label: "Kategorik Güç Kullanımı Tamamlayıcı Raporu (Form 06.11.34)",
-    description:
-      "Kategorik güç kullanımı raporuna ek olarak düzenlenen tamamlayıcı bilgi formu.",
+    description: "Kategorik güç kullanımı raporuna ek olarak düzenlenen tamamlayıcı bilgi formu.",
   },
   {
     slug: "guc-kullanimi-sorusturmasi-yonergeleri",
     label: "(( Güç Kullanımı Soruşturması Yönergeleri ))",
-    description: "Güç kullanımı soruşturmalarına ilişkin resmi yönergeye git.",
-    href: "https://lspd-tr.gta.world/viewtopic.php?t=1831#p19643",
+    description: "Güç kullanımı soruşturmalarına ilişkin resmi yönergeye buradan ulaşabilirsiniz.",
+    href: "https://lspd-tr.gta.world/viewtopic.php?t=1831#p3972",
     actionLabel: "Yönergeyi aç",
   },
 ];
