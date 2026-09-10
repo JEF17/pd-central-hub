@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AddSorguRaporuRouteImport } from './routes/add-sorgu-raporu'
 import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
 import { Route as AddTakipSorusturmaFormu2RouteImport } from './routes/add-takip-sorusturma-formu-2'
 import { Route as AdminRouteImport } from './routes/admin'
@@ -43,6 +44,11 @@ import { Route as AuthUcpCallbackRouteImport } from './routes/auth/ucp/callback'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddSorguRaporuRoute = AddSorguRaporuRouteImport.update({
+  id: '/add-sorgu-raporu',
+  path: '/add-sorgu-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddTakipSorusturmaFormu1Route =
@@ -195,6 +201,7 @@ const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/admin': typeof AdminRoute
@@ -227,6 +234,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/admin': typeof AdminRoute
@@ -260,6 +268,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/admin': typeof AdminRoute
@@ -294,6 +303,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
     | '/admin'
@@ -326,6 +336,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
     | '/admin'
@@ -358,6 +369,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
     | '/admin'
@@ -391,6 +403,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddSorguRaporuRoute: typeof AddSorguRaporuRoute
   AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
   AddTakipSorusturmaFormu2Route: typeof AddTakipSorusturmaFormu2Route
   AdminRoute: typeof AdminRoute
@@ -429,6 +442,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-sorgu-raporu': {
+      id: '/add-sorgu-raporu'
+      path: '/add-sorgu-raporu'
+      fullPath: '/add-sorgu-raporu'
+      preLoaderRoute: typeof AddSorguRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-takip-sorusturma-formu-1': {
@@ -639,6 +659,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddSorguRaporuRoute: AddSorguRaporuRoute,
   AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
   AddTakipSorusturmaFormu2Route: AddTakipSorusturmaFormu2Route,
   AdminRoute: AdminRoute,
