@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AddSorguRaporuRouteImport } from './routes/add-sorgu-raporu'
 import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
 import { Route as AddTakipSorusturmaFormu2RouteImport } from './routes/add-takip-sorusturma-formu-2'
+import { Route as AddWarrantHizmetleriRouteImport } from './routes/add-warrant-hizmetleri'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
@@ -63,6 +64,11 @@ const AddTakipSorusturmaFormu2Route =
     path: '/add-takip-sorusturma-formu-2',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AddWarrantHizmetleriRoute = AddWarrantHizmetleriRouteImport.update({
+  id: '/add-warrant-hizmetleri',
+  path: '/add-warrant-hizmetleri',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -204,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
+  '/add-warrant-hizmetleri': typeof AddWarrantHizmetleriRoute
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -237,6 +244,7 @@ export interface FileRoutesByTo {
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
+  '/add-warrant-hizmetleri': typeof AddWarrantHizmetleriRoute
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -271,6 +279,7 @@ export interface FileRoutesById {
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
+  '/add-warrant-hizmetleri': typeof AddWarrantHizmetleriRoute
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -306,6 +315,7 @@ export interface FileRouteTypes {
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
+    | '/add-warrant-hizmetleri'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -339,6 +349,7 @@ export interface FileRouteTypes {
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
+    | '/add-warrant-hizmetleri'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -372,6 +383,7 @@ export interface FileRouteTypes {
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
+    | '/add-warrant-hizmetleri'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -406,6 +418,7 @@ export interface RootRouteChildren {
   AddSorguRaporuRoute: typeof AddSorguRaporuRoute
   AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
   AddTakipSorusturmaFormu2Route: typeof AddTakipSorusturmaFormu2Route
+  AddWarrantHizmetleriRoute: typeof AddWarrantHizmetleriRoute
   AdminRoute: typeof AdminRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
@@ -463,6 +476,13 @@ declare module '@tanstack/react-router' {
       path: '/add-takip-sorusturma-formu-2'
       fullPath: '/add-takip-sorusturma-formu-2'
       preLoaderRoute: typeof AddTakipSorusturmaFormu2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-warrant-hizmetleri': {
+      id: '/add-warrant-hizmetleri'
+      path: '/add-warrant-hizmetleri'
+      fullPath: '/add-warrant-hizmetleri'
+      preLoaderRoute: typeof AddWarrantHizmetleriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -662,6 +682,7 @@ const rootRouteChildren: RootRouteChildren = {
   AddSorguRaporuRoute: AddSorguRaporuRoute,
   AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
   AddTakipSorusturmaFormu2Route: AddTakipSorusturmaFormu2Route,
+  AddWarrantHizmetleriRoute: AddWarrantHizmetleriRoute,
   AdminRoute: AdminRoute,
   ApbSablonuRoute: ApbSablonuRoute,
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,
