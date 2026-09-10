@@ -129,7 +129,7 @@ function Page() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl px-6 py-10">
+      <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-6 shadow-sm">
           <Button variant="ghost" size="sm" asChild className="-ml-2 mb-4 h-7 px-2 text-xs">
             <Link to="/area-detective-division">
@@ -159,7 +159,7 @@ function Page() {
           }}
         />
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-2">
+        <div className="mt-8 grid gap-6">
           <Section title="Konu Başlığı" wide>
             <div className="grid gap-2">
               <Label htmlFor="case-type" className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
@@ -284,7 +284,7 @@ function Page() {
             </div>
           </Section>
 
-          <Section title="Vaka Bilgisi">
+          <Section title="Vaka Bilgisi" wide hint="Konum, tarihler ve maddi kayıp">
             <div className="sm:col-span-2">
               <Field label="Konum Bilgisi" value={data.location} onChange={(v) => set("location", v)} />
             </div>
