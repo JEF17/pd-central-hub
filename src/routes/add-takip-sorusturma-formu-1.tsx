@@ -361,6 +361,17 @@ function Page() {
             <div className="sm:col-span-2 grid gap-5">
               <div className="grid gap-2">
                 <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                  Açıklama
+                </Label>
+                <Textarea
+                  rows={3}
+                  value={data.description}
+                  onChange={(e) => set("description", e.target.value)}
+                  placeholder="Ön açıklama / genel bilgi..."
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                   Olay Özeti
                 </Label>
                 <Textarea
