@@ -6,8 +6,15 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 const title = "Central Traffic Division";
 const description = "Central Traffic Division personeline özel rapor şablonları ve araçlar.";
 
-/** CTD'ye özel şablonlar buraya eklenecek. */
-const templates: GroupTemplate[] = [];
+/** CTD'ye özel şablonlar. */
+const templates: GroupTemplate[] = [
+  {
+    slug: "kaza-sorusturma-raporu",
+    label: "Kaza Soruşturma Raporu",
+    description: "TRAFFIC COLLISION REPORT — SAHP 555 Page 1 (Rev. 2-25) OPI 060",
+    to: "/add-kaza-sorusturma-raporu",
+  },
+];
 
 export const Route = createFileRoute("/central-traffic-division")({
   beforeLoad: async ({ location }) => {

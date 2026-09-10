@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AddCctvKayitTalepleriRouteImport } from './routes/add-cctv-kayit-talepleri'
 import { Route as AddKategorikGucKullanimiRaporuRouteImport } from './routes/add-kategorik-guc-kullanimi-raporu'
 import { Route as AddKategorikGucKullanimiTamamlayiciRaporuRouteImport } from './routes/add-kategorik-guc-kullanimi-tamamlayici-raporu'
+import { Route as AddKazaSorusturmaRaporuRouteImport } from './routes/add-kaza-sorusturma-raporu'
 import { Route as AddSorguRaporuRouteImport } from './routes/add-sorgu-raporu'
 import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
 import { Route as AddTakipSorusturmaFormu2RouteImport } from './routes/add-takip-sorusturma-formu-2'
@@ -66,6 +67,11 @@ const AddKategorikGucKullanimiTamamlayiciRaporuRoute =
     path: '/add-kategorik-guc-kullanimi-tamamlayici-raporu',
     getParentRoute: () => rootRouteImport,
   } as any)
+const AddKazaSorusturmaRaporuRoute = AddKazaSorusturmaRaporuRouteImport.update({
+  id: '/add-kaza-sorusturma-raporu',
+  path: '/add-kaza-sorusturma-raporu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AddSorguRaporuRoute = AddSorguRaporuRouteImport.update({
   id: '/add-sorgu-raporu',
   path: '/add-sorgu-raporu',
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
+  '/add-kaza-sorusturma-raporu': typeof AddKazaSorusturmaRaporuRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
@@ -260,6 +267,7 @@ export interface FileRoutesByTo {
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
+  '/add-kaza-sorusturma-raporu': typeof AddKazaSorusturmaRaporuRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
@@ -297,6 +305,7 @@ export interface FileRoutesById {
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
+  '/add-kaza-sorusturma-raporu': typeof AddKazaSorusturmaRaporuRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
@@ -335,6 +344,7 @@ export interface FileRouteTypes {
     | '/add-cctv-kayit-talepleri'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
+    | '/add-kaza-sorusturma-raporu'
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
@@ -371,6 +381,7 @@ export interface FileRouteTypes {
     | '/add-cctv-kayit-talepleri'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
+    | '/add-kaza-sorusturma-raporu'
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
@@ -407,6 +418,7 @@ export interface FileRouteTypes {
     | '/add-cctv-kayit-talepleri'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
+    | '/add-kaza-sorusturma-raporu'
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
@@ -444,6 +456,7 @@ export interface RootRouteChildren {
   AddCctvKayitTalepleriRoute: typeof AddCctvKayitTalepleriRoute
   AddKategorikGucKullanimiRaporuRoute: typeof AddKategorikGucKullanimiRaporuRoute
   AddKategorikGucKullanimiTamamlayiciRaporuRoute: typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
+  AddKazaSorusturmaRaporuRoute: typeof AddKazaSorusturmaRaporuRoute
   AddSorguRaporuRoute: typeof AddSorguRaporuRoute
   AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
   AddTakipSorusturmaFormu2Route: typeof AddTakipSorusturmaFormu2Route
@@ -504,6 +517,13 @@ declare module '@tanstack/react-router' {
       path: '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
       fullPath: '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
       preLoaderRoute: typeof AddKategorikGucKullanimiTamamlayiciRaporuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-kaza-sorusturma-raporu': {
+      id: '/add-kaza-sorusturma-raporu'
+      path: '/add-kaza-sorusturma-raporu'
+      fullPath: '/add-kaza-sorusturma-raporu'
+      preLoaderRoute: typeof AddKazaSorusturmaRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-sorgu-raporu': {
@@ -725,6 +745,7 @@ const rootRouteChildren: RootRouteChildren = {
   AddKategorikGucKullanimiRaporuRoute: AddKategorikGucKullanimiRaporuRoute,
   AddKategorikGucKullanimiTamamlayiciRaporuRoute:
     AddKategorikGucKullanimiTamamlayiciRaporuRoute,
+  AddKazaSorusturmaRaporuRoute: AddKazaSorusturmaRaporuRoute,
   AddSorguRaporuRoute: AddSorguRaporuRoute,
   AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
   AddTakipSorusturmaFormu2Route: AddTakipSorusturmaFormu2Route,
