@@ -20,6 +20,12 @@ const templates: GroupTemplate[] = [
     description: "FACTUAL DIAGRAM — SAHP 555 (Rev. 2-25) OPI 042",
     to: "/add-kaza-sorusturma-raporu-2",
   },
+  {
+    slug: "kaza-sorusturma-raporu-3",
+    label: "Kaza Soruşturma Üçüncü Sayfa",
+    description: "AÇIKLAMA/TAMAMLAYICI — SAHP 556 (Rev. 2-25) OPI 042",
+    to: "/add-kaza-sorusturma-raporu-3",
+  },
 ];
 
 export const Route = createFileRoute("/central-traffic-division")({
