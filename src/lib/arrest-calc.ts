@@ -286,6 +286,7 @@ export function calculate(
     priorRecord: prior === "prior",
     priorRecordUnknown: prior === "unknown",
     zeroMinCharges,
+    openEnded: charges.some((c) => c.openEnded),
   };
 }
 
