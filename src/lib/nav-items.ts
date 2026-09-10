@@ -4,7 +4,7 @@ import {
   Car,
   Crosshair,
   Files,
-  Fingerprint,
+  
   Star,
   Gavel,
   IdCard,
