@@ -121,7 +121,7 @@ ${cv(data.incidentReportNo)}[/indent][/size][/tdwidth]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]
-${buildDetailsBlock(data.description, "", data.investigation, data.evidences, "Değiştirilen veya eklenen bilgileri burada açıklayın.")}
+${detailsBlock}
 
 
 
