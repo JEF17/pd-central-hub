@@ -342,14 +342,50 @@ function Page() {
           <Section title="Kısa Açıklama & Kanıtlar" wide>
             <div className="sm:col-span-2 space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Kısa Açıklama
+                Kaza Özeti
               </Label>
               <Textarea
-                rows={8}
+                rows={4}
                 className="bg-background/60"
                 value={data.summary}
                 onChange={(e) => set("summary", e.target.value)}
                 placeholder="Kazanın kısa özeti"
+              />
+            </div>
+            <div className="sm:col-span-2 space-y-1.5">
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Parti
+              </Label>
+              <Textarea
+                rows={3}
+                className="bg-background/60"
+                value={data.summaryParties}
+                onChange={(e) => set("summaryParties", e.target.value)}
+                placeholder="Kazaya karışan partiler"
+              />
+            </div>
+            <div className="sm:col-span-2 space-y-1.5">
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Hasarlar
+              </Label>
+              <Textarea
+                rows={3}
+                className="bg-background/60"
+                value={data.summaryDamages}
+                onChange={(e) => set("summaryDamages", e.target.value)}
+                placeholder="Meydana gelen hasarlar"
+              />
+            </div>
+            <div className="sm:col-span-2 space-y-1.5">
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Yaralanmalar
+              </Label>
+              <Textarea
+                rows={3}
+                className="bg-background/60"
+                value={data.summaryInjuries}
+                onChange={(e) => set("summaryInjuries", e.target.value)}
+                placeholder="Yaralanma durumu"
               />
             </div>
             <div className="sm:col-span-2 space-y-2">

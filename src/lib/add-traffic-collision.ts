@@ -40,6 +40,9 @@ export interface TrafficCollisionData {
   parties: CollisionParty[];
 
   summary: string;
+  summaryParties: string;
+  summaryDamages: string;
+  summaryInjuries: string;
   evidence: CollisionEvidence[];
 }
 
@@ -69,6 +72,9 @@ export const emptyTrafficCollision = (): TrafficCollisionData => ({
   reportNo: "",
   parties: [emptyCollisionParty(), emptyCollisionParty()],
   summary: "",
+  summaryParties: "",
+  summaryDamages: "",
+  summaryInjuries: "",
   evidence: [{ label: "", url: "" }],
 });
 
@@ -164,7 +170,17 @@ ${parties}[/tdwidth][/table]
 [tdwidth=#ffffff,#ffffff,top,left,0,0]
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]KISA AÇIKLAMA
+[b]KAZA ÖZETİ:[/b]
 ${v(d.summary)}
+
+[b]PARTİ:[/b]
+${v(d.summaryParties)}
+
+[b]HASARLAR:[/b]
+${v(d.summaryDamages)}
+
+[b]YARALANMALAR:[/b]
+${v(d.summaryInjuries)}
 [/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]KANITLAR
 [list]${evidence ? `\n${evidence}` : "[*][url=][/url]"}[/list]
