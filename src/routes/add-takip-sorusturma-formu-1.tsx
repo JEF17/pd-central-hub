@@ -314,7 +314,7 @@ function Page() {
           <Section title="Detaylar" wide>
             <div className="sm:col-span-2">
               <Textarea
-                rows={9}
+                rows={12}
                 value={data.details}
                 onChange={(e) => set("details", e.target.value)}
                 placeholder="Soruşturmanın detaylı açıklaması..."
