@@ -23,7 +23,6 @@ export interface Followup2Data {
   incidentTypes: string[];
 
   fileStatuses: string[];
-  summary: string;
   investigation: string;
   evidences: Evidence[];
 
@@ -42,7 +41,6 @@ export const emptyFollowup2 = (): Followup2Data => ({
   investigationReportNo: "",
   incidentTypes: [],
   fileStatuses: [],
-  summary: "",
   investigation: "",
   evidences: [emptyEvidence()],
   officerName: "",
@@ -103,7 +101,7 @@ export function buildFollowup2BBCode(data: Followup2Data): string {
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]DETAYLAR
-${buildDetailsBlock(data.summary, data.investigation, data.evidences, "Değiştirilen veya eklenen bilgileri burada açıklayın.")}
+${buildDetailsBlock("", data.investigation, data.evidences, "Değiştirilen veya eklenen bilgileri burada açıklayın.")}
 
 
 
