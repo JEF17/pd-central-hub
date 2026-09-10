@@ -61,6 +61,8 @@ export interface CalculatedCharge {
   bailOptional: boolean;
   /** Ehliyete el koyma, aracı çekme gibi ek işlemler */
   extraActions: string[];
+  /** Kanunda üst sınır belirtilmemiş ("… günden az olmayacaktır") suçlama */
+  openEnded: boolean;
   /** Uygulanan suç sayısı kademesi (kanun metnindeki sıra numarası) */
   appliedTier?: number | undefined;
   /** Seçilen suç sayısı son kademeyi aştı ve en yüksek kademe tekrar uygulandı */
