@@ -207,20 +207,60 @@ function Page() {
             />
           </Section>
 
-          <Section title="Mağdur Bilgisi">
-            <div className="sm:col-span-2">
-              <Field
-                label="Ad Soyadı (ya da İşletme Adı)"
-                value={data.victimName}
-                onChange={(v) => set("victimName", v)}
-              />
-            </div>
-            <Field label="Cinsiyet" value={data.victimGender} onChange={(v) => set("victimGender", v)} />
-            <Field label="Etnik Grup" value={data.victimEthnicity} onChange={(v) => set("victimEthnicity", v)} />
-            <Field label="Yaş" value={data.victimAge} onChange={(v) => set("victimAge", v)} />
-            <Field label="İletişim Bilgisi" value={data.victimContact} onChange={(v) => set("victimContact", v)} />
-            <div className="sm:col-span-2">
-              <Field label="Adres" value={data.victimAddress} onChange={(v) => set("victimAddress", v)} />
+          <Section title="Mağdur Bilgisi" wide hint={`${victims.length} mağdur`}>
+            <div className="sm:col-span-2 space-y-4">
+              {victims.map((vic, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl border border-border bg-background/40 p-4 shadow-sm"
+                >
+                  <div className="mb-3 flex items-center gap-2">
+                    <span className="rounded-full bg-primary/15 px-2.5 py-1 text-xs font-semibold text-primary">
+                      Mağdur {i + 1}
+                    </span>
+                    {victims.length > 1 ? (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="ml-auto h-8 px-2 text-xs text-destructive hover:text-destructive"
+                        onClick={() => removeVictim(i)}
+                      >
+                        <Trash2 className="size-3.5" />
+                        Kaldır
+                      </Button>
+                    ) : null}
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="sm:col-span-2">
+                      <Field
+                        label="Ad Soyadı (ya da İşletme Adı)"
+                        value={vic.name}
+                        onChange={(v) => updateVictim(i, { name: v })}
+                      />
+                    </div>
+                    <Field label="Cinsiyet" value={vic.gender} onChange={(v) => updateVictim(i, { gender: v })} />
+                    <Field
+                      label="Etnik Grup"
+                      value={vic.ethnicity}
+                      onChange={(v) => updateVictim(i, { ethnicity: v })}
+                    />
+                    <Field label="Yaş" value={vic.age} onChange={(v) => updateVictim(i, { age: v })} />
+                    <Field
+                      label="İletişim Bilgisi"
+                      value={vic.contact}
+                      onChange={(v) => updateVictim(i, { contact: v })}
+                    />
+                    <div className="sm:col-span-2">
+                      <Field label="Adres" value={vic.address} onChange={(v) => updateVictim(i, { address: v })} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <Button type="button" variant="outline" size="sm" className="press" onClick={addVictim}>
+                <Plus className="size-4" />
+                Mağdur Ekle
+              </Button>
             </div>
           </Section>
 
