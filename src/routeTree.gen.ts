@@ -30,7 +30,6 @@ import { Route as CentralTrafficDivisionRouteImport } from './routes/central-tra
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
-import { Route as GucKullanimRaporlariRouteImport } from './routes/guc-kullanim-raporlari'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
 import { Route as KartvizitRouteImport } from './routes/kartvizit'
@@ -155,11 +154,6 @@ const GozaltiKayitFormuRoute = GozaltiKayitFormuRouteImport.update({
   path: '/gozalti-kayit-formu',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GucKullanimRaporlariRoute = GucKullanimRaporlariRouteImport.update({
-  id: '/guc-kullanim-raporlari',
-  path: '/guc-kullanim-raporlari',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IfadeRaporuRoute = IfadeRaporuRouteImport.update({
   id: '/ifade-raporu',
   path: '/ifade-raporu',
@@ -253,7 +247,6 @@ export interface FileRoutesByFullPath {
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
-  '/guc-kullanim-raporlari': typeof GucKullanimRaporlariRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
@@ -291,7 +284,6 @@ export interface FileRoutesByTo {
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
-  '/guc-kullanim-raporlari': typeof GucKullanimRaporlariRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
@@ -330,7 +322,6 @@ export interface FileRoutesById {
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
-  '/guc-kullanim-raporlari': typeof GucKullanimRaporlariRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
   '/kartvizit': typeof KartvizitRoute
@@ -370,7 +361,6 @@ export interface FileRouteTypes {
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
-    | '/guc-kullanim-raporlari'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
@@ -408,7 +398,6 @@ export interface FileRouteTypes {
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
-    | '/guc-kullanim-raporlari'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
@@ -446,7 +435,6 @@ export interface FileRouteTypes {
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
-    | '/guc-kullanim-raporlari'
     | '/ifade-raporu'
     | '/ihlal-raporu'
     | '/kartvizit'
@@ -485,7 +473,6 @@ export interface RootRouteChildren {
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
-  GucKullanimRaporlariRoute: typeof GucKullanimRaporlariRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
   KartvizitRoute: typeof KartvizitRoute
@@ -651,13 +638,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GozaltiKayitFormuRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/guc-kullanim-raporlari': {
-      id: '/guc-kullanim-raporlari'
-      path: '/guc-kullanim-raporlari'
-      fullPath: '/guc-kullanim-raporlari'
-      preLoaderRoute: typeof GucKullanimRaporlariRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/ifade-raporu': {
       id: '/ifade-raporu'
       path: '/ifade-raporu'
@@ -782,7 +762,6 @@ const rootRouteChildren: RootRouteChildren = {
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
-  GucKullanimRaporlariRoute: GucKullanimRaporlariRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,
   KartvizitRoute: KartvizitRoute,
