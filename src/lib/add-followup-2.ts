@@ -72,6 +72,21 @@ export function buildFollowup2BBCode(data: Followup2Data): string {
     .map((o) => `${cb(data.fileStatuses.includes(o))} ${o}`)
     .join("[color=#FFFFFF]___[/color]");
 
+  const detailsParts: string[] = [];
+  if (data.description.trim()) detailsParts.push(`DETAYLAR\n${data.description.trim()}`);
+  const ev = data.evidences
+    .map((e) => {
+      const label = e.label.trim();
+      const url = e.url.trim();
+      if (label && url) return `[url=${url}]${label}[/url]`;
+      return label || url;
+    })
+    .filter(Boolean);
+  if (ev.length) detailsParts.push(`[b]KANITLAR[/b]\n${ev.map((e) => `- ${e}`).join("\n")}`);
+  const detailsBlock = detailsParts.length
+    ? detailsParts.join("\n\n")
+    : "Değiştirilen veya eklenen bilgileri burada açıklayın.";
+
   return `[size=95]LOS SANTOS POLICE DEPARTMENT[/size]
 [b][size=125]TAKİP SORUŞTURMASI[/size][/b]
 
