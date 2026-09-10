@@ -91,6 +91,18 @@ export interface Followup1Data {
   supervisorDateTime: string;
 }
 
+/** Kanıt: görünen ad + bağlantı. Bağlantı varsa BBCode'da [url=...]Ad[/url] olur. */
+export interface Evidence {
+  label: string;
+  url: string;
+}
+
+export const emptyEvidence = (): Evidence => ({ label: "", url: "" });
+
+/** Eski taslaklarda kanıtlar düz metindi; yeni yapıya çevirir. */
+export const asEvidence = (e: Evidence | string): Evidence =>
+  typeof e === "string" ? { label: e, url: "" } : e;
+
 export const emptyFollowup1 = (): Followup1Data => ({
   caseType: "",
   titleNo: "",
