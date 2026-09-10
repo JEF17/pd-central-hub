@@ -27,6 +27,7 @@ import { Route as CalisanListesiRouteImport } from './routes/calisan-listesi'
 import { Route as CaselawRouteImport } from './routes/caselaw'
 import { Route as CentralHomicideBureauRouteImport } from './routes/central-homicide-bureau'
 import { Route as CentralTrafficDivisionRouteImport } from './routes/central-traffic-division'
+import { Route as DetectivePortalRouteImport } from './routes/detective-portal'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
@@ -139,6 +140,11 @@ const CentralTrafficDivisionRoute = CentralTrafficDivisionRouteImport.update({
   path: '/central-traffic-division',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DetectivePortalRoute = DetectivePortalRouteImport.update({
+  id: '/detective-portal',
+  path: '/detective-portal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EPostaRoute = EPostaRouteImport.update({
   id: '/e-posta',
   path: '/e-posta',
@@ -244,6 +250,7 @@ export interface FileRoutesByFullPath {
   '/caselaw': typeof CaselawRoute
   '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
+  '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
@@ -281,6 +288,7 @@ export interface FileRoutesByTo {
   '/caselaw': typeof CaselawRoute
   '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
+  '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
@@ -319,6 +327,7 @@ export interface FileRoutesById {
   '/caselaw': typeof CaselawRoute
   '/central-homicide-bureau': typeof CentralHomicideBureauRoute
   '/central-traffic-division': typeof CentralTrafficDivisionRoute
+  '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
@@ -358,6 +367,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/central-homicide-bureau'
     | '/central-traffic-division'
+    | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
@@ -395,6 +405,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/central-homicide-bureau'
     | '/central-traffic-division'
+    | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
@@ -432,6 +443,7 @@ export interface FileRouteTypes {
     | '/caselaw'
     | '/central-homicide-bureau'
     | '/central-traffic-division'
+    | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
     | '/gozalti-kayit-formu'
@@ -470,6 +482,7 @@ export interface RootRouteChildren {
   CaselawRoute: typeof CaselawRoute
   CentralHomicideBureauRoute: typeof CentralHomicideBureauRoute
   CentralTrafficDivisionRoute: typeof CentralTrafficDivisionRoute
+  DetectivePortalRoute: typeof DetectivePortalRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
@@ -617,6 +630,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CentralTrafficDivisionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/detective-portal': {
+      id: '/detective-portal'
+      path: '/detective-portal'
+      fullPath: '/detective-portal'
+      preLoaderRoute: typeof DetectivePortalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/e-posta': {
       id: '/e-posta'
       path: '/e-posta'
@@ -759,6 +779,7 @@ const rootRouteChildren: RootRouteChildren = {
   CaselawRoute: CaselawRoute,
   CentralHomicideBureauRoute: CentralHomicideBureauRoute,
   CentralTrafficDivisionRoute: CentralTrafficDivisionRoute,
+  DetectivePortalRoute: DetectivePortalRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
