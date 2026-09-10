@@ -12,6 +12,7 @@ import { divisionCode } from "@/lib/officer-profile";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
