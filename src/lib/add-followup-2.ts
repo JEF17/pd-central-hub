@@ -42,6 +42,7 @@ export const emptyFollowup2 = (): Followup2Data => ({
   investigationReportNo: "",
   incidentTypes: [],
   fileStatuses: [],
+  description: "",
   investigation: "",
   evidences: [emptyEvidence()],
   officerName: "",
