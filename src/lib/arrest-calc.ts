@@ -61,6 +61,8 @@ export interface CalculatedCharge {
   bailOptional: boolean;
   /** Ehliyete el koyma, aracı çekme gibi ek işlemler */
   extraActions: string[];
+  /** Kanunda üst sınır belirtilmemiş ("… günden az olmayacaktır") suçlama */
+  openEnded: boolean;
   /** Uygulanan suç sayısı kademesi (kanun metnindeki sıra numarası) */
   appliedTier?: number | undefined;
   /** Seçilen suç sayısı son kademeyi aştı ve en yüksek kademe tekrar uygulandı */
@@ -132,6 +134,8 @@ export interface CalculationResult {
   priorRecordUnknown: boolean;
   /** Minimum süresi 0 dakika olan (takdire bağlı) suçlamalar */
   zeroMinCharges: CalculatedCharge[];
+  /** Üst sınırı olmayan en az bir suçlama var */
+  openEnded: boolean;
 }
 
 export function getCharge(number: string): ChargeDefinition | undefined {
@@ -201,6 +205,17 @@ export function calculate(
       baseMin = baseMax / 2;
     }
 
+    // Üst sınırı bulunmayan suçlamalarda ("… günden az olmayacaktır") maksimum,
+    // en az minimum kadar olmalıdır; aksi halde toplam maks. süre min.'in altında kalır.
+    let openEnded = false;
+    if (baseMax <= 0 && baseMin > 0) {
+      openEnded = true;
+      baseMax = baseMin;
+    } else if (baseMax > 0 && baseMin > baseMax) {
+      baseMax = baseMin;
+    }
+
+
 
     const baseMinMinutes = roundMinutes(baseMin * add.timeFactor);
     const baseMaxMinutes = roundMinutes(baseMax * add.timeFactor);
@@ -230,6 +245,7 @@ export function calculate(
       bailAuto: definition.bail.auto,
       bailOptional: definition.bail.optional,
       extraActions: extractExtraActions(definition, row.offense),
+      openEnded,
       appliedTier: tier?.n,
       tierRepeated: definition.tiers.length > 0 && row.offense > definition.tiers.length,
     });
@@ -270,6 +286,7 @@ export function calculate(
     priorRecord: prior === "prior",
     priorRecordUnknown: prior === "unknown",
     zeroMinCharges,
+    openEnded: charges.some((c) => c.openEnded),
   };
 }
 

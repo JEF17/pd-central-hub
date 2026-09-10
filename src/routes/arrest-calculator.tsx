@@ -269,6 +269,7 @@ function Page() {
                         baseMinutes={result.baseMaxMinutes}
                         finalMinutes={result.maxMinutes}
                         active={result.paroleViolator}
+                        openEnded={result.openEnded}
                       />
                     }
                     copyValue={String(result.maxMinutes)}
@@ -364,6 +365,7 @@ function Page() {
                               baseMinutes={charge.baseMaxMinutes}
                               finalMinutes={charge.maxMinutes}
                               active={result.paroleViolator}
+                              openEnded={charge.openEnded}
                             />
                           </td>
                           <td className="py-4 pr-4">
@@ -647,16 +649,19 @@ function DurationValue({
   baseMinutes,
   finalMinutes,
   active,
+  openEnded = false,
 }: {
   baseMinutes: number;
   finalMinutes: number;
   active: boolean;
+  openEnded?: boolean;
 }) {
-  const base = formatDuration(baseMinutes);
-  const final = formatDuration(finalMinutes);
+  const suffix = openEnded ? " +" : "";
+  const base = formatDuration(baseMinutes) + suffix;
+  const final = formatDuration(finalMinutes) + suffix;
   if (!active || base === final) {
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col" title={openEnded ? "Kanunda üst sınır belirtilmemiştir." : undefined}>
         <span>{final}</span>
         {finalMinutes > 0 ? (
           <span className="text-xs text-muted-foreground">{finalMinutes} dakika</span>
