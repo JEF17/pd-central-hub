@@ -23,7 +23,9 @@ export interface Followup2Data {
   incidentTypes: string[];
 
   fileStatuses: string[];
-  details: string;
+  summary: string;
+  investigation: string;
+  evidences: string[];
 
   officerName: string;
   officerSerial: string;
@@ -40,7 +42,9 @@ export const emptyFollowup2 = (): Followup2Data => ({
   investigationReportNo: "",
   incidentTypes: [],
   fileStatuses: [],
-  details: "",
+  summary: "",
+  investigation: "",
+  evidences: [""],
   officerName: "",
   officerSerial: "",
   officerDivision: "",

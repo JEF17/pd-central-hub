@@ -75,7 +75,9 @@ export interface Followup1Data {
   lossAmount: string;
   recoveredAmount: string;
 
-  details: string;
+  summary: string;
+  investigation: string;
+  evidences: string[];
   caseFactors: string[];
   otherFactors: string[];
 
@@ -103,7 +105,9 @@ export const emptyFollowup1 = (): Followup1Data => ({
   propertyType: "",
   lossAmount: "",
   recoveredAmount: "",
-  details: "",
+  summary: "",
+  investigation: "",
+  evidences: [""],
   caseFactors: [],
   otherFactors: [],
   officerName: "",
