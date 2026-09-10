@@ -36,6 +36,7 @@ const templates: GroupTemplate[] = [
     slug: "cctv-kayit-talepleri",
     label: "CCTV Kayıt Talepleri",
     description: "Güvenlik kamerası kayıtlarının talep edilmesi ve belgelenmesi için kullanılan form.",
+    to: "/add-cctv-kayit-talepleri",
   },
 ];
 
