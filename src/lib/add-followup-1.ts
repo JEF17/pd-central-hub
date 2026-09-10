@@ -37,6 +37,8 @@ export const otherFactorOptions = [
   "GND/GIT",
 ];
 
+export const propertyTypeOptions = ["Çalıntı", "Kayıp", "Hasarlı", "Hiçbiri"];
+
 export interface FollowupVictim {
   name: string;
   gender: string;
