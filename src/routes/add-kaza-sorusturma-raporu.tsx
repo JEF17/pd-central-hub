@@ -107,9 +107,10 @@ function ListField({
       </Label>
       <div className="space-y-2">
         {items.map((item, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <Input
-              className="h-10 flex-1 bg-background/60"
+          <div key={i} className="flex items-start gap-2">
+            <Textarea
+              rows={3}
+              className="flex-1 bg-background/60"
               value={item}
               placeholder={placeholder}
               onChange={(e) => onChange(items.map((x, xi) => (xi === i ? e.target.value : x)))}
