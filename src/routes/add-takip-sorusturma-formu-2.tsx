@@ -22,6 +22,7 @@ import {
   incidentTypeOptions,
   type Followup2Data,
 } from "@/lib/add-followup-2";
+import { asEvidence, emptyEvidence } from "@/lib/add-followup-1";
 
 const title = "Takip Soruşturma Formu İkinci Sayfa";
 const description = "Area Detective Division takip soruşturması ikinci sayfa raporu (BBCode).";

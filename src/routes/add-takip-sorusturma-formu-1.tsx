@@ -19,6 +19,8 @@ import {
   buildFollowup1BBCode,
   buildFollowup1Title,
   caseFactorOptions,
+  asEvidence,
+  emptyEvidence,
   emptyFollowup1,
   emptyVictim,
   followupCaseTypes,
