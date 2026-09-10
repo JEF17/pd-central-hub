@@ -12,6 +12,7 @@ import { divisionCode } from "@/lib/officer-profile";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
@@ -19,6 +20,8 @@ import {
   buildFollowup1BBCode,
   buildFollowup1Title,
   caseFactorOptions,
+  asEvidence,
+  emptyEvidence,
   emptyFollowup1,
   emptyVictim,
   followupCaseTypes,
@@ -388,39 +391,48 @@ function Page() {
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => setData((d) => ({ ...d, evidences: [...d.evidences, ""] }))}
+                    onClick={() => setData((d) => ({ ...d, evidences: [...d.evidences, emptyEvidence()] }))}
                   >
                     <Plus className="mr-1 size-4" /> Kanıt Ekle
                   </Button>
                 </div>
                 <div className="grid gap-2">
-                  {(data.evidences ?? [""]).map((ev, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <Textarea
-                        rows={2}
-                        value={ev}
-                        onChange={(e) =>
-                          setData((d) => ({
-                            ...d,
-                            evidences: d.evidences.map((x, j) => (j === i ? e.target.value : x)),
-                          }))
-                        }
-                        placeholder={`Kanıt ${i + 1}...`}
-                      />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        aria-label="Kanıtı sil"
-                        disabled={(data.evidences ?? []).length <= 1}
-                        onClick={() =>
-                          setData((d) => ({ ...d, evidences: d.evidences.filter((_, j) => j !== i) }))
-                        }
-                      >
-                        <Trash2 className="size-4 text-destructive" />
-                      </Button>
-                    </div>
-                  ))}
+                  {(data.evidences ?? [emptyEvidence()]).map((raw, i) => {
+                    const ev = asEvidence(raw);
+                    const update = (patch: Partial<typeof ev>) =>
+                      setData((d) => ({
+                        ...d,
+                        evidences: d.evidences.map((x, j) => (j === i ? { ...asEvidence(x), ...patch } : x)),
+                      }));
+                    return (
+                      <div key={i} className="flex items-start gap-2">
+                        <div className="grid flex-1 gap-2 sm:grid-cols-2">
+                          <Input
+                            value={ev.label}
+                            onChange={(e) => update({ label: e.target.value })}
+                            placeholder={`Kanıt ${i + 1} — görünecek ad`}
+                          />
+                          <Input
+                            value={ev.url}
+                            onChange={(e) => update({ url: e.target.value })}
+                            placeholder="Bağlantı (https://...)"
+                          />
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          aria-label="Kanıtı sil"
+                          disabled={(data.evidences ?? []).length <= 1}
+                          onClick={() =>
+                            setData((d) => ({ ...d, evidences: d.evidences.filter((_, j) => j !== i) }))
+                          }
+                        >
+                          <Trash2 className="size-4 text-destructive" />
+                        </Button>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
