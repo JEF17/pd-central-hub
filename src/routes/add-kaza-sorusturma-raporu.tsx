@@ -100,8 +100,9 @@ function Page() {
     autoFilled.current = true;
     setData((d) => ({
       ...d,
-      photographer: d.photographer || `${profile.rank} ${profile.name}`.trim().toUpperCase(),
+      photographer: d.photographer || profile.name.trim().toUpperCase(),
       photographerSerial: d.photographerSerial || profile.serialNo,
+      division: d.division || "CTD",
     }));
   }, [profile, setData]);
 
@@ -198,8 +199,9 @@ function Page() {
                 onFill={(p) =>
                   setData((d) => ({
                     ...d,
-                    photographer: `${p.rank} ${p.name}`.trim(),
+                    photographer: p.name.trim().toUpperCase(),
                     photographerSerial: p.serialNo,
+                    division: "CTD",
                   }))
                 }
               />
@@ -208,7 +210,7 @@ function Page() {
               label="Fotoğraflayan"
               value={data.photographer}
               onChange={(v) => set("photographer", v)}
-              placeholder="POLICE OFFICER III JOHN DOE"
+              placeholder="JOHN DOE"
             />
             <Field
               label="Seri No."
@@ -216,7 +218,12 @@ function Page() {
               onChange={(v) => set("photographerSerial", v)}
               placeholder="00000"
             />
-            <Field label="Division" value={data.division} onChange={(v) => set("division", v)} />
+            <Field
+              label="Division"
+              value={data.division}
+              onChange={(v) => set("division", v)}
+              placeholder="CTD"
+            />
             <Field
               label="Rapor No."
               value={data.reportNo}
