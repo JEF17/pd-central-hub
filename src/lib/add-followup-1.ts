@@ -77,7 +77,7 @@ export interface Followup1Data {
 
   summary: string;
   investigation: string;
-  evidences: string[];
+  evidences: Evidence[];
   caseFactors: string[];
   otherFactors: string[];
 

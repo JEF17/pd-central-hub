@@ -25,7 +25,7 @@ export interface Followup2Data {
   fileStatuses: string[];
   summary: string;
   investigation: string;
-  evidences: string[];
+  evidences: Evidence[];
 
   officerName: string;
   officerSerial: string;
