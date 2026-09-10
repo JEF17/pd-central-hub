@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AddCctvKayitTalepleriRouteImport } from './routes/add-cctv-kayit-talepleri'
 import { Route as AddSorguRaporuRouteImport } from './routes/add-sorgu-raporu'
 import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
 import { Route as AddTakipSorusturmaFormu2RouteImport } from './routes/add-takip-sorusturma-formu-2'
@@ -45,6 +46,11 @@ import { Route as AuthUcpCallbackRouteImport } from './routes/auth/ucp/callback'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddCctvKayitTalepleriRoute = AddCctvKayitTalepleriRouteImport.update({
+  id: '/add-cctv-kayit-talepleri',
+  path: '/add-cctv-kayit-talepleri',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddSorguRaporuRoute = AddSorguRaporuRouteImport.update({
@@ -207,6 +213,7 @@ const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
@@ -241,6 +248,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
@@ -276,6 +284,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
@@ -312,6 +321,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/add-cctv-kayit-talepleri'
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
@@ -346,6 +356,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/add-cctv-kayit-talepleri'
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
@@ -380,6 +391,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/add-cctv-kayit-talepleri'
     | '/add-sorgu-raporu'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
@@ -415,6 +427,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddCctvKayitTalepleriRoute: typeof AddCctvKayitTalepleriRoute
   AddSorguRaporuRoute: typeof AddSorguRaporuRoute
   AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
   AddTakipSorusturmaFormu2Route: typeof AddTakipSorusturmaFormu2Route
@@ -455,6 +468,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-cctv-kayit-talepleri': {
+      id: '/add-cctv-kayit-talepleri'
+      path: '/add-cctv-kayit-talepleri'
+      fullPath: '/add-cctv-kayit-talepleri'
+      preLoaderRoute: typeof AddCctvKayitTalepleriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-sorgu-raporu': {
@@ -679,6 +699,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddCctvKayitTalepleriRoute: AddCctvKayitTalepleriRoute,
   AddSorguRaporuRoute: AddSorguRaporuRoute,
   AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
   AddTakipSorusturmaFormu2Route: AddTakipSorusturmaFormu2Route,
