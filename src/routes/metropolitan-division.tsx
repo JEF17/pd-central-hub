@@ -3,15 +3,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { GroupAreaPage, type GroupTemplate } from "@/components/GroupAreaPage";
 import { requirePortalAuth } from "@/lib/portal-auth";
 
-const title = "Area Detective Division";
-const description = "Area Detective Division personeline özel rapor şablonları ve araçlar.";
+const title = "Metropolitan Division";
+const description = "Metropolitan Division personeline özel rapor şablonları ve araçlar.";
 
-/** ADD'a özel şablonlar buraya eklenecek. */
+/** Metro'ya özel şablonlar buraya eklenecek. */
 const templates: GroupTemplate[] = [];
 
-export const Route = createFileRoute("/area-detective-division")({
+export const Route = createFileRoute("/metropolitan-division")({
   beforeLoad: async ({ location }) => {
-    await requirePortalAuth(location.href, { group: "area_detective_division" });
+    await requirePortalAuth(location.href, { group: "metropolitan_division" });
   },
   head: () => ({
     meta: [
@@ -26,7 +26,7 @@ export const Route = createFileRoute("/area-detective-division")({
   component: () => (
     <GroupAreaPage
       title={title}
-      subtitle="Bu alan yalnızca Area Detective Division yetkisi bulunan personele açıktır."
+      subtitle="Bu alan yalnızca Metropolitan Division yetkisi bulunan personele açıktır."
       templates={templates}
     />
   ),

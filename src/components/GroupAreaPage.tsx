@@ -1,0 +1,84 @@
+import { useMemo, useState } from "react";
+import { Search, ShieldCheck } from "lucide-react";
+
+import { AppShell } from "@/components/AppShell";
+import { Input } from "@/components/ui/input";
+
+/** Gruba özel rapor şablonu tanımı. */
+export type GroupTemplate = { slug: string; label: string; description: string };
+
+export function GroupAreaPage({
+  title,
+  subtitle,
+  templates,
+}: {
+  title: string;
+  subtitle: string;
+  templates: GroupTemplate[];
+}) {
+  const [query, setQuery] = useState("");
+
+  const items = useMemo(() => {
+    const q = query.trim().toLocaleLowerCase("tr");
+    if (!q) return templates;
+    return templates.filter(
+      (t) =>
+        t.label.toLocaleLowerCase("tr").includes(q) ||
+        t.description.toLocaleLowerCase("tr").includes(q),
+    );
+  }, [query, templates]);
+
+  return (
+    <AppShell>
+      <div className="mx-auto max-w-6xl px-6 py-10">
+        <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-7 shadow-sm">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-16 -top-16 size-56 rounded-full bg-primary/10 blur-3xl"
+          />
+          <div className="relative flex flex-wrap items-center gap-4">
+            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary/25 to-gold/15 text-primary ring-1 ring-primary/25">
+              <ShieldCheck className="size-6" />
+            </span>
+            <div className="min-w-0">
+              <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h1>
+              <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
+            </div>
+            <span className="ml-auto hidden rounded-full border border-border bg-muted/40 px-3 py-1 text-xs font-medium text-muted-foreground sm:block">
+              {templates.length} şablon
+            </span>
+          </div>
+
+          <div className="relative mt-5">
+            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Şablon ara"
+              className="h-11 bg-background/60 pl-9 transition-colors focus-visible:bg-background"
+            />
+          </div>
+        </header>
+
+        {items.length === 0 ? (
+          <p className="mt-10 rounded-xl border border-dashed border-border bg-card/40 p-10 text-center text-sm text-muted-foreground">
+            Bu alana özel şablonlar henüz eklenmedi. Eklenecek rapor türlerini ilettiğinde buraya
+            tanımlayabiliriz.
+          </p>
+        ) : (
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((t) => (
+              <div
+                key={t.slug}
+                className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/80 p-5 text-left shadow-sm"
+              >
+                <h2 className="text-base font-semibold tracking-tight">{t.label}</h2>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.description}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </AppShell>
+  );
+}
