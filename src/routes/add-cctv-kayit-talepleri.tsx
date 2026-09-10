@@ -17,7 +17,7 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 import { buildCctvBBCode, emptyCctv, type CctvData } from "@/lib/add-cctv";
 
 const title = "CCTV Kayıt Talepleri";
-const description = "Kamera kayıtlarına erişim talebi formu — BBCode çıktısı otomatik oluşur.";
+const description = "Kamera kayıtlarına erişim talebi formu";
 
 export const Route = createFileRoute("/add-cctv-kayit-talepleri")({
   beforeLoad: async ({ location }) => {
