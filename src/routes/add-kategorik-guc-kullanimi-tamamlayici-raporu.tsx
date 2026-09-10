@@ -205,13 +205,13 @@ function Page() {
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <Field
-                      label="Görünecek Ad"
+                      label="KANIT BAŞLIĞI"
                       value={evidence.label}
                       onChange={(v) => updateEvidence(i, { label: v })}
                       placeholder="BWV A. Soyadı #00000 - GG/AA/YYYY"
                     />
                     <Field
-                      label="Bağlantı (URL)"
+                      label="KANIT İÇERİĞİ"
                       value={evidence.url}
                       onChange={(v) => updateEvidence(i, { url: v })}
                       placeholder="https://..."
