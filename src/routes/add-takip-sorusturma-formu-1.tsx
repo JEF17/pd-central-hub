@@ -394,7 +394,7 @@ function Page() {
                   </Button>
                 </div>
                 <div className="grid gap-2">
-                  (data.evidences ?? [""]).map((ev, i) => (
+                  {(data.evidences ?? [""]).map((ev, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <Textarea
                         rows={2}
