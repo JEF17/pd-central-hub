@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as ApbSablonuRouteImport } from './routes/apb-sablonu'
 import { Route as AracElKoymaRaporuRouteImport } from './routes/arac-el-koyma-raporu'
@@ -43,6 +44,12 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AddTakipSorusturmaFormu1Route =
+  AddTakipSorusturmaFormu1RouteImport.update({
+    id: '/add-takip-sorusturma-formu-1',
+    path: '/add-takip-sorusturma-formu-1',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
@@ -181,6 +188,7 @@ const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -211,6 +219,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -242,6 +251,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/admin': typeof AdminRoute
   '/apb-sablonu': typeof ApbSablonuRoute
   '/arac-el-koyma-raporu': typeof AracElKoymaRaporuRoute
@@ -274,6 +284,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/add-takip-sorusturma-formu-1'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -304,6 +315,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/add-takip-sorusturma-formu-1'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -334,6 +346,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/add-takip-sorusturma-formu-1'
     | '/admin'
     | '/apb-sablonu'
     | '/arac-el-koyma-raporu'
@@ -365,6 +378,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
   AdminRoute: typeof AdminRoute
   ApbSablonuRoute: typeof ApbSablonuRoute
   AracElKoymaRaporuRoute: typeof AracElKoymaRaporuRoute
@@ -401,6 +415,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-takip-sorusturma-formu-1': {
+      id: '/add-takip-sorusturma-formu-1'
+      path: '/add-takip-sorusturma-formu-1'
+      fullPath: '/add-takip-sorusturma-formu-1'
+      preLoaderRoute: typeof AddTakipSorusturmaFormu1RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -597,6 +618,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
   AdminRoute: AdminRoute,
   ApbSablonuRoute: ApbSablonuRoute,
   AracElKoymaRaporuRoute: AracElKoymaRaporuRoute,

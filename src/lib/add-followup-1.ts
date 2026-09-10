@@ -1,0 +1,242 @@
+/** Area Detective Division — Takip Soruşturma Formu 1 (BBCode). */
+
+export const followupCaseTypes = [
+  { key: "homicide", label: "Homicide", code: "HI" },
+  { key: "caps", label: "CAPS", code: "CAPS" },
+  { key: "robbery", label: "Robbery", code: "RB" },
+  { key: "burglary", label: "Burglary", code: "BG" },
+  { key: "autos", label: "Autos", code: "AU" },
+] as const;
+
+export type FollowupCaseTypeKey = (typeof followupCaseTypes)[number]["key"];
+
+export const incidentTypeOptions = [
+  "Araç Takibi",
+  "Silahlı Saldırı",
+  "Cinayet",
+  "Çete Bağlantılı",
+  "Narkotik",
+  "Hırsızlık",
+  "Trafik Kazası",
+  "Diğer",
+];
+
+export const caseFactorOptions = [
+  "ŞÜPHELİ veya ARAÇ GÖRÜLMEDİ",
+  "PARMAK İZİ veya DELİL BULUNMUYOR",
+  "$5.000'dan DAHA AZ DEĞERDE MAL KAYBI",
+  "CİDDİ YARALANMA BULUNMUYOR",
+  "SADECE BİR MAĞDUR BULUNUYOR",
+];
+
+export const otherFactorOptions = [
+  "GÜÇ KULLANIMI",
+  "ATEŞ EDİLDİ",
+  "NARKOTİK — ÇALINTI",
+  "ATEŞLİ SİLAH — ÇALINTI",
+  "GND/GIT",
+];
+
+export interface Followup1Data {
+  caseType: FollowupCaseTypeKey | "";
+  titleNo: string;
+  titleDate: string;
+
+  incidentReportNo: string;
+  investigationReportNo: string;
+  incidentTypes: string[];
+
+  victimName: string;
+  victimGender: string;
+  victimEthnicity: string;
+  victimAge: string;
+  victimAddress: string;
+  victimContact: string;
+
+  location: string;
+  occurredAt: string;
+  reportedAt: string;
+  propertyType: string;
+  lossAmount: string;
+  recoveredAmount: string;
+
+  details: string;
+  caseFactors: string[];
+  otherFactors: string[];
+
+  officerName: string;
+  officerSerial: string;
+  officerDivision: string;
+  officerDateTime: string;
+  supervisorName: string;
+  supervisorSerial: string;
+  supervisorDivision: string;
+  supervisorDateTime: string;
+}
+
+export const emptyFollowup1 = (): Followup1Data => ({
+  caseType: "",
+  titleNo: "",
+  titleDate: "",
+  incidentReportNo: "",
+  investigationReportNo: "",
+  incidentTypes: [],
+  victimName: "",
+  victimGender: "",
+  victimEthnicity: "",
+  victimAge: "",
+  victimAddress: "",
+  victimContact: "",
+  location: "",
+  occurredAt: "",
+  reportedAt: "",
+  propertyType: "",
+  lossAmount: "",
+  recoveredAmount: "",
+  details: "",
+  caseFactors: [],
+  otherFactors: [],
+  officerName: "",
+  officerSerial: "",
+  officerDivision: "",
+  officerDateTime: "",
+  supervisorName: "",
+  supervisorSerial: "",
+  supervisorDivision: "",
+  supervisorDateTime: "",
+});
+
+const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
+
+/** Örn: 02-HI 26-0000 - GG/AA/YYYY */
+export function buildFollowup1Title(data: Followup1Data): string {
+  const type = followupCaseTypes.find((t) => t.key === data.caseType);
+  const code = type?.code ?? "XX";
+  const raw = data.titleNo.trim();
+  const no = raw ? (raw.includes("-") ? raw : `26-${raw}`) : "26-0000";
+  return `02-${code} ${no} - ${v(data.titleDate, "GG/AA/YYYY")}`;
+}
+
+const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
+
+export function buildFollowup1BBCode(data: Followup1Data): string {
+  const incident = incidentTypeOptions
+    .map((o) => `${cb(data.incidentTypes.includes(o))} ${o}`)
+    .join("[color=#FFFFFF]___[/color]");
+
+  const factors = caseFactorOptions
+    .map((o, i) => `${i === 0 ? "[list]" : ""}[*]${cb(data.caseFactors.includes(o))} ${o}`)
+    .join("\n");
+
+  const others = otherFactorOptions
+    .map((o, i) => `${i === 0 ? "[list]" : ""}[*]${cb(data.otherFactors.includes(o))} ${o}`)
+    .join("\n");
+
+  return `[size=95]LOS SANTOS POLICE DEPARTMENT[/size]
+[b][size=125]SORUŞTURMA RAPORU[/size][/b]
+
+
+[table=#d0dade,white][tr]
+[tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]OLAY BİLGİSİ[/b][/size]
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]OLAY RAPORU NO.
+[color=#000000]${v(data.incidentReportNo)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]SORUŞTURMA RAPOR NO.
+[color=#000000]${v(data.investigationReportNo)}[/color][/indent][/size][/tdwidth]
+[/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,10,1][size=85][indent=2]OLAY TÜRÜ[/size]
+[size=85]${incident}[/tdwidth][/size]
+[/table]
+[/tdwidth][/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]MAĞDUR BİLGİSİ[/b][/size]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]AD SOYADI (ya da İŞLETME ADI)
+[color=#FFFFFF]${v(data.victimName)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]CİNSİYET
+[color=#FFFFFF]${v(data.victimGender)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]ETNİK GRUP
+[color=#FFFFFF]${v(data.victimEthnicity)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]YAŞ
+[color=#FFFFFF]${v(data.victimAge)}[/color][/indent][/size][/tdwidth][/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]ADRES
+[color=#FFFFFF]${v(data.victimAddress)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]İLETİŞİM BİLGİSİ
+[color=#FFFFFF]${v(data.victimContact)}[/color][/indent][/size][/tdwidth][/table][/tdwidth][/table]
+
+
+[table=#d0dade,white][tr]
+[tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]VAKA BİLGİSİ[/b][/size]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]KONUM BİLGİSİ
+[color=#FFFFFF]${v(data.location)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]MEYDANA GELME TARİHİ
+[color=#FFFFFF]${v(data.occurredAt, "GG/AA/YYYY — 1200")}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]BİLDİRİLME TARİHİ
+[color=#FFFFFF]${v(data.reportedAt, "GG/AA/YYYY — 1200")}[/color][/indent][/size][/tdwidth]
+[/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]ÇALINTI/KAYIP/HASARLI MÜLK TÜRÜ
+[color=#FFFFFF]${v(data.propertyType)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]ÇALINTI/KAYIP
+[b]$${v(data.lossAmount, "0")}[/b][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]GERİ ALINAN
+[b]$${v(data.recoveredAmount, "0")}[/b][/indent][/size][/tdwidth]
+[/table][/tdwidth][/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]DETAYLAR[/b][/size]
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]
+[b]AÇIKLAMA[/b] 
+${v(data.details, "BURAYA")}
+
+
+
+
+
+
+
+
+
+[/tdwidth][/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,middle,left,1,1][size=85][indent=2][b]VAKA FAKTÖRLERİ[/b]
+${factors}[/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,middle,left,1,1][size=85][indent=2][b]DİĞER[/b]
+${others}
+[/indent][/size][/tdwidth]
+[/table][/tdwidth][/table]
+
+
+[table=#d0dade,white][tr]
+[tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]İDARİ BİLGİLER[/b][/size]
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]PERSONEL BİLGİSİ
+[color=#FFFFFF]${v(data.officerName)}[/color][/size][/indent][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]SERİ NO.
+[color=#FFFFFF]${v(data.officerSerial)}[/color][/size][/indent][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]DIVISION
+[color=#FFFFFF]${v(data.officerDivision)}[/color][/size][/indent][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]TARİH ve SAAT
+[color=#FFFFFF]${v(data.officerDateTime)}[/color][/size][/indent][/tdwidth][/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]SUPERVISOR BİLGİSİ
+[color=#FFFFFF]${v(data.supervisorName)}[/color][/size][/indent][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]SERİ NO.
+[color=#FFFFFF]${v(data.supervisorSerial)}[/color][/size][/indent][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]DIVISION
+[color=#FFFFFF]${v(data.supervisorDivision)}[/color][/size][/indent][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]TARİH ve SAAT
+[color=#FFFFFF]${v(data.supervisorDateTime)}[/color][/size][/indent][/tdwidth][/table][/tdwidth][/table]`;
+}
