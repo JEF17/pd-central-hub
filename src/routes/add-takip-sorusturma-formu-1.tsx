@@ -22,6 +22,7 @@ import {
   followupCaseTypes,
   incidentTypeOptions,
   otherFactorOptions,
+  propertyTypeOptions,
   type Followup1Data,
   type FollowupVictim,
 } from "@/lib/add-followup-1";
