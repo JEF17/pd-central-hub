@@ -40,9 +40,9 @@ export interface TrafficCollisionData {
   parties: CollisionParty[];
 
   summary: string;
-  summaryParties: string;
-  summaryDamages: string;
-  summaryInjuries: string;
+  summaryParties: string[];
+  summaryDamages: string[];
+  summaryInjuries: string[];
   evidence: CollisionEvidence[];
 }
 
@@ -72,9 +72,9 @@ export const emptyTrafficCollision = (): TrafficCollisionData => ({
   reportNo: "",
   parties: [emptyCollisionParty(), emptyCollisionParty()],
   summary: "",
-  summaryParties: "",
-  summaryDamages: "",
-  summaryInjuries: "",
+  summaryParties: [""],
+  summaryDamages: [""],
+  summaryInjuries: [""],
   evidence: [{ label: "", url: "" }],
 });
 
