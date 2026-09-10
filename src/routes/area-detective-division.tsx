@@ -30,6 +30,7 @@ const templates: GroupTemplate[] = [
     slug: "warrant-hizmetleri",
     label: "Warrant Hizmetleri",
     description: "Arama ve tutuklama emirlerinin icrasına ilişkin raporlama şablonu.",
+    to: "/add-warrant-hizmetleri",
   },
   {
     slug: "cctv-kayit-talepleri",
