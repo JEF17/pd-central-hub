@@ -6,8 +6,34 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 const title = "Area Detective Division";
 const description = "Area Detective Division personeline özel rapor şablonları ve araçlar.";
 
-/** ADD'a özel şablonlar buraya eklenecek. */
-const templates: GroupTemplate[] = [];
+/** ADD'a özel şablonlar. */
+const templates: GroupTemplate[] = [
+  {
+    slug: "takip-sorusturma-formu-1",
+    label: "Takip Soruşturma Formu 1",
+    description: "Devam eden soruşturmalarda ilk takip ve gelişme kayıtlarının raporlandığı form.",
+  },
+  {
+    slug: "takip-sorusturma-formu-2",
+    label: "Takip Soruşturma Formu 2",
+    description: "Soruşturmanın ilerleyen aşamalarındaki ek takip ve bulgu kayıtlarının raporlandığı form.",
+  },
+  {
+    slug: "sorgu-raporu",
+    label: "Sorgu Raporu",
+    description: "Şüpheli veya tanıkların sorgulanmasına ilişkin detayların raporlandığı form.",
+  },
+  {
+    slug: "warrant-hizmetleri",
+    label: "Warrant Hizmetleri",
+    description: "Arama ve tutuklama emirlerinin icrasına ilişkin raporlama şablonu.",
+  },
+  {
+    slug: "cctv-kayit-talepleri",
+    label: "CCTV Kayıt Talepleri",
+    description: "Güvenlik kamerası kayıtlarının talep edilmesi ve belgelenmesi için kullanılan form.",
+  },
+];
 
 export const Route = createFileRoute("/area-detective-division")({
   beforeLoad: async ({ location }) => {
