@@ -153,8 +153,8 @@ function Page() {
                     ...d,
                     commanderName: p.name,
                     commanderSerial: p.serialNo,
-                    commanderPosition: p.rank.toUpperCase(),
-                    commanderDivision: divisionCode(p.division),
+                    commanderPosition: p.rank,
+                    commanderDivision: p.division,
                   }))
                 }
               />
