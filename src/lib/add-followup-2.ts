@@ -55,7 +55,7 @@ export const emptyFollowup2 = (): Followup2Data => ({
   supervisorDateTime: "",
 });
 
-import { buildDetailsBlock } from "./add-followup-1";
+import { buildDetailsBlock, emptyEvidence, type Evidence } from "./add-followup-1";
 
 const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
