@@ -293,6 +293,15 @@ function Page() {
                 placeholder="Şüpheli bilgileri, kaç şüpheli var, bölgede çete var mı gibi detaylar."
               />
             </div>
+            <div className="sm:col-span-2">
+              <Field
+                label="Detay Görseli Bağlantısı"
+                value={data.detailImage}
+                onChange={(v) => set("detailImage", v)}
+                placeholder="https://i.imgur.com/... (boş bırakılırsa şablon görseli kullanılır)"
+              />
+            </div>
+
             <div className="sm:col-span-2 space-y-2">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                 Risk Türü
