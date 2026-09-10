@@ -55,6 +55,8 @@ export const emptyFollowup2 = (): Followup2Data => ({
   supervisorDateTime: "",
 });
 
+import { buildDetailsBlock } from "./add-followup-1";
+
 const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
 
@@ -101,7 +103,7 @@ export function buildFollowup2BBCode(data: Followup2Data): string {
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]DETAYLAR
-${v(data.details, "Değiştirilen veya eklenen bilgileri burada açıklayın.")}
+${buildDetailsBlock(data.summary, data.investigation, data.evidences, "Değiştirilen veya eklenen bilgileri burada açıklayın.")}
 
 
 

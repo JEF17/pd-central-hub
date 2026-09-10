@@ -122,6 +122,21 @@ export const emptyFollowup1 = (): Followup1Data => ({
 
 const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 
+/** Olay özeti + soruşturma + kanıtlar tek detay bloğu olarak birleşir. */
+export function buildDetailsBlock(
+  summary: string,
+  investigation: string,
+  evidences: string[],
+  emptyFallback = "BURAYA",
+): string {
+  const parts: string[] = [];
+  if (summary.trim()) parts.push(`[b]OLAY ÖZETİ[/b]\n${summary.trim()}`);
+  if (investigation.trim()) parts.push(`[b]SORUŞTURMA[/b]\n${investigation.trim()}`);
+  const ev = evidences.map((e) => e.trim()).filter(Boolean);
+  if (ev.length) parts.push(`[b]KANITLAR[/b]\n${ev.map((e) => `- ${e}`).join("\n")}`);
+  return parts.length ? parts.join("\n\n") : emptyFallback;
+}
+
 /** Örn: 02-HI 0000 - GG/AA/YYYY */
 export function buildFollowup1Title(data: Followup1Data): string {
   const type = followupCaseTypes.find((t) => t.key === data.caseType);
@@ -216,7 +231,7 @@ ${victimBlocks}
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]
 [b]AÇIKLAMA[/b] 
-${v(data.details, "BURAYA")}
+${buildDetailsBlock(data.summary, data.investigation, data.evidences, "BURAYA")}
 
 
 
