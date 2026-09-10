@@ -170,8 +170,6 @@ ${parties}[/tdwidth][/table]
 [tdwidth=#ffffff,#ffffff,top,left,0,0]
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]KISA AÇIKLAMA
-${v(d.summary)}
-
 [b]KAZA ÖZETİ:[/b]
 ${v(d.summary)}
 
