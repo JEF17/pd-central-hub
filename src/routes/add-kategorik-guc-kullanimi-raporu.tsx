@@ -145,7 +145,7 @@ function Page() {
             </div>
           </Section>
 
-          <Section title="Incident Commander Bilgisi" wide hint="Olay yerindeki amir">
+          <Section title="Incident Commander Bilgisi" wide hint="Olay bölgesinde bulunan sorumlu supervisor">
             <div className="sm:col-span-2">
               <ProfileFillButton
                 onFill={(p) =>
