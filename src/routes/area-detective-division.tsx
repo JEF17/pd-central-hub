@@ -10,7 +10,7 @@ const description = "Area Detective Division personeline özel rapor şablonlar�
 const templates: GroupTemplate[] = [
   {
     slug: "takip-sorusturma-formu-1",
-    label: "Takip Soruşturma Formu 1",
+    label: "Takip Soruşturma Formu Birinci Sayfa",
     description: "Devam eden soruşturmalarda ilk takip ve gelişme kayıtlarının raporlandığı form.",
     to: "/add-takip-sorusturma-formu-1",
   },
