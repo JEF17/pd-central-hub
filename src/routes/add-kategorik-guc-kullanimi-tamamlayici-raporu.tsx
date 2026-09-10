@@ -132,7 +132,7 @@ function Page() {
                     officerSerial: p.serialNo,
                     officerPosition: p.rank,
                     officerDivision: divisionCode(p.division),
-                    officerAssignment: p.assignment,
+                    officerAssignment: p.profile.assignment ?? "",
                   }))
                 }
               />
