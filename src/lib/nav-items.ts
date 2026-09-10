@@ -1,7 +1,11 @@
 import {
   BookOpen,
   Calculator,
+  Car,
+  Crosshair,
   Files,
+  Fingerprint,
+  Star,
   Gavel,
   IdCard,
   LayoutGrid,
