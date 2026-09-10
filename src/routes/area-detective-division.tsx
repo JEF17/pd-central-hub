@@ -18,6 +18,7 @@ const templates: GroupTemplate[] = [
     slug: "takip-sorusturma-formu-2",
     label: "Takip Soruşturma Formu İkinci Sayfa",
     description: "Soruşturmanın ilerleyen aşamalarındaki ek takip ve bulgu kayıtlarının raporlandığı form.",
+    to: "/add-takip-sorusturma-formu-2",
   },
   {
     slug: "sorgu-raporu",
