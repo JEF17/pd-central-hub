@@ -134,6 +134,8 @@ export interface CalculationResult {
   priorRecordUnknown: boolean;
   /** Minimum süresi 0 dakika olan (takdire bağlı) suçlamalar */
   zeroMinCharges: CalculatedCharge[];
+  /** Üst sınırı olmayan en az bir suçlama var */
+  openEnded: boolean;
 }
 
 export function getCharge(number: string): ChargeDefinition | undefined {
