@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Fragment, useEffect, useState } from "react";
-import { Check, ChevronDown, ChevronRight, IdCard, ScrollText, Shield, ShieldCheck, Trash2, UserX, X } from "lucide-react";
+import { Check, ChevronDown, ChevronRight, IdCard, ScrollText, Shield, ShieldCheck, Trash2, Users2, UserX, X } from "lucide-react";
+import { portalGroups } from "@/lib/portal-groups";
 import { useServerFn } from "@tanstack/react-start";
 import { AppShell } from "@/components/AppShell";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import {
   listUsers,
   rejectUser,
   setUserAdminLevel,
+  setUserGroupsFn,
   type AdminLevel,
   type PortalLogDto,
 } from "@/lib/portal-auth.functions";
@@ -35,6 +37,63 @@ function userProfiles(payload: ProfilePayload) {
   return payload && (payload.name || payload.serialNo) ? [payload] : [];
 }
 
+
+/** Kullanıcının özel alan (grup) izinleri. */
+function GroupPermissions({ user, canEdit }: { user: UserDto; canEdit: boolean }) {
+  const [groups, setGroups] = useState<string[]>(user.groups ?? []);
+  const [saving, setSaving] = useState(false);
+  const saveFn = useServerFn(setUserGroupsFn);
+
+  const toggle = async (key: string) => {
+    const next = groups.includes(key) ? groups.filter((g) => g !== key) : [...groups, key];
+    const prev = groups;
+    setGroups(next);
+    setSaving(true);
+    try {
+      await saveFn({ data: { userId: user.id, groups: next } });
+      toast.success("Grup yetkileri güncellendi");
+    } catch (err) {
+      setGroups(prev);
+      toast.error(err instanceof Error ? err.message : "Grup yetkisi güncellenemedi");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return (
+    <div className="mb-4 rounded-lg border border-border bg-card p-3">
+      <p className="mb-2 flex items-center gap-2 text-sm font-medium">
+        <Users2 className="size-4 text-primary" />
+        Gruplar
+      </p>
+      <div className="flex flex-wrap gap-2">
+        {portalGroups.map((g) => {
+          const active = groups.includes(g.key);
+          return (
+            <button
+              key={g.key}
+              type="button"
+              disabled={!canEdit || saving}
+              onClick={() => toggle(g.key)}
+              className={
+                active
+                  ? "rounded-full border border-primary/40 bg-primary/15 px-3 py-1.5 text-xs font-medium text-primary disabled:opacity-60"
+                  : "rounded-full border border-border bg-muted/40 px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground disabled:opacity-60"
+              }
+            >
+              {g.label}
+            </button>
+          );
+        })}
+      </div>
+      {!canEdit ? (
+        <p className="mt-2 text-xs text-muted-foreground">
+          Grup yetkisi vermek için Faction Management veya üstü gerekir.
+        </p>
+      ) : null}
+    </div>
+  );
+}
 
 function ProfileDetails({
   user,
@@ -65,6 +124,7 @@ function ProfileDetails({
             </Button>
           ) : null}
         </div>
+        <GroupPermissions user={user} canEdit={canEdit} />
         {loading ? (
           <p className="text-sm text-muted-foreground">Profil yükleniyor…</p>
         ) : profiles.length === 0 ? (
@@ -637,6 +697,7 @@ function logEventLabel(event: string): string {
     admin_set_role: "Yetki Değişikliği",
     admin_delete_user: "Kullanıcı Silindi",
     admin_edit_profile: "Personel Profili Düzenlendi",
+    admin_set_groups: "Grup Yetkisi Değişikliği",
   };
   return labels[event] || event;
 }

@@ -60,7 +60,7 @@ function greeting() {
 }
 
 function Dashboard() {
-  const tools = navItems.filter((i) => i.to !== "/" && i.position !== "bottom");
+  const tools = navItems.filter((i) => i.to !== "/" && i.position !== "bottom" && !i.groupKey);
   const profile = useOfficerProfile();
   const [recent, setRecent] = useState<RecentDraft[]>([]);
 
