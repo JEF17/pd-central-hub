@@ -23,6 +23,7 @@ export interface Followup2Data {
   incidentTypes: string[];
 
   fileStatuses: string[];
+  description: string;
   investigation: string;
   evidences: Evidence[];
 
