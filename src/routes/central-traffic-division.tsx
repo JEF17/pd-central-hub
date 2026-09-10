@@ -55,7 +55,7 @@ export const Route = createFileRoute("/central-traffic-division")({
             rel="noopener noreferrer"
             className="font-medium underline underline-offset-2 hover:text-primary/80"
           >
-            Central Traffic Division Yönergeleri
+            Kaza Soruşturma Raporu Yönergeleri
           </a>
         </span>
       }
