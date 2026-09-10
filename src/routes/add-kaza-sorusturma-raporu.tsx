@@ -20,6 +20,7 @@ import {
   buildTrafficCollisionBBCode,
   emptyCollisionParty,
   emptyTrafficCollision,
+  toList,
   type CollisionParty,
   type TrafficCollisionData,
 } from "@/lib/add-traffic-collision";
@@ -352,42 +353,27 @@ function Page() {
                 placeholder="Kazanın kısa özeti"
               />
             </div>
-            <div className="sm:col-span-2 space-y-1.5">
-              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Parti
-              </Label>
-              <Textarea
-                rows={3}
-                className="bg-background/60"
-                value={data.summaryParties}
-                onChange={(e) => set("summaryParties", e.target.value)}
-                placeholder="Kazaya karışan partiler"
-              />
-            </div>
-            <div className="sm:col-span-2 space-y-1.5">
-              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Hasarlar
-              </Label>
-              <Textarea
-                rows={3}
-                className="bg-background/60"
-                value={data.summaryDamages}
-                onChange={(e) => set("summaryDamages", e.target.value)}
-                placeholder="Meydana gelen hasarlar"
-              />
-            </div>
-            <div className="sm:col-span-2 space-y-1.5">
-              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Yaralanmalar
-              </Label>
-              <Textarea
-                rows={3}
-                className="bg-background/60"
-                value={data.summaryInjuries}
-                onChange={(e) => set("summaryInjuries", e.target.value)}
-                placeholder="Yaralanma durumu"
-              />
-            </div>
+            <ListField
+              label="Parti"
+              addLabel="Parti Ekle"
+              placeholder="Kazaya karışan parti"
+              items={toList(data.summaryParties)}
+              onChange={(items) => set("summaryParties", items)}
+            />
+            <ListField
+              label="Hasarlar"
+              addLabel="Hasar Ekle"
+              placeholder="Meydana gelen hasar"
+              items={toList(data.summaryDamages)}
+              onChange={(items) => set("summaryDamages", items)}
+            />
+            <ListField
+              label="Yaralanmalar"
+              addLabel="Yaralanma Ekle"
+              placeholder="Yaralanma durumu"
+              items={toList(data.summaryInjuries)}
+              onChange={(items) => set("summaryInjuries", items)}
+            />
             <div className="sm:col-span-2 space-y-2">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                 Kanıtlar
