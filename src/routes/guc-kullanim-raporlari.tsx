@@ -10,7 +10,7 @@ const templates: GroupTemplate[] = [
   {
     slug: "kategorik-guc-kullanimi-raporu",
     label: "Kategorik Güç Kullanımı Raporu (Form 06.11.33)",
-    description: "Görev sırasında uygulanan güç kullanımının kategorik olarak raporlandığı form.",
+    description: "Görev sırasında uygulanan güç kullanımının raporlandığı form.",
     to: "/add-kategorik-guc-kullanimi-raporu",
   },
   {
