@@ -136,6 +136,10 @@ export const emptyFollowup1 = (): Followup1Data => ({
 
 const v = (s: string, fallback = "X") => (s.trim() ? s.trim() : fallback);
 
+/** Doldurulmuş değerler siyah, boş (yer tutucu) değerler beyaz görünür. */
+const cv = (s: string, fallback = "X") =>
+  s.trim() ? `[color=#000000]${s.trim()}[/color]` : `[color=#FFFFFF]${fallback}[/color]`;
+
 /** Açıklama + olay özeti + soruşturma + kanıtlar tek detay bloğu olarak birleşir. */
 export function buildDetailsBlock(
   description: string,
