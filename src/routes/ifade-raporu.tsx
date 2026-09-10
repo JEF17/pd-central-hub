@@ -9,6 +9,7 @@ import {
   ReportHeader,
   FormSection as Section,
   TextField as Field,
+  DateField,
 } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
@@ -129,7 +130,7 @@ function Page() {
               onChange={(v) => set("assignment", v)}
               options={assignmentOptions}
             />
-            <Field label="Tarih" value={data.date} onChange={(v) => set("date", v)} placeholder="GG/AA/YYYY" />
+            <DateField label="Tarih" value={data.date} onChange={(v) => set("date", v)} />
           </Section>
 
           <Section title="Olay Türü" wide>
@@ -175,11 +176,10 @@ function Page() {
               onChange={(v) => set("statementLocation", v)}
               placeholder="Konumu girin"
             />
-            <Field
+            <DateField
               label="İfade Tarihi"
               value={data.statementDate}
               onChange={(v) => set("statementDate", v)}
-              placeholder="GG/AA/YYYY"
             />
           </Section>
 

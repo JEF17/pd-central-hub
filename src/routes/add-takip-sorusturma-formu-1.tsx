@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ClipboardCopy, FileSearch } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, FileSearch, Plus, Trash2 } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
-import { FormSection as Section, TextField as Field } from "@/components/report-ui";
+import { FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
@@ -18,10 +18,12 @@ import {
   buildFollowup1Title,
   caseFactorOptions,
   emptyFollowup1,
+  emptyVictim,
   followupCaseTypes,
   incidentTypeOptions,
   otherFactorOptions,
   type Followup1Data,
+  type FollowupVictim,
 } from "@/lib/add-followup-1";
 
 const title = "Takip Soruşturma Formu 1";
@@ -100,6 +102,24 @@ function Page() {
       [key]: d[key].includes(option) ? d[key].filter((x) => x !== option) : [...d[key], option],
     }));
 
+  const victims = data.victims?.length ? data.victims : [emptyVictim()];
+
+  const updateVictim = (index: number, patch: Partial<FollowupVictim>) =>
+    setData((d) => {
+      const list = d.victims?.length ? [...d.victims] : [emptyVictim()];
+      list[index] = { ...(list[index] ?? emptyVictim()), ...patch };
+      return { ...d, victims: list };
+    });
+
+  const addVictim = () =>
+    setData((d) => ({ ...d, victims: [...(d.victims ?? []), emptyVictim()] }));
+
+  const removeVictim = (index: number) =>
+    setData((d) => {
+      const list = (d.victims ?? []).filter((_, i) => i !== index);
+      return { ...d, victims: list.length ? list : [emptyVictim()] };
+    });
+
   const copy = (value: string, label: string) => {
     void navigator.clipboard.writeText(value);
     notify.success(`${label} kopyalandı`);
@@ -168,11 +188,10 @@ function Page() {
               onChange={(v) => set("titleNo", v)}
               placeholder="0000 veya 26-0000"
             />
-            <Field
+            <DateField
               label="Tarih"
               value={data.titleDate}
               onChange={(v) => set("titleDate", v)}
-              placeholder="GG/AA/YYYY"
             />
             <div className="sm:col-span-2 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background/60 px-4 py-3">
               <span className="font-mono text-sm">{formTitle}</span>
@@ -208,20 +227,60 @@ function Page() {
             />
           </Section>
 
-          <Section title="Mağdur Bilgisi">
-            <div className="sm:col-span-2">
-              <Field
-                label="Ad Soyadı (ya da İşletme Adı)"
-                value={data.victimName}
-                onChange={(v) => set("victimName", v)}
-              />
-            </div>
-            <Field label="Cinsiyet" value={data.victimGender} onChange={(v) => set("victimGender", v)} />
-            <Field label="Etnik Grup" value={data.victimEthnicity} onChange={(v) => set("victimEthnicity", v)} />
-            <Field label="Yaş" value={data.victimAge} onChange={(v) => set("victimAge", v)} />
-            <Field label="İletişim Bilgisi" value={data.victimContact} onChange={(v) => set("victimContact", v)} />
-            <div className="sm:col-span-2">
-              <Field label="Adres" value={data.victimAddress} onChange={(v) => set("victimAddress", v)} />
+          <Section title="Mağdur Bilgisi" wide hint={`${victims.length} mağdur`}>
+            <div className="sm:col-span-2 space-y-4">
+              {victims.map((vic, i) => (
+                <div
+                  key={i}
+                  className="rounded-xl border border-border bg-background/40 p-4 shadow-sm"
+                >
+                  <div className="mb-3 flex items-center gap-2">
+                    <span className="rounded-full bg-primary/15 px-2.5 py-1 text-xs font-semibold text-primary">
+                      Mağdur {i + 1}
+                    </span>
+                    {victims.length > 1 ? (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="ml-auto h-8 px-2 text-xs text-destructive hover:text-destructive"
+                        onClick={() => removeVictim(i)}
+                      >
+                        <Trash2 className="size-3.5" />
+                        Kaldır
+                      </Button>
+                    ) : null}
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="sm:col-span-2">
+                      <Field
+                        label="Ad Soyadı (ya da İşletme Adı)"
+                        value={vic.name}
+                        onChange={(v) => updateVictim(i, { name: v })}
+                      />
+                    </div>
+                    <Field label="Cinsiyet" value={vic.gender} onChange={(v) => updateVictim(i, { gender: v })} />
+                    <Field
+                      label="Etnik Grup"
+                      value={vic.ethnicity}
+                      onChange={(v) => updateVictim(i, { ethnicity: v })}
+                    />
+                    <Field label="Yaş" value={vic.age} onChange={(v) => updateVictim(i, { age: v })} />
+                    <Field
+                      label="İletişim Bilgisi"
+                      value={vic.contact}
+                      onChange={(v) => updateVictim(i, { contact: v })}
+                    />
+                    <div className="sm:col-span-2">
+                      <Field label="Adres" value={vic.address} onChange={(v) => updateVictim(i, { address: v })} />
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <Button type="button" variant="outline" size="sm" className="press" onClick={addVictim}>
+                <Plus className="size-4" />
+                Mağdur Ekle
+              </Button>
             </div>
           </Section>
 
@@ -229,17 +288,17 @@ function Page() {
             <div className="sm:col-span-2">
               <Field label="Konum Bilgisi" value={data.location} onChange={(v) => set("location", v)} />
             </div>
-            <Field
+            <DateField
               label="Meydana Gelme Tarihi"
               value={data.occurredAt}
               onChange={(v) => set("occurredAt", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
-            <Field
+            <DateField
               label="Bildirilme Tarihi"
               value={data.reportedAt}
               onChange={(v) => set("reportedAt", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
             <div className="sm:col-span-2">
               <Field
@@ -291,11 +350,11 @@ function Page() {
             <Field label="Personel Bilgisi" value={data.officerName} onChange={(v) => set("officerName", v)} />
             <Field label="Seri No." value={data.officerSerial} onChange={(v) => set("officerSerial", v)} />
             <Field label="Division" value={data.officerDivision} onChange={(v) => set("officerDivision", v)} />
-            <Field
+            <DateField
               label="Tarih ve Saat"
               value={data.officerDateTime}
               onChange={(v) => set("officerDateTime", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
             <Field label="Supervisor Bilgisi" value={data.supervisorName} onChange={(v) => set("supervisorName", v)} />
             <Field label="Supervisor Seri No." value={data.supervisorSerial} onChange={(v) => set("supervisorSerial", v)} />
@@ -304,11 +363,11 @@ function Page() {
               value={data.supervisorDivision}
               onChange={(v) => set("supervisorDivision", v)}
             />
-            <Field
+            <DateField
               label="Supervisor Tarih ve Saat"
               value={data.supervisorDateTime}
               onChange={(v) => set("supervisorDateTime", v)}
-              placeholder="GG/AA/YYYY — 1200"
+              withTime
             />
           </Section>
         </div>

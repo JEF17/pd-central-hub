@@ -9,6 +9,7 @@ import {
   ReportHeader,
   FormSection as Section,
   TextField as Field,
+  DateField,
 } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
@@ -90,7 +91,7 @@ function Page() {
             <Field label="Köken" value={data.origin} onChange={(v) => set("origin", v)} placeholder="Caucasian" />
             <Field label="Yaşı" value={data.age} onChange={(v) => set("age", v)} placeholder="00" />
             <Field label="Suçlamalar" value={data.charges} onChange={(v) => set("charges", v)} placeholder="000" />
-            <Field label="Gözaltı Tarihi" value={data.custodyDate} onChange={(v) => set("custodyDate", v)} placeholder="GG/AA/YYYY" />
+            <DateField label="Gözaltı Tarihi" value={data.custodyDate} onChange={(v) => set("custodyDate", v)} />
             <Field label="Gözaltı Saati" value={data.custodyTime} onChange={(v) => set("custodyTime", v)} placeholder="00:00" />
           </Section>
 

@@ -37,6 +37,24 @@ export const otherFactorOptions = [
   "GND/GIT",
 ];
 
+export interface FollowupVictim {
+  name: string;
+  gender: string;
+  ethnicity: string;
+  age: string;
+  address: string;
+  contact: string;
+}
+
+export const emptyVictim = (): FollowupVictim => ({
+  name: "",
+  gender: "",
+  ethnicity: "",
+  age: "",
+  address: "",
+  contact: "",
+});
+
 export interface Followup1Data {
   caseType: FollowupCaseTypeKey | "";
   titleNo: string;
@@ -46,12 +64,7 @@ export interface Followup1Data {
   investigationReportNo: string;
   incidentTypes: string[];
 
-  victimName: string;
-  victimGender: string;
-  victimEthnicity: string;
-  victimAge: string;
-  victimAddress: string;
-  victimContact: string;
+  victims: FollowupVictim[];
 
   location: string;
   occurredAt: string;
@@ -81,12 +94,7 @@ export const emptyFollowup1 = (): Followup1Data => ({
   incidentReportNo: "",
   investigationReportNo: "",
   incidentTypes: [],
-  victimName: "",
-  victimGender: "",
-  victimEthnicity: "",
-  victimAge: "",
-  victimAddress: "",
-  victimContact: "",
+  victims: [emptyVictim()],
   location: "",
   occurredAt: "",
   reportedAt: "",
@@ -119,7 +127,31 @@ export function buildFollowup1Title(data: Followup1Data): string {
 
 const cb = (checked: boolean) => (checked ? "[cbc]" : "[cb]");
 
+function victimBlock(vic: FollowupVictim): string {
+  return `[table=#d0dade,white][tr]
+[tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]MAĞDUR BİLGİSİ[/b][/size]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]AD SOYADI (ya da İŞLETME ADI)
+[color=#FFFFFF]${v(vic.name)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]CİNSİYET
+[color=#FFFFFF]${v(vic.gender)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]ETNİK GRUP
+[color=#FFFFFF]${v(vic.ethnicity)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]YAŞ
+[color=#FFFFFF]${v(vic.age)}[/color][/indent][/size][/tdwidth][/table]
+
+[table=#d0dade,white][tr]
+[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]ADRES
+[color=#FFFFFF]${v(vic.address)}[/color][/indent][/size][/tdwidth]
+[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]İLETİŞİM BİLGİSİ
+[color=#FFFFFF]${v(vic.contact)}[/color][/indent][/size][/tdwidth][/table][/tdwidth][/table]`;
+}
+
 export function buildFollowup1BBCode(data: Followup1Data): string {
+  const victims = data.victims?.length ? data.victims : [emptyVictim()];
+  const victimBlocks = victims.map(victimBlock).join("\n\n");
+
   const incident = incidentTypeOptions
     .map((o) => `${cb(data.incidentTypes.includes(o))} ${o}`)
     .join("[color=#FFFFFF]___[/color]");
@@ -151,25 +183,7 @@ export function buildFollowup1BBCode(data: Followup1Data): string {
 [/table]
 [/tdwidth][/table]
 
-[table=#d0dade,white][tr]
-[tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]MAĞDUR BİLGİSİ[/b][/size]
-
-[table=#d0dade,white][tr]
-[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]AD SOYADI (ya da İŞLETME ADI)
-[color=#FFFFFF]${v(data.victimName)}[/color][/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]CİNSİYET
-[color=#FFFFFF]${v(data.victimGender)}[/color][/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]ETNİK GRUP
-[color=#FFFFFF]${v(data.victimEthnicity)}[/color][/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]YAŞ
-[color=#FFFFFF]${v(data.victimAge)}[/color][/indent][/size][/tdwidth][/table]
-
-[table=#d0dade,white][tr]
-[tdwidth=#d0dade,#ffffff,top,left,4,1][size=85][indent=2]ADRES
-[color=#FFFFFF]${v(data.victimAddress)}[/color][/indent][/size][/tdwidth]
-[tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]İLETİŞİM BİLGİSİ
-[color=#FFFFFF]${v(data.victimContact)}[/color][/indent][/size][/tdwidth][/table][/tdwidth][/table]
-
+${victimBlocks}
 
 [table=#d0dade,white][tr]
 [tdwidth=#ffffff,#ffffff,top,left,10,1][size=85][indent=2][b]VAKA BİLGİSİ[/b][/size]

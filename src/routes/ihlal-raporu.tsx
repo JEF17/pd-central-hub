@@ -5,7 +5,7 @@ import { ArrowLeft, CircleAlert, ClipboardCopy, ShieldAlert, TrafficCone, Triang
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
-import { ReportHeader, FormSection as Section, TextField as Field } from "@/components/report-ui";
+import { ReportHeader, FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
@@ -181,11 +181,10 @@ function Page() {
                 onChange={(v) => setOfficer({ assignment: v })}
                 options={assignmentOptions}
               />
-              <Field
+              <DateField
                 label="Tarih"
                 value={data.officer.date}
                 onChange={(v) => setOfficer({ date: v })}
-                placeholder="GG/AA/YYYY"
               />
             </div>
           </Section>
@@ -225,7 +224,7 @@ function Page() {
                 placeholder="502."
               />
             </div>
-            <Field label="Tarih" value={data.date} onChange={(v) => set("date", v)} placeholder="GG/AA/YYYY" />
+            <DateField label="Tarih" value={data.date} onChange={(v) => set("date", v)} />
             <Field label="Saat" value={data.time} onChange={(v) => set("time", v)} placeholder="00:00" />
           </Section>
 
