@@ -697,6 +697,7 @@ function logEventLabel(event: string): string {
     admin_set_role: "Yetki Değişikliği",
     admin_delete_user: "Kullanıcı Silindi",
     admin_edit_profile: "Personel Profili Düzenlendi",
+    admin_set_groups: "Grup Yetkisi Değişikliği",
   };
   return labels[event] || event;
 }
