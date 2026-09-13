@@ -13,16 +13,13 @@ import {
   ShieldAlert,
   Trash2,
   X,
-  type LucideIcon, FileText, } from "lucide-react";
+  type LucideIcon,
+  FileText,
+} from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
-import {
-  ReportHeader,
-  FormSection as Section,
-  TextField as Field,
-  DateField,
-} from "@/components/report-ui";
+import { ReportHeader, FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
@@ -66,8 +63,10 @@ import {
 } from "@/lib/incident-report";
 
 export const Route = createFileRoute("/olay-raporu")({
-  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
-  
+  beforeLoad: async ({ location }) => {
+    await requirePortalAuth(location.href);
+  },
+
   head: () => ({
     meta: [
       { title: "Olay Raporu Oluşturucu — LSPD - Toolkit" },
@@ -107,7 +106,6 @@ function Page() {
     notify.success(`${label} kopyalandı`);
   };
 
-
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl px-6 py-10">
@@ -134,7 +132,12 @@ function Page() {
               <Label className="text-xs">Konu Başlığı</Label>
               <div className="mt-2 flex items-center gap-2">
                 <Input readOnly value={title} className="font-mono" />
-                <Button variant="outline" size="icon" onClick={() => copy(title, "Konu başlığı")} aria-label="Konu başlığını kopyala">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => copy(title, "Konu başlığı")}
+                  aria-label="Konu başlığını kopyala"
+                >
                   <ClipboardCopy className="size-4" />
                 </Button>
               </div>
@@ -145,7 +148,12 @@ function Page() {
             <div className="sm:col-span-2">
               <ProfileFillButton
                 onFill={(p) => {
-              setData((d) => ({ ...d, officerName: p.name, serialNo: p.serialNo, division: p.division || d.division }));
+                  setData((d) => ({
+                    ...d,
+                    officerName: p.name,
+                    serialNo: p.serialNo,
+                    division: p.division || d.division,
+                  }));
                 }}
               />
             </div>
@@ -241,10 +249,7 @@ function Page() {
                 onClick={() =>
                   setData((d) => ({
                     ...d,
-                    people: [
-                      ...d.people,
-                      { id: `p${Date.now()}`, name: "", contact: "", address: "", status: "" },
-                    ],
+                    people: [...d.people, { id: `p${Date.now()}`, name: "", contact: "", address: "", status: "" }],
                   }))
                 }
               >
@@ -262,9 +267,7 @@ function Page() {
                         variant="ghost"
                         size="icon"
                         aria-label="Kişiyi sil"
-                        onClick={() =>
-                          setData((d) => ({ ...d, people: d.people.filter((x) => x.id !== p.id) }))
-                        }
+                        onClick={() => setData((d) => ({ ...d, people: d.people.filter((x) => x.id !== p.id) }))}
                       >
                         <Trash2 className="size-4" />
                       </Button>
@@ -272,7 +275,11 @@ function Page() {
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <Field label="Adı Soyadı" value={p.name} onChange={(v) => updatePerson(p.id, { name: v })} />
-                    <Field label="İletişim Bilgisi" value={p.contact} onChange={(v) => updatePerson(p.id, { contact: v })} />
+                    <Field
+                      label="İletişim Bilgisi"
+                      value={p.contact}
+                      onChange={(v) => updatePerson(p.id, { contact: v })}
+                    />
                     <Field label="Adresi" value={p.address} onChange={(v) => updatePerson(p.id, { address: v })} />
                     <div>
                       <Label className="text-xs">Statü</Label>
@@ -280,16 +287,12 @@ function Page() {
                         <CheckItem
                           label="MAĞDUR"
                           checked={p.status === "victim"}
-                          onChange={() =>
-                            updatePerson(p.id, { status: p.status === "victim" ? "" : "victim" })
-                          }
+                          onChange={() => updatePerson(p.id, { status: p.status === "victim" ? "" : "victim" })}
                         />
                         <CheckItem
                           label="TANIK"
                           checked={p.status === "witness"}
-                          onChange={() =>
-                            updatePerson(p.id, { status: p.status === "witness" ? "" : "witness" })
-                          }
+                          onChange={() => updatePerson(p.id, { status: p.status === "witness" ? "" : "witness" })}
                         />
                       </div>
                     </div>
@@ -327,7 +330,7 @@ function Page() {
                     <li>Trafik Kazası Fotoğrafları (Plaka)</li>
                     <li>Impound Report - Araç Modeli - Plaka</li>
                     <li>Tutuklama Raporu (Şüpheli Adı)</li>
-                    <li>FSD Sillah Adı - Balistik İncelemesi</li>
+                    <li>FSD Silah Adı - Balistik İncelemesi</li>
                     <li>FSD Eşya Adı - Parmak İzi İncelemesi</li>
                     <li>FSD DNA İnceleme Raporu</li>
                     <li>APB - Şüpheli Adı (APB Numarası)</li>
@@ -347,9 +350,7 @@ function Page() {
                       onChange={(ev) =>
                         setData((d) => ({
                           ...d,
-                          evidence: d.evidence.map((x) =>
-                            x.id === e.id ? { ...x, label: ev.target.value } : x,
-                          ),
+                          evidence: d.evidence.map((x) => (x.id === e.id ? { ...x, label: ev.target.value } : x)),
                         }))
                       }
                     />
@@ -363,9 +364,7 @@ function Page() {
                       onChange={(ev) =>
                         setData((d) => ({
                           ...d,
-                          evidence: d.evidence.map((x) =>
-                            x.id === e.id ? { ...x, url: ev.target.value } : x,
-                          ),
+                          evidence: d.evidence.map((x) => (x.id === e.id ? { ...x, url: ev.target.value } : x)),
                         }))
                       }
                     />
@@ -376,9 +375,7 @@ function Page() {
                       size="icon"
                       aria-label="Kanıtı sil"
                       className="evidence-remove"
-                      onClick={() =>
-                        setData((d) => ({ ...d, evidence: d.evidence.filter((x) => x.id !== e.id) }))
-                      }
+                      onClick={() => setData((d) => ({ ...d, evidence: d.evidence.filter((x) => x.id !== e.id) }))}
                     >
                       <X className="size-4" />
                     </Button>
@@ -405,7 +402,9 @@ function Page() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button className="press" onClick={() => setOutput(buildIncidentBBCode(data))}>Raporu Oluştur</Button>
+          <Button className="press" onClick={() => setOutput(buildIncidentBBCode(data))}>
+            Raporu Oluştur
+          </Button>
           {output ? (
             <>
               <Button variant="outline" className="press" onClick={() => copy(output, "BBCode")}>
@@ -418,13 +417,14 @@ function Page() {
               </Button>
             </>
           ) : null}
-
         </div>
 
         {output ? (
           <section className="mt-6 rounded-xl border border-border bg-card p-6">
             <h2 className="text-lg font-semibold">Çıktı</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Konu başlığı: <span className="font-mono">{title}</span></p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Konu başlığı: <span className="font-mono">{title}</span>
+            </p>
             <Textarea readOnly value={output} rows={22} className="mt-4 font-mono text-xs" />
           </section>
         ) : null}
@@ -433,17 +433,7 @@ function Page() {
   );
 }
 
-
-
-function CheckItem({
-  label,
-  checked,
-  onChange,
-}: {
-  label: string;
-  checked: boolean;
-  onChange: () => void;
-}) {
+function CheckItem({ label, checked, onChange }: { label: string; checked: boolean; onChange: () => void }) {
   return (
     <label className="flex cursor-pointer items-center gap-2 text-sm">
       <Checkbox checked={checked} onCheckedChange={onChange} />
