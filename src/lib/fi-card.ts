@@ -105,9 +105,9 @@ ${val(data.officerName, "JOHN DOE")}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]SERİ NO.
 ${val(data.serialNo, "00000")}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]MEMUR
-${val(data.officer2Name, "JOHN DOE")}[/indent][/size][/tdwidth]
+${val(data.officer2Name)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]SERİ NO.
-${val(data.serial2No, "00000")}[/indent][/size][/tdwidth]
+${val(data.serial2No)}[/indent][/size][/tdwidth]
 [/table]
 
 [table=#d0dade,white][tr]
