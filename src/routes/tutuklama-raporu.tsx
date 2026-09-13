@@ -1,16 +1,11 @@
 import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { requirePortalAuth } from "@/lib/portal-auth";
-import { ArrowLeft, ClipboardCopy, Info, Plus, X, ShieldAlert, } from "lucide-react";
+import { ArrowLeft, ClipboardCopy, Info, Plus, X, ShieldAlert } from "lucide-react";
 import { notify } from "@/lib/notifications";
 
 import { AppShell } from "@/components/AppShell";
-import {
-  ReportHeader,
-  FormSection as Section,
-  TextField as Field,
-  DateField,
-} from "@/components/report-ui";
+import { ReportHeader, FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
@@ -19,13 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { assignmentOptions, divisionOptions } from "@/lib/incident-report";
 import {
@@ -36,8 +25,10 @@ import {
 } from "@/lib/arrest-report-html";
 
 export const Route = createFileRoute("/tutuklama-raporu")({
-  beforeLoad: async ({ location }) => { await requirePortalAuth(location.href); },
-  
+  beforeLoad: async ({ location }) => {
+    await requirePortalAuth(location.href);
+  },
+
   head: () => ({
     meta: [
       { title: "Tutuklama Raporu Oluşturucu — LSPD - Toolkit" },
@@ -63,16 +54,10 @@ function Page() {
     notify.success(`${label} kopyalandı`);
   };
 
-
   return (
     <AppShell>
       <div className="mx-auto max-w-7xl px-6 py-10">
-        <ReportHeader
-          title="Tutuklama Raporu"
-          description=""
-          format="MDC"
-          icon={ShieldAlert}
-        />
+        <ReportHeader title="Tutuklama Raporu" description="" format="MDC" icon={ShieldAlert} />
 
         <DraftBar
           savedAt={savedAt}
@@ -93,12 +78,22 @@ function Page() {
               options={genderOptions.map((g) => ({ label: g, value: g }))}
             />
             <Field label="Yaş" value={data.suspectAge} onChange={(v) => set("suspectAge", v)} placeholder="00" />
-            <Field label="Köken" value={data.suspectOrigin} onChange={(v) => set("suspectOrigin", v)} placeholder="Caucasian" />
+            <Field
+              label="Köken"
+              value={data.suspectOrigin}
+              onChange={(v) => set("suspectOrigin", v)}
+              placeholder="Caucasian"
+            />
           </Section>
 
           <Section title="Tutuklama Bilgisi">
             <div className="sm:col-span-2">
-              <Field label="Konum" value={data.location} onChange={(v) => set("location", v)} placeholder="000 Palomino Avenue" />
+              <Field
+                label="Konum"
+                value={data.location}
+                onChange={(v) => set("location", v)}
+                placeholder="000 Palomino Avenue"
+              />
             </div>
             <div className="sm:col-span-2">
               <Field
@@ -116,7 +111,11 @@ function Page() {
             <div className="sm:col-span-2">
               <ProfileFillButton
                 onFill={(p) => {
-              updateOfficer(0, { name: p.name, serialNo: p.serialNo, ...(p.division ? { division: p.division } : {}) });
+                  updateOfficer(0, {
+                    name: p.name,
+                    serialNo: p.serialNo,
+                    ...(p.division ? { division: p.division } : {}),
+                  });
                 }}
               />
             </div>
@@ -126,11 +125,7 @@ function Page() {
                 <div key={i} className="rounded-lg border border-border bg-muted/20 p-4">
                   <span className="text-xs font-medium text-muted-foreground">Personel #{i + 1}</span>
                   <div className="mt-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <Field
-                      label="Adı Soyadı"
-                      value={o.name}
-                      onChange={(v) => updateOfficer(i, { name: v })}
-                    />
+                    <Field label="Adı Soyadı" value={o.name} onChange={(v) => updateOfficer(i, { name: v })} />
                     <Field
                       label="Seri No."
                       value={o.serialNo}
@@ -149,11 +144,7 @@ function Page() {
                       onChange={(v) => updateOfficer(i, { assignment: v })}
                       options={assignmentOptions}
                     />
-                    <DateField
-                      label="Tarih"
-                      value={o.date}
-                      onChange={(v) => updateOfficer(i, { date: v })}
-                    />
+                    <DateField label="Tarih" value={o.date} onChange={(v) => updateOfficer(i, { date: v })} />
                   </div>
                 </div>
               ))}
@@ -190,7 +181,7 @@ function Page() {
                     <li>Trafik Kazası Fotoğrafları (Plaka)</li>
                     <li>Impound Report - Araç Modeli - Plaka</li>
                     <li>Tutuklama Raporu (Şüpheli Adı)</li>
-                    <li>FSD Sillah Adı - Balistik İncelemesi</li>
+                    <li>FSD Silah Adı - Balistik İncelemesi</li>
                     <li>FSD Eşya Adı - Parmak İzi İncelemesi</li>
                     <li>FSD DNA İnceleme Raporu</li>
                     <li>APB - Şüpheli Adı (APB Numarası)</li>
@@ -244,14 +235,15 @@ function Page() {
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button className="press" onClick={() => setOutput(buildArrestReportHtml(data))}>Raporu Oluştur</Button>
+          <Button className="press" onClick={() => setOutput(buildArrestReportHtml(data))}>
+            Raporu Oluştur
+          </Button>
           {output ? (
             <Button variant="outline" className="press" onClick={() => copy(output, "HTML")}>
               <ClipboardCopy className="size-4" />
               Kopyala
             </Button>
           ) : null}
-
         </div>
 
         {output ? (
@@ -278,8 +270,6 @@ function Page() {
     );
   }
 }
-
-
 
 function SelectField({
   label,
