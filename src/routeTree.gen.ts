@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AddCctvKayitTalepleriRouteImport } from './routes/add-cctv-kayit-talepleri'
+import { Route as AddK9DeploymentRaporuRouteImport } from './routes/add-k9-deployment-raporu'
 import { Route as AddKategorikGucKullanimiRaporuRouteImport } from './routes/add-kategorik-guc-kullanimi-raporu'
 import { Route as AddKategorikGucKullanimiTamamlayiciRaporuRouteImport } from './routes/add-kategorik-guc-kullanimi-tamamlayici-raporu'
 import { Route as AddKazaSorusturmaRaporuRouteImport } from './routes/add-kaza-sorusturma-raporu'
@@ -57,6 +58,11 @@ const IndexRoute = IndexRouteImport.update({
 const AddCctvKayitTalepleriRoute = AddCctvKayitTalepleriRouteImport.update({
   id: '/add-cctv-kayit-talepleri',
   path: '/add-cctv-kayit-talepleri',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddK9DeploymentRaporuRoute = AddK9DeploymentRaporuRouteImport.update({
+  id: '/add-k9-deployment-raporu',
+  path: '/add-k9-deployment-raporu',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddKategorikGucKullanimiRaporuRoute =
@@ -256,6 +262,7 @@ const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
+  '/add-k9-deployment-raporu': typeof AddK9DeploymentRaporuRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
   '/add-kaza-sorusturma-raporu': typeof AddKazaSorusturmaRaporuRoute
@@ -297,6 +304,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
+  '/add-k9-deployment-raporu': typeof AddK9DeploymentRaporuRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
   '/add-kaza-sorusturma-raporu': typeof AddKazaSorusturmaRaporuRoute
@@ -339,6 +347,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
+  '/add-k9-deployment-raporu': typeof AddK9DeploymentRaporuRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
   '/add-kaza-sorusturma-raporu': typeof AddKazaSorusturmaRaporuRoute
@@ -382,6 +391,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/add-cctv-kayit-talepleri'
+    | '/add-k9-deployment-raporu'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
     | '/add-kaza-sorusturma-raporu'
@@ -423,6 +433,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/add-cctv-kayit-talepleri'
+    | '/add-k9-deployment-raporu'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
     | '/add-kaza-sorusturma-raporu'
@@ -464,6 +475,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/add-cctv-kayit-talepleri'
+    | '/add-k9-deployment-raporu'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
     | '/add-kaza-sorusturma-raporu'
@@ -506,6 +518,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddCctvKayitTalepleriRoute: typeof AddCctvKayitTalepleriRoute
+  AddK9DeploymentRaporuRoute: typeof AddK9DeploymentRaporuRoute
   AddKategorikGucKullanimiRaporuRoute: typeof AddKategorikGucKullanimiRaporuRoute
   AddKategorikGucKullanimiTamamlayiciRaporuRoute: typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
   AddKazaSorusturmaRaporuRoute: typeof AddKazaSorusturmaRaporuRoute
@@ -559,6 +572,13 @@ declare module '@tanstack/react-router' {
       path: '/add-cctv-kayit-talepleri'
       fullPath: '/add-cctv-kayit-talepleri'
       preLoaderRoute: typeof AddCctvKayitTalepleriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-k9-deployment-raporu': {
+      id: '/add-k9-deployment-raporu'
+      path: '/add-k9-deployment-raporu'
+      fullPath: '/add-k9-deployment-raporu'
+      preLoaderRoute: typeof AddK9DeploymentRaporuRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-kategorik-guc-kullanimi-raporu': {
@@ -826,6 +846,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddCctvKayitTalepleriRoute: AddCctvKayitTalepleriRoute,
+  AddK9DeploymentRaporuRoute: AddK9DeploymentRaporuRoute,
   AddKategorikGucKullanimiRaporuRoute: AddKategorikGucKullanimiRaporuRoute,
   AddKategorikGucKullanimiTamamlayiciRaporuRoute:
     AddKategorikGucKullanimiTamamlayiciRaporuRoute,
