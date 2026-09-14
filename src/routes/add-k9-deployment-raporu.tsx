@@ -3,7 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ClipboardCopy, Plus, Shield, Trash2 } from "lucide-react";
 
 import { AppShell } from "@/components/AppShell";
-import { FormSection as Section, TextField as Field, DateField, OptionCard } from "@/components/report-ui";
+import { FormSection as Section, TextField as Field, DateField } from "@/components/report-ui";
 import { ProfileFillButton } from "@/components/ProfileFillButton";
 import { DraftBar } from "@/components/DraftBar";
 import { useFormDraft } from "@/hooks/use-form-draft";
