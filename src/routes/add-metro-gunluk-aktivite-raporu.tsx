@@ -143,6 +143,12 @@ function Page() {
 
         <div className="mt-8 grid gap-6">
           <Section title="Rapor Bilgileri" wide>
+            <Field
+              label="Çağrı Kodu"
+              value={data.callCode}
+              onChange={(v) => set("callCode", v.toUpperCase())}
+              placeholder="ÇAĞRIKODU"
+            />
             <DateField label="Tarih" value={data.date} onChange={(v) => set("date", v)} />
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
