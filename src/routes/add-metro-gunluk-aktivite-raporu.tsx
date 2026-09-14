@@ -142,7 +142,7 @@ function Page() {
         />
 
         <div className="mt-8 grid gap-6">
-          <Section title="Rapor Bilgileri" wide>
+          <Section title="Başlık" wide hint="ÇAĞRIKODU - 00/00/0000 (Ad Soyadı, Ad Soyadı, Ad Soyadı)">
             <Field
               label="Çağrı Kodu"
               value={data.callCode}
@@ -150,6 +150,23 @@ function Page() {
               placeholder="ÇAĞRIKODU"
             />
             <DateField label="Tarih" value={data.date} onChange={(v) => set("date", v)} />
+            <div className="sm:col-span-2 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background/60 px-4 py-3">
+              <code className="min-w-0 flex-1 break-all font-mono text-xs text-foreground">
+                {buildMetroDailyActivityTitle(data)}
+              </code>
+              <Button
+                variant="outline"
+                size="sm"
+                className="press"
+                onClick={() => copy(buildMetroDailyActivityTitle(data), "Başlık")}
+              >
+                <ClipboardCopy className="size-3.5" />
+                Başlığı Kopyala
+              </Button>
+            </div>
+          </Section>
+
+          <Section title="Rapor Bilgileri" wide>
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                 Gün
@@ -207,29 +224,6 @@ function Page() {
               />
             </div>
           </Section>
-
-          <div className="rounded-xl border border-border/70 bg-card/60 p-4">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <div className="min-w-0">
-                <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                  Oluşturulacak Başlık
-                </p>
-                <p className="mt-1 truncate font-mono text-sm font-semibold">
-                  {buildMetroDailyActivityTitle(data)}
-                </p>
-              </div>
-              <Button
-                type="button"
-                variant="outline"
-                size="sm"
-                className="shrink-0"
-                onClick={() => copy(buildMetroDailyActivityTitle(data), "Başlık")}
-              >
-                <ClipboardCopy className="mr-1.5 size-3.5" />
-                Başlığı Kopyala
-              </Button>
-            </div>
-          </div>
 
           <Section title="Personel Bilgileri" wide>
             <div className="sm:col-span-2">
