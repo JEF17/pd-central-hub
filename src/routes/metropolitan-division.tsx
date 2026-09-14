@@ -6,8 +6,14 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 const title = "Metropolitan Division";
 const description = "Metropolitan Division personeline özel rapor şablonları ve araçlar.";
 
-/** Metro'ya özel şablonlar buraya eklenecek. */
-const templates: GroupTemplate[] = [];
+const templates: GroupTemplate[] = [
+  {
+    slug: "gunluk-aktivite-raporu",
+    label: "Metropolitan Division Günlük Aktivite Raporu",
+    description: "METROPOLITAN DIVISION GÜNLÜK AKTİVİTE RAPORU — 15.52.04 (12/25)",
+    to: "/add-metro-gunluk-aktivite-raporu",
+  },
+];
 
 export const Route = createFileRoute("/metropolitan-division")({
   beforeLoad: async ({ location }) => {
