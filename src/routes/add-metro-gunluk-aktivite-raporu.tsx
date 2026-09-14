@@ -12,6 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import {
@@ -135,24 +143,59 @@ function Page() {
         <div className="mt-8 grid gap-6">
           <Section title="Rapor Bilgileri" wide>
             <DateField label="Tarih" value={data.date} onChange={(v) => set("date", v)} />
-            <Field
-              label="Gün"
-              value={data.day}
-              onChange={(v) => set("day", v)}
-              placeholder="PAZARTESİ"
-            />
+            <div className="space-y-1.5">
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Gün
+              </Label>
+              <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
+                {[
+                  "PAZARTESİ",
+                  "SALI",
+                  "ÇARŞAMBA",
+                  "PERŞEMBE",
+                  "CUMA",
+                  "CUMARTESİ",
+                  "PAZAR",
+                ].map((d) => (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => set("day", d)}
+                    className={cn(
+                      "rounded-lg border px-2 py-2 text-[10px] font-semibold uppercase tracking-wide transition-all",
+                      data.day === d
+                        ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                        : "border-border bg-background/60 text-muted-foreground hover:border-primary/50 hover:text-foreground",
+                    )}
+                  >
+                    {d.slice(0, 3)}
+                  </button>
+                ))}
+              </div>
+            </div>
             <Field
               label="Birim"
               value={data.unit}
               onChange={(v) => set("unit", v)}
               placeholder="—"
             />
-            <Field
-              label="Area"
-              value={data.area}
-              onChange={(v) => set("area", v)}
-              placeholder="CITYWIDE"
-            />
+            <div className="space-y-1.5">
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Area
+              </Label>
+              <Select value={data.area} onValueChange={(v) => set("area", v)}>
+                <SelectTrigger className="h-10 w-full bg-background/60">
+                  <SelectValue placeholder="Area seçin" />
+                </SelectTrigger>
+                <SelectContent>
+                  {["MISN", "CENT", "CITYWIDE"].map((a) => (
+                    <SelectItem key={a} value={a}>
+                      {a}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="sm:col-span-2">
               <Field
                 label="Onaylayan Supervisor"
