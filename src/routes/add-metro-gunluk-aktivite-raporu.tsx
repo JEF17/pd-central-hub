@@ -24,6 +24,7 @@ import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import {
   buildMetroDailyActivityBBCode,
+  buildMetroDailyActivityTitle,
   emptyMetroDailyActivity,
   emptyMetroNarrative,
   emptyMetroPersonnel,
