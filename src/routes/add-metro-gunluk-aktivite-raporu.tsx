@@ -59,7 +59,7 @@ function Page() {
     autoFilled.current = true;
     setData((d) => {
       const personnel = d.personnel.length ? [...d.personnel] : [emptyMetroPersonnel()];
-      const first = personnel[0];
+      const first = personnel[0] ?? emptyMetroPersonnel();
       personnel[0] = {
         name: first.name || profile.name.trim().toUpperCase(),
         serialNo: first.serialNo || profile.serialNo,
