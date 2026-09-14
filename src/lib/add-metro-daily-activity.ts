@@ -41,6 +41,7 @@ export const emptyMetroPersonnel = (): MetroPersonnel => ({ name: "", serialNo: 
 export const emptyMetroNarrative = (): MetroNarrativeItem => ({ tag: "", text: "" });
 
 export const emptyMetroDailyActivity = (): MetroDailyActivityData => ({
+  callCode: "",
   date: "",
   day: "",
   unit: "—",
@@ -59,6 +60,14 @@ export const emptyMetroDailyActivity = (): MetroDailyActivityData => ({
   pursuits: "0",
   narratives: [emptyMetroNarrative()],
 });
+
+export function buildMetroDailyActivityTitle(d: MetroDailyActivityData): string {
+  const names = d.personnel
+    .filter((p) => p.name.trim())
+    .map((p) => p.name.trim().toUpperCase())
+    .join(", ");
+  return `${v(d.callCode, "ÇAĞRIKODU")} - ${v(d.date, "00/00/0000")}${names ? ` (${names})` : ""}`;
+}
 
 const v = (s: string, fallback = "") => (s.trim() ? s.trim() : fallback);
 const n = (s: string) => (s.trim() ? s.trim() : "0");
