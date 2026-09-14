@@ -92,9 +92,11 @@ export function buildMetroDailyActivityBBCode(d: MetroDailyActivityData): string
     .map((x) => `[*][b]${v(x.tag, "B:")} —[/b] ${v(x.text)}[br]`)
     .join("\n");
 
+  const title = buildMetroDailyActivityTitle(d);
+
   return `[center][size=125]LOS SANTOS POLICE DEPARTMENT
 [b]METROPOLITAN DIVISION GÜNLÜK AKTİVİTE RAPORU[/b][/size][/center]
-[table=#d0dade,white][tr][tdwidth=#ffffff,#ffffff,top,left,1,1][size=85][b]15.52.04 (12/25)[/b]
+[table=#d0dade,white][tr][tdwidth=#ffffff,#ffffff,top,left,1,1][size=85][b]${title}[/b]
 [/tdwidth][/table][/tr]
 
 [table=#d0dade,white][tr]
