@@ -147,31 +147,26 @@ function Page() {
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
                 Gün
               </Label>
-              <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
-                {[
-                  "PAZARTESİ",
-                  "SALI",
-                  "ÇARŞAMBA",
-                  "PERŞEMBE",
-                  "CUMA",
-                  "CUMARTESİ",
-                  "PAZAR",
-                ].map((d) => (
-                  <button
-                    key={d}
-                    type="button"
-                    onClick={() => set("day", d)}
-                    className={cn(
-                      "rounded-lg border px-2 py-2 text-[10px] font-semibold uppercase tracking-wide transition-all",
-                      data.day === d
-                        ? "border-primary bg-primary text-primary-foreground shadow-sm"
-                        : "border-border bg-background/60 text-muted-foreground hover:border-primary/50 hover:text-foreground",
-                    )}
-                  >
-                    {d.slice(0, 3)}
-                  </button>
-                ))}
-              </div>
+              <Select value={data.day} onValueChange={(v) => set("day", v)}>
+                <SelectTrigger className="h-10 w-full bg-background/60">
+                  <SelectValue placeholder="Gün seçin" />
+                </SelectTrigger>
+                <SelectContent>
+                  {[
+                    "PAZARTESİ",
+                    "SALI",
+                    "ÇARŞAMBA",
+                    "PERŞEMBE",
+                    "CUMA",
+                    "CUMARTESİ",
+                    "PAZAR",
+                  ].map((d) => (
+                    <SelectItem key={d} value={d}>
+                      {d}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <Field
               label="Birim"
