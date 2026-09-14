@@ -16,7 +16,7 @@ const templates: GroupTemplate[] = [
   {
     slug: "k9-deployment-raporu",
     label: "K-9 Deployment Report",
-    description: "K9 DEPLOYMENT REPORT — METRO K9 UNIT",
+    description: "K9 DEPLOYMENT REPORT",
     to: "/add-k9-deployment-raporu",
   },
 ];
