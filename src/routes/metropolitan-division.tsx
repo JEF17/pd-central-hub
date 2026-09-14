@@ -13,6 +13,12 @@ const templates: GroupTemplate[] = [
     description: "METROPOLITAN DIVISION GÜNLÜK AKTİVİTE RAPORU — 15.52.04 (12/25)",
     to: "/add-metro-gunluk-aktivite-raporu",
   },
+  {
+    slug: "k9-deployment-raporu",
+    label: "K-9 Deployment Report",
+    description: "K9 DEPLOYMENT REPORT — METRO K9 UNIT",
+    to: "/add-k9-deployment-raporu",
+  },
 ];
 
 export const Route = createFileRoute("/metropolitan-division")({
