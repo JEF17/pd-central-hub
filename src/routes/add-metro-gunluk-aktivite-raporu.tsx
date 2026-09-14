@@ -208,6 +208,29 @@ function Page() {
             </div>
           </Section>
 
+          <div className="rounded-xl border border-border/70 bg-card/60 p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0">
+                <p className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                  Oluşturulacak Başlık
+                </p>
+                <p className="mt-1 truncate font-mono text-sm font-semibold">
+                  {buildMetroDailyActivityTitle(data)}
+                </p>
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="shrink-0"
+                onClick={() => copy(buildMetroDailyActivityTitle(data), "Başlık")}
+              >
+                <ClipboardCopy className="mr-1.5 size-3.5" />
+                Başlığı Kopyala
+              </Button>
+            </div>
+          </div>
+
           <Section title="Personel Bilgileri" wide>
             <div className="sm:col-span-2">
               <ProfileFillButton
