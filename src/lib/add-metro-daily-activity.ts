@@ -13,6 +13,7 @@ export interface MetroNarrativeItem {
 }
 
 export interface MetroDailyActivityData {
+  callCode: string;
   date: string;
   day: string;
   unit: string;
