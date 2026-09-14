@@ -13,6 +13,7 @@ export interface MetroNarrativeItem {
 }
 
 export interface MetroDailyActivityData {
+  callCode: string;
   date: string;
   day: string;
   unit: string;
@@ -40,6 +41,7 @@ export const emptyMetroPersonnel = (): MetroPersonnel => ({ name: "", serialNo: 
 export const emptyMetroNarrative = (): MetroNarrativeItem => ({ tag: "", text: "" });
 
 export const emptyMetroDailyActivity = (): MetroDailyActivityData => ({
+  callCode: "",
   date: "",
   day: "",
   unit: "—",
@@ -58,6 +60,14 @@ export const emptyMetroDailyActivity = (): MetroDailyActivityData => ({
   pursuits: "0",
   narratives: [emptyMetroNarrative()],
 });
+
+export function buildMetroDailyActivityTitle(d: MetroDailyActivityData): string {
+  const names = d.personnel
+    .filter((p) => p.name.trim())
+    .map((p) => p.name.trim().toUpperCase())
+    .join(", ");
+  return `${v(d.callCode, "ÇAĞRIKODU")} - ${v(d.date, "00/00/0000")}${names ? ` (${names})` : ""}`;
+}
 
 const v = (s: string, fallback = "") => (s.trim() ? s.trim() : fallback);
 const n = (s: string) => (s.trim() ? s.trim() : "0");
@@ -82,9 +92,11 @@ export function buildMetroDailyActivityBBCode(d: MetroDailyActivityData): string
     .map((x) => `[*][b]${v(x.tag, "B:")} —[/b] ${v(x.text)}[br]`)
     .join("\n");
 
+  const title = buildMetroDailyActivityTitle(d);
+
   return `[center][size=125]LOS SANTOS POLICE DEPARTMENT
 [b]METROPOLITAN DIVISION GÜNLÜK AKTİVİTE RAPORU[/b][/size][/center]
-[table=#d0dade,white][tr][tdwidth=#ffffff,#ffffff,top,left,1,1][size=85][b]15.52.04 (12/25)[/b]
+[table=#d0dade,white][tr][tdwidth=#ffffff,#ffffff,top,left,1,1][size=85][b]${title}[/b]
 [/tdwidth][/table][/tr]
 
 [table=#d0dade,white][tr]
