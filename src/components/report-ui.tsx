@@ -25,7 +25,7 @@ export function ReportHeader({
 }) {
   const hint = description?.trim();
   return (
-    <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-6 shadow-sm">
+    <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-4 py-5 shadow-sm sm:px-6 sm:py-6">
       <div
         aria-hidden
         className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-primary/10 blur-3xl"
