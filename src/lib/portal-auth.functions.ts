@@ -12,6 +12,8 @@ export type StoredProfilePayload = OfficerProfile & {
   profiles?: OfficerProfile[];
   /** Profillerin en son güncellendiği zaman (ISO) — cihazlar arası senkron için */
   updatedAt?: string;
+  /** Aktif (seçili) profilin `profiles` içindeki sırası — cihazlar arası senkron için */
+  activeIndex?: number;
 };
 
 export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
@@ -86,6 +88,9 @@ function parseProfile(raw: unknown): StoredProfilePayload | null {
     ...(parseSingleProfile(p) ?? emptyProfile()),
     profiles,
     ...(typeof p.updatedAt === "string" ? { updatedAt: p.updatedAt } : {}),
+    ...(typeof p.activeIndex === "number" && Number.isFinite(p.activeIndex)
+      ? { activeIndex: Math.max(0, Math.trunc(p.activeIndex)) }
+      : {}),
   };
 }
 
@@ -629,6 +634,21 @@ export const getMyProfile = createServerFn({ method: "GET" })
   .middleware([requirePortalAuthMiddleware])
   .handler(async ({ context }): Promise<StoredProfilePayload | null> => {
     return parseProfile(context.user.profile);
+  });
+
+/** Aktif (seçili) personel profilini sunucuda saklar; her cihazda aynı profil seçili kalır. */
+export const setActiveProfileIndex = createServerFn({ method: "POST" })
+  .middleware([requirePortalAuthMiddleware])
+  .inputValidator((input: { activeIndex: number }) => input)
+  .handler(async ({ data, context }) => {
+    const current = parseProfile(context.user.profile);
+    if (!current) return { ok: false as const };
+    const list = current.profiles ?? [];
+    const index = Math.max(0, Math.min(Math.trunc(data.activeIndex), Math.max(list.length - 1, 0)));
+    const active = list[index] ?? current;
+    const { updateOfficerProfile } = await import("./portal-auth.server");
+    await updateOfficerProfile(context.userId, { ...current, ...active, activeIndex: index });
+    return { ok: true as const, activeIndex: index };
   });
 
 

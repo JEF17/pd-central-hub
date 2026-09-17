@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Camera, IdCard, ImageUp, Plus, Save, ShieldCheck, Trash2, UserRound, Users } from "lucide-react";
+import { Camera, Check, IdCard, ImageUp, Plus, Save, ShieldCheck, Trash2, UserRound, Users } from "lucide-react";
 import { hasGroupAccess, portalGroups } from "@/lib/portal-groups";
 
 import { AppShell } from "@/components/AppShell";
@@ -14,7 +14,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import { usePortalSession } from "@/hooks/use-portal-session";
-import { saveOfficerProfile as saveOfficerProfileServer } from "@/lib/portal-auth.functions";
+import {
+  saveOfficerProfile as saveOfficerProfileServer,
+  setActiveProfileIndex,
+} from "@/lib/portal-auth.functions";
 import {
   createEmptyStoredProfile,
   divisionProfileOptions,
@@ -61,6 +64,7 @@ function Page() {
   const router = useRouter();
   const mustCreateProfile = session ? !session.profileCompleted : false;
   const saveProfileFn = useServerFn(saveOfficerProfileServer);
+  const setActiveProfileFn = useServerFn(setActiveProfileIndex);
 
   useEffect(() => {
     const sync = () => {
@@ -83,6 +87,16 @@ function Page() {
     setProfiles(list);
     setActiveId(id);
     saveOfficerProfiles({ profiles: list, activeId: id });
+  };
+
+  /** Aktif profili değiştirir ve seçimi sunucuya yazar (her cihazda aynı kalsın). */
+  const switchTo = (id: string) => {
+    if (id === activeId) return;
+    persist(profiles, id);
+    const index = profiles.findIndex((p) => p.id === id);
+    if (index >= 0) {
+      void setActiveProfileFn({ data: { activeIndex: index } }).catch(() => undefined);
+    }
   };
 
   const addProfile = () => {
@@ -133,34 +147,84 @@ function Page() {
           </div>
         ) : null}
 
-        <section className="mt-6 flex flex-wrap items-end gap-3 rounded-xl border border-border bg-card p-4">
-          <div className="min-w-56 flex-1">
-            <Label className="flex items-center gap-2 text-xs">
+        <section className="mt-6 rounded-xl border border-border bg-card p-3 sm:p-4">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
               <Users className="size-3.5" />
-              Aktif Personel
-            </Label>
-            <Select value={activeId} onValueChange={(v) => persist(profiles, v)}>
-              <SelectTrigger className="mt-2">
-                <SelectValue placeholder="Profil seç" />
-              </SelectTrigger>
-              <SelectContent className="max-h-72">
-                {profiles.map((p, i) => (
-                  <SelectItem key={p.id} value={p.id}>
-                    {profileLabel(p, i)}
-                    {p.rank ? ` — ${formatRank(p.rank)}` : ""}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              Karakter Geçişi
+              <span className="rounded-full bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
+                {profiles.length}
+              </span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Button type="button" variant="ghost" size="sm" className="h-8 px-2" onClick={addProfile}>
+                <Plus className="size-4" />
+                <span className="hidden sm:inline">Ekle</span>
+              </Button>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="h-8 px-2 text-destructive hover:text-destructive"
+                onClick={removeActiveProfile}
+              >
+                <Trash2 className="size-4" />
+                <span className="hidden sm:inline">Sil</span>
+              </Button>
+            </div>
           </div>
-          <Button type="button" variant="outline" onClick={addProfile}>
-            <Plus className="size-4" />
-            Personel Ekle
-          </Button>
-          <Button type="button" variant="ghost" onClick={removeActiveProfile}>
-            <Trash2 className="size-4" />
-            Profili Sil
-          </Button>
+
+          <div className="mt-3 flex snap-x gap-2 overflow-x-auto pb-1">
+            {profiles.map((p, i) => {
+              const isActive = p.id === activeId;
+              const label = profileLabel(p, i);
+              return (
+                <button
+                  key={p.id}
+                  type="button"
+                  onClick={() => switchTo(p.id)}
+                  aria-pressed={isActive}
+                  className={`group flex min-w-44 snap-start items-center gap-2.5 rounded-lg border px-2.5 py-2 text-left transition-all ${
+                    isActive
+                      ? "border-primary/60 bg-primary/10 shadow-[0_0_0_1px_var(--color-primary)]"
+                      : "border-border bg-background/60 hover:border-primary/40 hover:bg-muted/50"
+                  }`}
+                >
+                  <span
+                    className={`flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-md border ${
+                      isActive ? "border-primary/50" : "border-border"
+                    } bg-muted/40`}
+                  >
+                    {p.photo ? (
+                      <img src={p.photo} alt="" className="size-full object-cover" />
+                    ) : (
+                      <UserRound className="size-4 text-muted-foreground" />
+                    )}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span
+                      className={`block truncate text-sm font-semibold ${isActive ? "text-primary" : ""}`}
+                    >
+                      {label}
+                    </span>
+                    <span className="block truncate text-[11px] uppercase tracking-wide text-muted-foreground">
+                      {formatRank(p.rank) || "Rütbe yok"}
+                      {p.serialNo ? ` · #${p.serialNo}` : ""}
+                    </span>
+                  </span>
+                  {isActive ? <Check className="size-4 shrink-0 text-primary" /> : null}
+                </button>
+              );
+            })}
+            <button
+              type="button"
+              onClick={addProfile}
+              className="flex min-w-12 shrink-0 snap-start items-center justify-center rounded-lg border border-dashed border-border text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              aria-label="Personel ekle"
+            >
+              <Plus className="size-4" />
+            </button>
+          </div>
         </section>
 
         <div className="mt-8 grid gap-6 md:grid-cols-[280px_1fr]">
@@ -316,7 +380,12 @@ function Page() {
                       return;
                     }
                     const res = await saveProfileFn({
-                      data: { ...rest, profiles: all, updatedAt: savedAtIso },
+                      data: {
+                        ...rest,
+                        profiles: all,
+                        updatedAt: savedAtIso,
+                        activeIndex: Math.max(0, profiles.findIndex((p) => p.id === activeId)),
+                      },
                     });
                     // Sunucu fotoğrafları depoya taşıyıp bağlantı döner; yereli bağlantılarla güncelle.
                     const storedProfiles = res?.profile?.profiles;

@@ -447,7 +447,7 @@ export async function updatePortalUserLogin(userId: string, info: UcpUserInfo): 
 
 export async function updateOfficerProfile(
   userId: string,
-  profile: OfficerProfile & { profiles?: OfficerProfile[]; updatedAt?: string },
+  profile: OfficerProfile & { profiles?: OfficerProfile[]; updatedAt?: string; activeIndex?: number },
 ): Promise<void> {
   const now = new Date().toISOString();
   const { error } = await supabaseAdmin
