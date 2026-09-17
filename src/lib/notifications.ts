@@ -1,5 +1,12 @@
 import { toast } from "sonner";
 
+import {
+  addMyNotification,
+  clearMyNotifications,
+  listMyNotifications,
+  markMyNotificationsRead,
+} from "./portal-data.functions";
+
 export type NotificationKind = "success" | "error" | "info";
 
 export type AppNotification = {
@@ -16,6 +23,7 @@ const LIMIT = 50;
 
 let items: AppNotification[] = [];
 let hydrated = false;
+let serverLoaded = false;
 const listeners = new Set<() => void>();
 
 function persist() {
@@ -42,6 +50,24 @@ function hydrate() {
     }
   } catch {
     /* bozuk kayıt yok sayılır */
+  }
+  void loadFromServer();
+}
+
+/** Sunucudaki bildirimleri (kalıcı kayıt) yükler ve yerel listeyle birleştirir. */
+export async function loadFromServer(): Promise<void> {
+  if (serverLoaded || typeof window === "undefined") return;
+  serverLoaded = true;
+  try {
+    const remote = await listMyNotifications({});
+    const seen = new Set(remote.map((n) => n.id));
+    const merged = [...remote, ...items.filter((n) => !seen.has(n.id))]
+      .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
+      .slice(0, LIMIT);
+    items = merged as AppNotification[];
+    emit();
+  } catch {
+    /* oturum yoksa sessiz geç */
   }
 }
 
@@ -71,17 +97,36 @@ export function addNotification(
   };
   items = [entry, ...items].slice(0, LIMIT);
   emit();
+
+  addMyNotification({
+    data: { kind, message, ...(description ? { description } : {}) },
+  })
+    .then((saved) => {
+      if (!saved) return;
+      // Geçici kimliği sunucudaki kalıcı kimlikle değiştir
+      items = items.map((n) => (n.id === entry.id ? { ...n, id: saved.id, at: saved.at } : n));
+      emit();
+    })
+    .catch(() => {
+      /* oturum yoksa yalnızca yerel kayıt */
+    });
 }
 
 export function markAllRead() {
   hydrate();
   items = items.map((n) => (n.read ? n : { ...n, read: true }));
   emit();
+  markMyNotificationsRead({}).catch(() => {
+    /* sessiz geç */
+  });
 }
 
 export function clearNotifications() {
   items = [];
   emit();
+  clearMyNotifications({}).catch(() => {
+    /* sessiz geç */
+  });
 }
 
 type NotifyArgs = [message: string, options?: { description?: string }];
