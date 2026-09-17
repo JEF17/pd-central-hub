@@ -12,6 +12,8 @@ export type StoredProfilePayload = OfficerProfile & {
   profiles?: OfficerProfile[];
   /** Profillerin en son güncellendiği zaman (ISO) — cihazlar arası senkron için */
   updatedAt?: string;
+  /** Aktif (seçili) profilin `profiles` içindeki sırası — cihazlar arası senkron için */
+  activeIndex?: number;
 };
 
 export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
