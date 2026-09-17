@@ -102,7 +102,9 @@ function Page() {
     "add-sorgu-raporu",
     emptyInterrogation,
   );
-  const [output, setOutput] = useState("");
+  const [generated, setGenerated] = useState(false);
+  const output = generated ? buildInterrogationBBCode(data) : "";
+  const setOutput = (value: string) => setGenerated(Boolean(value));
   const profile = useOfficerProfile();
   const autoFilled = useRef(false);
 
