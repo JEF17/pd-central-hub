@@ -1,4 +1,5 @@
 import { paperworkTypes, type PaperworkType } from "./paperwork-types";
+import { deleteMyDraft, listMyDrafts } from "./portal-data.functions";
 
 export type RecentDraft = {
   type: PaperworkType;
@@ -6,6 +7,43 @@ export type RecentDraft = {
 };
 
 const PREFIX = "lspd-draft:";
+
+/**
+ * Sunucuda saklı taslakları tarayıcıya indirir (yalnızca yerelde olmayan
+ * ya da daha eski olanları). Cihaz değişiminde taslakların kaybolmamasını sağlar.
+ */
+export async function syncDraftsFromServer(): Promise<void> {
+  if (typeof window === "undefined") return;
+  try {
+    const remote = await listMyDrafts({});
+    for (const draft of remote) {
+      const key = PREFIX + draft.slug;
+      const remoteAt = new Date(draft.updatedAt);
+      if (Number.isNaN(remoteAt.getTime())) continue;
+      let localAt: Date | null = null;
+      try {
+        const raw = localStorage.getItem(key);
+        if (raw) {
+          const parsed = JSON.parse(raw) as { savedAt?: string };
+          if (parsed?.savedAt) localAt = new Date(parsed.savedAt);
+        }
+      } catch {
+        /* bozuk kayıt yok sayılır */
+      }
+      if (localAt && localAt.getTime() >= remoteAt.getTime()) continue;
+      try {
+        localStorage.setItem(
+          key,
+          JSON.stringify({ data: draft.data, savedAt: remoteAt.toISOString() }),
+        );
+      } catch {
+        /* kota dolu olabilir */
+      }
+    }
+  } catch {
+    /* oturum yoksa sessiz geç */
+  }
+}
 
 /** Kaydedilmiş rapor taslaklarını en son çalışılandan başlayarak döndürür. */
 export function loadRecentDrafts(limit = 4): RecentDraft[] {
@@ -29,10 +67,13 @@ export function loadRecentDrafts(limit = 4): RecentDraft[] {
   return found.sort((a, b) => b.savedAt.getTime() - a.savedAt.getTime()).slice(0, limit);
 }
 
-/** Belirli bir taslak türünü localStorage'dan siler. */
+/** Belirli bir taslak türünü tarayıcıdan ve sunucudan siler. */
 export function removeDraft(slug: string): void {
   if (typeof window === "undefined") return;
   localStorage.removeItem(PREFIX + slug);
+  deleteMyDraft({ data: { slug } }).catch(() => {
+    /* sessiz geç */
+  });
 }
 
 /** "3 dakika önce" gibi kısa Türkçe zaman ifadesi. */
