@@ -71,7 +71,7 @@ function Page() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl px-6 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <ReportHeader
           title="İfade Raporu"
           description="Alanları doldur, alt kısımda foruma yapıştırabileceğin çıktı oluşsun."
@@ -92,7 +92,7 @@ function Page() {
           <Section title="Rapor">
             <Field label="Rapor No." value={data.reportNo} onChange={(v) => set("reportNo", v)} placeholder="12345" />
             <div className="sm:col-span-2 rounded-lg border border-border bg-muted/30 p-3">
-              <Label className="text-xs">Konu Başlığı</Label>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">KONU BAŞLIĞI</Label>
               <div className="mt-2 flex items-center gap-2">
                 <Input readOnly value={title} className="font-mono" />
                 <Button
@@ -151,7 +151,7 @@ function Page() {
           <Section title="İfadeyi Veren">
             <Field label="Adı Soyadı" value={data.personName} onChange={(v) => set("personName", v)} />
             <div>
-              <Label className="text-xs">Cinsiyet</Label>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">CİNSİYET</Label>
               <div className="mt-3 flex gap-4">
                 <CheckItem
                   label="Erkek"
@@ -199,7 +199,7 @@ function Page() {
               {data.evidence.map((e, i) => (
                 <div key={e.id} className="group grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
                   <div>
-                    <Label className="text-xs">Kanıt {i + 1}</Label>
+                    <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">KANIT {i + 1}</Label>
                     <Input
                       className="mt-2"
                       value={e.label}
@@ -213,7 +213,7 @@ function Page() {
                     />
                   </div>
                   <div>
-                    <Label className="text-xs">Bağlantı (link)</Label>
+                    <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">BAĞLANTI (LİNK)</Label>
                     <Input
                       className="mt-2"
                       value={e.url}
@@ -321,7 +321,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <Label className="text-xs">{label}</Label>
+      <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{label}</Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="mt-2">
           <SelectValue placeholder="Seçiniz" />

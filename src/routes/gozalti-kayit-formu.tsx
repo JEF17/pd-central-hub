@@ -65,7 +65,7 @@ function Page() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl px-6 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <ReportHeader title="Gözaltı Kayıt Formu" icon={Lock} />
 
         <DraftBar
@@ -97,7 +97,7 @@ function Page() {
 
           <Section title="Konu Başlığı">
             <div className="sm:col-span-2 rounded-lg border border-border bg-muted/30 p-3">
-              <Label className="text-xs">Konu Başlığı</Label>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">KONU BAŞLIĞI</Label>
               <div className="mt-2 flex items-center gap-2">
                 <Input readOnly value={title} className="font-mono" />
                 <Button
@@ -158,7 +158,7 @@ function Page() {
 
           <Section title="Açıklama" wide>
             <div className="sm:col-span-2">
-              <Label className="text-xs">Açıklama</Label>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">AÇIKLAMA</Label>
               <Textarea
                 rows={8}
                 className="mt-2"
@@ -243,7 +243,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <Label className="text-xs">{label}</Label>
+      <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{label}</Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="mt-2">
           <SelectValue placeholder="Seçiniz" />

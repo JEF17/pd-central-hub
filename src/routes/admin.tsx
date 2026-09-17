@@ -351,7 +351,7 @@ function AdminPage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl px-6 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Yönetim Paneli</h1>

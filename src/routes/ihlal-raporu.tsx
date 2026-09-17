@@ -79,7 +79,7 @@ function Page() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-7xl px-6 py-10">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <ReportHeader title="İhlal Raporu" description={"\n"} format="MDC" icon={TriangleAlert} />
 
         <DraftBar
@@ -230,7 +230,7 @@ function Page() {
 
           <Section title="Açıklama" wide>
             <div className="sm:col-span-2">
-              <Label className="text-xs">Tanım</Label>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">TANIM</Label>
               <Textarea
                 rows={10}
                 className="mt-2"
@@ -278,7 +278,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <Label className="text-xs">{label}</Label>
+      <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{label}</Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="mt-2">
           <SelectValue placeholder="Seçiniz" />

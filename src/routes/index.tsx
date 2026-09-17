@@ -95,7 +95,7 @@ function Dashboard() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-6xl px-6 py-10">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
         {/* Karşılama */}
         <section className="gradient-border surface-glow relative overflow-hidden rounded-2xl bg-card/60 p-8">
           <div className="absolute -right-20 -top-20 size-72 rounded-full bg-gold/10 blur-3xl" />

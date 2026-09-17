@@ -113,7 +113,7 @@ function Page() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-4xl px-6 py-10">
+      <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <div className="flex items-center gap-3">
           <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <IdCard className="size-5" />

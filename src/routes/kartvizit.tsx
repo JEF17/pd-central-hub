@@ -144,7 +144,7 @@ function BusinessCardPage() {
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-6xl space-y-6 px-6 py-8">
+      <div className="mx-auto max-w-6xl space-y-6 px-4 py-8 sm:px-6">
         <header className="gradient-border relative overflow-hidden rounded-2xl bg-card/70 px-6 py-6 shadow-sm">
           <div
             aria-hidden
