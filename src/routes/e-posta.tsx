@@ -97,7 +97,7 @@ function Page() {
 
           <Section title="Gönderme Tarihi">
             <div>
-              <Label className="text-xs">Tarih</Label>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Tarih</Label>
               <Input
                 type="date"
                 className="mt-2"
@@ -107,7 +107,7 @@ function Page() {
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <Label className="text-xs">Saat</Label>
+                <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Saat</Label>
                 <Input
                   className="mt-2"
                   value={data.time}
@@ -116,7 +116,7 @@ function Page() {
                 />
               </div>
               <div>
-                <Label className="text-xs">AM / PM</Label>
+                <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">AM / PM</Label>
                 <div className="mt-2 grid grid-cols-2 gap-2">
                   {(["AM", "PM"] as const).map((m) => (
                     <button
