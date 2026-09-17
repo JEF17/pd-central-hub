@@ -199,7 +199,7 @@ function Page() {
               {data.evidence.map((e, i) => (
                 <div key={e.id} className="group grid gap-2 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
                   <div>
-                    <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Kanıt {i + 1}</Label>
+                    <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">KANIT {i + 1}</Label>
                     <Input
                       className="mt-2"
                       value={e.label}
