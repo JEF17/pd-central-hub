@@ -91,7 +91,7 @@ function Dashboard() {
 
   const officerLine = profile?.name
     ? [formatRank(profile.rank), profile.name].filter(Boolean).join(" ")
-    : "Memur profili tanımlı değil";
+    : "Tanımlı bir profiliniz bulunmuyor.";
 
   return (
     <AppShell>
