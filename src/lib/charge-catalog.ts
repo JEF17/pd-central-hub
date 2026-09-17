@@ -2416,7 +2416,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 30,
         "maxMinutes": 1440,
-        "fine": 0
+        "fine": 2500
       }
     ],
     "tiers": [],
@@ -2440,7 +2440,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 45,
         "maxMinutes": 1440,
-        "fine": 0
+        "fine": 5000
       }
     ],
     "tiers": [],
@@ -3126,7 +3126,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 60,
         "maxMinutes": 1440,
-        "fine": 0
+        "fine": 5000
       }
     ],
     "tiers": [],
@@ -3150,7 +3150,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 4,
         "minMinutes": 1440,
         "maxMinutes": 7200,
-        "fine": 0
+        "fine": 10000
       },
       {
         "key": "l2",
@@ -3161,7 +3161,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 3,
         "minMinutes": 1440,
         "maxMinutes": 7200,
-        "fine": 0
+        "fine": 10000
       },
       {
         "key": "l3",
@@ -3172,7 +3172,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 2,
         "minMinutes": 1440,
         "maxMinutes": 7200,
-        "fine": 0
+        "fine": 10000
       }
     ],
     "tiers": [],
@@ -3673,7 +3673,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 60,
         "maxMinutes": 1440,
-        "fine": 0
+        "fine": 5500
       },
       {
         "key": "l2",
@@ -3684,7 +3684,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 5,
         "minMinutes": 1440,
         "maxMinutes": 4320,
-        "fine": 0
+        "fine": 5500
       }
     ],
     "tiers": [],
@@ -3828,7 +3828,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 3,
         "minMinutes": 2880,
         "maxMinutes": 8640,
-        "fine": 0
+        "fine": 50000
       }
     ],
     "tiers": [],
@@ -3852,7 +3852,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 2,
         "minMinutes": 60,
         "maxMinutes": 1440,
-        "fine": 0
+        "fine": 50000
       }
     ],
     "tiers": [],
@@ -3876,7 +3876,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 4,
         "minMinutes": 2880,
         "maxMinutes": 5760,
-        "fine": 0
+        "fine": 100000
       }
     ],
     "tiers": [],
@@ -3970,7 +3970,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 5,
         "minMinutes": 1440,
         "maxMinutes": 4320,
-        "fine": 0
+        "fine": 20000
       }
     ],
     "tiers": [],
@@ -4708,7 +4708,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 0,
         "maxMinutes": 0,
-        "fine": 0
+        "fine": 4500
       },
       {
         "key": "l2",
@@ -4719,7 +4719,7 @@ export const chargeCatalog: ChargeDefinition[] = [
         "points": 0,
         "minMinutes": 1440,
         "maxMinutes": 4320,
-        "fine": 0
+        "fine": 4500
       }
     ],
     "tiers": [],
