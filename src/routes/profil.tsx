@@ -64,6 +64,7 @@ function Page() {
   const router = useRouter();
   const mustCreateProfile = session ? !session.profileCompleted : false;
   const saveProfileFn = useServerFn(saveOfficerProfileServer);
+  const setActiveProfileFn = useServerFn(setActiveProfileIndex);
 
   useEffect(() => {
     const sync = () => {
@@ -86,6 +87,16 @@ function Page() {
     setProfiles(list);
     setActiveId(id);
     saveOfficerProfiles({ profiles: list, activeId: id });
+  };
+
+  /** Aktif profili değiştirir ve seçimi sunucuya yazar (her cihazda aynı kalsın). */
+  const switchTo = (id: string) => {
+    if (id === activeId) return;
+    persist(profiles, id);
+    const index = profiles.findIndex((p) => p.id === id);
+    if (index >= 0) {
+      void setActiveProfileFn({ data: { activeIndex: index } }).catch(() => undefined);
+    }
   };
 
   const addProfile = () => {
