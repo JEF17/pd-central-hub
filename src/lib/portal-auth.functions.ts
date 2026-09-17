@@ -614,11 +614,14 @@ export const saveOfficerProfile = createServerFn({ method: "POST" })
   .inputValidator((input: StoredProfilePayload) => input)
   .handler(async ({ data, context }) => {
     const { updateOfficerProfile } = await import("./portal-auth.server");
+    const { persistProfilePhotos } = await import("./profile-photo.server");
     const updatedAt = data.updatedAt ?? new Date().toISOString();
-    await updateOfficerProfile(context.userId, { ...data, updatedAt });
+    // Base64 fotoğrafları Storage'a taşı, veritabanında yalnızca bağlantı tut.
+    const stored = await persistProfilePhotos(context.userId, data);
+    await updateOfficerProfile(context.userId, { ...stored, updatedAt });
     const { syncRosterFromProfiles } = await import("./roster.server");
-    await syncRosterFromProfiles(context.userId, data);
-    return { ok: true, updatedAt };
+    await syncRosterFromProfiles(context.userId, stored);
+    return { ok: true, updatedAt, profile: { ...stored, updatedAt } };
   });
 
 /** Giriş yapan kullanıcının sunucuda saklı personel profilleri (cihaz değişiminde geri yükleme için). */
