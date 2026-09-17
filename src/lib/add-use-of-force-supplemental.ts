@@ -50,7 +50,7 @@ const splitDateTime = (raw: string): { date: string; time: string } => {
   let time = "SS:DD";
   if (timePart) {
     const m = /^(\d{1,2}):?(\d{2})$/.exec(timePart.trim());
-    if (m) time = `${m[1].padStart(2, "0")}:${m[2]}`;
+    if (m?.[1] && m[2]) time = `${m[1].padStart(2, "0")}:${m[2]}`;
   }
   return { date, time };
 };
