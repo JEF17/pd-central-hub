@@ -8,7 +8,11 @@ export type { AdminLevel };
 export type { OfficerProfile };
 
 /** Sunucuda saklanan profil: aktif profil alanları + kullanıcının tüm profilleri */
-export type StoredProfilePayload = OfficerProfile & { profiles?: OfficerProfile[] };
+export type StoredProfilePayload = OfficerProfile & {
+  profiles?: OfficerProfile[];
+  /** Profillerin en son güncellendiği zaman (ISO) — cihazlar arası senkron için */
+  updatedAt?: string;
+};
 
 export const ADMIN_LEVEL_LABELS: Record<AdminLevel, string> = {
   query: "Query",
@@ -78,7 +82,11 @@ function parseProfile(raw: unknown): StoredProfilePayload | null {
   const profiles = Array.isArray(p.profiles)
     ? p.profiles.map((x) => parseSingleProfile(x)).filter((x): x is OfficerProfile => x !== null)
     : [];
-  return { ...(parseSingleProfile(p) ?? emptyProfile()), profiles };
+  return {
+    ...(parseSingleProfile(p) ?? emptyProfile()),
+    profiles,
+    ...(typeof p.updatedAt === "string" ? { updatedAt: p.updatedAt } : {}),
+  };
 }
 
 function emptyProfile(): OfficerProfile {
@@ -606,10 +614,11 @@ export const saveOfficerProfile = createServerFn({ method: "POST" })
   .inputValidator((input: StoredProfilePayload) => input)
   .handler(async ({ data, context }) => {
     const { updateOfficerProfile } = await import("./portal-auth.server");
-    await updateOfficerProfile(context.userId, data);
+    const updatedAt = data.updatedAt ?? new Date().toISOString();
+    await updateOfficerProfile(context.userId, { ...data, updatedAt });
     const { syncRosterFromProfiles } = await import("./roster.server");
     await syncRosterFromProfiles(context.userId, data);
-    return { ok: true };
+    return { ok: true, updatedAt };
   });
 
 /** Giriş yapan kullanıcının sunucuda saklı personel profilleri (cihaz değişiminde geri yükleme için). */
