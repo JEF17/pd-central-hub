@@ -74,7 +74,7 @@ export function useFormDraft<T>(key: string, initialValue: T | (() => T)) {
         /* kota dolu olabilir */
       }
       setSavedAt(now);
-      saveMyDraft({ data: { slug: key, data } }).catch(() => {
+      saveMyDraft({ data: { slug: key, data: data as Record<string, unknown> } }).catch(() => {
         /* oturum yoksa yalnızca yerel kayıt */
       });
     }, 800);

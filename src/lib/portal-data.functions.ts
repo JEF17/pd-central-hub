@@ -2,9 +2,11 @@ import { createServerFn } from "@tanstack/react-start";
 
 import { requirePortalAuthMiddleware } from "./portal-auth.functions";
 
+export type DraftData = Record<string, unknown>;
+
 export type DraftDto = {
   slug: string;
-  data: unknown;
+  data: DraftData;
   updatedAt: string;
 };
 
@@ -40,7 +42,7 @@ export const getMyDraft = createServerFn({ method: "GET" })
 
 export const saveMyDraft = createServerFn({ method: "POST" })
   .middleware([requirePortalAuthMiddleware])
-  .inputValidator((input: { slug: string; data: unknown }) => input)
+  .inputValidator((input: { slug: string; data: DraftData }) => input)
   .handler(async ({ data, context }): Promise<{ updatedAt: string }> => {
     const { upsertDraftRow } = await import("./portal-data.server");
     const updatedAt = await upsertDraftRow(context.userId, data.slug, data.data);

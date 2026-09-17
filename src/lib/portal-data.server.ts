@@ -2,7 +2,7 @@
 
 export type DraftRow = {
   slug: string;
-  data: unknown;
+  data: Record<string, unknown>;
   updatedAt: string;
 };
 
@@ -26,7 +26,11 @@ export async function listDraftRows(userId: string): Promise<DraftRow[]> {
     .order("updated_at", { ascending: false });
   if (error) throw error;
   return (data ?? []).map((row) => {
-    const r = row as unknown as { slug: string; data: unknown; updated_at: string };
+    const r = row as unknown as {
+      slug: string;
+      data: Record<string, unknown>;
+      updated_at: string;
+    };
     return { slug: r.slug, data: r.data, updatedAt: r.updated_at };
   });
 }
@@ -41,14 +45,18 @@ export async function getDraftRow(userId: string, slug: string): Promise<DraftRo
     .maybeSingle();
   if (error) throw error;
   if (!data) return null;
-  const r = data as unknown as { slug: string; data: unknown; updated_at: string };
+  const r = data as unknown as {
+    slug: string;
+    data: Record<string, unknown>;
+    updated_at: string;
+  };
   return { slug: r.slug, data: r.data, updatedAt: r.updated_at };
 }
 
 export async function upsertDraftRow(
   userId: string,
   slug: string,
-  data: unknown,
+  data: Record<string, unknown>,
 ): Promise<string> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const now = new Date().toISOString();
@@ -134,7 +142,7 @@ export async function insertNotificationRow(
     message: r.message,
     description: r.description,
     read: r.read,
-    createdAt: r.createdAt ?? r.created_at,
+    createdAt: r.created_at,
   };
 }
 
