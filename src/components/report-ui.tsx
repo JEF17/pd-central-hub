@@ -83,7 +83,7 @@ export function FormSection({
         wide && "lg:col-span-2",
       )}
     >
-      <div className="flex items-center gap-3 border-b border-border/70 bg-gradient-to-r from-primary/10 via-muted/30 to-transparent px-5 py-3">
+      <div className="flex items-center gap-3 border-b border-border/70 bg-gradient-to-r from-primary/10 via-muted/30 to-transparent px-4 py-3 sm:px-5">
         <span className="h-5 w-1 rounded-full bg-gradient-to-b from-primary to-gold" />
         {Icon ? <Icon className="size-4 shrink-0 text-primary/80" /> : null}
         <h2 className="min-w-0 truncate text-[13px] font-semibold uppercase tracking-[0.14em] text-foreground/90">
@@ -95,7 +95,7 @@ export function FormSection({
           </span>
         ) : null}
       </div>
-      <div className="grid gap-4 p-5 sm:grid-cols-2">{children}</div>
+      <div className="grid gap-4 p-4 sm:grid-cols-2 sm:p-5">{children}</div>
     </section>
   );
 }
