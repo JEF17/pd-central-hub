@@ -88,6 +88,9 @@ function parseProfile(raw: unknown): StoredProfilePayload | null {
     ...(parseSingleProfile(p) ?? emptyProfile()),
     profiles,
     ...(typeof p.updatedAt === "string" ? { updatedAt: p.updatedAt } : {}),
+    ...(typeof p.activeIndex === "number" && Number.isFinite(p.activeIndex)
+      ? { activeIndex: Math.max(0, Math.trunc(p.activeIndex)) }
+      : {}),
   };
 }
 
