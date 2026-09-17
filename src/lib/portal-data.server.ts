@@ -2,7 +2,7 @@
 
 export type DraftRow = {
   slug: string;
-  data: Record<string, unknown>;
+  data: Record<string, never>;
   updatedAt: string;
 };
 
@@ -28,7 +28,7 @@ export async function listDraftRows(userId: string): Promise<DraftRow[]> {
   return (data ?? []).map((row) => {
     const r = row as unknown as {
       slug: string;
-      data: Record<string, unknown>;
+      data: Record<string, never>;
       updated_at: string;
     };
     return { slug: r.slug, data: r.data, updatedAt: r.updated_at };
@@ -47,7 +47,7 @@ export async function getDraftRow(userId: string, slug: string): Promise<DraftRo
   if (!data) return null;
   const r = data as unknown as {
     slug: string;
-    data: Record<string, unknown>;
+    data: Record<string, never>;
     updated_at: string;
   };
   return { slug: r.slug, data: r.data, updatedAt: r.updated_at };
@@ -56,7 +56,7 @@ export async function getDraftRow(userId: string, slug: string): Promise<DraftRo
 export async function upsertDraftRow(
   userId: string,
   slug: string,
-  data: Record<string, unknown>,
+  data: unknown,
 ): Promise<string> {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const now = new Date().toISOString();

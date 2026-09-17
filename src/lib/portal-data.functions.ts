@@ -2,7 +2,15 @@ import { createServerFn } from "@tanstack/react-start";
 
 import { requirePortalAuthMiddleware } from "./portal-auth.functions";
 
-export type DraftData = Record<string, unknown>;
+export type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
+export type DraftData = { [key: string]: JsonValue };
 
 export type DraftDto = {
   slug: string;
