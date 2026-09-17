@@ -1,8 +1,18 @@
 /** Sunucu tarafı: rapor taslakları ve bildirimler için veritabanı erişimi. */
 
+export type JsonValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonValue[]
+  | { [key: string]: JsonValue };
+
+export type DraftData = { [key: string]: JsonValue };
+
 export type DraftRow = {
   slug: string;
-  data: Record<string, never>;
+  data: DraftData;
   updatedAt: string;
 };
 
@@ -28,7 +38,7 @@ export async function listDraftRows(userId: string): Promise<DraftRow[]> {
   return (data ?? []).map((row) => {
     const r = row as unknown as {
       slug: string;
-      data: Record<string, never>;
+      data: DraftData;
       updated_at: string;
     };
     return { slug: r.slug, data: r.data, updatedAt: r.updated_at };
@@ -47,7 +57,7 @@ export async function getDraftRow(userId: string, slug: string): Promise<DraftRo
   if (!data) return null;
   const r = data as unknown as {
     slug: string;
-    data: Record<string, never>;
+    data: DraftData;
     updated_at: string;
   };
   return { slug: r.slug, data: r.data, updatedAt: r.updated_at };

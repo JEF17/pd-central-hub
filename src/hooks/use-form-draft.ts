@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { deleteMyDraft, getMyDraft, saveMyDraft } from "@/lib/portal-data.functions";
+import {
+  deleteMyDraft,
+  getMyDraft,
+  saveMyDraft,
+  type DraftData,
+} from "@/lib/portal-data.functions";
 
 const PREFIX = "lspd-draft:";
 
@@ -74,7 +79,7 @@ export function useFormDraft<T>(key: string, initialValue: T | (() => T)) {
         /* kota dolu olabilir */
       }
       setSavedAt(now);
-      saveMyDraft({ data: { slug: key, data: data as Record<string, unknown> } }).catch(() => {
+      saveMyDraft({ data: { slug: key, data: data as DraftData } }).catch(() => {
         /* oturum yoksa yalnızca yerel kayıt */
       });
     }, 800);
