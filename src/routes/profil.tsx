@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Camera, IdCard, ImageUp, Plus, Save, ShieldCheck, Trash2, UserRound, Users } from "lucide-react";
+import { Camera, Check, IdCard, ImageUp, Plus, Save, ShieldCheck, Trash2, UserRound, Users } from "lucide-react";
 import { hasGroupAccess, portalGroups } from "@/lib/portal-groups";
 
 import { AppShell } from "@/components/AppShell";
@@ -14,7 +14,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 import { usePortalSession } from "@/hooks/use-portal-session";
-import { saveOfficerProfile as saveOfficerProfileServer } from "@/lib/portal-auth.functions";
+import {
+  saveOfficerProfile as saveOfficerProfileServer,
+  setActiveProfileIndex,
+} from "@/lib/portal-auth.functions";
 import {
   createEmptyStoredProfile,
   divisionProfileOptions,
