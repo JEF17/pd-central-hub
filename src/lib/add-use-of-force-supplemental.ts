@@ -41,12 +41,18 @@ export const emptyUseOfForceSupplemental = (): UseOfForceSupplementalData => ({
 
 const v = (s: string, fallback = "BURAYA") => (s.trim() ? s.trim() : fallback);
 
-/** "GG/AA/YYYY - SS:DD" biçiminden tarih ve saat kısımlarını ayırır. */
+/** "GG/AA/YYYY — SSdd" (veya "GG/AA/YYYY - SS:DD") biçiminden tarih ve saat kısımlarını ayırır. */
 const splitDateTime = (raw: string): { date: string; time: string } => {
   const value = raw.trim();
   if (!value) return { date: "GG/AA/YYYY", time: "SS:DD" };
-  const [date, time] = value.split(/\s*-\s*/);
-  return { date: date || "GG/AA/YYYY", time: time || "SS:DD" };
+  const [datePart = "", timePart = ""] = value.split(/\s*(?:—|-)\s*/);
+  const date = datePart || "GG/AA/YYYY";
+  let time = "SS:DD";
+  if (timePart) {
+    const m = /^(\d{1,2}):?(\d{2})$/.exec(timePart.trim());
+    if (m?.[1] && m[2]) time = `${m[1].padStart(2, "0")}:${m[2]}`;
+  }
+  return { date, time };
 };
 
 export function buildUseOfForceSupplementalBBCode(data: UseOfForceSupplementalData): string {

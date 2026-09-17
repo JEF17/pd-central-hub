@@ -51,6 +51,14 @@ function esc(value: string) {
 
 const val = (v: string, fallback = "—") => (v.trim() ? esc(v.trim()) : fallback);
 
+/** Formda "Erkek"/"Kadın" görünür; çıktıda "E"/"K" kullanılır. */
+const genderShort = (v: string): string => {
+  const s = v.trim().toLocaleLowerCase("tr");
+  if (s === "erkek") return "E";
+  if (s === "kadın" || s === "kadin") return "K";
+  return v;
+};
+
 const SPAN = `<span style="font-size:85%;line-height:116%">`;
 const CELL = (width: string) =>
   `<td style="border:1px solid #d0dade;background:#ffffff;vertical-align:top;text-align:left;width:${width};padding:1px">`;
@@ -108,7 +116,7 @@ ${cell("1%", "PLAKA", val(data.plate.toUpperCase()))}</tr></tbody></table></td><
 ${sectionOpen("ŞÜPHELİ BİLGİSİ")}
 <table border="1"><tbody><tr>
 ${cell("2%", "ADI SOYADI", val(data.suspectName))}
-${cell("1%", "CİNSİYETİ", val(data.suspectGender))}
+${cell("1%", "CİNSİYETİ", val(genderShort(data.suspectGender)))}
 ${cell("1%", "KÖKEN", val(data.suspectOrigin))}</tr></tbody></table></td></tr></tbody></table>
 
 
