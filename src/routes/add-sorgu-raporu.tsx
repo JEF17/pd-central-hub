@@ -169,6 +169,12 @@ function Page() {
 
         <div className="mt-8 grid gap-6">
           <Section title="Başlık" wide hint="SR — GG/AA/YYYY — 00000 (ADI SOYADI)">
+            <Field
+              label="Rapor No."
+              value={data.reportNo}
+              onChange={(v) => set("reportNo", v.toUpperCase())}
+              placeholder="SR 25-0000"
+            />
             <DateField
               label="Tarih"
               value={data.titleDate}
