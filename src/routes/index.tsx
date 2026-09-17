@@ -98,8 +98,8 @@ function Dashboard() {
       <div className="mx-auto max-w-6xl px-6 py-10">
         {/* Karşılama */}
         <section className="gradient-border surface-glow relative overflow-hidden rounded-2xl bg-card/60 p-8">
-          <div className="absolute right-0 top-0 h-40 w-40 -translate-y-10 translate-x-10 rounded-full bg-primary/15 blur-3xl" />
-          <div className="absolute bottom-0 left-0 h-32 w-32 -translate-x-8 translate-y-8 rounded-full bg-gold/15 blur-3xl" />
+          <div className="absolute -right-20 -top-20 size-72 rounded-full bg-gold/10 blur-3xl" />
+          <div className="absolute -bottom-24 -right-10 size-60 rounded-full bg-primary/10 blur-3xl" />
           <div className="relative flex flex-wrap items-center gap-5">
             <div className="hidden shrink-0 rounded-full bg-gradient-to-br from-primary/20 to-gold/20 p-2 shadow-lg shadow-primary/10 ring-1 ring-primary/20 sm:block">
               <img src={lspdLogo.url} alt="LSPD rozeti" className="size-16 object-contain opacity-90" />
@@ -122,21 +122,35 @@ function Dashboard() {
               </p>
             </div>
           </div>
+          <div className="relative mt-7 flex flex-wrap gap-3">
+            <Link
+              to="/paperwork-generators"
+              className="rounded-lg bg-gold px-5 py-2.5 text-sm font-bold text-background shadow-[0_0_22px_color-mix(in_oklab,var(--gold)_25%,transparent)] transition-all hover:-translate-y-0.5 hover:brightness-110"
+            >
+              Yeni Rapor Oluştur
+            </Link>
+            <Link
+              to="/penal-code"
+              className="rounded-lg border border-border bg-muted/40 px-5 py-2.5 text-sm font-medium text-foreground transition-all hover:-translate-y-0.5 hover:bg-accent/40"
+            >
+              Ceza Kanunları
+            </Link>
+          </div>
         </section>
 
         {/* Kaldığın yerden devam et */}
-        <section className="mt-8">
-          <h2 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-            <Clock className="size-4 text-gold" />
+        <section className="mt-10">
+          <h2 className="flex items-center gap-2.5 text-lg font-semibold text-foreground">
+            <span className="h-5 w-1 rounded-full bg-gold" />
             Kaldığın yerden devam et
           </h2>
           {recent.length > 0 ? (
-            <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {recent.map(({ type, savedAt }) => (
                 <div key={type.slug} className="group relative">
                   <Link
                     to={draftPaths[type.slug as keyof typeof draftPaths]}
-                    className="flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 pr-10 transition-all hover:-translate-y-0.5 hover:border-gold/40 hover:bg-accent/30"
+                    className="flex items-center gap-3 rounded-xl border border-border bg-card/70 px-4 py-3 pr-10 transition-all hover:-translate-y-0.5 hover:border-gold/50 hover:bg-accent/30"
                   >
                     <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-gold/15 text-gold ring-1 ring-gold/25">
                       <type.icon className="size-4" />
@@ -159,9 +173,9 @@ function Dashboard() {
               ))}
             </div>
           ) : (
-            <div className="mt-3 flex flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card/40 px-4 py-10 text-center">
-              <Clock className="size-8 text-muted-foreground/40" />
-              <p className="mt-2 text-sm font-medium text-foreground/80">Henüz kayıtlı taslak yok</p>
+            <div className="group mt-4 flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-border/70 bg-card/30 px-4 py-9 text-center transition-colors hover:border-gold/30">
+              <Clock className="size-8 text-muted-foreground/40 transition-colors group-hover:text-gold/50" />
+              <p className="mt-2 text-sm font-medium text-foreground/80">Aktif taslağınız bulunmuyor</p>
               <p className="max-w-xs text-xs text-muted-foreground">
                 Rapor hazırlamaya başladığınızda son kaydettikleriniz burada listelenecek.
               </p>
@@ -171,28 +185,31 @@ function Dashboard() {
 
         {/* Araçlar */}
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">Araçlar</h2>
-          <div className="mt-3 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <h2 className="flex items-center gap-2.5 text-lg font-semibold text-foreground">
+            <span className="h-5 w-1 rounded-full bg-gold" />
+            Hızlı Araçlar
+          </h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {tools.map((tool, i) => {
               const accent = accents[i % accents.length];
               return (
                 <Link
                   key={tool.to}
                   to={tool.to}
-                  className="group relative overflow-hidden rounded-xl border border-border bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-accent/20 hover:glow-card"
+                  className="group relative overflow-hidden rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 hover:bg-accent/20 hover:glow-card"
                 >
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                   <div className="relative">
                     <div
-                      className={`flex size-11 items-center justify-center rounded-lg bg-gradient-to-br ring-1 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 ${accent}`}
+                      className={`flex size-12 items-center justify-center rounded-lg bg-gradient-to-br ring-1 transition-transform duration-300 group-hover:scale-110 ${accent}`}
                     >
                       <tool.icon className="size-5" />
                     </div>
-                    <h3 className="mt-4 flex items-center gap-1 text-lg font-semibold">
+                    <h3 className="mt-5 flex items-center gap-1 text-base font-bold tracking-tight">
                       {tool.label}
-                      <ChevronRight className="size-4 text-primary opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+                      <ChevronRight className="size-4 text-gold opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
                     </h3>
-                    <p className="mt-1 text-sm text-muted-foreground">{tool.description}</p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{tool.description}</p>
                   </div>
                 </Link>
               );
@@ -203,3 +220,4 @@ function Dashboard() {
     </AppShell>
   );
 }
+
