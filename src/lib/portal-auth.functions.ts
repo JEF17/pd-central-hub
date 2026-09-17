@@ -612,6 +612,15 @@ export const saveOfficerProfile = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
+/** Giriş yapan kullanıcının sunucuda saklı personel profilleri (cihaz değişiminde geri yükleme için). */
+export const getMyProfile = createServerFn({ method: "GET" })
+  .middleware([requirePortalAuthMiddleware])
+  .handler(async ({ context }): Promise<StoredProfilePayload | null> => {
+    return parseProfile(context.user.profile);
+  });
+
+
+
 
 
 /** Oyuncunun UCP karakterleri (onay durumlarıyla). */
