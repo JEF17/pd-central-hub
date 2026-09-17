@@ -57,7 +57,7 @@ export const Route = createFileRoute("/detective-portal")({
   component: () => (
     <GroupAreaPage
       title={title}
-      subtitle="Bu alan yalnızca Detective Portal yetkisi bulunan personele açıktır."
+      subtitle="İlgili şablonlara buradan ulaşabilirsiniz."
       templates={templates}
     />
   ),
