@@ -10,6 +10,7 @@ import { hasGroupAccess } from "@/lib/portal-groups";
 import { cn } from "@/lib/utils";
 import { usePortalSession } from "@/hooks/use-portal-session";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
+import { useProfileRestore } from "@/hooks/use-profile-restore";
 import { formatRank } from "@/lib/officer-profile";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +32,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   });
   const { session, signOut } = usePortalSession();
   const profile = useOfficerProfile();
+  useProfileRestore(!!session && session.status === "approved");
 
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
