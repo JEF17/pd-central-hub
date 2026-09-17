@@ -108,7 +108,7 @@ ${cell("1%", "PLAKA", val(data.plate.toUpperCase()))}</tr></tbody></table></td><
 ${sectionOpen("ŞÜPHELİ BİLGİSİ")}
 <table border="1"><tbody><tr>
 ${cell("2%", "ADI SOYADI", val(data.suspectName))}
-${cell("1%", "CİNSİYETİ", val(data.suspectGender))}
+${cell("1%", "CİNSİYETİ", val(genderShort(data.suspectGender)))}
 ${cell("1%", "KÖKEN", val(data.suspectOrigin))}</tr></tbody></table></td></tr></tbody></table>
 
 
