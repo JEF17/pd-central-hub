@@ -60,7 +60,9 @@ export function useFormDraft<T>(key: string, initialValue: T | (() => T)) {
   }, [storageKey]);
 
   useEffect(() => {
-    if (!hydrated.current) return;
+    // Kullanıcı bir şey yazmadan kayıt yapmayalım: aksi halde boş form
+    // sunucudaki taslağın üzerine yazabilir.
+    if (!hydrated.current || !touched.current) return;
     const t = setTimeout(() => {
       const now = new Date();
       try {
