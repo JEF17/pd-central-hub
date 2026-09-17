@@ -78,7 +78,15 @@ export function AppShell({ children }: { children: ReactNode }) {
       >
         <div className={cn("flex items-center gap-3 px-3", collapsed ? "h-auto flex-col py-3" : "h-16")}>
           <img src={lspdLogo.url} alt="LSPD badge" className="size-9 shrink-0 rounded-full object-contain" />
-          {!collapsed && <span className="truncate text-lg font-bold tracking-tight">LSPD Toolkit</span>}
+          {!collapsed && (
+            <span className="min-w-0">
+              <span className="block truncate text-lg font-bold leading-tight tracking-tight">LSPD Toolkit</span>
+              <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Merkez Komuta Portalı
+              </span>
+            </span>
+          )}
+
           <button
             type="button"
             onClick={() => setCollapsed((c) => !c)}
