@@ -116,7 +116,7 @@ function Dashboard() {
                   </span>
                 ) : (
                   <Link to="/ayarlar" className="text-primary underline-offset-4 hover:underline">
-                    Ayarlardan tanımla
+                    Profil Tanımlayın
                   </Link>
                 )}
               </p>
