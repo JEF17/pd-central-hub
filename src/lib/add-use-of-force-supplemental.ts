@@ -45,7 +45,7 @@ const v = (s: string, fallback = "BURAYA") => (s.trim() ? s.trim() : fallback);
 const splitDateTime = (raw: string): { date: string; time: string } => {
   const value = raw.trim();
   if (!value) return { date: "GG/AA/YYYY", time: "SS:DD" };
-  const [datePart, timePart] = value.split(/\s*(?:—|-)\s*/);
+  const [datePart = "", timePart = ""] = value.split(/\s*(?:—|-)\s*/);
   const date = datePart || "GG/AA/YYYY";
   let time = "SS:DD";
   if (timePart) {
