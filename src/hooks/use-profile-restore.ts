@@ -82,8 +82,12 @@ export function useProfileRestore(enabled: boolean) {
             return rest as OfficerProfile;
           });
           const updatedAt = (localAt ?? new Date()).toISOString();
+          const activeIndex = Math.max(
+            0,
+            localUsable.findIndex((p) => p.id === active.id),
+          );
           await saveOfficerProfile({
-            data: { ...(activeRest as OfficerProfile), profiles: all, updatedAt },
+            data: { ...(activeRest as OfficerProfile), profiles: all, updatedAt, activeIndex },
           }).catch(() => undefined);
           setLocalProfilesUpdatedAt(updatedAt);
         }
