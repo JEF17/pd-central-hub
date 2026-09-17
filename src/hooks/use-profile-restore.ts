@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { useServerFn } from "@tanstack/react-start";
-import { getMyProfile } from "@/lib/portal-auth.functions";
+import { getMyProfile, saveOfficerProfile } from "@/lib/portal-auth.functions";
 import {
   createEmptyStoredProfile,
   emptyOfficerProfile,
   loadOfficerProfiles,
+  localProfilesUpdatedAt,
   saveOfficerProfiles,
+  setLocalProfilesUpdatedAt,
   type OfficerProfile,
   type StoredOfficerProfile,
 } from "@/lib/officer-profile";
@@ -15,31 +16,72 @@ function isBlank(p: OfficerProfile) {
 }
 
 /**
- * Cihaz/tarayıcı değiştiğinde (format, temizlenen depolama) sunucuda saklı personel
- * profillerini tekrar yerel depolamaya yazar. Yerelde profil varsa hiçbir şey yapmaz.
+ * Personel profillerini sunucuyla iki yönlü senkronize eder:
+ * - Sunucudaki kayıt daha yeniyse (ya da yerelde profil yoksa) yerel depoya yazar.
+ * - Yerel kayıt daha yeniyse sunucuya gönderir.
+ * Böylece profil verisi cihazdan bağımsız olarak sunucuda kalıcıdır.
  */
 export function useProfileRestore(enabled: boolean) {
-  const fetchProfile = useServerFn(getMyProfile);
-
   useEffect(() => {
     if (!enabled) return;
-    const local = loadOfficerProfiles();
-    if (local.profiles.some((p) => !isBlank(p))) return;
 
     let cancelled = false;
-    fetchProfile({})
-      .then((remote) => {
-        if (cancelled || !remote) return;
-        const list: OfficerProfile[] =
-          remote.profiles && remote.profiles.length ? remote.profiles : [remote];
-        const usable = list.filter((p) => !isBlank(p));
-        if (!usable.length) return;
-        const stored: StoredOfficerProfile[] = usable.map((p) => ({
-          ...emptyOfficerProfile,
-          ...p,
-          id: createEmptyStoredProfile().id,
-        }));
-        saveOfficerProfiles({ profiles: stored, activeId: stored[0]!.id });
+    const local = loadOfficerProfiles();
+    const localUsable = local.profiles.filter((p) => !isBlank(p));
+    const localAt = localProfilesUpdatedAt();
+
+    getMyProfile({})
+      .then(async (remote) => {
+        if (cancelled) return;
+
+        const remoteList: OfficerProfile[] = remote
+          ? remote.profiles && remote.profiles.length
+            ? remote.profiles
+            : [remote]
+          : [];
+        const remoteUsable = remoteList.filter((p) => !isBlank(p));
+        const remoteAt = remote?.updatedAt ? new Date(remote.updatedAt) : null;
+
+        const remoteIsNewer =
+          remoteUsable.length > 0 &&
+          (localUsable.length === 0 ||
+            !localAt ||
+            (remoteAt && !Number.isNaN(remoteAt.getTime()) && remoteAt.getTime() > localAt.getTime()));
+
+        if (remoteIsNewer) {
+          const stored: StoredOfficerProfile[] = remoteUsable.map((p) => ({
+            ...emptyOfficerProfile,
+            ...p,
+            id: createEmptyStoredProfile().id,
+          }));
+          saveOfficerProfiles(
+            { profiles: stored, activeId: stored[0]!.id },
+            remoteAt ? remoteAt.toISOString() : undefined,
+          );
+          return;
+        }
+
+        // Yerel kayıt daha yeni: sunucuyu güncelle
+        const localIsNewer =
+          localUsable.length > 0 &&
+          (remoteUsable.length === 0 ||
+            !remoteAt ||
+            (localAt && localAt.getTime() > remoteAt.getTime()));
+
+        if (localIsNewer) {
+          const active =
+            local.profiles.find((p) => p.id === local.activeId && !isBlank(p)) ?? localUsable[0]!;
+          const { id: _id, ...activeRest } = active;
+          const all = localUsable.map(({ ...p }) => {
+            const { id: _pid, ...rest } = p as StoredOfficerProfile;
+            return rest as OfficerProfile;
+          });
+          const updatedAt = (localAt ?? new Date()).toISOString();
+          await saveOfficerProfile({
+            data: { ...(activeRest as OfficerProfile), profiles: all, updatedAt },
+          }).catch(() => undefined);
+          setLocalProfilesUpdatedAt(updatedAt);
+        }
       })
       .catch(() => {
         /* sessiz geç */
