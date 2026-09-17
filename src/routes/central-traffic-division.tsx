@@ -51,7 +51,7 @@ export const Route = createFileRoute("/central-traffic-division")({
   component: () => (
     <GroupAreaPage
       title={title}
-      subtitle="Bu alan yalnızca Central Traffic Division yetkisi bulunan personele açıktır."
+      subtitle="İlgili şablonlara buradan ulaşabilirsiniz."
       note={
         <span>
           Rapor yönergelerini incelemeyi unutmayın:{" "}
