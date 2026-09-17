@@ -20,6 +20,9 @@ export interface InterrogationData {
   titleDate: string;
   titleSerial: string;
   titleName: string;
+  /** Şablon içindeki RAPOR NO. — örn. SR 25-0000 */
+  reportNo: string;
+
 
   officerName: string;
   officerSerial: string;
@@ -51,6 +54,8 @@ export const emptyInterrogation = (): InterrogationData => ({
   titleDate: "",
   titleSerial: "",
   titleName: "",
+  reportNo: "",
+
   officerName: "",
   officerSerial: "",
   officerDivision: "",
@@ -102,7 +107,7 @@ export function buildInterrogationBBCode(data: InterrogationData): string {
 [center][size=125]LOS SANTOS POLICE DEPARTMENT
 [b]SORGU RAPORU FORMU[/b][/size][/center][/tdwidth]
 [tdwidth=#ffffff,#ffffff,top,left,2,1][size=85][indent=2][b]RAPOR NO.[/b]
-SR 25-0000[/indent][/size][/tdwidth]
+${v(data.reportNo, "SR 25-0000")}[/indent][/size][/tdwidth]
 [/table]
 
 [table=#d0dade,white][tr]
