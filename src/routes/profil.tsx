@@ -315,9 +315,19 @@ function Page() {
                       notify.error("Adı Soyadı, Seri Numarası ve Rütbe zorunludur");
                       return;
                     }
-                    await saveProfileFn({
+                    const res = await saveProfileFn({
                       data: { ...rest, profiles: all, updatedAt: savedAtIso },
                     });
+                    // Sunucu fotoğrafları depoya taşıyıp bağlantı döner; yereli bağlantılarla güncelle.
+                    const storedProfiles = res?.profile?.profiles;
+                    if (storedProfiles) {
+                      persist(
+                        profiles.map((p, i) =>
+                          storedProfiles[i] ? { ...p, photo: storedProfiles[i].photo } : p,
+                        ),
+                        activeId,
+                      );
+                    }
                     notify.success("Profil kaydedildi");
                     if (mustCreateProfile) {
                       await router.invalidate();

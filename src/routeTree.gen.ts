@@ -49,6 +49,7 @@ import { Route as TutuklamaRaporuRouteImport } from './routes/tutuklama-raporu'
 import { Route as AuthGirisRouteImport } from './routes/auth/giris'
 import { Route as ProfilUserIdRouteImport } from './routes/profil_.$userId'
 import { Route as AuthUcpCallbackRouteImport } from './routes/auth/ucp/callback'
+import { Route as ApiPublicProfilePhotoSplatRouteImport } from './routes/api/public/profile-photo.$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -258,6 +259,12 @@ const AuthUcpCallbackRoute = AuthUcpCallbackRouteImport.update({
   path: '/auth/ucp/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicProfilePhotoSplatRoute =
+  ApiPublicProfilePhotoSplatRouteImport.update({
+    id: '/api/public/profile-photo/$',
+    path: '/api/public/profile-photo/$',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -300,6 +307,7 @@ export interface FileRoutesByFullPath {
   '/auth/giris': typeof AuthGirisRoute
   '/profil/$userId': typeof ProfilUserIdRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
+  '/api/public/profile-photo/$': typeof ApiPublicProfilePhotoSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -342,6 +350,7 @@ export interface FileRoutesByTo {
   '/auth/giris': typeof AuthGirisRoute
   '/profil/$userId': typeof ProfilUserIdRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
+  '/api/public/profile-photo/$': typeof ApiPublicProfilePhotoSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -385,6 +394,7 @@ export interface FileRoutesById {
   '/auth/giris': typeof AuthGirisRoute
   '/profil_/$userId': typeof ProfilUserIdRoute
   '/auth/ucp/callback': typeof AuthUcpCallbackRoute
+  '/api/public/profile-photo/$': typeof ApiPublicProfilePhotoSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -429,6 +439,7 @@ export interface FileRouteTypes {
     | '/auth/giris'
     | '/profil/$userId'
     | '/auth/ucp/callback'
+    | '/api/public/profile-photo/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -471,6 +482,7 @@ export interface FileRouteTypes {
     | '/auth/giris'
     | '/profil/$userId'
     | '/auth/ucp/callback'
+    | '/api/public/profile-photo/$'
   id:
     | '__root__'
     | '/'
@@ -513,6 +525,7 @@ export interface FileRouteTypes {
     | '/auth/giris'
     | '/profil_/$userId'
     | '/auth/ucp/callback'
+    | '/api/public/profile-photo/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -556,6 +569,7 @@ export interface RootRouteChildren {
   AuthGirisRoute: typeof AuthGirisRoute
   ProfilUserIdRoute: typeof ProfilUserIdRoute
   AuthUcpCallbackRoute: typeof AuthUcpCallbackRoute
+  ApiPublicProfilePhotoSplatRoute: typeof ApiPublicProfilePhotoSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -840,6 +854,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthUcpCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/profile-photo/$': {
+      id: '/api/public/profile-photo/$'
+      path: '/api/public/profile-photo/$'
+      fullPath: '/api/public/profile-photo/$'
+      preLoaderRoute: typeof ApiPublicProfilePhotoSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -885,6 +906,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthGirisRoute: AuthGirisRoute,
   ProfilUserIdRoute: ProfilUserIdRoute,
   AuthUcpCallbackRoute: AuthUcpCallbackRoute,
+  ApiPublicProfilePhotoSplatRoute: ApiPublicProfilePhotoSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
