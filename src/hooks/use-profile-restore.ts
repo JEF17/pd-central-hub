@@ -54,12 +54,17 @@ export function useProfileRestore(enabled: boolean) {
             ...p,
             id: createEmptyStoredProfile().id,
           }));
+          const remoteIndex =
+            typeof remote?.activeIndex === "number" && stored[remote.activeIndex]
+              ? remote.activeIndex
+              : 0;
           saveOfficerProfiles(
-            { profiles: stored, activeId: stored[0]!.id },
+            { profiles: stored, activeId: stored[remoteIndex]!.id },
             remoteAt ? remoteAt.toISOString() : undefined,
           );
           return;
         }
+
 
         // Yerel kayıt daha yeni: sunucuyu güncelle
         const localIsNewer =
