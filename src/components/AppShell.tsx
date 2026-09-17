@@ -32,7 +32,9 @@ export function AppShell({ children }: { children: ReactNode }) {
       return false;
     }
   });
+  const [mobileOpen, setMobileOpen] = useState(false);
   const { session, signOut } = usePortalSession();
+
   const profile = useOfficerProfile();
   useProfileRestore(!!session && session.status === "approved");
 
