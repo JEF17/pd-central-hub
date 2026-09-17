@@ -25,8 +25,8 @@ export async function persistProfilePhoto(userId: string, photo: string | null |
   const match = DATA_URL_RE.exec(raw);
   if (!match) return raw;
 
-  const mime = match[1].toLowerCase();
-  const bytes = Buffer.from(match[2], "base64");
+  const mime = (match[1] ?? "image/jpeg").toLowerCase();
+  const bytes = Buffer.from(match[2] ?? "", "base64");
   if (!bytes.length) return "";
 
   const hash = createHash("sha256").update(bytes).digest("hex").slice(0, 24);
