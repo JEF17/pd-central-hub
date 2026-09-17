@@ -7,7 +7,13 @@ import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { AppShell } from "@/components/AppShell";
 import { navItems } from "@/lib/nav-items";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
-import { formatRelative, loadRecentDrafts, removeDraft, type RecentDraft } from "@/lib/recent-drafts";
+import {
+  formatRelative,
+  loadRecentDrafts,
+  removeDraft,
+  syncDraftsFromServer,
+  type RecentDraft,
+} from "@/lib/recent-drafts";
 import { formatRank } from "@/lib/officer-profile";
 
 export const Route = createFileRoute("/")({
@@ -66,6 +72,14 @@ function Dashboard() {
 
   useEffect(() => {
     setRecent(loadRecentDrafts(4));
+    let cancelled = false;
+    // Sunucudaki taslakları indir (yeni cihaz / temizlenmiş tarayıcı)
+    void syncDraftsFromServer().then(() => {
+      if (!cancelled) setRecent(loadRecentDrafts(4));
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleDismiss = (e: React.MouseEvent, slug: string) => {

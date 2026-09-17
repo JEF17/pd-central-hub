@@ -307,14 +307,17 @@ function Page() {
                 onClick={async () => {
                   setSaving(true);
                   try {
-                    saveOfficerProfiles({ profiles, activeId });
+                    const savedAtIso = new Date().toISOString();
+                    saveOfficerProfiles({ profiles, activeId }, savedAtIso);
                     const { id: _id, ...rest } = (active ?? { ...emptyOfficerProfile, id: "" }) as StoredOfficerProfile;
                     const all = profiles.map(({ id: _pid, ...p }) => p);
                     if (!rest.name.trim() || !rest.rank.trim() || !rest.serialNo.trim()) {
                       notify.error("Adı Soyadı, Seri Numarası ve Rütbe zorunludur");
                       return;
                     }
-                    await saveProfileFn({ data: { ...rest, profiles: all } });
+                    await saveProfileFn({
+                      data: { ...rest, profiles: all, updatedAt: savedAtIso },
+                    });
                     notify.success("Profil kaydedildi");
                     if (mustCreateProfile) {
                       await router.invalidate();

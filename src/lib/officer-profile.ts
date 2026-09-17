@@ -170,10 +170,36 @@ export function loadOfficerProfiles(): OfficerProfileStore {
   return { profiles: [first], activeId: first.id };
 }
 
-export function saveOfficerProfiles(store: OfficerProfileStore) {
+export const OFFICER_PROFILES_UPDATED_AT_KEY = "lspd-officer-profiles-updated-at";
+
+/** Yerel profillerin en son ne zaman kaydedildiği (sunucuyla karşılaştırmak için). */
+export function localProfilesUpdatedAt(): Date | null {
+  try {
+    const raw = localStorage.getItem(OFFICER_PROFILES_UPDATED_AT_KEY);
+    if (!raw) return null;
+    const d = new Date(raw);
+    return Number.isNaN(d.getTime()) ? null : d;
+  } catch {
+    return null;
+  }
+}
+
+export function setLocalProfilesUpdatedAt(iso: string) {
+  try {
+    localStorage.setItem(OFFICER_PROFILES_UPDATED_AT_KEY, iso);
+  } catch {
+    /* yok sayılır */
+  }
+}
+
+export function saveOfficerProfiles(store: OfficerProfileStore, updatedAt?: string) {
   try {
     localStorage.setItem(OFFICER_PROFILES_KEY, JSON.stringify(store.profiles));
     localStorage.setItem(OFFICER_ACTIVE_PROFILE_KEY, store.activeId);
+    localStorage.setItem(
+      OFFICER_PROFILES_UPDATED_AT_KEY,
+      updatedAt ?? new Date().toISOString(),
+    );
     const active = store.profiles.find((p) => p.id === store.activeId) ?? store.profiles[0];
     if (active) {
       const { id: _id, ...rest } = active;
