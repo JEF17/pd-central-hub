@@ -64,6 +64,12 @@ export async function syncRosterFromProfiles(
 
   }
 
+  // Tek bir tarayıcıdan gelen liste, kullanıcının tüm kayıtlarının tamamı sayılamaz.
+  // Bu yüzden yalnızca bu kaydetme sırasında açıkça gönderilen profil listesi varken
+  // ve sadece profil anahtarı olan (kullanıcının kendi oluşturduğu) satırlar temizlenir.
+  const submittedFullList = Array.isArray(payload.profiles) && payload.profiles.length > 0;
+  if (!submittedFullList || keys.size === 0) return;
+
   const { data: existing, error: listError } = await supabaseAdmin
     .from("portal_roster")
     .select("id, profile_key")
@@ -71,7 +77,7 @@ export async function syncRosterFromProfiles(
   if (listError) throw listError;
 
   const stale = ((existing ?? []) as unknown as { id: string; profile_key: string | null }[])
-    .filter((r) => !r.profile_key || !keys.has(r.profile_key))
+    .filter((r) => !!r.profile_key && !keys.has(r.profile_key))
     .map((r) => r.id);
 
   if (stale.length > 0) {
