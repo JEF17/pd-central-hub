@@ -63,9 +63,14 @@ function Page() {
   const saveProfileFn = useServerFn(saveOfficerProfileServer);
 
   useEffect(() => {
-    const store = loadOfficerProfiles();
-    setProfiles(store.profiles);
-    setActiveId(store.activeId);
+    const sync = () => {
+      const store = loadOfficerProfiles();
+      setProfiles(store.profiles);
+      setActiveId(store.activeId);
+    };
+    sync();
+    window.addEventListener("lspd-officer-profile-changed", sync);
+    return () => window.removeEventListener("lspd-officer-profile-changed", sync);
   }, []);
 
   const active = profiles.find((p) => p.id === activeId);
