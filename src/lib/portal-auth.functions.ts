@@ -636,6 +636,21 @@ export const getMyProfile = createServerFn({ method: "GET" })
     return parseProfile(context.user.profile);
   });
 
+/** Aktif (seçili) personel profilini sunucuda saklar; her cihazda aynı profil seçili kalır. */
+export const setActiveProfileIndex = createServerFn({ method: "POST" })
+  .middleware([requirePortalAuthMiddleware])
+  .inputValidator((input: { activeIndex: number }) => input)
+  .handler(async ({ data, context }) => {
+    const current = parseProfile(context.user.profile);
+    if (!current) return { ok: false as const };
+    const list = current.profiles ?? [];
+    const index = Math.max(0, Math.min(Math.trunc(data.activeIndex), Math.max(list.length - 1, 0)));
+    const active = list[index] ?? current;
+    const { updateOfficerProfile } = await import("./portal-auth.server");
+    await updateOfficerProfile(context.userId, { ...current, ...active, activeIndex: index });
+    return { ok: true as const, activeIndex: index };
+  });
+
 
 
 
