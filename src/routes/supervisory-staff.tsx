@@ -34,7 +34,7 @@ export const Route = createFileRoute("/supervisory-staff")({
   component: () => (
     <GroupAreaPage
       title={title}
-      subtitle="Bu alan yalnızca Supervisory Staff yetkisi bulunan personele açıktır."
+      subtitle="İlgili şablonlara buradan ulaşabilirsiniz."
       templates={templates}
     />
   ),
