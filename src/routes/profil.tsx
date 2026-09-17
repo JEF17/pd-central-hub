@@ -380,7 +380,12 @@ function Page() {
                       return;
                     }
                     const res = await saveProfileFn({
-                      data: { ...rest, profiles: all, updatedAt: savedAtIso },
+                      data: {
+                        ...rest,
+                        profiles: all,
+                        updatedAt: savedAtIso,
+                        activeIndex: Math.max(0, profiles.findIndex((p) => p.id === activeId)),
+                      },
                     });
                     // Sunucu fotoğrafları depoya taşıyıp bağlantı döner; yereli bağlantılarla güncelle.
                     const storedProfiles = res?.profile?.profiles;
