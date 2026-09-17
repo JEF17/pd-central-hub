@@ -86,7 +86,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <span className="min-w-0">
               <span className="block truncate text-lg font-bold leading-tight tracking-tight">LSPD Toolkit</span>
               <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                Komuta Portalı
+                {"\n"}
               </span>
 
             </span>
