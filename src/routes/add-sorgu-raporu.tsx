@@ -102,7 +102,9 @@ function Page() {
     "add-sorgu-raporu",
     emptyInterrogation,
   );
-  const [output, setOutput] = useState("");
+  const [generated, setGenerated] = useState(false);
+  const output = generated ? buildInterrogationBBCode(data) : "";
+  const setOutput = (value: string) => setGenerated(Boolean(value));
   const profile = useOfficerProfile();
   const autoFilled = useRef(false);
 
@@ -169,6 +171,12 @@ function Page() {
 
         <div className="mt-8 grid gap-6">
           <Section title="Başlık" wide hint="SR — GG/AA/YYYY — 00000 (ADI SOYADI)">
+            <Field
+              label="Rapor No."
+              value={data.reportNo}
+              onChange={(v) => set("reportNo", v.toUpperCase())}
+              placeholder="SR 25-0000"
+            />
             <DateField
               label="Tarih"
               value={data.titleDate}
