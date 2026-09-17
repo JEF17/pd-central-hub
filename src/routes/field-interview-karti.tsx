@@ -100,7 +100,7 @@ function Page() {
                   <Field label="Adı Soyadı" value={data.personName} onChange={(v) => set("personName", v)} />
                   <Field label="Takma Adı" value={data.nickname} onChange={(v) => set("nickname", v)} />
                   <div className="space-y-2">
-                    <Label className="text-xs">Cinsiyet</Label>
+                    <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">CİNSİYET</Label>
                     <div className="flex h-10 items-center gap-4 rounded-md border border-input bg-background px-3">
                       <CheckItem
                         label="Erkek"
@@ -131,7 +131,7 @@ function Page() {
 
           <Section title="Konu Başlığı">
             <div className="sm:col-span-2 rounded-lg border border-border bg-muted/30 p-3">
-              <Label className="text-xs">Konu Başlığı</Label>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">KONU BAŞLIĞI</Label>
               <div className="mt-2 flex items-center gap-2">
                 <Input readOnly value={title} className="font-mono" />
                 <Button
@@ -264,7 +264,7 @@ function SelectField({
 }) {
   return (
     <div>
-      <Label className="text-xs">{label}</Label>
+      <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">{label}</Label>
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="mt-2">
           <SelectValue placeholder="Seçiniz" />
