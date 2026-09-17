@@ -326,7 +326,6 @@ function Page() {
                           storedProfiles[i] ? { ...p, photo: storedProfiles[i].photo } : p,
                         ),
                         activeId,
-                        savedAtIso,
                       );
                     }
                     notify.success("Profil kaydedildi");
