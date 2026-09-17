@@ -157,9 +157,49 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
-        <header className="relative flex h-16 items-center gap-3 px-6 after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/40 after:to-transparent">
+        <header className="relative flex h-16 items-center gap-2 px-4 sm:px-6 after:pointer-events-none after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-primary/40 after:to-transparent">
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden" aria-label="Menüyü aç">
+                <Menu className="size-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[17rem] border-border bg-panel p-0">
+              <div className="flex h-16 items-center gap-3 px-4">
+                <img src={lspdLogo.url} alt="LSPD badge" className="size-9 shrink-0 rounded-full object-contain" />
+                <span className="min-w-0">
+                  <span className="block truncate text-base font-bold leading-tight">LSPD Toolkit</span>
+                  <span className="block truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                    Komuta Portalı
+                  </span>
+                </span>
+              </div>
+              <nav className="max-h-[calc(100vh-4rem)] space-y-1 overflow-y-auto px-3 pb-6">
+                {visibleNavItems.map((item) => {
+                  const active = pathname === item.to;
+                  return (
+                    <Link
+                      key={item.to}
+                      to={item.to}
+                      onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm transition-colors",
+                        active
+                          ? "nav-active font-semibold"
+                          : "text-panel-foreground/70 hover:bg-accent/60 hover:text-foreground",
+                      )}
+                    >
+                      <item.icon className={cn("size-4 shrink-0", active && "text-primary")} />
+                      <span className="truncate">{item.label}</span>
+                    </Link>
+                  );
+                })}
+              </nav>
+            </SheetContent>
+          </Sheet>
           <img src={lspdLogo.url} alt="LSPD badge" className="size-7 object-contain md:hidden" />
-          <span className="font-bold md:hidden">LSPD Toolkit</span>
+          <span className="truncate font-bold md:hidden">LSPD Toolkit</span>
+
           <div className="ml-auto flex items-center gap-1">
             <NotificationBell />
             {session ? (
