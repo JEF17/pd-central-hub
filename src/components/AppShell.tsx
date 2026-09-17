@@ -1,7 +1,7 @@
 // Geliştirici: Muptazelle
 import { useEffect, useState, type ReactNode } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { LogOut, MessageSquare, PanelLeft, Shield, User, Users } from "lucide-react";
+import { LogOut, Menu, MessageSquare, PanelLeft, Shield, User, Users } from "lucide-react";
 
 import lspdLogo from "@/assets/lspd-logo.png.asset.json";
 import { NotificationBell } from "@/components/NotificationBell";
