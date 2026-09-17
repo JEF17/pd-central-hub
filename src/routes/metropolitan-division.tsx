@@ -38,7 +38,7 @@ export const Route = createFileRoute("/metropolitan-division")({
   component: () => (
     <GroupAreaPage
       title={title}
-      subtitle="Bu alan yalnızca Metropolitan Division yetkisi bulunan personele açıktır."
+      subtitle="İlgili şablonlara buradan ulaşabilirsiniz."
       templates={templates}
     />
   ),
