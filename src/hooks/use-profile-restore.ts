@@ -72,7 +72,7 @@ export function useProfileRestore(enabled: boolean) {
           const active =
             local.profiles.find((p) => p.id === local.activeId && !isBlank(p)) ?? localUsable[0]!;
           const { id: _id, ...activeRest } = active;
-          const all = localUsable.map(({ ...p }) => {
+          const all: OfficerProfile[] = localUsable.map((p) => {
             const { id: _pid, ...rest } = p as StoredOfficerProfile;
             return rest as OfficerProfile;
           });
