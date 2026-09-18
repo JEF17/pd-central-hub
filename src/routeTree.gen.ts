@@ -21,6 +21,7 @@ import { Route as AddKazaSorusturmaRaporu2RouteImport } from './routes/add-kaza-
 import { Route as AddKazaSorusturmaRaporu3RouteImport } from './routes/add-kaza-sorusturma-raporu-3'
 import { Route as AddMetroGunlukAktiviteRaporuRouteImport } from './routes/add-metro-gunluk-aktivite-raporu'
 import { Route as AddSorguRaporuRouteImport } from './routes/add-sorgu-raporu'
+import { Route as AddSubjectIdCardRouteImport } from './routes/add-subject-id-card'
 import { Route as AddTakipSorusturmaFormu1RouteImport } from './routes/add-takip-sorusturma-formu-1'
 import { Route as AddTakipSorusturmaFormu2RouteImport } from './routes/add-takip-sorusturma-formu-2'
 import { Route as AddTrafikOzelGorevlendirmeRaporuRouteImport } from './routes/add-trafik-ozel-gorevlendirme-raporu'
@@ -118,6 +119,11 @@ const AddMetroGunlukAktiviteRaporuRoute =
 const AddSorguRaporuRoute = AddSorguRaporuRouteImport.update({
   id: '/add-sorgu-raporu',
   path: '/add-sorgu-raporu',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AddSubjectIdCardRoute = AddSubjectIdCardRouteImport.update({
+  id: '/add-subject-id-card',
+  path: '/add-subject-id-card',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AddTakipSorusturmaFormu1Route =
@@ -298,6 +304,7 @@ export interface FileRoutesByFullPath {
   '/add-kaza-sorusturma-raporu-3': typeof AddKazaSorusturmaRaporu3Route
   '/add-metro-gunluk-aktivite-raporu': typeof AddMetroGunlukAktiviteRaporuRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
+  '/add-subject-id-card': typeof AddSubjectIdCardRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/add-trafik-ozel-gorevlendirme-raporu': typeof AddTrafikOzelGorevlendirmeRaporuRoute
@@ -344,6 +351,7 @@ export interface FileRoutesByTo {
   '/add-kaza-sorusturma-raporu-3': typeof AddKazaSorusturmaRaporu3Route
   '/add-metro-gunluk-aktivite-raporu': typeof AddMetroGunlukAktiviteRaporuRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
+  '/add-subject-id-card': typeof AddSubjectIdCardRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/add-trafik-ozel-gorevlendirme-raporu': typeof AddTrafikOzelGorevlendirmeRaporuRoute
@@ -391,6 +399,7 @@ export interface FileRoutesById {
   '/add-kaza-sorusturma-raporu-3': typeof AddKazaSorusturmaRaporu3Route
   '/add-metro-gunluk-aktivite-raporu': typeof AddMetroGunlukAktiviteRaporuRoute
   '/add-sorgu-raporu': typeof AddSorguRaporuRoute
+  '/add-subject-id-card': typeof AddSubjectIdCardRoute
   '/add-takip-sorusturma-formu-1': typeof AddTakipSorusturmaFormu1Route
   '/add-takip-sorusturma-formu-2': typeof AddTakipSorusturmaFormu2Route
   '/add-trafik-ozel-gorevlendirme-raporu': typeof AddTrafikOzelGorevlendirmeRaporuRoute
@@ -439,6 +448,7 @@ export interface FileRouteTypes {
     | '/add-kaza-sorusturma-raporu-3'
     | '/add-metro-gunluk-aktivite-raporu'
     | '/add-sorgu-raporu'
+    | '/add-subject-id-card'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
     | '/add-trafik-ozel-gorevlendirme-raporu'
@@ -485,6 +495,7 @@ export interface FileRouteTypes {
     | '/add-kaza-sorusturma-raporu-3'
     | '/add-metro-gunluk-aktivite-raporu'
     | '/add-sorgu-raporu'
+    | '/add-subject-id-card'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
     | '/add-trafik-ozel-gorevlendirme-raporu'
@@ -531,6 +542,7 @@ export interface FileRouteTypes {
     | '/add-kaza-sorusturma-raporu-3'
     | '/add-metro-gunluk-aktivite-raporu'
     | '/add-sorgu-raporu'
+    | '/add-subject-id-card'
     | '/add-takip-sorusturma-formu-1'
     | '/add-takip-sorusturma-formu-2'
     | '/add-trafik-ozel-gorevlendirme-raporu'
@@ -578,6 +590,7 @@ export interface RootRouteChildren {
   AddKazaSorusturmaRaporu3Route: typeof AddKazaSorusturmaRaporu3Route
   AddMetroGunlukAktiviteRaporuRoute: typeof AddMetroGunlukAktiviteRaporuRoute
   AddSorguRaporuRoute: typeof AddSorguRaporuRoute
+  AddSubjectIdCardRoute: typeof AddSubjectIdCardRoute
   AddTakipSorusturmaFormu1Route: typeof AddTakipSorusturmaFormu1Route
   AddTakipSorusturmaFormu2Route: typeof AddTakipSorusturmaFormu2Route
   AddTrafikOzelGorevlendirmeRaporuRoute: typeof AddTrafikOzelGorevlendirmeRaporuRoute
@@ -696,6 +709,13 @@ declare module '@tanstack/react-router' {
       path: '/add-sorgu-raporu'
       fullPath: '/add-sorgu-raporu'
       preLoaderRoute: typeof AddSorguRaporuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-subject-id-card': {
+      id: '/add-subject-id-card'
+      path: '/add-subject-id-card'
+      fullPath: '/add-subject-id-card'
+      preLoaderRoute: typeof AddSubjectIdCardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-takip-sorusturma-formu-1': {
@@ -939,6 +959,7 @@ const rootRouteChildren: RootRouteChildren = {
   AddKazaSorusturmaRaporu3Route: AddKazaSorusturmaRaporu3Route,
   AddMetroGunlukAktiviteRaporuRoute: AddMetroGunlukAktiviteRaporuRoute,
   AddSorguRaporuRoute: AddSorguRaporuRoute,
+  AddSubjectIdCardRoute: AddSubjectIdCardRoute,
   AddTakipSorusturmaFormu1Route: AddTakipSorusturmaFormu1Route,
   AddTakipSorusturmaFormu2Route: AddTakipSorusturmaFormu2Route,
   AddTrafikOzelGorevlendirmeRaporuRoute: AddTrafikOzelGorevlendirmeRaporuRoute,
