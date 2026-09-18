@@ -185,28 +185,6 @@ function Page() {
             </div>
             <Field label="Çete" value={data.gang} onChange={(value) => set("gang", value)} />
             <Field label="Klik (Varsa)" value={data.clique} onChange={(value) => set("clique", value)} />
-            <div className="sm:col-span-2 grid gap-2">
-              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Belirgin Özellikler (Yaralar, Dövmeler, Fiziksel Bilgiler)
-              </Label>
-              <Textarea
-                rows={5}
-                value={data.features}
-                onChange={(event) => set("features", event.target.value)}
-                placeholder="Dövmeler, yaralar, belirgin fiziksel özellikler..."
-              />
-            </div>
-            <div className="sm:col-span-2 grid gap-2">
-              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Olay Özeti
-              </Label>
-              <Textarea
-                rows={7}
-                value={data.summary}
-                onChange={(event) => set("summary", event.target.value)}
-                placeholder="Birincil bakış açısıyla yazın..."
-              />
-            </div>
           </Section>
 
           <Section title="SanGang Kaydı" wide>
@@ -267,16 +245,6 @@ function Page() {
               onChange={(value) => set("officerName", value)}
             />
             <Field label="Seri No." value={data.officerSerial} onChange={(value) => set("officerSerial", value)} />
-            <Field
-              label="Onaylayan Supervisor"
-              value={data.supervisorName}
-              onChange={(value) => set("supervisorName", value)}
-            />
-            <Field
-              label="Supervisor Seri No."
-              value={data.supervisorSerial}
-              onChange={(value) => set("supervisorSerial", value)}
-            />
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Detail</Label>
               <select
