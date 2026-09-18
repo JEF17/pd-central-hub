@@ -154,8 +154,8 @@ ${v(data.clique)}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,10,1][size=85][indent=2]
-[b]BELİRGİN ÖZELLİKLER: YARALAR, DÖVMELER, GÖZLE GÖRÜLEBİLİR FİZİKSEL BİLGİLER[/b]
-(( Kayıt edeceğiniz kişinin dövmelerini "/tattoos" ve "/examine" ile doğrulayıp bu bilgilerin ekran görüntüsünü almayı ihmal etmeyin. Bu içeriğe sahip olmayan belgeler onaylanmayacaktır. ))
+[b]BELİRGİN ÖZELLİKLER: YARALAR, DÖVMELER, GÖZLE GÖRÜLEBİLİR FİZİKSEL BİLGİLER[/b]${data.features.trim() ? "" : `
+(( Kayıt edeceğiniz kişinin dövmelerini "/tattoos" ve "/examine" ile doğrulayıp bu bilgilerin ekran görüntüsünü almayı ihmal etmeyin. Bu içeriğe sahip olmayan belgeler onaylanmayacaktır. ))`}
 
 ${v(data.features, "")}
 
@@ -163,8 +163,8 @@ ${v(data.features, "")}
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,10,1][size=85][indent=2]
-[b]OLAY ÖZETİ[/b]
-(( Birincil bakış açısıyla yazmayı unutmayın. Devriye başlangıcınıza, devriyenizle ilgili temel bilgilere kısaca değinerek bu kişiyle nasıl karşılaştığınız şeklinde yazabilirsiniz. ))
+[b]OLAY ÖZETİ[/b]${data.summary.trim() ? "" : `
+(( Birincil bakış açısıyla yazmayı unutmayın. Devriye başlangıcınıza, devriyenizle ilgili temel bilgilere kısaca değinerek bu kişiyle nasıl karşılaştığınız şeklinde yazabilirsiniz. ))`}
 
 ${v(data.summary, "")}
 
