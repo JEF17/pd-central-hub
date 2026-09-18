@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AddCctvKayitTalepleriRouteImport } from './routes/add-cctv-kayit-talepleri'
+import { Route as AddCeteSorusturmaDosyasiRouteImport } from './routes/add-cete-sorusturma-dosyasi'
 import { Route as AddK9DeploymentRaporuRouteImport } from './routes/add-k9-deployment-raporu'
 import { Route as AddKategorikGucKullanimiRaporuRouteImport } from './routes/add-kategorik-guc-kullanimi-raporu'
 import { Route as AddKategorikGucKullanimiTamamlayiciRaporuRouteImport } from './routes/add-kategorik-guc-kullanimi-tamamlayici-raporu'
@@ -62,6 +63,12 @@ const AddCctvKayitTalepleriRoute = AddCctvKayitTalepleriRouteImport.update({
   path: '/add-cctv-kayit-talepleri',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AddCeteSorusturmaDosyasiRoute =
+  AddCeteSorusturmaDosyasiRouteImport.update({
+    id: '/add-cete-sorusturma-dosyasi',
+    path: '/add-cete-sorusturma-dosyasi',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AddK9DeploymentRaporuRoute = AddK9DeploymentRaporuRouteImport.update({
   id: '/add-k9-deployment-raporu',
   path: '/add-k9-deployment-raporu',
@@ -275,6 +282,7 @@ const ApiPublicProfilePhotoSplatRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
+  '/add-cete-sorusturma-dosyasi': typeof AddCeteSorusturmaDosyasiRoute
   '/add-k9-deployment-raporu': typeof AddK9DeploymentRaporuRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
@@ -319,6 +327,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
+  '/add-cete-sorusturma-dosyasi': typeof AddCeteSorusturmaDosyasiRoute
   '/add-k9-deployment-raporu': typeof AddK9DeploymentRaporuRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
@@ -364,6 +373,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/add-cctv-kayit-talepleri': typeof AddCctvKayitTalepleriRoute
+  '/add-cete-sorusturma-dosyasi': typeof AddCeteSorusturmaDosyasiRoute
   '/add-k9-deployment-raporu': typeof AddK9DeploymentRaporuRoute
   '/add-kategorik-guc-kullanimi-raporu': typeof AddKategorikGucKullanimiRaporuRoute
   '/add-kategorik-guc-kullanimi-tamamlayici-raporu': typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
@@ -410,6 +420,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/add-cctv-kayit-talepleri'
+    | '/add-cete-sorusturma-dosyasi'
     | '/add-k9-deployment-raporu'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
@@ -454,6 +465,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/add-cctv-kayit-talepleri'
+    | '/add-cete-sorusturma-dosyasi'
     | '/add-k9-deployment-raporu'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
@@ -498,6 +510,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/add-cctv-kayit-talepleri'
+    | '/add-cete-sorusturma-dosyasi'
     | '/add-k9-deployment-raporu'
     | '/add-kategorik-guc-kullanimi-raporu'
     | '/add-kategorik-guc-kullanimi-tamamlayici-raporu'
@@ -543,6 +556,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AddCctvKayitTalepleriRoute: typeof AddCctvKayitTalepleriRoute
+  AddCeteSorusturmaDosyasiRoute: typeof AddCeteSorusturmaDosyasiRoute
   AddK9DeploymentRaporuRoute: typeof AddK9DeploymentRaporuRoute
   AddKategorikGucKullanimiRaporuRoute: typeof AddKategorikGucKullanimiRaporuRoute
   AddKategorikGucKullanimiTamamlayiciRaporuRoute: typeof AddKategorikGucKullanimiTamamlayiciRaporuRoute
@@ -599,6 +613,13 @@ declare module '@tanstack/react-router' {
       path: '/add-cctv-kayit-talepleri'
       fullPath: '/add-cctv-kayit-talepleri'
       preLoaderRoute: typeof AddCctvKayitTalepleriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/add-cete-sorusturma-dosyasi': {
+      id: '/add-cete-sorusturma-dosyasi'
+      path: '/add-cete-sorusturma-dosyasi'
+      fullPath: '/add-cete-sorusturma-dosyasi'
+      preLoaderRoute: typeof AddCeteSorusturmaDosyasiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/add-k9-deployment-raporu': {
@@ -887,6 +908,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AddCctvKayitTalepleriRoute: AddCctvKayitTalepleriRoute,
+  AddCeteSorusturmaDosyasiRoute: AddCeteSorusturmaDosyasiRoute,
   AddK9DeploymentRaporuRoute: AddK9DeploymentRaporuRoute,
   AddKategorikGucKullanimiRaporuRoute: AddKategorikGucKullanimiRaporuRoute,
   AddKategorikGucKullanimiTamamlayiciRaporuRoute:

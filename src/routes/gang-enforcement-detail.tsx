@@ -6,7 +6,14 @@ import { requirePortalAuth } from "@/lib/portal-auth";
 const title = "Gang Enforcement Detail / Gang Impact Team";
 const description = "GED/GIT personeline özel rapor şablonları ve araçlar.";
 
-const templates: GroupTemplate[] = [];
+const templates: GroupTemplate[] = [
+  {
+    slug: "cete-sorusturma-dosyasi",
+    label: "Çete Soruşturma Dosyası Formu",
+    description: "Çete dosyası, ilişkiler, dijital kayıtlar ve SanGang kayıtları için BBCode raporu.",
+    to: "/add-cete-sorusturma-dosyasi",
+  },
+];
 
 export const Route = createFileRoute("/gang-enforcement-detail")({
   beforeLoad: async ({ location }) => {
