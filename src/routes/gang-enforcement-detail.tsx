@@ -10,7 +10,7 @@ const templates: GroupTemplate[] = [
   {
     slug: "cete-sorusturma-dosyasi",
     label: "Çete Soruşturma Dosyası Formu",
-    description: "Çete dosyası, ilişkiler, dijital kayıtlar ve SanGang kayıtları için BBCode raporu.",
+    description: "Çete dosyası, ilişkiler, dijital kayıtlar ve SanGang kayıtları için şablon.",
     to: "/add-cete-sorusturma-dosyasi",
   },
   {
