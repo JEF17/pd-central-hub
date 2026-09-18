@@ -71,7 +71,9 @@ function Page() {
   const toggleCriterion = (label: string, checked: boolean) =>
     set(
       "criteria",
-      checked ? [...data.criteria.filter((item) => item !== label), label] : data.criteria.filter((item) => item !== label),
+      checked
+        ? [...data.criteria.filter((item) => item !== label), label]
+        : data.criteria.filter((item) => item !== label),
     );
 
   const copy = (value: string, label: string) => {
@@ -115,7 +117,13 @@ function Page() {
           <Section title="Konu Başlığı" wide hint="AD SOYAD - 00/00/0000 (SI Kart)">
             <div className="sm:col-span-2 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background/60 px-4 py-3">
               <code className="min-w-0 flex-1 break-all font-mono text-xs text-foreground">{reportTitle}</code>
-              <Button type="button" variant="outline" size="sm" className="press" onClick={() => copy(reportTitle, "Başlık")}>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="press"
+                onClick={() => copy(reportTitle, "Başlık")}
+              >
                 <ClipboardCopy className="size-3.5" /> Başlığı Kopyala
               </Button>
             </div>
@@ -127,28 +135,49 @@ function Page() {
             <Field label="Takma Ad" value={data.alias} onChange={(value) => set("alias", value)} />
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Köken</Label>
-              <select value={data.origin} onChange={(event) => set("origin", event.target.value)} className={selectClass}>
+              <select
+                value={data.origin}
+                onChange={(event) => set("origin", event.target.value)}
+                className={selectClass}
+              >
                 {SUBJECT_ORIGINS.map((origin) => (
-                  <option key={origin} value={origin}>{origin}</option>
+                  <option key={origin} value={origin}>
+                    {origin}
+                  </option>
                 ))}
               </select>
             </div>
             <Field label="Yaş" value={data.age} onChange={(value) => set("age", value)} />
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Cinsiyet</Label>
-              <select value={data.gender} onChange={(event) => set("gender", event.target.value)} className={selectClass}>
+              <select
+                value={data.gender}
+                onChange={(event) => set("gender", event.target.value)}
+                className={selectClass}
+              >
                 <option value="Erkek">Erkek</option>
                 <option value="Kadın">Kadın</option>
               </select>
             </div>
             <Field label="Adresi" value={data.address} onChange={(value) => set("address", value)} />
-            <Field label="Telefon No." value={data.phone} onChange={(value) => set("phone", value)} placeholder="000-0000" />
+            <Field
+              label="Telefon No."
+              value={data.phone}
+              onChange={(value) => set("phone", value)}
+              placeholder="000-0000"
+            />
           </Section>
 
           <Section title="Detaylar" wide>
             <div className="space-y-1.5">
-              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Çete Bağlantısı</Label>
-              <select value={data.gangAffiliation} onChange={(event) => set("gangAffiliation", event.target.value)} className={selectClass}>
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Çete Bağlantısı
+              </Label>
+              <select
+                value={data.gangAffiliation}
+                onChange={(event) => set("gangAffiliation", event.target.value)}
+                className={selectClass}
+              >
                 <option value="">Seçiniz</option>
                 <option value="Üye">Üye</option>
                 <option value="Bağlantılı">Bağlantılı</option>
@@ -158,21 +187,42 @@ function Page() {
             <Field label="Klik (Varsa)" value={data.clique} onChange={(value) => set("clique", value)} />
             <div className="sm:col-span-2 grid gap-2">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                Belirgin Özellikler (Yaralar, Dövmeler, Fiziksel Bilgiler)
+                (( Kayıt edeceğiniz kişinin dövmelerini "/tattoos" ve "/examine" ile doğrulayıp bu bilgilerin ekran
+                görüntüsünü almayı ihmal etmeyin. Bu içeriğe sahip olmayan belgeler onaylanmayacaktır. ))
               </Label>
-              <Textarea rows={5} value={data.features} onChange={(event) => set("features", event.target.value)} placeholder="Dövmeler, yaralar, belirgin fiziksel özellikler..." />
+              <Textarea
+                rows={5}
+                value={data.features}
+                onChange={(event) => set("features", event.target.value)}
+                placeholder="Dövmeler, yaralar, belirgin fiziksel özellikler..."
+              />
             </div>
             <div className="sm:col-span-2 grid gap-2">
-              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Olay Özeti</Label>
-              <Textarea rows={7} value={data.summary} onChange={(event) => set("summary", event.target.value)} placeholder="Birincil bakış açısıyla yazın..." />
+              <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                Olay Özeti
+              </Label>
+              <Textarea
+                rows={7}
+                value={data.summary}
+                onChange={(event) => set("summary", event.target.value)}
+                placeholder="Birincil bakış açısıyla yazın..."
+              />
             </div>
           </Section>
 
           <Section title="SanGang Kaydı" wide>
-            <Field label="SanGang Kayıt Numarası" value={data.sangangNo} onChange={(value) => set("sangangNo", value)} placeholder="00000" />
+            <Field
+              label="SanGang Kayıt Numarası"
+              value={data.sangangNo}
+              onChange={(value) => set("sangangNo", value)}
+              placeholder="00000"
+            />
             <div className="sm:col-span-2 grid gap-3 sm:grid-cols-2">
               {SUBJECT_CRITERIA.map((label) => (
-                <label key={label} className="flex items-start gap-2 rounded-lg border border-border bg-background/40 p-3 text-xs leading-relaxed">
+                <label
+                  key={label}
+                  className="flex items-start gap-2 rounded-lg border border-border bg-background/40 p-3 text-xs leading-relaxed"
+                >
                   <Checkbox
                     checked={data.criteria.includes(label)}
                     onCheckedChange={(checked) => toggleCriterion(label, checked === true)}
@@ -184,34 +234,75 @@ function Page() {
           </Section>
 
           <Section title="FI Kartı Bilgisi" wide hint="İlk etkileşim başka bir personel tarafından yapıldıysa">
-            <DateField label="Tarih ve Saat" value={data.fiDateTime} onChange={(value) => set("fiDateTime", value)} withTime />
-            <Field label="FI Kartı Bağlantısı" value={data.fiCardNo} onChange={(value) => set("fiCardNo", value)} placeholder="https://..." />
-            <Field label="Personel Adı Soyadı" value={data.fiOfficerName} onChange={(value) => set("fiOfficerName", value)} />
+            <DateField
+              label="Tarih ve Saat"
+              value={data.fiDateTime}
+              onChange={(value) => set("fiDateTime", value)}
+              withTime
+            />
+            <Field
+              label="FI Kartı Bağlantısı"
+              value={data.fiCardNo}
+              onChange={(value) => set("fiCardNo", value)}
+              placeholder="https://..."
+            />
+            <Field
+              label="Personel Adı Soyadı"
+              value={data.fiOfficerName}
+              onChange={(value) => set("fiOfficerName", value)}
+            />
             <Field label="Seri No." value={data.fiOfficerSerial} onChange={(value) => set("fiOfficerSerial", value)} />
           </Section>
 
           <Section title="İdari Bilgiler" wide>
             <div className="sm:col-span-2">
-              <ProfileFillButton onFill={(values) => setData((current) => ({ ...current, officerName: values.name, officerSerial: values.serialNo }))} />
+              <ProfileFillButton
+                onFill={(values) =>
+                  setData((current) => ({ ...current, officerName: values.name, officerSerial: values.serialNo }))
+                }
+              />
             </div>
-            <Field label="Personel Adı Soyadı" value={data.officerName} onChange={(value) => set("officerName", value)} />
+            <Field
+              label="Personel Adı Soyadı"
+              value={data.officerName}
+              onChange={(value) => set("officerName", value)}
+            />
             <Field label="Seri No." value={data.officerSerial} onChange={(value) => set("officerSerial", value)} />
-            <Field label="Onaylayan Supervisor" value={data.supervisorName} onChange={(value) => set("supervisorName", value)} />
-            <Field label="Supervisor Seri No." value={data.supervisorSerial} onChange={(value) => set("supervisorSerial", value)} />
+            <Field
+              label="Onaylayan Supervisor"
+              value={data.supervisorName}
+              onChange={(value) => set("supervisorName", value)}
+            />
+            <Field
+              label="Supervisor Seri No."
+              value={data.supervisorSerial}
+              onChange={(value) => set("supervisorSerial", value)}
+            />
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Detail</Label>
-              <select value={data.detail} onChange={(event) => set("detail", event.target.value)} className={selectClass}>
+              <select
+                value={data.detail}
+                onChange={(event) => set("detail", event.target.value)}
+                className={selectClass}
+              >
                 <option value="GED">GED</option>
                 <option value="GIT">GIT</option>
                 <option value="GIT, GED">GIT, GED</option>
               </select>
             </div>
-            <Field label="Division" value={data.division} onChange={(value) => set("division", value)} placeholder="MISN" />
+            <Field
+              label="Division"
+              value={data.division}
+              onChange={(value) => set("division", value)}
+              placeholder="MISN"
+            />
           </Section>
         </div>
 
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button className="press" onClick={() => setOutput(buildSubjectIdCardBBCode(data))}>Raporu Oluştur</Button>
+          <Button className="press" onClick={() => setOutput(buildSubjectIdCardBBCode(data))}>
+            Raporu Oluştur
+          </Button>
           {output ? (
             <Button variant="outline" className="press" onClick={() => copy(output, "BBCode")}>
               <ClipboardCopy className="size-4" /> Kopyala
