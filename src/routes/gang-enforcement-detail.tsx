@@ -19,6 +19,12 @@ const templates: GroupTemplate[] = [
     description: "Çete dosyalarına ait takip ve durum güncellemesi metinleri için BBCode raporu.",
     to: "/add-cete-takip-guncelleme",
   },
+  {
+    slug: "subject-id-card",
+    label: "Subject Identification Card 12.16.09 (12/17)",
+    description: "Şüpheli kimlik kartı, SanGang kriterleri ve FI kartı bilgileri için şablon.",
+    to: "/add-subject-id-card",
+  },
 ];
 
 export const Route = createFileRoute("/gang-enforcement-detail")({
