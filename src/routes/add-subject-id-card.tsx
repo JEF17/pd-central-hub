@@ -187,8 +187,7 @@ function Page() {
             <Field label="Klik (Varsa)" value={data.clique} onChange={(value) => set("clique", value)} />
             <div className="sm:col-span-2 grid gap-2">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
-                (( Kayıt edeceğiniz kişinin dövmelerini "/tattoos" ve "/examine" ile doğrulayıp bu bilgilerin ekran
-                görüntüsünü almayı ihmal etmeyin. Bu içeriğe sahip olmayan belgeler onaylanmayacaktır. ))
+                Belirgin Özellikler (Yaralar, Dövmeler, Fiziksel Bilgiler)
               </Label>
               <Textarea
                 rows={5}
