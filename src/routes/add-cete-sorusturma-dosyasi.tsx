@@ -26,7 +26,7 @@ import { notify } from "@/lib/notifications";
 import { requirePortalAuth } from "@/lib/portal-auth";
 
 const title = "Çete Soruşturma Dosyası Formu";
-const description = "GED/GIT çete soruşturma dosyası şablonu (BBCode).";
+const description = " Çete soruşturma dosyası şablonu";
 
 export const Route = createFileRoute("/add-cete-sorusturma-dosyasi")({
   beforeLoad: async ({ location }) => {
