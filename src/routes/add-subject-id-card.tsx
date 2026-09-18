@@ -113,8 +113,6 @@ function Page() {
 
         <div className="mt-8 grid gap-6">
           <Section title="Konu Başlığı" wide hint="AD SOYAD - 00/00/0000 (SI Kart)">
-            <Field label="Ad Soyad" value={data.name} onChange={(value) => set("name", value)} placeholder="AD SOYAD" />
-            <DateField label="Tarih" value={data.cardDate} onChange={(value) => set("cardDate", value)} />
             <div className="sm:col-span-2 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background/60 px-4 py-3">
               <code className="min-w-0 flex-1 break-all font-mono text-xs text-foreground">{reportTitle}</code>
               <Button type="button" variant="outline" size="sm" className="press" onClick={() => copy(reportTitle, "Başlık")}>
@@ -124,6 +122,8 @@ function Page() {
           </Section>
 
           <Section title="Temel Bilgiler" wide>
+            <Field label="Ad Soyad" value={data.name} onChange={(value) => set("name", value)} placeholder="AD SOYAD" />
+            <DateField label="Tarih" value={data.cardDate} onChange={(value) => set("cardDate", value)} />
             <Field label="Takma Ad" value={data.alias} onChange={(value) => set("alias", value)} />
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Köken</Label>
