@@ -14,7 +14,6 @@ import { useFormDraft } from "@/hooks/use-form-draft";
 import { useOfficerProfile } from "@/hooks/use-officer-profile";
 import {
   buildGangUpdateBBCode,
-  buildGangUpdateTitle,
   emptyGangUpdate,
   type GangUpdateData,
 } from "@/lib/add-gang-investigation-update";
@@ -76,7 +75,6 @@ function Page() {
     notify.success(`${label} kopyalandı`);
   };
 
-  const reportTitle = buildGangUpdateTitle(data);
 
   return (
     <AppShell>
@@ -125,18 +123,9 @@ function Page() {
         />
 
         <div className="mt-8 grid gap-6">
-          <Section title="Konu Başlığı" wide hint="ÇETE İSMİ / 25-000 Güncelleme">
+          <Section title="Güncelleme Bilgileri" wide>
             <Field label="Çete İsmi" value={data.gangName} onChange={(value) => set("gangName", value)} placeholder="ÇETE İSMİ" />
             <Field label="ÇSD No." value={data.csdNo} onChange={(value) => set("csdNo", value)} placeholder="000" />
-            <div className="sm:col-span-2 flex flex-wrap items-center gap-3 rounded-lg border border-border bg-background/60 px-4 py-3">
-              <code className="min-w-0 flex-1 break-all font-mono text-xs text-foreground">{reportTitle}</code>
-              <Button type="button" variant="outline" size="sm" className="press" onClick={() => copy(reportTitle, "Başlık")}>
-                <ClipboardCopy className="size-3.5" /> Başlığı Kopyala
-              </Button>
-            </div>
-          </Section>
-
-          <Section title="Güncelleme Bilgileri" wide>
             <div className="sm:col-span-2 grid gap-2">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Arka Plan</Label>
               <Textarea rows={5} value={data.background} onChange={(event) => set("background", event.target.value)} placeholder="Olayla nasıl karşılaştığınız, hangi tarihte ve varsa kiminle birlikte karşılaştığınıza yer verilmeli." />
@@ -182,7 +171,8 @@ function Page() {
         {output ? (
           <section className="mt-6 rounded-xl border border-border bg-card p-4 sm:p-6">
             <h2 className="text-lg font-semibold">Çıktı</h2>
-            <p className="mt-1 text-sm text-muted-foreground">Konu başlığı: {reportTitle}</p>
+            <p className="mt-1 text-sm text-muted-foreground">BBCode çıktısı</p>
+
             <Textarea readOnly value={output} rows={24} className="mt-4 font-mono text-xs" />
           </section>
         ) : null}

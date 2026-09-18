@@ -26,9 +26,6 @@ export const emptyGangUpdate = (): GangUpdateData => ({
 
 const value = (input: string, fallback: string) => input.trim() || fallback;
 
-export function buildGangUpdateTitle(data: GangUpdateData): string {
-  return `${value(data.gangName, "ÇETE İSMİ")} / 25-${value(data.csdNo, "000")} Güncelleme`;
-}
 
 export function buildGangUpdateBBCode(data: GangUpdateData): string {
   const populated = data.evidences.map((item) => item.trim()).filter(Boolean);
