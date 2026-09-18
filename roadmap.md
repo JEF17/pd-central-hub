@@ -1,6 +1,6 @@
 # Roadmap
 
 - [x] GED/GIT özel alan rotasını oluştur
-- [ ] Sol menüye GED/GIT bağlantısını ekle
-- [ ] Ayrı GED/GIT grup yetkisini yönetim paneline bağla
-- [ ] Erişim ve görünümü doğrula
+- [x] Sol menüye GED/GIT bağlantısını ekle
+- [x] Ayrı GED/GIT grup yetkisini yönetim paneline bağla
+- [x] Erişim ve görünümü doğrula
