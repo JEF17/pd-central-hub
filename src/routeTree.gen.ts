@@ -34,6 +34,7 @@ import { Route as CentralTrafficDivisionRouteImport } from './routes/central-tra
 import { Route as DetectivePortalRouteImport } from './routes/detective-portal'
 import { Route as EPostaRouteImport } from './routes/e-posta'
 import { Route as FieldInterviewKartiRouteImport } from './routes/field-interview-karti'
+import { Route as GangEnforcementDetailRouteImport } from './routes/gang-enforcement-detail'
 import { Route as GozaltiKayitFormuRouteImport } from './routes/gozalti-kayit-formu'
 import { Route as IfadeRaporuRouteImport } from './routes/ifade-raporu'
 import { Route as IhlalRaporuRouteImport } from './routes/ihlal-raporu'
@@ -184,6 +185,11 @@ const FieldInterviewKartiRoute = FieldInterviewKartiRouteImport.update({
   path: '/field-interview-karti',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GangEnforcementDetailRoute = GangEnforcementDetailRouteImport.update({
+  id: '/gang-enforcement-detail',
+  path: '/gang-enforcement-detail',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GozaltiKayitFormuRoute = GozaltiKayitFormuRouteImport.update({
   id: '/gozalti-kayit-formu',
   path: '/gozalti-kayit-formu',
@@ -292,6 +298,7 @@ export interface FileRoutesByFullPath {
   '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gang-enforcement-detail': typeof GangEnforcementDetailRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -335,6 +342,7 @@ export interface FileRoutesByTo {
   '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gang-enforcement-detail': typeof GangEnforcementDetailRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -379,6 +387,7 @@ export interface FileRoutesById {
   '/detective-portal': typeof DetectivePortalRoute
   '/e-posta': typeof EPostaRoute
   '/field-interview-karti': typeof FieldInterviewKartiRoute
+  '/gang-enforcement-detail': typeof GangEnforcementDetailRoute
   '/gozalti-kayit-formu': typeof GozaltiKayitFormuRoute
   '/ifade-raporu': typeof IfadeRaporuRoute
   '/ihlal-raporu': typeof IhlalRaporuRoute
@@ -424,6 +433,7 @@ export interface FileRouteTypes {
     | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gang-enforcement-detail'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -467,6 +477,7 @@ export interface FileRouteTypes {
     | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gang-enforcement-detail'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -510,6 +521,7 @@ export interface FileRouteTypes {
     | '/detective-portal'
     | '/e-posta'
     | '/field-interview-karti'
+    | '/gang-enforcement-detail'
     | '/gozalti-kayit-formu'
     | '/ifade-raporu'
     | '/ihlal-raporu'
@@ -554,6 +566,7 @@ export interface RootRouteChildren {
   DetectivePortalRoute: typeof DetectivePortalRoute
   EPostaRoute: typeof EPostaRoute
   FieldInterviewKartiRoute: typeof FieldInterviewKartiRoute
+  GangEnforcementDetailRoute: typeof GangEnforcementDetailRoute
   GozaltiKayitFormuRoute: typeof GozaltiKayitFormuRoute
   IfadeRaporuRoute: typeof IfadeRaporuRoute
   IhlalRaporuRoute: typeof IhlalRaporuRoute
@@ -749,6 +762,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FieldInterviewKartiRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gang-enforcement-detail': {
+      id: '/gang-enforcement-detail'
+      path: '/gang-enforcement-detail'
+      fullPath: '/gang-enforcement-detail'
+      preLoaderRoute: typeof GangEnforcementDetailRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gozalti-kayit-formu': {
       id: '/gozalti-kayit-formu'
       path: '/gozalti-kayit-formu'
@@ -891,6 +911,7 @@ const rootRouteChildren: RootRouteChildren = {
   DetectivePortalRoute: DetectivePortalRoute,
   EPostaRoute: EPostaRoute,
   FieldInterviewKartiRoute: FieldInterviewKartiRoute,
+  GangEnforcementDetailRoute: GangEnforcementDetailRoute,
   GozaltiKayitFormuRoute: GozaltiKayitFormuRoute,
   IfadeRaporuRoute: IfadeRaporuRoute,
   IhlalRaporuRoute: IhlalRaporuRoute,

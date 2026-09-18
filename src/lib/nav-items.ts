@@ -11,6 +11,7 @@ import {
   LayoutGrid,
   Search,
   Settings,
+  ShieldAlert,
   UserRound,
   Users,
   Shield,
@@ -78,6 +79,14 @@ export const navItems: NavItem[] = [
     description: "Central Traffic Division'a özel rapor şablonları.",
     position: "main",
     groupKey: "central_traffic_division",
+  },
+  {
+    label: "GED / GIT",
+    to: "/gang-enforcement-detail",
+    icon: ShieldAlert,
+    description: "Gang Enforcement Detail / Gang Impact Team'e özel rapor şablonları.",
+    position: "main",
+    groupKey: "ged_git",
   },
   {
     label: "Supervisory Staff",

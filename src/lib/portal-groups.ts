@@ -3,6 +3,7 @@ export type PortalGroupKey =
   | "area_detective_division"
   | "metropolitan_division"
   | "central_traffic_division"
+  | "ged_git"
   | "supervisory_staff";
 
 export type PortalGroup = {
@@ -34,6 +35,13 @@ export const portalGroups: PortalGroup[] = [
     shortLabel: "CTD",
     description: "Central Traffic Division'a özel rapor ve şablon alanı.",
     to: "/central-traffic-division",
+  },
+  {
+    key: "ged_git",
+    label: "Gang Enforcement Detail / Gang Impact Team",
+    shortLabel: "GED/GIT",
+    description: "GED/GIT personeline özel rapor ve şablon alanı.",
+    to: "/gang-enforcement-detail",
   },
 
   {
