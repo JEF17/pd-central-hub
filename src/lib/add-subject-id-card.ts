@@ -61,6 +61,8 @@ export const emptySubjectIdCard = (): SubjectIdCardData => ({
   clique: "",
   sangangNo: "",
   criteria: [],
+  features: "",
+  summary: "",
   fiDateTime: "",
   fiCardNo: "",
   fiOfficerName: "",
