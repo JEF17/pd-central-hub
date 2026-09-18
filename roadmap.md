@@ -4,5 +4,5 @@
 - [x] Sol menüye GED/GIT bağlantısını ekle
 - [x] Ayrı GED/GIT grup yetkisini yönetim paneline bağla
 - [x] Erişim ve görünümü doğrula
-- [ ] GED/GIT Çete Soruşturma Dosyası Formu'nu ekle
-- [ ] Başlık, BBCode, taslak ve profil doldurma akışını doğrula
+- [x] GED/GIT Çete Soruşturma Dosyası Formu'nu ekle
+- [x] Başlık, BBCode, taslak ve profil doldurma akışını doğrula
