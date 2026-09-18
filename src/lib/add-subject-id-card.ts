@@ -12,8 +12,6 @@ export interface SubjectIdCardData {
   gangAffiliation: string;
   gang: string;
   clique: string;
-  features: string;
-  summary: string;
   sangangNo: string;
   criteria: string[];
   fiDateTime: string;
@@ -22,8 +20,6 @@ export interface SubjectIdCardData {
   fiOfficerSerial: string;
   officerName: string;
   officerSerial: string;
-  supervisorName: string;
-  supervisorSerial: string;
   detail: string;
   division: string;
 }
@@ -61,8 +57,6 @@ export const emptySubjectIdCard = (): SubjectIdCardData => ({
   gangAffiliation: "",
   gang: "",
   clique: "",
-  features: "",
-  summary: "",
   sangangNo: "",
   criteria: [],
   fiDateTime: "",
@@ -71,8 +65,6 @@ export const emptySubjectIdCard = (): SubjectIdCardData => ({
   fiOfficerSerial: "",
   officerName: "",
   officerSerial: "",
-  supervisorName: "",
-  supervisorSerial: "",
   detail: "GED",
   division: "MISN",
 });
