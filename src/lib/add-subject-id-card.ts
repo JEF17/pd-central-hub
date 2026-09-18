@@ -14,6 +14,8 @@ export interface SubjectIdCardData {
   clique: string;
   sangangNo: string;
   criteria: string[];
+  features: string;
+  summary: string;
   fiDateTime: string;
   fiCardNo: string;
   fiOfficerName: string;
