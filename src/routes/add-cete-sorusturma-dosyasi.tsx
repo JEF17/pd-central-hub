@@ -228,8 +228,6 @@ function Page() {
             </div>
             <Field label="Personel Adı Soyadı" value={data.officerName} onChange={(value) => set("officerName", value)} />
             <Field label="Seri No." value={data.officerSerial} onChange={(value) => set("officerSerial", value)} />
-            <Field label="Onaylayan Supervisor" value={data.supervisorName} onChange={(value) => set("supervisorName", value)} />
-            <Field label="Supervisor Seri No." value={data.supervisorSerial} onChange={(value) => set("supervisorSerial", value)} />
             <div className="space-y-1.5">
               <Label className="text-[11px] font-medium uppercase tracking-wider text-muted-foreground">Detail</Label>
               <select value={data.detail} onChange={(event) => set("detail", event.target.value)} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
