@@ -13,6 +13,12 @@ const templates: GroupTemplate[] = [
     description: "Çete dosyası, ilişkiler, dijital kayıtlar ve SanGang kayıtları için BBCode raporu.",
     to: "/add-cete-sorusturma-dosyasi",
   },
+  {
+    slug: "cete-takip-guncelleme",
+    label: "Çete Soruşturma Dosyası Takip ve Durum Güncelleme Formu",
+    description: "Çete dosyalarına ait takip ve durum güncellemesi metinleri için BBCode raporu.",
+    to: "/add-cete-takip-guncelleme",
+  },
 ];
 
 export const Route = createFileRoute("/gang-enforcement-detail")({
