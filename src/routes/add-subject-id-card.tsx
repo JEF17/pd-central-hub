@@ -187,6 +187,26 @@ function Page() {
             <Field label="Klik (Varsa)" value={data.clique} onChange={(value) => set("clique", value)} />
           </Section>
 
+          <Section title="Belirgin Özellikler" wide hint='Dövmeleri "/tattoos" ve "/examine" ile doğrulayıp ekran görüntüsünü almayı ihmal etmeyin'>
+            <Textarea
+              value={data.features}
+              onChange={(event) => set("features", event.target.value)}
+              placeholder="Yaralar, dövmeler, gözle görülebilir fiziksel bilgiler"
+              rows={4}
+              className="sm:col-span-2"
+            />
+          </Section>
+
+          <Section title="Olay Özeti" wide hint="Birincil bakış açısıyla yazmayı unutmayın">
+            <Textarea
+              value={data.summary}
+              onChange={(event) => set("summary", event.target.value)}
+              placeholder="Devriye başlangıcınız, temel bilgiler ve bu kişiyle nasıl karşılaştığınız"
+              rows={4}
+              className="sm:col-span-2"
+            />
+          </Section>
+
           <Section title="SanGang Kaydı" wide>
             <Field
               label="SanGang Kayıt Numarası"
