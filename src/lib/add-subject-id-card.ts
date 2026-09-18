@@ -146,19 +146,15 @@ ${v(data.clique)}[/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,10,1][size=85][indent=2]
-[b]BELİRGİN ÖZELLİKLER: YARALAR, DÖVMELER, GÖZLE GÖRÜLEBİLİR FİZİKSEL BİLGİLER[/b]${data.features.trim() ? "" : `
-(( Kayıt edeceğiniz kişinin dövmelerini "/tattoos" ve "/examine" ile doğrulayıp bu bilgilerin ekran görüntüsünü almayı ihmal etmeyin. Bu içeriğe sahip olmayan belgeler onaylanmayacaktır. ))`}
-
-${v(data.features, "")}
+[b]BELİRGİN ÖZELLİKLER: YARALAR, DÖVMELER, GÖZLE GÖRÜLEBİLİR FİZİKSEL BİLGİLER[/b]
+(( Kayıt edeceğiniz kişinin dövmelerini "/tattoos" ve "/examine" ile doğrulayıp bu bilgilerin ekran görüntüsünü almayı ihmal etmeyin. Bu içeriğe sahip olmayan belgeler onaylanmayacaktır. ))
 
 [/indent][/size][/tdwidth][/table]
 
 [table=#d0dade,white][tr]
 [tdwidth=#d0dade,#ffffff,top,left,10,1][size=85][indent=2]
-[b]OLAY ÖZETİ[/b]${data.summary.trim() ? "" : `
-(( Birincil bakış açısıyla yazmayı unutmayın. Devriye başlangıcınıza, devriyenizle ilgili temel bilgilere kısaca değinerek bu kişiyle nasıl karşılaştığınız şeklinde yazabilirsiniz. ))`}
-
-${v(data.summary, "")}
+[b]OLAY ÖZETİ[/b]
+(( Birincil bakış açısıyla yazmayı unutmayın. Devriye başlangıcınıza, devriyenizle ilgili temel bilgilere kısaca değinerek bu kişiyle nasıl karşılaştığınız şeklinde yazabilirsiniz. ))
 
 [/indent][/size][/tdwidth][/table]
 [/tdwidth]
@@ -196,9 +192,9 @@ ${v(data.officerName)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]SERİ NO
 ${v(data.officerSerial)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]ONAYLAYAN SUPERVISOR
-${v(data.supervisorName)}[/indent][/size][/tdwidth]
+BURAYA[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]SERİ NO
-${v(data.supervisorSerial, "00000")}[/indent][/size][/tdwidth]
+00000[/indent][/size][/tdwidth]
 [/table]
 
 
