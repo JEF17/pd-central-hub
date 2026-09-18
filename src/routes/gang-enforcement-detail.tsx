@@ -16,7 +16,7 @@ const templates: GroupTemplate[] = [
   {
     slug: "cete-takip-guncelleme",
     label: "Çete Soruşturma Dosyası Takip ve Durum Güncelleme Formu",
-    description: "Çete dosyalarına ait takip ve durum güncellemesi metinleri için BBCode raporu.",
+    description: "Çete dosyalarına ait takip ve durum güncellemesi metinleri için şablon.",
     to: "/add-cete-takip-guncelleme",
   },
   {
