@@ -87,6 +87,13 @@ export const emptyK9Deployment = (): K9DeploymentData => ({
   evidence: [""],
 });
 
+const cb = (value: string, options: [string, string][]) =>
+  options
+    .map(([key, label]) => `${value.trim().toUpperCase() === key ? "[cbC]" : "[cb]"} ${label}`)
+    .join(" ");
+const yn = (value: string) => cb(value, [["EVET", "Evet"], ["HAYIR", "Hayır"]]);
+const gn = (value: string) => cb(value, [["ERKEK", "Erkek"], ["KADIN", "Kadın"]]);
+
 const v = (s: string, fallback = "") => (s.trim() ? s.trim() : fallback);
 
 export function buildK9DeploymentBBCode(d: K9DeploymentData): string {
@@ -97,15 +104,15 @@ export function buildK9DeploymentBBCode(d: K9DeploymentData): string {
 [tdwidth=#d0dade,#ffffff,top,left,3,1][size=85][indent=2]ŞÜPHELİ BİLGİSİ
 ${v(s.name)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]CİNSİYETİ[/size]
-[size=85]${v(s.gender)}[/size][/tdwidth]
+[size=85]${gn(s.gender)}[/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]K-9 YARALAMASI[/size]
-[size=85]${v(s.k9Injury)}[/size][/tdwidth]
+[size=85]${yn(s.k9Injury)}[/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]K-9 TEMASI
-${v(s.k9Contact)}[/indent][/size][/tdwidth]
+${yn(s.k9Contact)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]SUÇLAMA
 ${v(s.charge)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,1][size=85][indent=2]SİLAH[/size]
-[size=85]${v(s.weapon)}[/size][/tdwidth]
+[size=85]${yn(s.weapon)}[/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,2,3][size=85][indent=2]TÜRÜ
 ${v(s.type)}[/indent][/size][/tdwidth][/table]`,
     )
@@ -127,7 +134,7 @@ ${v(d.date)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]DIVISION
 ${v(d.division, "METRO")}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]K-9 TEMASI[/size]
-[size=85]${v(d.k9Contact)}[/size][/tdwidth]
+[size=85]${yn(d.k9Contact)}[/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]K9RI#
 ${v(d.k9riNo)}[/indent][/size][/tdwidth]
 [tdwidth=#d0dade,#ffffff,top,left,1,1][size=85][indent=2]DEPLOYMENT NO.
