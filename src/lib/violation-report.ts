@@ -23,7 +23,7 @@ export interface ViolationReportData {
 }
 
 export const violationKinds = ["Trafik", "Trafik Dışı", "Misdemeanor"];
-export const violationGenderOptions = ["Erkek", "Kadın"];
+export const violationGenderOptions = ["E", "K"];
 
 export const emptyViolationReport = (): ViolationReportData => ({
   violationType: [],
