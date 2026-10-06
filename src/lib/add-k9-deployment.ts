@@ -91,7 +91,7 @@ const cb = (value: string, options: [string, string][]) =>
   options
     .map(([key, label]) => `${value.trim().toUpperCase() === key ? "[cbC]" : "[cb]"} ${label}`)
     .join(" ");
-const yn = (value: string) => cb(value, [["EVET", "Evet"], ["HAYIR", "Hayır"]]);
+const yn = (value: string) => cb(value, [["EVET", "Y"], ["HAYIR", "N"]]);
 const gn = (value: string) => cb(value, [["ERKEK", "Erkek"], ["KADIN", "Kadın"]]);
 
 const v = (s: string, fallback = "") => (s.trim() ? s.trim() : fallback);
