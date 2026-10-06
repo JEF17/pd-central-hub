@@ -30,7 +30,7 @@ import {
 } from "@/lib/add-k9-deployment";
 
 const title = "K-9 Deployment Report";
-const description = "K9 DEPLOYMENT REPORT — METRO K9 UNIT";
+const description = "K9 DEPLOYMENT REPORT";
 
 const yesNo = ["EVET", "HAYIR"];
 
