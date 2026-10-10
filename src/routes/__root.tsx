@@ -127,8 +127,26 @@ function RootShell({ children }: { children: ReactNode }) {
 }
 
 
+/** Bakım modu: true iken site tamamen kapalıdır. Açmak için false yapın. */
+const MAINTENANCE_MODE = true;
+
+function MaintenancePage() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="max-w-md text-center">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Bakım Modunda</h1>
+        <p className="mt-3 text-sm text-muted-foreground">
+          LSPD Toolkit şu anda bakımdadır. Lütfen daha sonra tekrar deneyin.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  if (MAINTENANCE_MODE) return <MaintenancePage />;
 
   return (
     <QueryClientProvider client={queryClient}>
